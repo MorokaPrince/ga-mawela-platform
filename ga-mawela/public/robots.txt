@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://truth.gamawela.org
+
+# Sitemaps
+Sitemap: https://truth.gamawela.org/sitemap.xml

@@ -1,0 +1,1536 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap');
+@import "tailwindcss";
+@import "../styles/animations.css";
+
+/* ============================================
+   ANGLO AMERICAN CORPORATE VERTICAL REDESIGN
+   Deep Navy, White, Yellow Accents, Turquoise Gradients
+   ============================================ */
+
+:root {
+  /* Metallic Blue Color Palette */
+  --color-metallic-blue-dark: #0a1929;      /* Primary dark metallic blue */
+  --color-metallic-blue-secondary: #1a2f42; /* Secondary metallic blue */
+  --color-metallic-blue-accent: #2d4a63;    /* Accent metallic blue */
+  --color-metallic-blue-light: #3d5a7a;     /* Light metallic blue */
+  --color-metallic-blue-lighter: #7eb3f6;   /* Lighter blue for text */
+  --color-metallic-blue-lightest: #a8d5ff;  /* Lightest blue for headings */
+
+  --color-white: #ffffff;             /* White - Text & backgrounds */
+  --color-gray-light: #f5f5f5;        /* Light Gray - Subtle backgrounds */
+  --color-gray-medium: #e0e0e0;       /* Medium Gray - Borders */
+  --color-yellow: #ffc500;            /* Yellow - Highlights & CTAs */
+  --color-turquoise: #00a8a8;         /* Turquoise - Accents */
+  --color-turquoise-light: #00d4d4;   /* Turquoise Light - Hover states */
+
+  /* Backgrounds */
+  --background: #0a1929;
+  --background-dark: #0a1929;
+  --background-secondary: #1a2f42;
+  --foreground: #ffffff;
+
+  /* Gradients */
+  --gradient-turquoise: linear-gradient(135deg, #00a8a8 0%, #00d4d4 100%);
+  --gradient-navy: linear-gradient(135deg, #001c5c 0%, #003d99 100%);
+  --gradient-overlay-dark: linear-gradient(180deg, rgba(0, 28, 92, 0.95) 0%, rgba(0, 61, 153, 0.85) 100%);
+  --gradient-overlay-light: linear-gradient(180deg, rgba(0, 28, 92, 0.7) 0%, rgba(0, 61, 153, 0.6) 100%);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 28, 92, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 28, 92, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 28, 92, 0.15);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 28, 92, 0.2);
+
+  /* Animation Durations */
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 800ms;
+
+  /* Easing Functions */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Text Shadows */
+  --text-shadow-lg: 0 4px 20px rgba(0, 0, 0, 0.5);
+  --text-shadow-md: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f1419;
+    --foreground: #f3f4f6;
+    --background-secondary: #1a1f2e;
+    --background-tertiary: #252d3d;
+  }
+}
+
+/* ============================================
+   GLOBAL STYLES
+   ============================================ */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+body {
+  background: #ffffff;
+  color: #333333;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  transition: background-color var(--duration-base) var(--ease-in-out),
+              color var(--duration-base) var(--ease-in-out);
+  overflow-x: hidden;
+}
+
+/* Typography Enhancements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+/* Metallic Blue Typography */
+h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #a8d5ff;
+  font-family: 'Inter', sans-serif;
+}
+
+h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #a8d5ff;
+  font-family: 'Inter', sans-serif;
+}
+
+h3 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #a8d5ff;
+  font-family: 'Inter', sans-serif;
+}
+
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #a8d5ff;
+  font-family: 'Inter', sans-serif;
+}
+
+p {
+  font-weight: 400;
+  line-height: 1.6;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+strong, .font-bold {
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Text Shadow Classes */
+.text-shadow-lg {
+  text-shadow: var(--text-shadow-lg);
+}
+
+.text-shadow-md {
+  text-shadow: var(--text-shadow-md);
+}
+
+/* Animation Delay Classes */
+.animation-delay-2s {
+  animation-delay: 2s;
+}
+
+/* ============================================
+   DARK METALLIC BLUE THEME - CUSTOM COLORS
+   ============================================ */
+
+/* Primary Dark Metallic Blue Palette */
+:root {
+  --color-metallic-blue-dark: #0a1929;      /* Primary dark metallic blue background */
+  --color-metallic-blue-secondary: #1a2f42; /* Secondary metallic blue for gradients */
+  --color-metallic-blue-accent: #2d4a63;    /* Accent metallic blue for highlights */
+  --color-metallic-blue-light: #3d5a7a;     /* Lighter metallic blue for borders */
+}
+
+/* Custom Color Classes */
+.text-blue-light {
+  color: #7eb3f6;
+}
+
+.text-blue-metallic {
+  color: #8ec5ff;
+  text-shadow: 0 0 10px rgba(142, 197, 255, 0.3);
+}
+
+.text-blue-lighter {
+  color: #a8d5ff;
+}
+
+/* Dark Metallic Blue Background Classes */
+.bg-metallic-blue-dark {
+  background-color: #0a1929;
+}
+
+.bg-metallic-blue-secondary {
+  background-color: #1a2f42;
+}
+
+.bg-metallic-blue-accent {
+  background-color: #2d4a63;
+}
+
+.bg-metallic-blue-gradient {
+  background: linear-gradient(135deg, #0a1929 0%, #1a2f42 100%);
+}
+
+.bg-metallic-blue-gradient-vertical {
+  background: linear-gradient(180deg, #0a1929 0%, #1a2f42 100%);
+}
+
+/* Carousel Slide Styles */
+.carousel-slide {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* Parallax Background Styles */
+.parallax-background {
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  will-change: transform;
+}
+
+/* Scroll Snap Sections */
+.scroll-snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 40px;
+}
+
+.scroll-snap-section-compact {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: unset;
+  padding: 80px 40px;
+}
+
+/* ============================================
+   ANIMATION KEYFRAMES
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 82, 163, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 82, 163, 0.6);
+  }
+}
+
+@keyframes parallax {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(20px);
+  }
+}
+
+/* Stagger animation for multiple elements */
+@keyframes staggerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Advanced Interactive Animations */
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(251, 191, 36, 0.3), 0 0 20px rgba(251, 191, 36, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.6), 0 0 40px rgba(251, 191, 36, 0.3);
+  }
+}
+
+@keyframes shimmerGradient {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes fadePulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardHoverGlow {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+  }
+  50% {
+    box-shadow: 0 15px 40px rgba(251, 191, 36, 0.2);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rotateGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY & FOCUS STATES
+   ============================================ */
+
+/* Focus indicators for better accessibility */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Ensure minimum color contrast - WCAG AA compliant */
+.text-gm-900 {
+  color: var(--color-gray-900); /* High contrast dark gray - 21:1 ratio */
+}
+
+.text-gm-700 {
+  color: var(--color-gray-700); /* High contrast medium gray - 10.9:1 ratio */
+}
+
+.bg-gm-600 {
+  background-color: var(--color-primary); /* High contrast blue - 8.6:1 ratio on white */
+}
+
+.bg-gm-50 {
+  background-color: var(--color-gray-50); /* Light background */
+}
+
+/* ============================================
+   SCROLL ANIMATION UTILITIES
+   ============================================ */
+
+/* Fade in on scroll */
+.animate-fade-in {
+  animation: fadeIn var(--duration-base) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* Slide up on scroll */
+.animate-slide-up {
+  animation: slideUp var(--duration-base) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* Slide in from left */
+.animate-slide-in-left {
+  animation: slideInLeft var(--duration-base) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* Slide in from right */
+.animate-slide-in-right {
+  animation: slideInRight var(--duration-base) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* Scale in */
+.animate-scale-in {
+  animation: scaleIn var(--duration-base) var(--ease-out) forwards;
+  opacity: 0;
+}
+
+/* Float animation */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Glow animation */
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
+/* Parallax effect */
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+.stagger-6 { animation-delay: 0.6s; }
+.stagger-7 { animation-delay: 0.7s; }
+.stagger-8 { animation-delay: 0.8s; }
+
+/* Advanced Animation Utilities */
+.animate-glow-pulse {
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+.animate-shimmer {
+  animation: shimmerGradient 3s ease-in-out infinite;
+}
+
+.animate-slide-up-reveal {
+  animation: slideUpReveal 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.animate-card-hover {
+  animation: cardHoverGlow 2s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradientShift 8s ease infinite;
+  background-size: 200% 200%;
+}
+
+.animate-rotate-gradient {
+  animation: rotateGradient 20s linear infinite;
+}
+
+/* Hover Effects */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(251, 191, 36, 0.15);
+}
+
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  border-color: var(--color-accent-primary);
+}
+
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* ============================================
+   BACKGROUND IMAGES WITH LIGHT SKY-BLUE TINTING
+   ============================================ */
+
+/* Light sky-blue overlay for professional appearance */
+.bg-overlay-light-blue {
+  background: linear-gradient(135deg, rgba(173, 216, 230, 0.15) 0%, rgba(135, 206, 235, 0.1) 100%);
+}
+
+/* Tab background images with tinting */
+.bg-hero-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Landing home tab backround.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-hero-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-historical-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Lading home backround.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-historical-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-archaeological-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-archaeological-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-legal-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-legal-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-mining-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Mining tab backround.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-mining-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-lineage-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Lading home backround.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-lineage-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-evidence-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-evidence-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-gallery-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-gallery-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-sponsors-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-sponsors-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-youth-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Youth Tab backround.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-youth-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.bg-resources-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.bg-resources-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ============================================
+   CARD-SPECIFIC BACKGROUND IMAGES
+   ============================================ */
+
+/* Archaeological Tab Card Images */
+.card-initiation-sites {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.65) 100%), url('/Images/Mining/Initiation sites card.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-ritual-practices {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%), url('/Images/Mining/Ritual Practices card.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-settlement-patterns {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%), url('/Images/Mining/Settlement Pattens card.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-oral-history {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%), url('/Images/Mining/Oral hISTORY CARD.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-material-culture {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%), url('/Images/Mining/Material Culture Card.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+.card-land-features {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.5) 100%), url('/Images/Mining/Land Features card.webp');
+  background-size: cover;
+  background-position: center;
+}
+
+/* ============================================
+   SCROLL-TRIGGERED ANIMATIONS
+   ============================================ */
+
+/* Intersection Observer will add these classes */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+
+.scroll-animate.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+
+.scroll-animate-left.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-animate-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity var(--duration-base) var(--ease-out),
+              transform var(--duration-base) var(--ease-out);
+}
+
+.scroll-animate-right.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   BACKGROUND IMAGE INTEGRATION
+   ============================================ */
+
+/* Hero section with background image and overlay */
+.hero-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-overlay-dark);
+  z-index: 1;
+}
+
+.hero-bg > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Card backgrounds with subtle overlay */
+.card-bg {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.card-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-overlay-light);
+  z-index: 1;
+}
+
+.card-bg > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Glassmorphism effect for cards */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-effect-dark {
+  background: rgba(0, 51, 102, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 82, 163, 0.2);
+}
+
+/* ============================================
+   COMPONENT-SPECIFIC THEMING
+   ============================================ */
+
+/* Hero Component */
+.hero-section {
+  background: var(--gradient-primary-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(30, 123, 196, 0.1) 0%, transparent 70%);
+  animation: float 20s ease-in-out infinite;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Timeline Component */
+.timeline-item {
+  position: relative;
+  padding-left: 40px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: var(--color-primary);
+  border: 3px solid var(--color-white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--color-primary-light);
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 20px;
+  width: 4px;
+  height: calc(100% + 20px);
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-primary-light));
+}
+
+.timeline-item:last-child::after {
+  display: none;
+}
+
+/* Investigation Card */
+.investigation-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 12px;
+  transition: all var(--duration-base) var(--ease-in-out);
+  box-shadow: var(--shadow-md);
+}
+
+.investigation-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+.investigation-card-header {
+  background: var(--gradient-primary-light);
+  padding: 24px;
+  border-radius: 12px 12px 0 0;
+}
+
+/* Form Elements */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea,
+select {
+  border: 1px solid var(--color-gray-300);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  transition: all var(--duration-fast) var(--ease-in-out);
+  background: var(--color-white);
+  color: var(--color-gray-900);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 82, 163, 0.1);
+  outline: none;
+}
+
+/* Buttons */
+button,
+.btn {
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all var(--duration-fast) var(--ease-in-out);
+  cursor: pointer;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
+  border: 1px solid var(--color-gray-300);
+}
+
+.btn-secondary:hover {
+  background: var(--color-gray-200);
+  border-color: var(--color-gray-400);
+}
+
+/* ============================================
+   RESPONSIVE UTILITIES
+   ============================================ */
+
+@media (max-width: 640px) {
+  .text-5xl {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .text-3xl {
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+
+  .px-8 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .py-20 {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .parallax-bg {
+    background-attachment: scroll;
+  }
+}
+
+/* ============================================
+   ACCESSIBILITY UTILITIES
+   ============================================ */
+
+/* Skip link styles */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: 0.5rem 1rem;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: 0.25rem;
+  z-index: 9999;
+  animation: slideDown var(--duration-base) var(--ease-out);
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   TAB AND CAROUSEL ANIMATIONS
+   ============================================ */
+
+.animate-fade-in {
+  animation: fadeIn var(--duration-base) var(--ease-out);
+}
+
+.animate-slide-in-up {
+  animation: slideUp var(--duration-base) var(--ease-out);
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft var(--duration-base) var(--ease-out);
+}
+
+.animate-slide-in-right {
+  animation: slideInRight var(--duration-base) var(--ease-out);
+}
+
+.animate-scale-in {
+  animation: scaleIn var(--duration-base) var(--ease-out);
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in,
+  .animate-slide-in-up,
+  .animate-slide-in-left,
+  .animate-slide-in-right,
+  .animate-scale-in {
+    animation: none;
+  }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  body {
+    background: var(--color-white);
+    color: var(--color-gray-900);
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* ============================================
+   ANGLO AMERICAN DESIGN SYSTEM
+   ============================================ */
+
+/* Typography */
+.font-inter {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.font-merriweather {
+  font-family: 'Merriweather', serif;
+}
+
+/* Navigation */
+.nav-professional {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.nav-logo {
+  color: #003d7a;
+}
+
+.nav-tab {
+  color: #666666;
+  transition: all 0.3s ease;
+}
+
+.nav-tab-active {
+  color: #003d7a;
+  border-bottom: 3px solid #003d7a;
+  padding-bottom: 13px;
+}
+
+.nav-tab-inactive {
+  padding-bottom: 14px;
+}
+
+.nav-menu-button {
+  color: #003d7a;
+}
+
+/* Light backgrounds - Anglo American style */
+.bg-light-gray {
+  background-color: #f5f5f5;
+}
+
+.bg-light-blue {
+  background-color: #f0f4f8;
+}
+
+/* Professional card styling */
+.card-professional {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.card-professional:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Light overlay for backgrounds */
+.overlay-light {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.overlay-light-blue {
+  background: rgba(240, 244, 248, 0.95);
+}
+
+/* Professional button styles */
+.btn-professional {
+  background: #7eb3f6;
+  color: #0a1929;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.btn-professional:hover {
+  background: #a8d5ff;
+  box-shadow: 0 8px 20px rgba(126, 179, 246, 0.4);
+  transform: scale(1.05);
+}
+
+.btn-professional:active {
+  transform: scale(0.98);
+}
+
+.btn-professional:focus {
+  outline: 2px solid #a8d5ff;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   MICRO-INTERACTIONS - CARDS & LINKS
+   ============================================ */
+
+/* Card hover effects */
+.card-interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateZ(0);
+  will-change: transform, box-shadow;
+}
+
+.card-interactive:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(168, 213, 255, 0.5);
+}
+
+/* Link hover effects */
+a {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+a:hover {
+  color: #a8d5ff;
+}
+
+a:focus {
+  outline: 2px solid #a8d5ff;
+  outline-offset: 2px;
+}
+
+/* Navigation link hover */
+nav a {
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #ffc500;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Section spacing */
+.section-padding {
+  padding: 60px 40px;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 40px 20px;
+  }
+}
+
+/* Hero and Tab Backgrounds */
+.hero-light {
+  background-image: url('/Images/Backrounds/landing.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.hero-mining-bg {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%), url('/Images/Mining/Landing home tab backround.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-lineage-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%), url('/Images/Mining/Lading home backround.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-gallery-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-sponsors-tab {
+  background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.4) 100%), url('/Images/Mining/Patners tab.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.hero-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.2) 100%);
+  pointer-events: none;
+}
+
+.section-light {
+  background-image: url('/Images/Backrounds/Tab1.webp');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.section-light::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.15) 100%);
+  pointer-events: none;
+}
+
+.section-white {
+  background: #ffffff;
+}
+
+/* Card Styling */
+.card-light {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.card-light:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+/* Button Styling */
+.btn-primary-light {
+  background: #003d7a;
+  color: #ffffff;
+  padding: 12px 24px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-light:hover {
+  background: #002d5a;
+  box-shadow: 0 4px 12px rgba(0,61,122,0.2);
+}
+
+.btn-secondary-light {
+  background: #f5f5f5;
+  color: #003d7a;
+  padding: 12px 24px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary-light:hover {
+  background: #e8e8e8;
+  border-color: #003d7a;
+}
+
+/* Text Colors */
+.text-primary {
+  color: #003d7a;
+}
+
+.text-secondary {
+  color: #666666;
+}
+
+.text-dark {
+  color: #333333;
+}
+
+/* Accordion Styling */
+.accordion-header {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordion-header:hover {
+  background: #f5f5f5;
+}
+
+.accordion-content {
+  background: #f5f5f5;
+  padding: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* Fraud Section Background */
+.bg-fraud-section-bg {
+  background-image: url('/Images/Mining/DJI_0994-2.jpg');
+  background-size: cover;
+  background-position: center;
+}
