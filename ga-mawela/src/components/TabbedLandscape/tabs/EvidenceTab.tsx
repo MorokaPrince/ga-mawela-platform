@@ -1,69 +1,88 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
+
+interface Document {
+  _id: string;
+  filename: string;
+  type: string;
+  size: number;
+  description?: string;
+  category?: string;
+  url: string;
+  uploadedAt: string;
+}
 
 export default function EvidenceTab() {
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const documents = [
-    {
-      category: 'historical',
-      title: 'SA History PDF: Ga-Mawela Community',
-      description: 'Comprehensive historical account of Ga-Mawela settlement, colonial dispossession, and community resilience',
-      type: 'PDF',
-      size: '2.4 MB',
-    },
-    {
-      category: 'legal',
-      title: 'LRC Annual Report Extracts',
-      description: 'Land Claims Commission documentation of Ga-Mawela restitution claim and evidence assessment',
-      type: 'PDF',
-      size: '1.8 MB',
-    },
-    {
-      category: 'heritage',
-      title: 'SAHRA Heritage Report',
-      description: 'South African Heritage Resources Agency certification of cultural and archaeological significance',
-      type: 'PDF',
-      size: '3.2 MB',
-    },
-    {
-      category: 'genealogical',
-      title: 'Genealogical Records & Family Trees',
-      description: 'Documented lineage connecting current residents to Masetu founder',
-      type: 'PDF',
-      size: '1.5 MB',
-    },
-    {
-      category: 'testimonies',
-      title: 'Community Testimonies & Oral Histories',
-      description: 'Recorded statements from elders and community members about traditional occupation',
-      type: 'PDF',
-      size: '2.1 MB',
-    },
-    {
-      category: 'legal',
-      title: 'Land Deeds & Property Records',
-      description: 'Historical documents showing dispossession and land transfers',
-      type: 'PDF',
-      size: '1.9 MB',
-    },
-    {
-      category: 'historical',
-      title: 'Colonial Records & Government Documents',
-      description: 'Official colonial-era documents acknowledging Ga-Mawela settlement',
-      type: 'PDF',
-      size: '2.7 MB',
-    },
-    {
-      category: 'testimonies',
-      title: 'Labour Tenancy Contracts & Employment Records',
-      description: 'Evidence of forced labour and economic exploitation during apartheid',
-      type: 'PDF',
-      size: '1.6 MB',
-    },
-  ];
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch('/api/documents');
+        if (response.ok) {
+          const data = await response.json();
+          setDocuments(data);
+        } else {
+          // Fallback to sample documents if API fails
+          setDocuments([
+            {
+              _id: '1',
+              filename: 'SA History PDF: Ga-Mawela Community',
+              type: 'application/pdf',
+              size: 2520000,
+              description: 'Comprehensive historical account of Ga-Mawela settlement, colonial dispossession, and community resilience',
+              category: 'historical',
+              url: '#',
+              uploadedAt: new Date().toISOString(),
+            },
+            {
+              _id: '2',
+              filename: 'LRC Annual Report Extracts',
+              type: 'application/pdf',
+              size: 1890000,
+              description: 'Land Claims Commission documentation of Ga-Mawela restitution claim and evidence assessment',
+              category: 'legal',
+              url: '#',
+              uploadedAt: new Date().toISOString(),
+            },
+            {
+              _id: '3',
+              filename: 'SAHRA Heritage Report',
+              type: 'application/pdf',
+              size: 3150000,
+              description: 'South African Heritage Resources Agency certification of cultural and archaeological significance',
+              category: 'heritage',
+              url: '#',
+              uploadedAt: new Date().toISOString(),
+            },
+          ]);
+        }
+      } catch (error) {
+        console.error('Failed to fetch documents:', error);
+        // Use fallback data
+        setDocuments([
+          {
+            _id: '1',
+            filename: 'SA History PDF: Ga-Mawela Community',
+            type: 'application/pdf',
+            size: 2520000,
+            description: 'Comprehensive historical account of Ga-Mawela settlement, colonial dispossession, and community resilience',
+            category: 'historical',
+            url: '#',
+            uploadedAt: new Date().toISOString(),
+          },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDocuments();
+  }, []);
 
   const categories = [
     { id: 'all', label: 'All Documents' },
@@ -74,9 +93,24 @@ export default function EvidenceTab() {
     { id: 'testimonies', label: 'Testimonies' },
   ];
 
-  const filteredDocs = selectedCategory === 'all' 
-    ? documents 
+  const filteredDocs = selectedCategory === 'all'
+    ? documents
     : documents.filter(doc => doc.category === selectedCategory);
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+  };
+
+  const getFileType = (mimeType: string) => {
+    if (mimeType.includes('pdf')) return 'PDF';
+    if (mimeType.includes('doc')) return 'DOC';
+    if (mimeType.includes('image')) return 'IMG';
+    return 'FILE';
+  };
 
   return (
     <div className="w-full bg-metallic-blue-gradient-vertical relative py-16 px-6 md:px-12 bg-evidence-tab">
@@ -112,31 +146,55 @@ export default function EvidenceTab() {
         </ScrollRevealWrapper>
 
         {/* Documents Grid - Landscape */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
-          {filteredDocs.map((doc, index) => (
-            <ScrollRevealWrapper key={index} type="fadeUp" duration={0.8} delay={index * 0.1}>
-              <div className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-6 hover:border-yellow/60 flex flex-col rounded-lg hover:bg-white/20">
-                <span className="inline-block px-2 py-1 bg-yellow text-black text-xs font-bold rounded mb-2 font-inter w-fit">
-                  {doc.type}
-                </span>
-                <h3 className="text-base font-bold text-white mb-2 font-merriweather flex-grow">
-                  {doc.title}
-                </h3>
-                <p className="text-white text-xs mb-4 font-inter">
-                  {doc.description}
-                </p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-white font-semibold font-inter">
-                    {doc.size}
-                  </span>
-                  <a href="#" className="px-3 py-1 bg-yellow text-black text-xs font-semibold hover:bg-yellow/90 transition-all inline-block font-inter rounded">
-                    Download
-                  </a>
+        {loading ? (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="bg-white/10 backdrop-blur-md border border-white/20 p-6 rounded-lg animate-pulse">
+                <div className="h-6 bg-white/20 rounded w-16 mb-2"></div>
+                <div className="h-5 bg-white/20 rounded w-full mb-2"></div>
+                <div className="space-y-1 mb-4">
+                  <div className="h-3 bg-white/20 rounded"></div>
+                  <div className="h-3 bg-white/20 rounded w-4/5"></div>
+                </div>
+                <div className="flex justify-between items-center">
+                  <div className="h-4 bg-white/20 rounded w-12"></div>
+                  <div className="h-6 bg-white/20 rounded w-16"></div>
                 </div>
               </div>
-            </ScrollRevealWrapper>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12">
+            {filteredDocs.map((doc, index) => (
+              <ScrollRevealWrapper key={doc._id} type="fadeUp" duration={0.8} delay={index * 0.1}>
+                <div className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-6 hover:border-yellow/60 flex flex-col rounded-lg hover:bg-white/20">
+                  <span className="inline-block px-2 py-1 bg-yellow text-black text-xs font-bold rounded mb-2 font-inter w-fit">
+                    {getFileType(doc.type)}
+                  </span>
+                  <h3 className="text-base font-bold text-white mb-2 font-merriweather flex-grow">
+                    {doc.filename}
+                  </h3>
+                  <p className="text-white text-xs mb-4 font-inter">
+                    {doc.description || 'Document description not available'}
+                  </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-white font-semibold font-inter">
+                      {formatFileSize(doc.size)}
+                    </span>
+                    <a
+                      href={`/api/documents/${doc._id}?action=download`}
+                      className="px-3 py-1 bg-yellow text-black text-xs font-semibold hover:bg-yellow/90 transition-all inline-block font-inter rounded"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Download
+                    </a>
+                  </div>
+                </div>
+              </ScrollRevealWrapper>
+            ))}
+          </div>
+        )}
 
         {/* Submit Evidence */}
         <ScrollRevealWrapper type="fadeUp" duration={0.8}>
