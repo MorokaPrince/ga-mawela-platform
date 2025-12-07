@@ -2,10 +2,33 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { motion, AnimatePresence } from 'framer-motion';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
+import { fadeInVariants, scaleVariants, containerVariants } from '@/animations/framerVariants';
+
+// Loading Spinner Component
+const LoadingSpinner = () => (
+  <motion.div
+    className="flex items-center justify-center"
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
+  >
+    <motion.div
+      className="w-8 h-8 border-2 border-yellow/30 border-t-yellow rounded-full"
+      animate={{ rotate: 360 }}
+      transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+    />
+  </motion.div>
+);
 
 export default function GalleryTab() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set(prev).add(index));
+  };
 
   // Gallery images from the public/Images/Gallery folder
   const galleryImages = [
@@ -45,49 +68,150 @@ export default function GalleryTab() {
         </ScrollRevealWrapper>
 
         {/* Gallery Grid - Landscape */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-12">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-12"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           {galleryImages.map((image, index) => (
-            <ScrollRevealWrapper key={index} type="scale" duration={0.8} delay={index * 0.05}>
-              <div
-                onClick={() => setSelectedImage(image)}
-                className="card-interactive relative h-32 bg-gray-800 rounded-lg overflow-hidden cursor-pointer hover:shadow-xl hover:scale-110 group border border-white/30 hover:border-yellow/60 backdrop-blur-sm"
+            <motion.div
+              key={index}
+              variants={scaleVariants}
+              whileHover={{ scale: 1.05, y: -5 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className="relative h-32 bg-gray-800 rounded-lg overflow-hidden cursor-pointer group border border-white/30 hover:border-yellow/60 backdrop-blur-sm"
+              onClick={() => setSelectedImage(image)}
+            >
+              {/* Loading skeleton */}
+              {!loadedImages.has(index) && (
+                <div className="absolute inset-0 bg-gray-700 animate-pulse rounded-lg flex items-center justify-center">
+                  <LoadingSpinner />
+                </div>
+              )}
+
+              <motion.div
+                className="w-full h-full"
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={loadedImages.has(index) ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.1 }}
+                transition={{ duration: 0.5 }}
               >
-                <img
+                <Image
                   src={image}
                   alt={`Gallery image ${index + 1}`}
-                  className="w-full h-full object-cover group-hover:brightness-50 transition-all"
+                  fill
+                  className="object-cover transition-all duration-500"
+                  loading="lazy"
+                  placeholder="blur"
+                  blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWGRkqGx0f/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACEQMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R+IRjWjBqO6O2mhP//Z"
+                  onLoad={() => handleImageLoad(index)}
+                  onError={() => handleImageLoad(index)}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <span className="text-yellow text-2xl">🔍</span>
-                </div>
-              </div>
-            </ScrollRevealWrapper>
-          ))}
-        </div>
+              </motion.div>
 
-        {/* Lightbox Modal */}
-        {selectedImage && (
-          <div
-            className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
-          >
-            <div className="relative max-w-4xl w-full" onClick={(e) => e.stopPropagation()}>
-              <button
-                type="button"
-                onClick={() => setSelectedImage(null)}
-                className="absolute -top-10 right-0 text-white text-3xl hover:text-primary transition-colors"
-                title="Close"
+              {/* Hover overlay */}
+              <motion.div
+                className="absolute inset-0 bg-black/60 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                whileHover={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
               >
-                ✕
-              </button>
-              <img
-                src={selectedImage}
-                alt="Full size gallery image"
-                className="w-full h-auto rounded-lg"
+                <motion.span
+                  className="text-yellow text-3xl"
+                  initial={{ scale: 0.8, rotate: -10 }}
+                  whileHover={{ scale: 1.1, rotate: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  🔍
+                </motion.span>
+              </motion.div>
+
+              {/* Shine effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                initial={{ x: "-100%" }}
+                whileHover={{ x: "100%" }}
+                transition={{ duration: 0.6 }}
               />
-            </div>
-          </div>
-        )}
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Enhanced Lightbox Modal */}
+        <AnimatePresence>
+          {selectedImage && (
+            <motion.div
+              className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              onClick={() => setSelectedImage(null)}
+            >
+              <motion.div
+                className="relative max-w-5xl w-full"
+                initial={{ scale: 0.8, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.8, opacity: 0, y: 20 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button */}
+                <motion.button
+                  type="button"
+                  onClick={() => setSelectedImage(null)}
+                  className="absolute -top-12 right-0 text-white text-4xl hover:text-yellow transition-colors p-2 rounded-full hover:bg-white/10"
+                  title="Close"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                >
+                  ✕
+                </motion.button>
+
+                {/* Image container */}
+                <motion.div
+                  className="relative overflow-hidden rounded-xl shadow-2xl"
+                  initial={{ y: 30, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.1, duration: 0.5 }}
+                >
+                  <motion.img
+                    src={selectedImage}
+                    alt="Full size gallery image"
+                    className="w-full h-auto"
+                    initial={{ scale: 1.1, filter: "blur(10px)" }}
+                    animate={{ scale: 1, filter: "blur(0px)" }}
+                    transition={{ duration: 0.6, ease: "easeOut" }}
+                  />
+
+                  {/* Image info overlay */}
+                  <motion.div
+                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
+                  >
+                    <p className="text-white text-sm font-inter">
+                      Ga-Mawela Heritage Documentation
+                    </p>
+                  </motion.div>
+                </motion.div>
+
+                {/* Navigation hints */}
+                <motion.div
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 text-white/60 text-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  Click outside or press ✕ to close
+                </motion.div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Info Section */}
         <ScrollRevealWrapper type="fadeUp" duration={0.8}>

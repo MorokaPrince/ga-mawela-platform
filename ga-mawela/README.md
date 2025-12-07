@@ -149,7 +149,18 @@ Required environment variables:
 
 ## Deployment
 
-### Vercel Deployment
+### Netlify Deployment (Recommended)
+1. Install Netlify CLI: `npm install -g netlify-cli`
+2. Login: `netlify login`
+3. Link project: `netlify link` (or connect via Netlify dashboard)
+4. Set environment variables in Netlify dashboard:
+   - `MONGODB_URI`
+   - `NEXTAUTH_SECRET`
+   - `PLAUSIBLE_DOMAIN`
+   - `SITE_URL`
+5. Deploy: `npm run deploy:netlify` or `netlify deploy --prod`
+
+### Alternative: Vercel Deployment
 1. Install Vercel CLI: `npm i -g vercel`
 2. Login: `vercel login`
 3. Set environment variables in Vercel dashboard

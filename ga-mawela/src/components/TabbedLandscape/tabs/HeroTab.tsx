@@ -1,10 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+import { motion } from 'framer-motion';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
+import { createScrollRevealAnimation, createParallaxAnimation } from '@/animations/gsapAnimations';
 
 export default function HeroTab() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const slides = [
     '/Images/Mining/Landing home page 1.jpg',
@@ -21,6 +25,18 @@ export default function HeroTab() {
     return () => clearInterval(interval);
   }, [slides.length]);
 
+  useEffect(() => {
+    // Initialize GSAP animations
+    if (heroRef.current) {
+      createParallaxAnimation('.carousel-slide', 0.2);
+    }
+
+    // Animate content sections on scroll
+    if (contentRef.current) {
+      createScrollRevealAnimation('.hero-content-section', 0.2);
+    }
+  }, []);
+
   const handleExploreHistory = () => {
     const event = new CustomEvent('navigateToTab', { detail: 'historical' });
     window.dispatchEvent(event);
@@ -32,9 +48,14 @@ export default function HeroTab() {
   };
 
   return (
-    <div className="flex flex-col w-full">
+    <div ref={heroRef} className="flex flex-col w-full">
       {/* Hero Section - Image Carousel with Overlay Content */}
-      <div className="w-full min-h-[75vh] relative flex items-center justify-start overflow-hidden">
+      <motion.div
+        className="w-full min-h-[75vh] relative flex items-center justify-start overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
         {/* Image Carousel Background */}
         <div className="absolute inset-0 w-full h-full">
           {slides.map((slide, index) => (
@@ -54,8 +75,8 @@ export default function HeroTab() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
 
         {/* Content - Left Aligned Landscape Layout */}
-        <div className="relative z-20 w-full px-8 md:px-16 py-12">
-          <div className="max-w-6xl mx-0">
+        <div ref={contentRef} className="relative z-20 w-full px-8 md:px-16 py-12">
+          <div className="max-w-6xl mx-0 hero-content-section">
             {/* Main Heading with Animation */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8}>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-2 font-merriweather leading-tight">
@@ -79,25 +100,49 @@ export default function HeroTab() {
               </p>
             </ScrollRevealWrapper>
 
-            {/* CTA Buttons - Horizontal with Animations */}
+            {/* CTA Buttons - Horizontal with Enhanced Animations */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
               <div className="flex flex-row gap-4">
-                <button
+                <motion.button
                   type="button"
                   onClick={handleExploreHistory}
-                  className="px-8 py-4 bg-yellow text-black font-bold hover:bg-yellow/90 transition-all duration-300 font-inter text-sm md:text-base hover:scale-105 hover:shadow-lg hover:shadow-yellow/50"
+                  className="px-8 py-4 bg-yellow text-black font-bold font-inter text-sm md:text-base relative overflow-hidden group"
                   title="Explore the history of Ga-Mawela"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  Explore History
-                </button>
-                <button
+                  <span className="relative z-10">Explore History</span>
+                  <motion.div
+                    className="absolute inset-0 bg-yellow/80"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.6 }}
+                  />
+                </motion.button>
+
+                <motion.button
                   type="button"
                   onClick={handleViewEvidence}
-                  className="px-8 py-4 bg-white/20 text-white font-bold hover:bg-white/30 transition-all duration-300 font-inter text-sm md:text-base border-2 border-white hover:scale-105 hover:shadow-lg hover:shadow-white/30"
+                  className="px-8 py-4 bg-white/20 text-white font-bold font-inter text-sm md:text-base border-2 border-white/50 backdrop-blur-sm relative overflow-hidden group"
                   title="View evidence and documentation"
+                  whileHover={{
+                    scale: 1.05,
+                    y: -2,
+                    borderColor: "rgba(255, 255, 255, 0.8)",
+                    backgroundColor: "rgba(255, 255, 255, 0.3)"
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
                 >
-                  View Evidence
-                </button>
+                  <span className="relative z-10">View Evidence</span>
+                  <motion.div
+                    className="absolute inset-0 bg-white/10"
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileHover={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.button>
               </div>
             </ScrollRevealWrapper>
           </div>
@@ -118,7 +163,7 @@ export default function HeroTab() {
             />
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Fraud Exposure - Compact Horizontal Layout */}
       <div className="w-full py-12 px-6 md:px-12 bg-metallic-blue-gradient-vertical relative overflow-hidden">

@@ -1,30 +1,48 @@
+/**
+ * API Route: /api/upload
+ * Handles document file uploads to Vercel Blob storage
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { put } from '@vercel/blob';
-import dbConnect from '../../../../lib/db';
-import Document from '../../../../lib/models/Document';
+import { getServerSession } from 'next-auth/next';
+import { getCollection } from '@/lib/mongodb';
+import { COLLECTIONS } from '@/lib/mongodb-schemas';
 
 export async function POST(request: NextRequest) {
   try {
-    // TODO: Add authentication check
-    // const session = await auth();
-    // if (!session?.user?.id) {
-    //   return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    // }
-
-    await dbConnect();
+    // Check authentication
+    const session = await getServerSession();
+    if (!session || session.user?.role !== 'admin') {
+      return NextResponse.json(
+        { success: false, error: 'Unauthorized. Only admins can upload documents.' },
+        { status: 401 }
+      );
+    }
 
     const formData = await request.formData();
     const file = formData.get('file') as File;
+    const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const category = formData.get('category') as string;
-    const investigationId = formData.get('investigationId') as string;
-    const lineageId = formData.get('lineageId') as string;
+    const isPublic = formData.get('isPublic') === 'true';
+    const tags = formData.get('tags') as string;
 
     if (!file) {
-      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'No file provided' },
+        { status: 400 }
+      );
     }
 
-    // Sanitize filename to prevent path traversal
+    if (!title || !category) {
+      return NextResponse.json(
+        { success: false, error: 'Title and category are required' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize filename
     const sanitizedFilename = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
 
     // Validate file type
@@ -35,41 +53,23 @@ export async function POST(request: NextRequest) {
       'image/gif',
       'application/msword',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'text/plain'
+      'text/plain',
     ];
 
     if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json({ error: 'Invalid file type. Only PDF, images, and documents are allowed.' }, { status: 400 });
+      return NextResponse.json(
+        { success: false, error: 'Invalid file type. Only PDF, images, and documents are allowed.' },
+        { status: 400 }
+      );
     }
 
     // Validate file size (10MB limit)
     const maxSize = 10 * 1024 * 1024;
     if (file.size > maxSize) {
-      return NextResponse.json({ error: 'File too large. Maximum size is 10MB.' }, { status: 400 });
-    }
-
-    // Additional security: Check for malicious file signatures
-    const buffer = await file.arrayBuffer();
-    const uint8Array = new Uint8Array(buffer);
-
-    // Check for PDF header
-    if (file.type === 'application/pdf' && !(uint8Array[0] === 0x25 && uint8Array[1] === 0x50 && uint8Array[2] === 0x44 && uint8Array[3] === 0x46)) {
-      return NextResponse.json({ error: 'Invalid PDF file' }, { status: 400 });
-    }
-
-    // Check for image headers
-    if (file.type.startsWith('image/')) {
-      const isValidImage = (
-        // JPEG
-        (uint8Array[0] === 0xFF && uint8Array[1] === 0xD8) ||
-        // PNG
-        (uint8Array[0] === 0x89 && uint8Array[1] === 0x50 && uint8Array[2] === 0x4E && uint8Array[3] === 0x47) ||
-        // GIF
-        (uint8Array[0] === 0x47 && uint8Array[1] === 0x49 && uint8Array[2] === 0x46)
+      return NextResponse.json(
+        { success: false, error: 'File too large. Maximum size is 10MB.' },
+        { status: 400 }
       );
-      if (!isValidImage) {
-        return NextResponse.json({ error: 'Invalid image file' }, { status: 400 });
-      }
     }
 
     // Upload to Vercel Blob
@@ -77,32 +77,39 @@ export async function POST(request: NextRequest) {
       access: 'public',
     });
 
-    // Save metadata to database
-    const document = new Document({
-      filename: sanitizedFilename,
-      type: file.type,
-      url: blob.url,
-      size: file.size,
-      description: description || undefined,
-      category: category || undefined,
-      investigationId: investigationId ? investigationId : undefined,
-      lineageId: lineageId ? lineageId : undefined,
-      uploadedBy: 'user-id', // TODO: Replace with actual user ID from session
-    });
+    // Save metadata to MongoDB
+    const documentsCollection = await getCollection(COLLECTIONS.DOCUMENTS);
+    const document = {
+      title,
+      description: description || '',
+      category,
+      fileUrl: blob.url,
+      fileName: sanitizedFilename,
+      fileSize: file.size,
+      fileType: file.type,
+      uploadedBy: session.user?.email || 'admin',
+      uploadedAt: new Date(),
+      isPublic,
+      requiresAuthentication: !isPublic,
+      tags: tags ? tags.split(',').map((t) => t.trim()) : [],
+      downloadCount: 0,
+    };
 
-    await document.save();
+    const result = await documentsCollection.insertOne(document);
 
     return NextResponse.json({
       success: true,
-      document: {
-        id: document._id,
-        filename: document.filename,
-        url: document.url,
-        size: document.size,
+      data: {
+        _id: result.insertedId,
+        ...document,
       },
+      message: 'Document uploaded successfully',
     });
   } catch (error) {
     console.error('Upload error:', error);
-    return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: 'Upload failed' },
+      { status: 500 }
+    );
   }
 }

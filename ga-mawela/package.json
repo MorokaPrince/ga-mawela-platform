@@ -8,15 +8,18 @@
     "start": "next start",
     "lint": "eslint",
     "postbuild": "next-sitemap",
-    "deploy": "vercel --prod"
+    "deploy:netlify": "netlify deploy --prod --dir=.next",
+    "preview:netlify": "netlify deploy --dir=.next"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@hookform/resolvers": "^5.2.2",
     "@vercel/blob": "^2.0.0",
+    "bcryptjs": "^3.0.3",
     "framer-motion": "^12.23.24",
     "gsap": "^3.13.0",
     "jspdf": "^3.0.3",
+    "leaflet": "^1.9.4",
     "lenis": "^1.3.13",
     "lucide-react": "^0.548.0",
     "mongoose": "^8.19.2",
@@ -27,12 +30,14 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-hook-form": "^7.65.0",
+    "react-leaflet": "^5.0.0",
     "swiper": "^12.0.3",
     "vanilla-tilt": "^1.8.1",
     "zod": "^4.1.12"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/leaflet": "^1.9.21",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
