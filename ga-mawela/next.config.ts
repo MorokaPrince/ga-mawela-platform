@@ -17,8 +17,12 @@ const nextConfig: NextConfig = {
   compress: true,
 
 
-  // Netlify-specific optimizations
+  // Netlify-specific optimizations - static export for quick deployment
+  output: 'export',
   trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
 
 };
 
