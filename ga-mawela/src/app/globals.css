@@ -3,9 +3,9 @@
 @import "../styles/animations.css";
 
 /* ============================================
-   ANGLO AMERICAN CORPORATE VERTICAL REDESIGN
-   Deep Navy, White, Yellow Accents, Turquoise Gradients
-   ============================================ */
+    GA MAWELA TRUTH PLATFORM - ENHANCED DESIGN
+    Inspired by modern marketing sites with professional aesthetics
+    ============================================ */
 
 :root {
   /* Metallic Blue Color Palette */
@@ -29,17 +29,24 @@
   --background-secondary: #1a2f42;
   --foreground: #ffffff;
 
-  /* Gradients */
+  /* Enhanced Gradients - Modern Marketing Style */
+  --gradient-primary: linear-gradient(135deg, #0a1929 0%, #1a2f42 100%);
+  --gradient-accent: linear-gradient(135deg, #ffc500 0%, #ff6b35 100%);
   --gradient-turquoise: linear-gradient(135deg, #00a8a8 0%, #00d4d4 100%);
   --gradient-navy: linear-gradient(135deg, #001c5c 0%, #003d99 100%);
-  --gradient-overlay-dark: linear-gradient(180deg, rgba(0, 28, 92, 0.95) 0%, rgba(0, 61, 153, 0.85) 100%);
-  --gradient-overlay-light: linear-gradient(180deg, rgba(0, 28, 92, 0.7) 0%, rgba(0, 61, 153, 0.6) 100%);
+  --gradient-overlay-dark: linear-gradient(180deg, rgba(10, 25, 41, 0.95) 0%, rgba(26, 47, 66, 0.85) 100%);
+  --gradient-overlay-light: linear-gradient(180deg, rgba(10, 25, 41, 0.7) 0%, rgba(26, 47, 66, 0.6) 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --gradient-hero: linear-gradient(135deg, #0a1929 0%, #1a2f42 50%, #2d4a63 100%);
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 28, 92, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 28, 92, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 28, 92, 0.15);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 28, 92, 0.2);
+  /* Enhanced Shadows - Modern Marketing Style */
+  --shadow-sm: 0 1px 2px 0 rgba(10, 25, 41, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(10, 25, 41, 0.1), 0 2px 4px -1px rgba(10, 25, 41, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(10, 25, 41, 0.15), 0 4px 6px -2px rgba(10, 25, 41, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(10, 25, 41, 0.2), 0 10px 10px -5px rgba(10, 25, 41, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(10, 25, 41, 0.25);
+  --shadow-glow: 0 0 20px rgba(255, 197, 0, 0.3);
+  --shadow-glow-lg: 0 0 40px rgba(255, 197, 0, 0.2);
 
   /* Animation Durations */
   --duration-fast: 150ms;
@@ -1259,18 +1266,38 @@ button,
   background-color: #f0f4f8;
 }
 
-/* Professional card styling */
+/* Enhanced Professional Card Styling */
 .card-professional {
-  background: #ffffff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 197, 0, 0.1), transparent);
+  transition: left 0.6s;
+}
+
+.card-professional:hover::before {
+  left: 100%;
 }
 
 .card-professional:hover {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-2xl);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(255, 197, 0, 0.3);
 }
 
 /* Light overlay for backgrounds */
@@ -1282,36 +1309,54 @@ button,
   background: rgba(240, 244, 248, 0.95);
 }
 
-/* Professional button styles */
+/* Enhanced Professional Button Styles */
 .btn-professional {
-  background: #7eb3f6;
+  background: var(--gradient-accent);
   color: #0a1929;
-  padding: 12px 24px;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 14px;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
   border: none;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
   transform: translateZ(0);
   will-change: transform;
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.btn-professional::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.6s;
+}
+
+.btn-professional:hover::before {
+  left: 100%;
 }
 
 .btn-professional:hover {
-  background: #a8d5ff;
-  box-shadow: 0 8px 20px rgba(126, 179, 246, 0.4);
-  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff6b35 0%, #ffc500 100%);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px) scale(1.05);
 }
 
 .btn-professional:active {
-  transform: scale(0.98);
+  transform: translateY(-1px) scale(0.98);
 }
 
 .btn-professional:focus {
-  outline: 2px solid #a8d5ff;
-  outline-offset: 2px;
+  outline: 3px solid rgba(255, 197, 0, 0.5);
+  outline-offset: 3px;
 }
 
 /* ============================================

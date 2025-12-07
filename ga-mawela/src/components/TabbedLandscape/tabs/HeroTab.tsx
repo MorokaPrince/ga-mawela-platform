@@ -49,101 +49,179 @@ export default function HeroTab() {
 
   return (
     <div ref={heroRef} className="flex flex-col w-full">
-      {/* Hero Section - Image Carousel with Overlay Content */}
+      {/* Enhanced Hero Section - Modern Marketing Style */}
       <motion.div
-        className="w-full min-h-[75vh] relative flex items-center justify-start overflow-hidden"
+        className="w-full min-h-[85vh] relative flex items-center justify-start overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        {/* Image Carousel Background */}
+        {/* Image Carousel Background with Enhanced Effects */}
         <div className="absolute inset-0 w-full h-full">
           {slides.map((slide, index) => (
-            <div
+            <motion.div
               key={index}
-              className={`absolute inset-0 transition-opacity duration-1000 carousel-slide ${
-                index === currentSlide ? 'opacity-100' : 'opacity-0'
-              }`}
+              className="absolute inset-0 carousel-slide"
+              initial={{ scale: 1.1, opacity: 0 }}
+              animate={{
+                scale: index === currentSlide ? 1 : 1.1,
+                opacity: index === currentSlide ? 1 : 0
+              }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
               style={{
                 backgroundImage: `url('${slide}')`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundAttachment: 'fixed'
               }}
             />
           ))}
         </div>
 
-        {/* Dark Overlay - Tinted and Faded */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent"></div>
+        {/* Enhanced Gradient Overlay with Multiple Layers */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
 
-        {/* Content - Left Aligned Landscape Layout */}
-        <div ref={contentRef} className="relative z-20 w-full px-8 md:px-16 py-12">
+        {/* Animated Background Pattern */}
+        <motion.div
+          className="absolute inset-0 opacity-10"
+          initial={{ backgroundPosition: "0% 0%" }}
+          animate={{ backgroundPosition: "100% 100%" }}
+          transition={{ duration: 20, repeat: Infinity, repeatType: "reverse" }}
+          style={{
+            backgroundImage: `radial-gradient(circle at 25% 25%, rgba(255, 197, 0, 0.3) 0%, transparent 50%),
+                             radial-gradient(circle at 75% 75%, rgba(255, 107, 53, 0.3) 0%, transparent 50%)`,
+            backgroundSize: '400px 400px'
+          }}
+        />
+
+        {/* Enhanced Content - Modern Marketing Layout */}
+        <div ref={contentRef} className="relative z-20 w-full px-8 md:px-16 py-16">
           <div className="max-w-6xl mx-0 hero-content-section">
-            {/* Main Heading with Animation */}
+            {/* Enhanced Main Heading with Modern Typography */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8}>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-2 font-merriweather leading-tight">
-                GA-MAWELA
-              </h1>
-              <p className="text-sm md:text-base text-yellow/80 font-light mb-1 font-inter italic">
-                Sedikane sa Rakgama
-              </p>
-              <p className="text-lg md:text-xl text-yellow/90 font-light mb-8 font-merriweather">
-                The Truth Restored
-              </p>
+              <motion.div
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <h1 className="text-6xl md:text-8xl font-black text-white mb-4 font-merriweather leading-none tracking-tight">
+                  <span className="bg-gradient-to-r from-white via-yellow-100 to-yellow-200 bg-clip-text text-transparent">
+                    GA-MAWELA
+                  </span>
+                </h1>
+                <motion.div
+                  className="flex items-center gap-4 mb-6"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <div className="w-16 h-1 bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"></div>
+                  <p className="text-base md:text-lg text-yellow-200 font-medium font-inter tracking-wide">
+                    Sedikane sa Rakgama
+                  </p>
+                </motion.div>
+                <motion.p
+                  className="text-xl md:text-2xl text-yellow-100 font-light mb-12 font-merriweather max-w-2xl"
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  The Truth Restored
+                </motion.p>
+              </motion.div>
             </ScrollRevealWrapper>
 
-            {/* Description with Animation - Landscape Layout */}
+            {/* Enhanced Description with Modern Typography */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.1}>
-              <p className="text-base md:text-lg text-white mb-4 leading-relaxed font-inter max-w-3xl">
-                Ga-Mawela is the ancestral territory of Masetu and his descendants. This platform documents the true lineage, collects evidence, and exposes contested narratives about land restitution in the Dwars River Valley.
-              </p>
-              <p className="text-sm md:text-base text-white mb-8 leading-relaxed font-inter max-w-3xl">
-                The Rakgama community stands united in reclaiming our heritage, our land, and our dignity. Join us in this journey of truth and restoration.
-              </p>
+              <motion.div
+                className="max-w-4xl space-y-6"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+              >
+                <p className="text-lg md:text-xl text-white/90 leading-relaxed font-inter font-light">
+                  <span className="text-yellow-200 font-medium">Ga-Mawela</span> is the ancestral territory of Masetu and his descendants.
+                  This platform documents the true lineage, collects evidence, and exposes contested narratives about land restitution in the Dwars River Valley.
+                </p>
+                <motion.div
+                  className="flex items-center gap-3"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                >
+                  <div className="w-12 h-0.5 bg-yellow-400"></div>
+                  <p className="text-base md:text-lg text-white/80 font-inter italic">
+                    The Rakgama community stands united in reclaiming our heritage, our land, and our dignity.
+                  </p>
+                </motion.div>
+                <motion.p
+                  className="text-yellow-200 font-medium text-lg font-inter"
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  Join us in this journey of truth and restoration.
+                </motion.p>
+              </motion.div>
             </ScrollRevealWrapper>
 
-            {/* CTA Buttons - Horizontal with Enhanced Animations */}
+            {/* Enhanced CTA Buttons - Professional Marketing Style */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
-              <div className="flex flex-row gap-4">
+              <motion.div
+                className="flex flex-col sm:flex-row gap-6 mt-12"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
                 <motion.button
                   type="button"
                   onClick={handleExploreHistory}
-                  className="px-8 py-4 bg-yellow text-black font-bold font-inter text-sm md:text-base relative overflow-hidden group"
+                  className="btn-professional group"
                   title="Explore the history of Ga-Mawela"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <span className="relative z-10">Explore History</span>
-                  <motion.div
-                    className="absolute inset-0 bg-yellow/80"
-                    initial={{ x: "-100%" }}
-                    whileHover={{ x: "100%" }}
-                    transition={{ duration: 0.6 }}
-                  />
+                  <span className="relative z-10 flex items-center gap-3">
+                    <span>Explore History</span>
+                    <motion.span
+                      className="text-2xl"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      →
+                    </motion.span>
+                  </span>
                 </motion.button>
 
                 <motion.button
                   type="button"
                   onClick={handleViewEvidence}
-                  className="px-8 py-4 bg-white/20 text-white font-bold font-inter text-sm md:text-base border-2 border-white/50 backdrop-blur-sm relative overflow-hidden group"
+                  className="px-8 py-4 bg-white/10 text-white font-bold font-inter text-base border-2 border-white/60 backdrop-blur-md rounded-xl relative overflow-hidden group hover:bg-white/20 hover:border-white/80 transition-all duration-300"
                   title="View evidence and documentation"
-                  whileHover={{
-                    scale: 1.05,
-                    y: -2,
-                    borderColor: "rgba(255, 255, 255, 0.8)",
-                    backgroundColor: "rgba(255, 255, 255, 0.3)"
-                  }}
+                  whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  transition={{ duration: 0.2 }}
                 >
-                  <span className="relative z-10">View Evidence</span>
+                  <span className="relative z-10 flex items-center gap-3">
+                    <span>View Evidence</span>
+                    <motion.span
+                      className="text-xl"
+                      initial={{ x: 0 }}
+                      whileHover={{ x: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      →
+                    </motion.span>
+                  </span>
                   <motion.div
-                    className="absolute inset-0 bg-white/10"
-                    initial={{ scale: 0, opacity: 0 }}
-                    whileHover={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-gradient-to-r from-white/5 to-white/10"
+                    initial={{ x: "-100%" }}
+                    whileHover={{ x: "100%" }}
+                    transition={{ duration: 0.8 }}
                   />
                 </motion.button>
-              </div>
+              </motion.div>
             </ScrollRevealWrapper>
           </div>
         </div>
@@ -177,47 +255,93 @@ export default function HeroTab() {
             </h2>
           </ScrollRevealWrapper>
 
-          {/* Three Column Compact Landscape Layout */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Enhanced Three Column Layout with Professional Cards */}
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 gap-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {/* Mankge Family Fraud */}
-            <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0}>
-              <div className="card-interactive bg-white/15 backdrop-blur-md p-6 border border-white/30 hover:border-yellow/60 rounded-lg hover:bg-white/20">
-                <h3 className="text-lg font-bold text-yellow mb-3 font-merriweather">
+            <motion.div
+              className="card-professional group cursor-pointer"
+              whileHover={{ y: -8 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="p-8">
+                <motion.div
+                  className="w-12 h-12 bg-red-500/20 rounded-xl flex items-center justify-center mb-6"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <span className="text-red-400 text-2xl">⚠️</span>
+                </motion.div>
+                <h3 className="text-xl font-bold text-yellow-400 mb-4 font-merriweather">
                   The Mankge Deception
                 </h3>
-                <p className="text-white font-inter leading-relaxed text-xs">
+                <p className="text-white/90 font-inter leading-relaxed text-sm">
                   Fraudulent claim through corrupt dealings with government officials. Never benefited Ga-Mawela people.
                 </p>
               </div>
-            </ScrollRevealWrapper>
+            </motion.div>
 
             {/* True Lineage */}
-            <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.1}>
-              <div className="card-interactive bg-white/15 backdrop-blur-md p-6 border border-white/30 hover:border-yellow/60 rounded-lg hover:bg-white/20">
-                <h3 className="text-lg font-bold text-yellow mb-3 font-merriweather">
+            <motion.div
+              className="card-professional group cursor-pointer"
+              whileHover={{ y: -8 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+            >
+              <div className="p-8">
+                <motion.div
+                  className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-6"
+                  whileHover={{ rotate: -5, scale: 1.1 }}
+                >
+                  <span className="text-blue-400 text-2xl">👑</span>
+                </motion.div>
+                <h3 className="text-xl font-bold text-yellow-400 mb-4 font-merriweather">
                   True Descendants
                 </h3>
-                <p className="text-white font-inter text-xs mb-2">
-                  <strong>Masetu</strong> - Founder
-                </p>
-                <p className="text-white font-inter text-xs">
-                  <strong>Sons:</strong> Lesedi & Moroka (brothers)
-                </p>
+                <div className="space-y-3 text-white/90 font-inter text-sm">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    <span><strong>Masetu</strong> - Founder</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    <span><strong>Sons:</strong> Lesedi & Moroka (brothers)</span>
+                  </div>
+                </div>
               </div>
-            </ScrollRevealWrapper>
+            </motion.div>
 
             {/* Community Impact */}
-            <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
-              <div className="card-interactive bg-gradient-to-r from-yellow/20 to-yellow/10 backdrop-blur-md p-6 border border-yellow/40 rounded-lg hover:from-yellow/25 hover:to-yellow/15">
-                <h3 className="text-lg font-bold text-yellow mb-3 font-merriweather">
+            <motion.div
+              className="card-professional group cursor-pointer"
+              whileHover={{ y: -8 }}
+              transition={{ duration: 0.3, delay: 0.2 }}
+            >
+              <div className="p-8">
+                <motion.div
+                  className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-6"
+                  whileHover={{ rotate: 5, scale: 1.1 }}
+                >
+                  <span className="text-green-400 text-2xl">🎯</span>
+                </motion.div>
+                <h3 className="text-xl font-bold text-yellow-400 mb-4 font-merriweather">
                   Our Mission
                 </h3>
-                <p className="text-white font-inter text-xs">
+                <p className="text-white/90 font-inter leading-relaxed text-sm">
                   Restore truth, reclaim heritage, and secure justice for Ga-Mawela community.
                 </p>
+                <motion.div
+                  className="mt-4 flex items-center gap-2 text-yellow-400 font-medium"
+                  whileHover={{ x: 5 }}
+                >
+                  <span>Learn More</span>
+                  <span>→</span>
+                </motion.div>
               </div>
-            </ScrollRevealWrapper>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </div>
