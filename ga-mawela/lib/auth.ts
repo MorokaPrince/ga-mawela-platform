@@ -1,16 +1,18 @@
-import { auth } from '@/app/api/auth/[...nextauth]/route'
 import type { Session } from 'next-auth'
 
-export async function getServerSession() {
-  return await auth()
+// Temporary implementation for static deployment without API routes
+export async function getServerSession(): Promise<Session | null> {
+  // Return null for static deployment - no authentication
+  return null
 }
 
-export function isAdmin(session: Session | null) {
-  return session?.user?.role === 'admin'
+// Temporary implementation for static deployment
+export function isAdmin(session: Session | null): boolean {
+  // For static deployment, no admin functionality
+  return false
 }
 
 export function requireAdmin(session: Session | null) {
-  if (!isAdmin(session)) {
-    throw new Error('Admin access required')
-  }
+  // For static deployment, skip admin checks
+  return
 }
