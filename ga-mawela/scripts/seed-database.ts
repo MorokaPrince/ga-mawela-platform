@@ -1,10 +1,10 @@
-import dbConnect from '../lib/db';
-import HistoricalEvent from '../lib/models/HistoricalEvent';
-import Community from '../lib/models/Community';
-import FraudReport from '../lib/models/FraudReport';
-import Source from '../lib/models/Source';
-import LegalFramework from '../lib/models/LegalFramework';
-import Resource from '../lib/models/Resource';
+import dbConnect from '../src/lib/db';
+import HistoricalEvent from '../src/lib/models/HistoricalEvent';
+import Community from '../src/lib/models/Community';
+import FraudReport from '../src/lib/models/FraudReport';
+import Source from '../src/lib/models/Source';
+import LegalFramework from '../src/lib/models/LegalFramework';
+import Resource from '../src/lib/models/Resource';
 
 async function seedDatabase() {
   try {

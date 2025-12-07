@@ -3,10 +3,10 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface IInvestigation extends Document {
   title: string;
   description: string;
-  status: 'draft' | 'pending' | 'approved' | 'published';
+  status: 'draft' | 'pending' | 'approved' | 'published' | 'open' | 'closed';
   evidence: string[];
-  signoffBy?: string; // Admin user ID who signed off
-  signoffAt?: Date; // Timestamp of signoff
+  signoffBy?: string;
+  signoffAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -14,7 +14,11 @@ export interface IInvestigation extends Document {
 const InvestigationSchema: Schema = new Schema({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  status: { type: String, enum: ['draft', 'pending', 'approved', 'published'], default: 'draft' },
+  status: {
+    type: String,
+    enum: ['draft', 'pending', 'approved', 'published', 'open', 'closed'],
+    default: 'draft'
+  },
   evidence: [{ type: String }],
   signoffBy: { type: String },
   signoffAt: { type: Date },

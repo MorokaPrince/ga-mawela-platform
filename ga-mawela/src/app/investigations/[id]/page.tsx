@@ -1,5 +1,5 @@
-import dbConnect from '../../../../lib/db';
-import Investigation, { Investigation } from '../../../../lib/models/Investigation';
+import dbConnect from '@/lib/db';
+import Investigation from '@/lib/models/Investigation';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import type { Metadata } from "next";
