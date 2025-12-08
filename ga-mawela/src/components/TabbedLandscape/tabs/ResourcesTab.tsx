@@ -139,7 +139,7 @@ export default function ResourcesTab() {
                     {section.category}
                   </h3>
                   <ul className="space-y-2">
-                    {section.items.map((item, itemIndex) => (
+                    {section.items.map((item: any, itemIndex: number) => (
                       <li key={itemIndex}>
                         <a
                           href={item.url}
