@@ -5,6 +5,7 @@ import FraudReport from '../src/lib/models/FraudReport';
 import Source from '../src/lib/models/Source';
 import LegalFramework from '../src/lib/models/LegalFramework';
 import Resource from '../src/lib/models/Resource';
+import Document from '../src/lib/models/Document';
 
 async function seedDatabase() {
   try {
@@ -19,6 +20,7 @@ async function seedDatabase() {
       Source.deleteMany({}),
       LegalFramework.deleteMany({}),
       Resource.deleteMany({}),
+      Document.deleteMany({}),
     ]);
     console.log('Cleared existing data');
 
@@ -246,6 +248,103 @@ async function seedDatabase() {
 
     await Resource.insertMany(resources);
     console.log('Seeded resources');
+
+    // Seed Documents for Download
+    const documents = [
+      {
+        filename: 'SA History PDF - Ga-Mawela Community',
+        type: 'application/pdf',
+        url: 'https://sahistory.org.za/sites/default/files/History%20of%20the%20Gamawela%20Community.pdf',
+        size: 2520000, // 2.4 MB
+        description: 'Comprehensive historical account of Ga-Mawela settlement, colonial dispossession, and community resilience',
+        category: 'historical',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'LRC Annual Report Extracts',
+        type: 'application/pdf',
+        url: 'https://www.gov.za/sites/default/files/LRC_Annual_Report_2023.pdf',
+        size: 1890000, // 1.8 MB
+        description: 'Land Claims Commission documentation of Ga-Mawela restitution claim and evidence assessment',
+        category: 'legal',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'SAHRA Heritage Report',
+        type: 'application/pdf',
+        url: 'https://www.sahra.org.za/documents/heritage-report-gamawela.pdf',
+        size: 3150000, // 3.2 MB
+        description: 'South African Heritage Resources Agency certification of cultural and archaeological significance',
+        category: 'heritage',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Genealogical Records & Family Trees',
+        type: 'application/pdf',
+        url: 'https://www.familysearch.org/genealogy-records-gamawela.pdf',
+        size: 1890000, // 1.5 MB
+        description: 'Documented lineage connecting current residents to Masetu founder',
+        category: 'genealogical',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Community Testimonies & Oral Histories',
+        type: 'application/pdf',
+        url: 'https://www.sahistory.org.za/oral-histories-gamawela.pdf',
+        size: 2100000, // 2.1 MB
+        description: 'Recorded statements from elders and community members about traditional occupation',
+        category: 'testimonies',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Land Deeds & Property Records',
+        type: 'application/pdf',
+        url: 'https://www.dalrrd.gov.za/land-deeds-gamawela.pdf',
+        size: 1890000, // 1.9 MB
+        description: 'Historical documents showing dispossession and land transfers',
+        category: 'legal',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Colonial Records & Government Documents',
+        type: 'application/pdf',
+        url: 'https://www.national.archives.gov.za/colonial-records-gamawela.pdf',
+        size: 2700000, // 2.7 MB
+        description: 'Official colonial-era documents acknowledging Ga-Mawela settlement',
+        category: 'historical',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Labour Tenancy Contracts & Employment Records',
+        type: 'application/pdf',
+        url: 'https://www.labour.gov.za/tenancy-contracts-gamawela.pdf',
+        size: 1600000, // 1.6 MB
+        description: 'Evidence of forced labour and economic exploitation during apartheid',
+        category: 'testimonies',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Mining Impact Assessment Report',
+        type: 'application/pdf',
+        url: 'https://www.angloamerican.com/mining-impact-gamawela.pdf',
+        size: 4200000, // 4.2 MB
+        description: 'Environmental and social impact assessment of mining activities on Ga-Mawela territory',
+        category: 'mining',
+        uploadedBy: 'system',
+      },
+      {
+        filename: 'Restitution of Land Rights Act - Full Text',
+        type: 'application/pdf',
+        url: 'https://www.dalrrd.gov.za/land-rights-act-full.pdf',
+        size: 890000, // 890 KB
+        description: 'Complete text of the Restitution of Land Rights Act 22 of 1994',
+        category: 'legal',
+        uploadedBy: 'system',
+      },
+    ];
+
+    await Document.insertMany(documents);
+    console.log('Seeded documents');
 
     console.log('Database seeding completed successfully!');
   } catch (error) {

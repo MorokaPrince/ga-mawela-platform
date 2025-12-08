@@ -155,6 +155,12 @@ export const COLLECTIONS = {
   SESSIONS: 'sessions',
   ACCOUNTS: 'accounts',
   VERIFICATION_TOKENS: 'verification_tokens',
+  HISTORICAL_EVENTS: 'historical_events',
+  COMMUNITY: 'community',
+  FRAUD_REPORTS: 'fraud_reports',
+  SOURCES: 'sources',
+  LEGAL_FRAMEWORKS: 'legal_frameworks',
+  RESOURCES: 'resources',
 } as const;
 
 // ============================================
@@ -194,6 +200,31 @@ export const INDEXES = {
   ],
   investigations: [
     { key: { status: 1 } },
+    { key: { category: 1 } },
+    { key: { createdAt: -1 } },
+  ],
+  historical_events: [
+    { key: { year: 1 } },
+    { key: { createdAt: -1 } },
+  ],
+  community: [
+    { key: { category: 1 } },
+    { key: { createdAt: -1 } },
+  ],
+  fraud_reports: [
+    { key: { status: 1 } },
+    { key: { createdAt: -1 } },
+    { key: { category: 1 } },
+  ],
+  sources: [
+    { key: { category: 1 } },
+    { key: { key: 'text', description: 'text' } },
+  ],
+  legal_frameworks: [
+    { key: { category: 1 } },
+    { key: { createdAt: -1 } },
+  ],
+  resources: [
     { key: { category: 1 } },
     { key: { createdAt: -1 } },
   ],

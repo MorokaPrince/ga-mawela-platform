@@ -116,7 +116,30 @@ export default function YouthTab() {
             </p>
             <button
               type="button"
-              onClick={() => setSignedPetition(true)}
+              onClick={async () => {
+                try {
+                  const response = await fetch('/api/petitions', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                      name: 'Anonymous Youth Supporter',
+                      petitionType: 'youth-empowerment',
+                      message: 'I support Ga-Mawela youth empowerment and land restitution',
+                    }),
+                  });
+
+                  if (response.ok) {
+                    setSignedPetition(true);
+                  } else {
+                    alert('Failed to sign petition. Please try again.');
+                  }
+                } catch (error) {
+                  console.error('Error signing petition:', error);
+                  alert('Failed to sign petition. Please try again.');
+                }
+              }}
               className={`px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all font-inter text-sm rounded ${signedPetition ? 'opacity-50 cursor-not-allowed' : ''}`}
               disabled={signedPetition}
               title={signedPetition ? 'You have already signed the petition' : 'Sign the petition'}
