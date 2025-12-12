@@ -356,9 +356,11 @@ export default function EnhancedSponsorsCarousel() {
                     <div className="flex flex-col items-center text-center">
                       {/* Logo with pulse animation */}
                       <div className="w-24 h-24 mb-4 flex items-center justify-center bg-white/15 rounded-xl overflow-hidden border-2 border-yellow/30 shadow-inner">
-                        <img
+                        <Image
                           src={sponsor.logo}
                           alt={sponsor.name}
+                          width={80}
+                          height={80}
                           className="max-h-full max-w-full object-contain p-2"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
@@ -490,9 +492,11 @@ export default function EnhancedSponsorsCarousel() {
               >
                 <div className="flex flex-col items-center">
                   <div className="w-12 h-12 mb-2 flex items-center justify-center bg-white/15 rounded-lg overflow-hidden border border-white/20">
-                    <img
+                    <Image
                       src={sponsor.logo}
                       alt={sponsor.name}
+                      width={48}
+                      height={48}
                       className="max-h-full max-w-full object-contain"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
