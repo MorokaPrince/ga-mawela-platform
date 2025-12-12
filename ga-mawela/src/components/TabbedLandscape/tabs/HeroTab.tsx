@@ -251,6 +251,9 @@ export default function HeroTab() {
         </div>
       </motion.div>
 
+      {/* Partners Exhibition - Interactive Display */}
+      <PartnersExhibition />
+
       {/* Fraud Exposure - Compact Horizontal Layout */}
       <div className="w-full py-12 px-6 md:px-12 bg-metallic-blue-gradient-vertical relative overflow-hidden">
         {/* Background Image - Top Right Corner */}
