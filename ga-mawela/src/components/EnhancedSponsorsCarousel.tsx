@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight, FaPause, FaPlay } from 'react-icons/fa';
 
 interface Sponsor {
@@ -242,11 +243,7 @@ const sponsors: Sponsor[] = [
 export default function EnhancedSponsorsCarousel() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
   const [direction, setDirection] = useState(1);
-
-  // Duplicate sponsors for seamless looping
-  const extendedSponsors = [...sponsors, ...sponsors.slice(0, 3)];
 
   useEffect(() => {
     if (!autoPlay) return;
@@ -305,8 +302,6 @@ export default function EnhancedSponsorsCarousel() {
   return (
     <div
       className="relative w-full bg-gradient-to-br from-metallic-blue-dark to-metallic-blue-light py-12 px-4 overflow-hidden"
-      onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
     >
       <div className="max-w-7xl mx-auto">
         {/* Title with animated gradient */}
