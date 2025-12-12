@@ -11,11 +11,12 @@ import MiningTab from './tabs/MiningTab';
 import LineageTab from './tabs/LineageTab';
 import EvidenceTab from './tabs/EvidenceTab';
 import GalleryTab from './tabs/GalleryTab';
+import GoogleSearchTab from './tabs/GoogleSearchTab';
 import SponsorsTab from './tabs/SponsorsTab';
 import ResourcesTab from './tabs/ResourcesTab';
 import YouthTab from './tabs/YouthTab';
 
-export type TabId = 'hero' | 'historical' | 'archaeological' | 'legal' | 'mining' | 'lineage' | 'evidence' | 'gallery' | 'sponsors' | 'youth' | 'resources';
+export type TabId = 'hero' | 'historical' | 'archaeological' | 'legal' | 'mining' | 'lineage' | 'evidence' | 'gallery' | 'sponsors' | 'youth' | 'resources' | 'google-search';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'hero', label: 'Home' },
@@ -26,6 +27,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'lineage', label: 'Lineage' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'gallery', label: 'Gallery' },
+  { id: 'google-search', label: 'Search' },
   { id: 'sponsors', label: 'Partners' },
   { id: 'youth', label: 'Youth' },
   { id: 'resources', label: 'Resources' },
@@ -63,6 +65,8 @@ export default function TabbedLandscapeLayout() {
         return <EvidenceTab />;
       case 'gallery':
         return <GalleryTab />;
+      case 'google-search':
+        return <GoogleSearchTab />;
       case 'sponsors':
         return <SponsorsTab />;
       case 'youth':

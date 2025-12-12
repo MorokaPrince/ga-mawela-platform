@@ -183,13 +183,13 @@ export default function HistoricalTab() {
               Download Historical Documents
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-              <a href="#" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 hover:scale-105 transition-all text-center text-sm font-inter rounded">
+              <a href="/resources" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 hover:scale-105 transition-all text-center text-sm font-inter rounded">
                 SA History PDF
               </a>
-              <a href="#" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 hover:scale-105 transition-all text-center text-sm font-inter rounded">
+              <a href="/resources" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 hover:scale-105 transition-all text-center text-sm font-inter rounded">
                 LRC Report
               </a>
-              <a href="#" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all text-center text-sm font-inter">
+              <a href="/resources" className="px-4 py-2 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all text-center text-sm font-inter">
                 Heritage Report
               </a>
             </div>

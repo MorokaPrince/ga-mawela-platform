@@ -94,7 +94,7 @@ export default function MiningTab() {
             <p className="text-white mb-6 font-inter text-sm">
               Access detailed reports on corporate mining interests and their impact on Ga-Mawela
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm">
+            <a href="/resources" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm">
               View Mining Reports
             </a>
           </div>

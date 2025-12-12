@@ -203,7 +203,7 @@ export default function EvidenceTab() {
             <p className="text-white mb-6 font-inter text-sm">
               Help strengthen our documentation by submitting additional evidence, documents, or testimonies.
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
+            <a href="/upload" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
               Submit Evidence
             </a>
           </div>

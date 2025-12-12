@@ -13,7 +13,7 @@ interface Resource {
 }
 
 export default function ResourcesTab() {
-  const [resources, setResources] = useState<any[]>([]);
+  const [resources, setResources] = useState<{category: string, items: {name: string, url: string}[]}[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function ResourcesTab() {
         if (response.ok) {
           const data = await response.json();
           // Group resources by category
-          const grouped = data.reduce((acc: any, resource: Resource) => {
+          const grouped = data.reduce((acc: Record<string, Resource[]>, resource: Resource) => {
             const category = resource.category || 'Other Resources';
             if (!acc[category]) {
               acc[category] = [];
@@ -33,9 +33,9 @@ export default function ResourcesTab() {
           }, {});
 
           // Convert to array format expected by component
-          const formattedResources = Object.entries(grouped).map(([category, items]: [string, any]) => ({
+          const formattedResources = Object.entries(grouped).map(([category, items]: [string, unknown]) => ({
             category,
-            items: items.map((item: Resource) => ({
+            items: (items as Resource[]).map((item: Resource) => ({
               name: item.name,
               url: item.url,
             }))
@@ -46,12 +46,38 @@ export default function ResourcesTab() {
           // Fallback to hardcoded data if API fails
           setResources([
             {
+              category: 'G20 & International Organizations',
+              items: [
+                { name: 'G20 Official Portal', url: 'https://g20.org' },
+                { name: 'G20 South Africa', url: 'https://www.g20.org/en/about-g20/members/south-africa' },
+                { name: 'Innovation Bridge - G20 Open Innovation', url: 'https://innovationbridge.info/' },
+                { name: 'B20 South Africa (Business Engagement)', url: 'https://www.b20southafrica.org/' },
+                { name: 'United Nations Development Programme', url: 'https://www.undp.org/' },
+                { name: 'World Bank - South Africa', url: 'https://www.worldbank.org/en/country/southafrica' },
+              ],
+            },
+            {
               category: 'Government Portals',
               items: [
                 { name: 'Department of Land Affairs', url: 'https://www.dlapsa.gov.za/' },
                 { name: 'Land Claims Commission', url: 'https://www.lcc.org.za/' },
                 { name: 'SAHRA (Heritage Resources)', url: 'https://www.sahra.org.za/' },
-                { name: 'Department of Mineral Resources', url: 'https://www.dmr.gov.za/' },
+                { name: 'Department of Mineral Resources and Energy', url: 'https://www.dmr.gov.za/' },
+                { name: 'Department of Agriculture, Land Reform and Rural Development', url: 'https://www.dalrrd.gov.za/' },
+                { name: 'National Heritage Council', url: 'https://www.nhc.org.za/' },
+              ],
+            },
+            {
+              category: 'Mining Industry & Regulation',
+              items: [
+                { name: 'Minerals Council South Africa', url: 'https://www.mineralscouncil.org.za/' },
+                { name: 'Anglo American - South Africa', url: 'https://southafrica.angloamerican.com/' },
+                { name: 'Impala Platinum (Implats)', url: 'https://www.implats.co.za/' },
+                { name: 'Sibanye-Stillwater', url: 'https://www.sibanyestillwater.com/' },
+                { name: 'Mining Qualification Authority', url: 'https://www.mqa.org.za/' },
+                { name: 'Council for Geoscience', url: 'https://www.geoscience.org.za/' },
+                { name: 'Mogalakwena Mine Profile', url: 'https://southafrica.angloamerican.com/our-stories/mine_profile_mogalakwena' },
+                { name: 'Platinum Group Metals Association', url: 'https://www.pgma.co.za/' },
               ],
             },
             {
@@ -61,6 +87,8 @@ export default function ResourcesTab() {
                 { name: 'Land and Accountability Research Centre', url: 'https://www.lrc.org.za/' },
                 { name: 'Community Law Centre', url: 'https://www.communitylawcentre.org.za/' },
                 { name: 'Indigenous Peoples Network', url: 'https://www.iwgia.org/' },
+                { name: 'ActionAid South Africa', url: 'https://southafrica.actionaid.org/' },
+                { name: 'Bench Marks Foundation', url: 'https://www.bench-marks.org.za/' },
               ],
             },
             {
@@ -70,6 +98,8 @@ export default function ResourcesTab() {
                 { name: 'South African History Online', url: 'https://www.sahistory.org.za/' },
                 { name: 'Genealogy Research Databases', url: 'https://www.familysearch.org/' },
                 { name: 'Heritage Documentation Projects', url: 'https://www.sahra.org.za/heritage-resources' },
+                { name: 'University of Pretoria - Centre for Human Rights', url: 'https://www.up.ac.za/centre-for-human-rights' },
+                { name: 'African Mining Vision', url: 'https://www.africaminingvision.org/' },
               ],
             },
             {
@@ -79,6 +109,30 @@ export default function ResourcesTab() {
                 { name: 'Land Rights Act Resources', url: 'https://www.justice.gov.za/' },
                 { name: 'International Indigenous Rights', url: 'https://www.un.org/development/desa/indigenouspeoples/' },
                 { name: 'Legal Aid Organizations', url: 'https://www.legalaid.org.za/' },
+                { name: 'Land Reform Legislation', url: 'https://www.dalrrd.gov.za/legislation' },
+                { name: 'Mineral and Petroleum Resources Development Act', url: 'https://www.gov.za/documents/mineral-and-petroleum-resources-development-act' },
+              ],
+            },
+            {
+              category: 'Youth & Economic Development',
+              items: [
+                { name: 'National Youth Development Agency (NYDA)', url: 'https://www.nyda.gov.za/' },
+                { name: 'Youth Employment Service (YES)', url: 'https://www.yes4youth.org/' },
+                { name: 'Department of Small Business Development', url: 'https://www.dsbd.gov.za/' },
+                { name: 'SEFA (Small Enterprise Finance Agency)', url: 'https://www.sefa.org.za/' },
+                { name: 'National Skills Fund', url: 'https://www.nsf.org.za/' },
+                { name: 'Harambee Youth Employment Accelerator', url: 'https://www.harambee.co.za/' },
+              ],
+            },
+            {
+              category: 'Economic & Statistical Data',
+              items: [
+                { name: 'Statistics South Africa', url: 'https://www.statssa.gov.za/' },
+                { name: 'South African Reserve Bank', url: 'https://www.resbank.co.za/' },
+                { name: 'Department of Trade, Industry and Competition', url: 'https://www.thedtic.gov.za/' },
+                { name: 'Industrial Development Corporation', url: 'https://www.idc.co.za/' },
+                { name: 'Mining Industry Statistics', url: 'https://www.mineralscouncil.org.za/industry-news/statistics' },
+                { name: 'World Economic Forum - Mining & Metals', url: 'https://www.weforum.org/industries/mining-and-metals' },
               ],
             },
           ]);
@@ -139,7 +193,7 @@ export default function ResourcesTab() {
                     {section.category}
                   </h3>
                   <ul className="space-y-2">
-                    {section.items.map((item: any, itemIndex: number) => (
+                    {section.items.map((item: {name: string, url: string}, itemIndex: number) => (
                       <li key={itemIndex}>
                         <a
                           href={item.url}
@@ -170,7 +224,7 @@ export default function ResourcesTab() {
                 <p className="text-white mb-4 font-inter text-sm">
                   Recommended books, articles, and academic papers on land restitution, indigenous rights, and South African history.
                 </p>
-                <a href="#" className="text-yellow hover:text-yellow/80 transition-colors font-semibold font-inter text-sm">
+                <a href="/resources" className="text-yellow hover:text-yellow/80 transition-colors font-semibold font-inter text-sm">
                   View Reading List →
                 </a>
               </div>
@@ -179,7 +233,7 @@ export default function ResourcesTab() {
                 <p className="text-white mb-4 font-inter text-sm">
                   Educational resources for students, educators, and community members learning about Ga-Mawela and land restitution.
                 </p>
-                <a href="#" className="text-yellow hover:text-yellow/80 transition-colors font-semibold font-inter text-sm">
+                <a href="/resources" className="text-yellow hover:text-yellow/80 transition-colors font-semibold font-inter text-sm">
                   Access Materials →
                 </a>
               </div>
@@ -194,7 +248,7 @@ export default function ResourcesTab() {
             <p className="text-white mb-6 font-inter text-sm">
               Our team can help you locate specific documents, research materials, or connect you with relevant organizations.
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
+            <a href="/contact" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
               Contact Support
             </a>
           </div>

@@ -223,7 +223,7 @@ export default function GalleryTab() {
               These images document the Ga-Mawela territory, community spaces, heritage sites, and cultural landmarks.
               Each image represents a piece of our collective history and connection to the land.
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm">
+            <a href="/upload" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm">
               Share Your Photos
             </a>
           </div>

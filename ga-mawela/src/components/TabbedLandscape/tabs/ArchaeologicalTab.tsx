@@ -99,7 +99,7 @@ export default function ArchaeologicalTab() {
         <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.1}>
           <div className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-8 text-center rounded-lg hover:bg-white/20">
             <h3 className="text-2xl font-bold text-yellow mb-4 font-merriweather">Download Heritage Reports</h3>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
+            <a href="/resources" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
               SAHRA Heritage Report
             </a>
           </div>

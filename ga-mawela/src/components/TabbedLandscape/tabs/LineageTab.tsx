@@ -104,7 +104,7 @@ export default function LineageTab() {
             <p className="text-white mb-6 font-inter text-sm">
               If you believe you are a descendant of Masetu, submit your genealogical information to strengthen our community claim.
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
+            <a href="/upload" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block font-inter text-sm rounded">
               Submit Family Records
             </a>
           </div>

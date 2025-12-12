@@ -86,7 +86,7 @@ export default function LegalTab() {
             <p className="text-white mb-4 text-sm font-inter">
               Help strengthen our claim by submitting genealogical records, photographs, testimonies, or any documentation proving connection to Ga-Mawela.
             </p>
-            <a href="#" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block text-sm font-inter rounded">
+            <a href="/upload" className="px-6 py-3 bg-yellow text-black font-semibold hover:bg-yellow/90 transition-all inline-block text-sm font-inter rounded">
               Submit Evidence
             </a>
           </div>

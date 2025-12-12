@@ -8,14 +8,24 @@ export default function YouthTab() {
 
   const youthPrograms = [
     {
+      title: 'G20 Youth Entrepreneurship Alliance',
+      description: 'Global youth entrepreneurship programs supported by G20 initiatives, focusing on innovation and economic development.',
+      link: 'https://www.g20.org/what-we-do/youth-entrepreneurship',
+    },
+    {
       title: 'Land Rights Education',
       description: 'Comprehensive education on land restitution, property rights, and legal frameworks affecting indigenous communities.',
       link: 'https://www.lrc.org.za',
     },
     {
-      title: 'Skills Development',
-      description: 'Training programs in agriculture, sustainable mining practices, and community development.',
-      link: 'https://www.zimele.co.za',
+      title: 'Mining Skills Development Program',
+      description: 'Training programs in sustainable mining practices, safety, and community development supported by mining corporations.',
+      link: 'https://www.mineralscouncil.org.za/skills-development',
+    },
+    {
+      title: 'G20 Innovation Bridge Youth Programs',
+      description: 'Technology innovation and entrepreneurship programs for youth in the mining and energy sectors.',
+      link: 'https://innovationbridge.info/youth-programs',
     },
     {
       title: 'Leadership Training',
@@ -23,32 +33,62 @@ export default function YouthTab() {
       link: 'https://www.sahistory.org.za',
     },
     {
+      title: 'Youth in Mining Initiative',
+      description: 'Career development and skills training for youth interested in the mining industry, supported by major mining companies.',
+      link: 'https://www.angloamerican.com/sustainability/skills-development',
+    },
+    {
       title: 'Economic Empowerment',
-      description: 'Business development, entrepreneurship, and access to funding for youth-led initiatives.',
-      link: 'https://www.dbe.gov.za',
+      description: 'Business development, entrepreneurship, and access to funding for youth-led initiatives in mining-affected communities.',
+      link: 'https://www.dsbd.gov.za',
+    },
+    {
+      title: 'G20 Digital Skills for Youth',
+      description: 'Digital literacy and technology skills training programs supported by G20 digital transformation initiatives.',
+      link: 'https://www.g20.org/what-we-do/digital-economy',
     },
   ];
 
   const resources = [
     {
-      title: 'Department of Youth Development',
-      url: 'https://www.dsd.gov.za/index.php/youth-development',
-      description: 'Government programs for youth empowerment and development',
+      title: 'G20 Youth Portal',
+      url: 'https://www.g20.org/what-we-do/youth',
+      description: 'G20 initiatives and programs for youth empowerment and economic participation',
+    },
+    {
+      title: 'National Youth Development Agency (NYDA)',
+      url: 'https://www.nyda.gov.za/',
+      description: 'Government agency for youth empowerment, funding, and development programs',
+    },
+    {
+      title: 'Youth Employment Service (YES)',
+      url: 'https://www.yes4youth.org/',
+      description: 'Youth employment initiatives and skills development programs',
+    },
+    {
+      title: 'Department of Mineral Resources - Youth Programs',
+      url: 'https://www.dmr.gov.za/youth-programs',
+      description: 'Mining sector youth development and career opportunities',
+    },
+    {
+      title: 'Anglo American Youth Programs',
+      url: 'https://www.angloamerican.com/sustainability/youth-programs',
+      description: 'Mining corporation youth empowerment and education initiatives',
+    },
+    {
+      title: 'Minerals Council Youth in Mining',
+      url: 'https://www.mineralscouncil.org.za/youth-in-mining',
+      description: 'Career development and skills training for youth in mining',
     },
     {
       title: 'Land and Accountability Research Centre',
       url: 'https://www.lrc.org.za',
-      description: 'Research and advocacy on land rights and restitution',
+      description: 'Research and advocacy on land rights and restitution for youth',
     },
     {
-      title: 'Zimele - Community Development',
-      url: 'https://www.zimele.co.za',
-      description: 'Community-based development and empowerment programs',
-    },
-    {
-      title: 'South African History Online',
-      url: 'https://www.sahistory.org.za',
-      description: 'Educational resources on South African history and heritage',
+      title: 'Innovation Bridge Youth Programs',
+      url: 'https://innovationbridge.info/youth-innovation',
+      description: 'Technology innovation and entrepreneurship for youth',
     },
   ];
 

@@ -49,6 +49,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-3 font-merriweather">Resources</h4>
             <ul className="space-y-1">
+              <li><a href="/resource-hub" onClick={handleRipple} className="text-white hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Comprehensive Resource Hub">Resource Hub</a></li>
               <li><a href="https://www.dlapsa.gov.za/" target="_blank" rel="noopener noreferrer" onClick={handleRipple} className="text-white hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Visit Department of Land Affairs">Government Portals</a></li>
               <li><a href="https://www.lrc.org.za/" target="_blank" rel="noopener noreferrer" onClick={handleRipple} className="text-white hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Visit Land and Accountability Research Centre">NGO Partners</a></li>
               <li><a href="https://www.sahistory.org.za/" target="_blank" rel="noopener noreferrer" onClick={handleRipple} className="text-white hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Visit South African History Online">Academic Research</a></li>
@@ -83,9 +84,9 @@ export default function Footer() {
             © {currentYear} GA-MAWELA. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <a href="#" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Privacy Policy">Privacy Policy</a>
-            <a href="#" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Terms of Use">Terms of Use</a>
-            <a href="#" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Accessibility">Accessibility</a>
+            <a href="/privacy" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Privacy Policy">Privacy Policy</a>
+            <a href="/terms" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Terms of Use">Terms of Use</a>
+            <a href="/accessibility" onClick={handleRipple} className="text-gray-300 hover:text-yellow hover:scale-105 transition-all text-xs font-inter relative overflow-hidden inline-block" title="Accessibility">Accessibility</a>
           </div>
         </div>
       </div>
