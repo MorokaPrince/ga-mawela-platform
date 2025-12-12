@@ -41,14 +41,17 @@ export async function GET(request: NextRequest) {
         fileType: 'pdf,doc,docx,xls,xlsx,ppt,pptx', // Focus on documents
       });
 
-      results = response.data.items?.map(item => ({
-        title: item.title || 'Untitled',
-        url: item.link || '',
-        snippet: item.snippet || '',
-        source: item.displayLink || '',
-        date: item.snippet?.match(/(\d{4})/)?.length ? item.snippet.match(/(\d{4})/)[0] : undefined,
-        fileType: item.fileFormat || undefined
-      })) || [];
+      results = response.data.items?.map(item => {
+        const match = item.snippet?.match(/(\d{4})/);
+        return {
+          title: item.title ?? 'Untitled',
+          url: item.link ?? '',
+          snippet: item.snippet ?? '',
+          source: item.displayLink ?? '',
+          date: match ? match[0] : undefined,
+          fileType: item.fileFormat ?? undefined
+        };
+      }) || [];
     } else {
       // Fallback: Web scraping approach (less reliable, for demo purposes)
       console.warn('Google API credentials not configured, using fallback search method');
