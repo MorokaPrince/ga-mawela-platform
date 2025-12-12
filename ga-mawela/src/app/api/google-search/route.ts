@@ -6,7 +6,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { google } from 'googleapis';
 import axios from 'axios';
-import cheerio from 'cheerio';
 
 interface SearchResult {
   title: string;
