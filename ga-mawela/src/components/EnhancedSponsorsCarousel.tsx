@@ -14,32 +14,77 @@ interface Sponsor {
 }
 
 const sponsors: Sponsor[] = [
+  // G20 South Africa Presidency & Engagement Groups
   {
     id: '1',
     name: 'G20 South Africa',
     logo: '/Images/sponsours/g20-sa.png',
-    description: 'Global economic cooperation and South African participation',
-    category: 'International',
+    description: 'Official G20 South Africa Presidency and global economic cooperation',
+    category: 'G20 Presidency',
     website: 'https://g20.org'
   },
   {
     id: '2',
-    name: 'Department of Mineral Resources and Energy',
-    logo: '/Images/sponsours/Department-of-Mineral-Resources-and-Energy-1200x675-cropped.jpg',
-    description: 'Government oversight of mining operations and energy policy',
-    category: 'Government',
-    website: 'https://www.dmr.gov.za'
+    name: 'Y20 South Africa',
+    logo: 'https://logo.clearbit.com/y20southafrica.org',
+    description: 'Youth 20 South Africa - Youth engagement in G20 process',
+    category: 'G20 Presidency',
+    website: 'https://y20southafrica.org'
   },
   {
     id: '3',
-    name: 'Department of Land Reform and Rural Development',
-    logo: '/Images/sponsours/thumb_department_of_land_reform_and_rural_development_(dlrrd).png',
-    description: 'Land restitution and rural development initiatives',
-    category: 'Government',
-    website: 'https://www.dlrrd.gov.za'
+    name: 'B20 South Africa',
+    logo: 'https://logo.clearbit.com/b20southafrica.org',
+    description: 'Business 20 South Africa - Private sector engagement in G20',
+    category: 'G20 Presidency',
+    website: 'https://b20southafrica.org'
   },
   {
     id: '4',
+    name: 'DIRCO',
+    logo: 'https://logo.clearbit.com/dirco.gov.za',
+    description: 'Department of International Relations & Cooperation',
+    category: 'Government',
+    website: 'https://dirco.gov.za'
+  },
+  {
+    id: '5',
+    name: 'The Presidency',
+    logo: 'https://logo.clearbit.com/thepresidency.gov.za',
+    description: 'The Presidency - Media and G20 Resources',
+    category: 'Government',
+    website: 'https://www.thepresidency.gov.za'
+  },
+
+  // Innovation Bridge, Tech & SA Innovation Ecosystem
+  {
+    id: '6',
+    name: 'Innovation Bridge Portal',
+    logo: '/assets/images/innovation-bridge-logo.png',
+    description: 'G20 Open Innovation Platform and technology innovation hub',
+    category: 'Innovation',
+    website: 'https://innovationbridge.info'
+  },
+  {
+    id: '7',
+    name: 'Technology Innovation Agency',
+    logo: 'https://logo.clearbit.com/tia.org.za',
+    description: 'National innovation agency supporting technology development',
+    category: 'Innovation',
+    website: 'http://www.tia.org.za'
+  },
+  {
+    id: '8',
+    name: 'Council for Scientific & Industrial Research',
+    logo: 'https://logo.clearbit.com/csir.co.za',
+    description: 'CSIR - Leading scientific research organization',
+    category: 'Innovation',
+    website: 'https://www.csir.co.za'
+  },
+
+  // Mining Industry Partners, Innovation Hubs & CSI Organizations
+  {
+    id: '9',
     name: 'Anglo American',
     logo: '/Images/sponsours/anglo-american.png',
     description: 'Major mining corporation with community development programs',
@@ -47,7 +92,15 @@ const sponsors: Sponsor[] = [
     website: 'https://www.angloamerican.com'
   },
   {
-    id: '5',
+    id: '10',
+    name: 'AngloGold Ashanti',
+    logo: 'https://logo.clearbit.com/anglogoldashanti.com',
+    description: 'South African legacy projects and community development',
+    category: 'Mining',
+    website: 'https://www.anglogoldashanti.com/sustainability/social/people/sa-legacy-projects/'
+  },
+  {
+    id: '11',
     name: 'Impala Platinum',
     logo: '/Images/sponsours/implats.png',
     description: 'Platinum group metals mining and processing',
@@ -55,39 +108,85 @@ const sponsors: Sponsor[] = [
     website: 'https://www.implats.co.za'
   },
   {
-    id: '6',
+    id: '12',
+    name: 'Sibanye-Stillwater',
+    logo: 'https://logo.clearbit.com/sibanyestillwater.com',
+    description: 'Precious metals mining company with community initiatives',
+    category: 'Mining',
+    website: 'https://www.sibanyestillwater.com/news-investors/media-gallery/'
+  },
+  {
+    id: '13',
+    name: 'Mandela Mining Precinct',
+    logo: 'https://logo.clearbit.com/mandelaminingprecinct.org.za',
+    description: 'Mining innovation hub and research collaboration',
+    category: 'Mining Innovation',
+    website: 'https://mandelaminingprecinct.org.za'
+  },
+  {
+    id: '14',
+    name: 'MEMSA',
+    logo: 'https://logo.clearbit.com/memsa.org.za',
+    description: 'Mining Equipment Manufacturers of South Africa',
+    category: 'Mining Innovation',
+    website: 'https://memsa.org.za'
+  },
+  {
+    id: '15',
+    name: 'Mining CSI Magazine',
+    logo: 'https://logo.clearbit.com/miningcsi.co.za',
+    description: 'Corporate social investment in mining sector',
+    category: 'Mining',
+    website: 'https://www.miningcsi.co.za'
+  },
+  {
+    id: '16',
     name: 'Minerals Council South Africa',
-    logo: '/Images/sponsours/minerals-council.png',
+    logo: 'https://logo.clearbit.com/mineralscouncil.org.za',
     description: 'Industry association representing mining companies',
-    category: 'Industry',
+    category: 'Mining Industry',
     website: 'https://www.mineralscouncil.org.za'
   },
+
+  // Land Affairs, Agriculture & Rural Development
   {
-    id: '7',
-    name: 'Zimele',
-    logo: '/Images/sponsours/zimele.png',
-    description: 'Community development and enterprise support',
-    category: 'Community',
-    website: 'https://www.zimele.co.za'
+    id: '17',
+    name: 'Department of Agriculture, Land Reform & Rural Development',
+    logo: '/Images/sponsours/thumb_department_of_land_reform_and_rural_development_(dlrrd).png',
+    description: 'Land restitution, agriculture and rural development initiatives',
+    category: 'Government',
+    website: 'https://www.dalrrd.gov.za'
   },
   {
-    id: '8',
+    id: '18',
+    name: 'Department of Mineral Resources and Energy',
+    logo: '/Images/sponsours/Department-of-Mineral-Resources-and-Energy-1200x675-cropped.jpg',
+    description: 'Government oversight of mining operations and energy policy',
+    category: 'Government',
+    website: 'https://www.dmr.gov.za'
+  },
+
+  // Heritage, Cultural & Historical Organizations
+  {
+    id: '19',
     name: 'South African Heritage Resources Agency',
     logo: '/Images/sponsours/sahra.png',
     description: 'Heritage conservation and cultural resource management',
     category: 'Heritage',
-    website: 'https://www.sahra.org.za'
+    website: 'http://www.sahra.org.za'
   },
   {
-    id: '9',
-    name: 'National Heritage Council',
-    logo: '/Images/sponsours/nhc.png',
-    description: 'Promotion and preservation of South African heritage',
+    id: '20',
+    name: 'SA Heritage Resources Information System',
+    logo: 'https://logo.clearbit.com/sahris.sahra.org.za',
+    description: 'Digital heritage resources information system',
     category: 'Heritage',
-    website: 'https://www.nhc.org.za'
+    website: 'https://sahris.sahra.org.za'
   },
+
+  // Youth, Skills, Employment & Training
   {
-    id: '10',
+    id: '21',
     name: 'National Youth Development Agency',
     logo: '/Images/sponsours/nyda.png',
     description: 'Youth empowerment and development programs',
@@ -95,20 +194,48 @@ const sponsors: Sponsor[] = [
     website: 'https://www.nyda.gov.za'
   },
   {
-    id: '11',
+    id: '22',
     name: 'Youth Employment Service',
-    logo: '/Images/sponsours/yes.png',
+    logo: 'https://logo.clearbit.com/yes4youth.org',
     description: 'Youth employment initiatives and skills development',
     category: 'Youth',
     website: 'https://www.yes4youth.org'
   },
   {
-    id: '12',
-    name: 'Innovation Bridge',
-    logo: '/Images/sponsours/innovation-bridge.png',
-    description: 'Technology innovation and economic development',
-    category: 'Innovation',
-    website: 'https://innovationbridge.info'
+    id: '23',
+    name: 'Mining Community ICT Learnership Programme',
+    logo: 'https://logo.clearbit.com/africanminingnews.co.za',
+    description: 'ICT skills development for mining communities',
+    category: 'Youth',
+    website: 'https://www.africanminingnews.co.za/technology/learnership-empowers-101-youth-from-mining-communities-with-ict-skills/'
+  },
+
+  // Development & Investment Partners
+  {
+    id: '24',
+    name: 'UNDP South Africa',
+    logo: 'https://logo.clearbit.com/undp.org',
+    description: 'United Nations Development Programme South Africa',
+    category: 'International Development',
+    website: 'https://www.undp.org/sa/'
+  },
+  {
+    id: '25',
+    name: 'InvestSA',
+    logo: 'https://logo.clearbit.com/investsa.gov.za',
+    description: 'Investment promotion and facilitation agency',
+    category: 'Investment',
+    website: 'https://www.investsa.gov.za'
+  },
+
+  // Legacy Community Partners
+  {
+    id: '26',
+    name: 'Zimele',
+    logo: '/Images/sponsours/zimele.png',
+    description: 'Community development and enterprise support',
+    category: 'Community',
+    website: 'https://www.zimele.co.za'
   }
 ];
 
@@ -330,7 +457,20 @@ export default function EnhancedSponsorsCarousel() {
         {/* Category Filter */}
         <div className="mt-12">
           <div className="flex flex-wrap justify-center gap-2 mb-6">
-            {['All', 'Government', 'Mining', 'Industry', 'Heritage', 'Youth', 'Community', 'International', 'Innovation'].map((category) => (
+            {[
+              'All',
+              'G20 Presidency',
+              'Government',
+              'Innovation',
+              'Mining',
+              'Mining Innovation',
+              'Mining Industry',
+              'Heritage',
+              'Youth',
+              'Community',
+              'International Development',
+              'Investment'
+            ].map((category) => (
               <button
                 key={category}
                 className="px-4 py-2 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg text-white text-sm hover:bg-white/20 transition-all"
