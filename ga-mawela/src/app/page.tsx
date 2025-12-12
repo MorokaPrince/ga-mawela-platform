@@ -1,6 +1,10 @@
 'use client';
 
 import TabbedLandscapeLayout from "@/components/TabbedLandscape/TabbedLandscapeLayout";
+import ParallaxSection from "@/components/saG20/ParallaxSection";
+import FloatingBlobsSection from "@/components/saG20/FloatingBlobsSection";
+import ScrollRevealSection from "@/components/saG20/ScrollRevealSection";
+import BrandColorSection from "@/components/saG20/BrandColorSection";
 
 export default function Home() {
   return (
@@ -14,6 +18,17 @@ export default function Home() {
       </a>
 
       <TabbedLandscapeLayout />
+
+{/* SA_G20_SECTION_INSERTED - the following sections were added by automation.
+   Uncomment whichever variant you prefer OR keep multiple for A/B.
+*/}
+
+{/* --- SA G20 Modules (drop-in) --- */}
+{/* <ParallaxSection /> */}
+{/* <FloatingBlobsSection /> */}
+{/* <ScrollRevealSection /> */}
+{/* <BrandColorSection /> */}
+
     </main>
   );
 }

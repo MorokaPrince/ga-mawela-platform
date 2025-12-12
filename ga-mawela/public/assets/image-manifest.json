@@ -1,0 +1,75 @@
+{
+  "generated_at": "2025-12-12T08:57:42.052Z",
+  "images": [
+    {
+      "id": "g20_mg_logo",
+      "filename": "/assets/logos/g20-mg-logo.png",
+      "source_url": "https://g20.mg.co.za/wp-content/uploads/2025/10/logo-512x512-1.png",
+      "credit": "Mail & Guardian (G20 hub)",
+      "license": "use press kit / contact M&G for commercial rights"
+    },
+    {
+      "id": "anglo",
+      "filename": "/assets/logos/anglo.png",
+      "source_url": "https://logo.clearbit.com/angloamerican.com",
+      "credit": "Anglo American (placeholder - request press kit)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "amplats",
+      "filename": "/assets/logos/amplats.png",
+      "source_url": "https://logo.clearbit.com/angloamericanplatinum.com",
+      "credit": "Anglo American Platinum (placeholder - request press kit)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "implats",
+      "filename": "/assets/logos/implats.png",
+      "source_url": "https://logo.clearbit.com/implats.co.za",
+      "credit": "Implats (placeholder - request press kit)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "nyda",
+      "filename": "/assets/logos/nyda.png",
+      "source_url": "https://logo.clearbit.com/nyda.gov.za",
+      "credit": "NYDA (placeholder)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "sahra",
+      "filename": "/assets/logos/sahra.png",
+      "source_url": "https://logo.clearbit.com/sahra.org.za",
+      "credit": "SAHRA (placeholder)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "dalrrd",
+      "filename": "/assets/logos/dalrrd.png",
+      "source_url": "https://logo.clearbit.com/nda.gov.za",
+      "credit": "DALRRD (placeholder)",
+      "license": "placeholder - replace with official brand toolkit"
+    },
+    {
+      "id": "innovation_bridge_hero",
+      "filename": "/assets/images/innovation-bridge-hero.jpg",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Open-Innovation-Platform-Hero.jpg",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
+    },
+    {
+      "id": "g20_partners",
+      "filename": "/assets/images/g20-partners.jpg",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Partners-Image.jpg",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
+    },
+    {
+      "id": "limpopo_youth",
+      "filename": "/assets/images/limpopo-youth.jpg",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/Limpopo-Youth-Programme.jpg",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
+    }
+  ]
+}
