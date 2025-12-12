@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { G20Feed } from "@/lib/feeds";
+import { IG20Feed } from "@/lib/feeds";
 
 export default function ParallaxSection() {
-  const [feeds, setFeeds] = useState<G20Feed[]>([]);
+  const [feeds, setFeeds] = useState<IG20Feed[]>([]);
 
   useEffect(() => {
     fetch('/api/g20-feeds').then(res => res.json()).then(setFeeds).catch(console.error);

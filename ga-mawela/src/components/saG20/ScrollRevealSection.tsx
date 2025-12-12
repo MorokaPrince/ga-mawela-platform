@@ -1,12 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { G20Feed } from "@/lib/feeds";
+import { IG20Feed } from "@/lib/feeds";
 
 const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
 
 export default function ScrollRevealSection() {
-  const [feeds, setFeeds] = useState<G20Feed[]>([]);
+  const [feeds, setFeeds] = useState<IG20Feed[]>([]);
 
   useEffect(() => {
     fetch('/api/g20-feeds').then(res => res.json()).then(setFeeds).catch(console.error);
