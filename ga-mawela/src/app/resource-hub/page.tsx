@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { FaChevronLeft, FaChevronRight, FaExternalLinkAlt, FaGlobe, FaIndustry, FaGavel, FaGraduationCap, FaUsers, FaSearch, FaDownload } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaGlobe, FaIndustry, FaGavel, FaGraduationCap, FaUsers, FaSearch, FaDownload } from 'react-icons/fa';
 import EnhancedSponsorsCarousel from '@/components/EnhancedSponsorsCarousel';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
 

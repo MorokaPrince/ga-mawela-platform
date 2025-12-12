@@ -42,7 +42,7 @@ export async function fetchAndStoreG20Feeds() {
           try {
             const { result } = await ogs({ url: item.link! });
             ogData = { ogImage: result.ogImage?.[0]?.url, ogDescription: result.ogDescription };
-          } catch (e) {
+          } catch {
             console.log('OG scrape failed for', item.link);
           }
           await G20Feed.create({
