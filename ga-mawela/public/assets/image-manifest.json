@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-12T08:57:42.052Z",
+  "generated_at": "2025-12-12T18:50:52.400Z",
   "images": [
     {
       "id": "g20_mg_logo",
@@ -7,6 +7,27 @@
       "source_url": "https://g20.mg.co.za/wp-content/uploads/2025/10/logo-512x512-1.png",
       "credit": "Mail & Guardian (G20 hub)",
       "license": "use press kit / contact M&G for commercial rights"
+    },
+    {
+      "id": "innovation_bridge_logo",
+      "filename": "/assets/images/innovation-bridge-logo.png",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/logo.png",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
+    },
+    {
+      "id": "innovation_bridge_hero",
+      "filename": "/assets/images/innovation-bridge-hero.jpg",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Open-Innovation-Platform-Hero.jpg",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
+    },
+    {
+      "id": "innovation_bridge_partners",
+      "filename": "/assets/images/innovation-bridge-partners.jpg",
+      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Partners-Image.jpg",
+      "credit": "Innovation Bridge Portal",
+      "license": "Public domain / check portal for usage"
     },
     {
       "id": "anglo",
@@ -49,27 +70,6 @@
       "source_url": "https://logo.clearbit.com/nda.gov.za",
       "credit": "DALRRD (placeholder)",
       "license": "placeholder - replace with official brand toolkit"
-    },
-    {
-      "id": "innovation_bridge_hero",
-      "filename": "/assets/images/innovation-bridge-hero.jpg",
-      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Open-Innovation-Platform-Hero.jpg",
-      "credit": "Innovation Bridge Portal",
-      "license": "Public domain / check portal for usage"
-    },
-    {
-      "id": "g20_partners",
-      "filename": "/assets/images/g20-partners.jpg",
-      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/G20-Partners-Image.jpg",
-      "credit": "Innovation Bridge Portal",
-      "license": "Public domain / check portal for usage"
-    },
-    {
-      "id": "limpopo_youth",
-      "filename": "/assets/images/limpopo-youth.jpg",
-      "source_url": "https://innovationbridge.info/ibportal/wp-content/uploads/2023/08/Limpopo-Youth-Programme.jpg",
-      "credit": "Innovation Bridge Portal",
-      "license": "Public domain / check portal for usage"
     }
   ]
 }
