@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import { fetchAndStoreG20Feeds, G20Feed } from '@/lib/feeds';
 
