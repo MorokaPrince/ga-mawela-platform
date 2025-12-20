@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
+import PartnersExhibition from '@/components/PartnersExhibition';
 import { createScrollRevealAnimation, createParallaxAnimation } from '@/animations/gsapAnimations';
 
 export default function HeroTab() {
