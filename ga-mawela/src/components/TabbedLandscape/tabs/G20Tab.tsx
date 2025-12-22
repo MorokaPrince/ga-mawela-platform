@@ -9,99 +9,186 @@ import FloatingBlobsSection from '@/components/saG20/FloatingBlobsSection';
 import BrandColorSection from '@/components/saG20/BrandColorSection';
 import PartnersExhibition from '@/components/PartnersExhibition';
 
-interface G20Member {
+interface SAPartner {
   name: string;
-  region: string;
-  flag: string;
-  economy: string;
+  description: string;
+  website: string;
+  category: string;
+  logo?: string;
 }
 
-interface G20Priority {
+interface SAInitiative {
   title: string;
   description: string;
-  icon: string;
+  status: string;
+  impact: string;
 }
 
 export default function G20Tab() {
   const [activeSection, setActiveSection] = useState('overview');
 
-  const g20Members: G20Member[] = [
-    { name: 'Argentina', region: 'Americas', flag: '🇦🇷', economy: 'G20 Member' },
-    { name: 'Australia', region: 'Asia-Pacific', flag: '🇦🇺', economy: 'G20 Member' },
-    { name: 'Brazil', region: 'Americas', flag: '🇧🇷', economy: 'G20 Member' },
-    { name: 'Canada', region: 'Americas', flag: '🇨🇦', economy: 'G20 Member' },
-    { name: 'China', region: 'Asia', flag: '🇨🇳', economy: 'G20 Member' },
-    { name: 'France', region: 'Europe', flag: '🇫🇷', economy: 'G20 Member' },
-    { name: 'Germany', region: 'Europe', flag: '🇩🇪', economy: 'G20 Member' },
-    { name: 'India', region: 'Asia', flag: '🇮🇳', economy: 'G20 Member' },
-    { name: 'Indonesia', region: 'Asia', flag: '🇮🇩', economy: 'G20 Member' },
-    { name: 'Italy', region: 'Europe', flag: '🇮🇹', economy: 'G20 Member' },
-    { name: 'Japan', region: 'Asia', flag: '🇯🇵', economy: 'G20 Member' },
-    { name: 'Mexico', region: 'Americas', flag: '🇲🇽', economy: 'G20 Member' },
-    { name: 'Russia', region: 'Europe/Asia', flag: '🇷🇺', economy: 'G20 Member' },
-    { name: 'Saudi Arabia', region: 'Middle East', flag: '🇸🇦', economy: 'G20 Member' },
-    { name: 'South Africa', region: 'Africa', flag: '🇿🇦', economy: 'G20 Member' },
-    { name: 'South Korea', region: 'Asia', flag: '🇰🇷', economy: 'G20 Member' },
-    { name: 'Turkey', region: 'Europe/Asia', flag: '🇹🇷', economy: 'G20 Member' },
-    { name: 'United Kingdom', region: 'Europe', flag: '🇬🇧', economy: 'G20 Member' },
-    { name: 'United States', region: 'Americas', flag: '🇺🇸', economy: 'G20 Member' },
-    { name: 'European Union', region: 'Europe', flag: '🇪🇺', economy: 'EU' },
-  ];
-
-  const g20Priorities: G20Priority[] = [
+  const saG20Priorities: SAInitiative[] = [
     {
-      title: 'Global Economic Stability',
-      description: 'Coordinating fiscal and monetary policies to ensure global economic resilience and growth.',
-      icon: '🌍'
+      title: 'Inclusive Economic Growth',
+      description: 'Promoting sustainable and inclusive economic development across the African continent through G20 cooperation.',
+      status: 'Active',
+      impact: 'Continental'
     },
     {
-      title: 'Trade & Investment',
-      description: 'Promoting free trade, investment flows, and inclusive global economic integration.',
-      icon: '💼'
+      title: 'Mining & Energy Transition',
+      description: 'Leading global discussions on sustainable mining practices and renewable energy transition in developing economies.',
+      status: 'Active',
+      impact: 'Global'
     },
     {
-      title: 'Climate Action',
-      description: 'Advancing sustainable development goals and climate change mitigation strategies.',
-      icon: '🌱'
+      title: 'Digital Economy Development',
+      description: 'Advancing digital transformation and technology innovation across G20 member states.',
+      status: 'Active',
+      impact: 'Global'
     },
     {
-      title: 'Digital Transformation',
-      description: 'Fostering digital economy development and technological innovation across member nations.',
-      icon: '💻'
+      title: 'Youth Employment & Skills',
+      description: 'Creating opportunities for young people through education, training, and entrepreneurship programs.',
+      status: 'Active',
+      impact: 'Continental'
     },
     {
-      title: 'Health & Security',
-      description: 'Strengthening global health security and pandemic preparedness frameworks.',
-      icon: '🏥'
+      title: 'Health Security & Pandemic Preparedness',
+      description: 'Strengthening global health systems and pandemic response capabilities.',
+      status: 'Active',
+      impact: 'Global'
     },
     {
-      title: 'Youth Employment',
-      description: 'Creating opportunities for young people through education, training, and entrepreneurship.',
-      icon: '👥'
+      title: 'Climate Action & Sustainability',
+      description: 'Implementing sustainable development goals and climate change mitigation strategies.',
+      status: 'Active',
+      impact: 'Global'
     }
   ];
 
-  const southAfricaHighlights = [
+  const saG20Partners: SAPartner[] = [
     {
-      title: 'Mining & Energy Transition',
-      description: 'Leading discussions on sustainable mining practices and renewable energy transition in Africa.',
-      image: '/Images/Mining/Landing home page 1.jpg'
+      name: 'Council for Scientific and Industrial Research (CSIR)',
+      description: 'Leading scientific research organization supporting G20 technology and innovation initiatives.',
+      website: 'https://www.csir.co.za',
+      category: 'Research & Innovation'
     },
     {
-      title: 'Youth Development Programs',
-      description: 'Initiatives supporting youth entrepreneurship and skills development across the continent.',
-      image: '/Images/Mining/Youth Tab backround.webp'
+      name: 'Technology Innovation Agency (TIA)',
+      description: 'Government agency funding technology innovation and supporting G20 innovation challenges.',
+      website: 'http://www.tia.org.za',
+      category: 'Innovation'
     },
     {
-      title: 'Heritage Preservation',
-      description: 'Protecting and promoting cultural heritage sites and indigenous knowledge systems.',
-      image: '/Images/Mining/Material Culture Card.webp'
+      name: 'Tshimologong Digital Innovation Precinct',
+      description: 'Digital hub fostering entrepreneurship and supporting G20 digital economy objectives.',
+      website: 'https://tshimologong.jezi.co.za',
+      category: 'Digital Innovation'
+    },
+    {
+      name: 'Companies and Intellectual Property Commission (CIPC)',
+      description: 'Regulatory body supporting intellectual property protection for G20 innovation initiatives.',
+      website: 'https://www.cipc.co.za',
+      category: 'Intellectual Property'
+    },
+    {
+      name: 'Innovation Hub',
+      description: 'Public-private partnership supporting technology commercialization and G20 innovation goals.',
+      website: 'https://www.innovationhub.co.za',
+      category: 'Innovation'
+    },
+    {
+      name: 'Innovation Bridge Portal',
+      description: 'Digital platform connecting innovators with funding and partnership opportunities.',
+      website: 'https://innovationbridge.info/ibportal/g20',
+      category: 'Innovation Platform'
+    }
+  ];
+
+  const saG20Resources = [
+    {
+      title: 'G20 SA Presidency Knowledge Management Set',
+      description: 'Comprehensive knowledge management resources from South Africa\'s G20 presidency.',
+      url: 'https://www.gov.za/sites/default/files/2024-12/20241025_G20%20SA%20Presidency%20KMs%20SET%201%20-%20Final.pdf',
+      type: 'Official Document'
+    },
+    {
+      title: 'G20 Review Report - SA News',
+      description: 'Official review of South Africa\'s G20 participation and achievements.',
+      url: 'https://www.sanews.gov.za/features-south-africa/g2020-review-report',
+      type: 'Government Report'
+    },
+    {
+      title: 'P20 Parliament G20 Information',
+      description: 'Parliamentary information about South Africa\'s G20 participation and processes.',
+      url: 'https://p20.parliament.gov.za/about-g20',
+      type: 'Parliamentary Resource'
+    },
+    {
+      title: 'G20 Tech Challenge Finalists',
+      description: 'Innovation Bridge Portal showcasing G20 technology challenge finalists and winners.',
+      url: 'https://innovationbridge.info/ibportal/g20/tech-challenge-finalists',
+      type: 'Innovation Showcase'
+    }
+  ];
+
+  const saG20Engagement = [
+    {
+      title: 'South Africa\'s G20 Presidency',
+      description: 'Leadership role in promoting African interests and development priorities within the G20 framework.',
+      achievements: [
+        'Advocated for African Union membership in G20',
+        'Promoted inclusive economic growth across developing nations',
+        'Led discussions on sustainable mining and energy transition',
+        'Supported youth employment and skills development initiatives'
+      ]
+    },
+    {
+      title: 'B20 Business Engagement',
+      description: 'Private sector engagement through Business 20 South Africa (B20SA) representing business interests.',
+      achievements: [
+        'Facilitated private sector input to G20 policy development',
+        'Promoted trade and investment opportunities',
+        'Supported digital transformation initiatives',
+        'Advocated for SME development and entrepreneurship'
+      ]
+    },
+    {
+      title: 'Y20 Youth Participation',
+      description: 'Youth engagement through Youth 20 South Africa (Y20SA) ensuring young voices are heard.',
+      achievements: [
+        'Promoted youth employment and entrepreneurship',
+        'Advocated for digital skills development',
+        'Supported education and training programs',
+        'Facilitated youth participation in policy discussions'
+      ]
+    }
+  ];
+
+  const saHighlights = [
+    {
+      title: 'Mining Innovation Leadership',
+      description: 'South Africa leading global discussions on sustainable mining practices and technology innovation in the mining sector.',
+      image: '/Images/Mining/Landing home page 1.jpg',
+      stats: 'Global Leadership'
+    },
+    {
+      title: 'Digital Economy Advancement',
+      description: 'Driving digital transformation initiatives across G20 member states through technology innovation and skills development.',
+      image: '/Images/Mining/Youth Tab backround.webp',
+      stats: 'Continental Impact'
+    },
+    {
+      title: 'Youth Empowerment Programs',
+      description: 'Comprehensive youth development initiatives creating employment and entrepreneurship opportunities across Africa.',
+      image: '/Images/Mining/Material Culture Card.webp',
+      stats: 'Continental Reach'
     }
   ];
 
   return (
     <div className="w-full bg-metallic-blue-dark relative overflow-hidden">
-      {/* Hero Section with G20 Background */}
+      {/* Hero Section with South Africa G20 Background */}
       <section 
         className="relative w-full min-h-[70vh] flex items-center justify-center bg-cover bg-center bg-fixed"
         style={{
@@ -118,8 +205,8 @@ export default function G20Tab() {
               transition={{ duration: 0.8 }}
             >
               <h1 className="text-5xl md:text-7xl font-black text-white mb-6 font-merriweather leading-tight">
-                <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-yellow-500 bg-clip-text text-transparent">
-                  G20
+                <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-red-400 bg-clip-text text-transparent">
+                  🇿🇦 G20
                 </span>
                 <br />
                 <span className="text-3xl md:text-5xl text-white font-light">
@@ -128,16 +215,16 @@ export default function G20Tab() {
               </h1>
               
               <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600"></div>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-green-400 to-yellow-400"></div>
                 <p className="text-xl md:text-2xl text-yellow-200 font-medium font-inter tracking-wide">
-                  Global Economic Cooperation
+                  African Leadership in Global Cooperation
                 </p>
-                <div className="w-16 h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
+                <div className="w-16 h-0.5 bg-gradient-to-r from-yellow-400 to-red-400"></div>
               </div>
               
               <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-inter font-light">
-                Advancing global economic cooperation, sustainable development, and international partnership 
-                through the G20 platform, with South Africa&apos;s leadership in mining, youth development, and heritage preservation.
+                South Africa&apos;s leadership in the G20, advancing African development priorities, sustainable mining, 
+                digital transformation, and youth empowerment through continental and global cooperation initiatives.
               </p>
             </motion.div>
           </ScrollRevealWrapper>
@@ -150,10 +237,11 @@ export default function G20Tab() {
           <div className="flex flex-wrap justify-center gap-2 py-6">
             {[
               { id: 'overview', label: 'Overview' },
-              { id: 'members', label: 'Members' },
-              { id: 'priorities', label: 'Priorities' },
-              { id: 'partners', label: 'Partners' },
-              { id: 'highlights', label: 'SA Highlights' }
+              { id: 'priorities', label: 'SA Priorities' },
+              { id: 'partners', label: 'SA Partners' },
+              { id: 'resources', label: 'Resources' },
+              { id: 'engagement', label: 'Engagement' },
+              { id: 'highlights', label: 'SA Impact' }
             ].map((tab) => (
               <button
                 key={tab.id}
@@ -185,11 +273,11 @@ export default function G20Tab() {
               <ScrollRevealWrapper type="fadeUp" duration={0.8}>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
-                    About the G20
+                    South Africa in the G20
                   </h2>
                   <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
-                    The G20 is an international forum for the governments and central bank governors from 19 countries and the European Union. 
-                    Founded in 1999, it aims to prevent future international financial crises by promoting international financial stability.
+                    South Africa represents Africa&apos;s interests in the G20, promoting inclusive economic growth, 
+                    sustainable development, and continental integration through global cooperation.
                   </p>
                 </div>
               </ScrollRevealWrapper>
@@ -207,8 +295,8 @@ export default function G20Tab() {
           </motion.div>
         )}
 
-        {/* Members Section */}
-        {activeSection === 'members' && (
+        {/* SA Priorities Section */}
+        {activeSection === 'priorities' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -219,67 +307,38 @@ export default function G20Tab() {
               <ScrollRevealWrapper type="fadeUp" duration={0.8}>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
-                    G20 Member Economies
+                    South Africa&apos;s G20 Priorities
                   </h2>
                   <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
-                    19 countries plus the European Union, representing the world&apos;s major advanced and emerging economies.
-                  </p>
-                </div>
-              </ScrollRevealWrapper>
-
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {g20Members.map((member, index) => (
-                  <ScrollRevealWrapper key={member.name} type="fadeUp" duration={0.6} delay={index * 0.05}>
-                    <motion.div
-                      whileHover={{ y: -5, scale: 1.02 }}
-                      className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-6 rounded-lg hover:bg-white/20 text-center"
-                    >
-                      <div className="text-4xl mb-3">{member.flag}</div>
-                      <h3 className="font-bold text-white mb-2 font-merriweather text-sm">{member.name}</h3>
-                      <p className="text-yellow text-xs font-inter">{member.region}</p>
-                      <p className="text-white/70 text-xs font-inter mt-1">{member.economy}</p>
-                    </motion.div>
-                  </ScrollRevealWrapper>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-
-        {/* Priorities Section */}
-        {activeSection === 'priorities' && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="py-16 px-6"
-          >
-            <div className="max-w-6xl mx-auto">
-              <ScrollRevealWrapper type="fadeUp" duration={0.8}>
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
-                    G20 Policy Priorities
-                  </h2>
-                  <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
-                    Key focus areas for global economic cooperation and sustainable development.
+                    Key focus areas where South Africa is leading G20 initiatives and advancing African development priorities.
                   </p>
                 </div>
               </ScrollRevealWrapper>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {g20Priorities.map((priority, index) => (
+                {saG20Priorities.map((priority, index) => (
                   <ScrollRevealWrapper key={priority.title} type="fadeUp" duration={0.6} delay={index * 0.1}>
                     <motion.div
                       whileHover={{ y: -8, scale: 1.02 }}
                       className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-8 rounded-lg hover:bg-white/20 h-full"
                     >
-                      <div className="text-5xl mb-4 text-center">{priority.icon}</div>
-                      <h3 className="text-xl font-bold text-yellow mb-4 font-merriweather text-center">
-                        {priority.title}
-                      </h3>
-                      <p className="text-white/80 leading-relaxed font-inter text-sm text-center">
+                      <div className="flex items-center justify-between mb-4">
+                        <h3 className="text-xl font-bold text-yellow font-merriweather">
+                          {priority.title}
+                        </h3>
+                        <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">
+                          {priority.status}
+                        </span>
+                      </div>
+                      <p className="text-white/80 leading-relaxed font-inter text-sm mb-4">
                         {priority.description}
                       </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-yellow-300 font-medium">
+                          Impact: {priority.impact}
+                        </span>
+                        <span className="text-2xl">🇿🇦</span>
+                      </div>
                     </motion.div>
                   </ScrollRevealWrapper>
                 ))}
@@ -293,41 +352,128 @@ export default function G20Tab() {
           </motion.div>
         )}
 
-        {/* Partners Section */}
+        {/* SA Partners Section */}
         {activeSection === 'partners' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="py-16 px-6 bg-metallic-blue-gradient-vertical"
+            className="py-16 px-6"
           >
             <div className="max-w-7xl mx-auto">
               <ScrollRevealWrapper type="fadeUp" duration={0.8}>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
-                    G20 Partners & Stakeholders
+                    South African G20 Partners
                   </h2>
                   <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
-                    Comprehensive network of partners, engagement groups, and stakeholders supporting G20 initiatives.
+                    Key South African institutions and organizations supporting G20 initiatives and continental development.
                   </p>
                 </div>
               </ScrollRevealWrapper>
 
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                {saG20Partners.map((partner, index) => (
+                  <ScrollRevealWrapper key={partner.name} type="fadeUp" duration={0.6} delay={index * 0.1}>
+                    <motion.div
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-6 rounded-lg hover:bg-white/20 h-full"
+                    >
+                      <h3 className="text-lg font-bold text-yellow mb-3 font-merriweather">
+                        {partner.name}
+                      </h3>
+                      <p className="text-white/80 text-sm mb-4 font-inter leading-relaxed">
+                        {partner.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded">
+                          {partner.category}
+                        </span>
+                        <a 
+                          href={partner.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-yellow hover:text-yellow-300 text-sm font-medium"
+                        >
+                          Visit →
+                        </a>
+                      </div>
+                    </motion.div>
+                  </ScrollRevealWrapper>
+                ))}
+              </div>
+
               {/* Partners Exhibition Component */}
-              <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.1}>
+              <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
                 <PartnersExhibition />
               </ScrollRevealWrapper>
 
               {/* Brand Color Section from saG20 */}
-              <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
+              <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.3}>
                 <BrandColorSection />
               </ScrollRevealWrapper>
             </div>
           </motion.div>
         )}
 
-        {/* South Africa Highlights Section */}
-        {activeSection === 'highlights' && (
+        {/* Resources Section */}
+        {activeSection === 'resources' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="py-16 px-6 bg-metallic-blue-gradient-vertical"
+          >
+            <div className="max-w-6xl mx-auto">
+              <ScrollRevealWrapper type="fadeUp" duration={0.8}>
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
+                    South African G20 Resources
+                  </h2>
+                  <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
+                    Official South African government resources, parliamentary information, and innovation platforms 
+                    supporting G20 participation and continental development.
+                  </p>
+                </div>
+              </ScrollRevealWrapper>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {saG20Resources.map((resource, index) => (
+                  <ScrollRevealWrapper key={resource.title} type="fadeUp" duration={0.6} delay={index * 0.1}>
+                    <motion.div
+                      whileHover={{ y: -8, scale: 1.02 }}
+                      className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-8 rounded-lg hover:bg-white/20"
+                    >
+                      <div className="flex items-start justify-between mb-4">
+                        <h3 className="text-xl font-bold text-yellow font-merriweather flex-1">
+                          {resource.title}
+                        </h3>
+                        <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded ml-4">
+                          {resource.type}
+                        </span>
+                      </div>
+                      <p className="text-white/80 text-sm mb-6 font-inter leading-relaxed">
+                        {resource.description}
+                      </p>
+                      <a 
+                        href={resource.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-yellow text-black font-medium rounded hover:bg-yellow/90 transition-colors font-inter text-sm"
+                      >
+                        Access Resource
+                        <span>↗</span>
+                      </a>
+                    </motion.div>
+                  </ScrollRevealWrapper>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Engagement Section */}
+        {activeSection === 'engagement' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -338,30 +484,94 @@ export default function G20Tab() {
               <ScrollRevealWrapper type="fadeUp" duration={0.8}>
                 <div className="text-center mb-12">
                   <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
-                    South Africa G20 Highlights
+                    South Africa&apos;s G20 Engagement
                   </h2>
                   <p className="text-lg text-white/80 max-w-4xl mx-auto leading-relaxed font-inter">
-                    Key areas where South Africa is leading G20 initiatives and making significant contributions.
+                    How South Africa engages with the G20 through official presidency, business engagement, 
+                    and youth participation to advance continental and global development.
+                  </p>
+                </div>
+              </ScrollRevealWrapper>
+
+              <div className="space-y-8">
+                {saG20Engagement.map((engagement, index) => (
+                  <ScrollRevealWrapper key={engagement.title} type="fadeUp" duration={0.6} delay={index * 0.2}>
+                    <motion.div
+                      whileHover={{ y: -4 }}
+                      className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 p-8 rounded-lg hover:bg-white/20"
+                    >
+                      <div className="flex items-center gap-4 mb-6">
+                        <div className="w-12 h-12 bg-yellow/20 rounded-full flex items-center justify-center">
+                          <span className="text-2xl">🇿🇦</span>
+                        </div>
+                        <div>
+                          <h3 className="text-2xl font-bold text-yellow font-merriweather">
+                            {engagement.title}
+                          </h3>
+                          <p className="text-white/80 font-inter">
+                            {engagement.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        {engagement.achievements.map((achievement, achIndex) => (
+                          <div key={achIndex} className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-yellow rounded-full mt-2 flex-shrink-0"></div>
+                            <p className="text-white/80 text-sm font-inter leading-relaxed">
+                              {achievement}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </ScrollRevealWrapper>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* SA Highlights Section */}
+        {activeSection === 'highlights' && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="py-16 px-6 bg-metallic-blue-gradient-vertical"
+          >
+            <div className="max-w-6xl mx-auto">
+              <ScrollRevealWrapper type="fadeUp" duration={0.8}>
+                <div className="text-center mb-12">
+                  <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 font-merriweather">
+                    South Africa&apos;s G20 Impact
+                  </h2>
+                  <p className="text-lg text-white/80 max-w-4-relaxed fontxl mx-auto leading-inter">
+                    Key areas where South Africa is making significant contributions to G20 objectives 
+                    and advancing continental development through leadership and innovation.
                   </p>
                 </div>
               </ScrollRevealWrapper>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {southAfricaHighlights.map((highlight, index) => (
+                {saHighlights.map((highlight, index) => (
                   <ScrollRevealWrapper key={highlight.title} type="fadeUp" duration={0.6} delay={index * 0.2}>
                     <motion.div
                       whileHover={{ y: -8, scale: 1.02 }}
                       className="card-interactive bg-white/15 backdrop-blur-md border border-white/30 rounded-lg overflow-hidden hover:bg-white/20"
                     >
                       <div 
-                        className="h-48 bg-cover bg-center"
+                        className="h-48 bg-cover bg-center relative"
                         style={{ backgroundImage: `url('${highlight.image}')` }}
                       >
-                        <div className="h-full bg-gradient-to-t from-black/70 to-transparent flex items-end">
-                          <div className="p-6 w-full">
-                            <h3 className="text-xl font-bold text-white mb-2 font-merriweather">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div className="absolute bottom-4 left-4 right-4">
+                          <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-bold text-white font-merriweather">
                               {highlight.title}
                             </h3>
+                            <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">
+                              {highlight.stats}
+                            </span>
                           </div>
                         </div>
                       </div>
