@@ -15,8 +15,9 @@ import GoogleSearchTab from './tabs/GoogleSearchTab';
 import SponsorsTab from './tabs/SponsorsTab';
 import ResourcesTab from './tabs/ResourcesTab';
 import YouthTab from './tabs/YouthTab';
+import G20Tab from './tabs/G20Tab';
 
-export type TabId = 'hero' | 'historical' | 'archaeological' | 'legal' | 'mining' | 'lineage' | 'evidence' | 'gallery' | 'sponsors' | 'youth' | 'resources' | 'google-search';
+export type TabId = 'hero' | 'historical' | 'archaeological' | 'legal' | 'mining' | 'lineage' | 'evidence' | 'gallery' | 'sponsors' | 'youth' | 'resources' | 'google-search' | 'g20';
 
 const TABS: { id: TabId; label: string }[] = [
   { id: 'hero', label: 'Home' },
@@ -27,6 +28,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'lineage', label: 'Lineage' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'gallery', label: 'Gallery' },
+  { id: 'g20', label: 'G20' },
   { id: 'google-search', label: 'Search' },
   { id: 'sponsors', label: 'Partners' },
   { id: 'youth', label: 'Youth' },
@@ -73,6 +75,8 @@ export default function TabbedLandscapeLayout() {
         return <YouthTab />;
       case 'resources':
         return <ResourcesTab />;
+      case 'g20':
+        return <G20Tab />;
       default:
         return <HeroTab />;
     }
