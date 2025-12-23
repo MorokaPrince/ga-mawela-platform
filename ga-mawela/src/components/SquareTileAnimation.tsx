@@ -95,6 +95,24 @@ export default function SquareTileAnimation({
     });
   };
 
+  // Calculate the correct background position for each tile to show image fragments
+  const getTileBackgroundStyle = (index: number) => {
+    const currentImage = images[currentImageIndex];
+    const row = Math.floor(index / gridSize);
+    const col = index % gridSize;
+    
+    // Calculate the percentage position for this tile
+    const posX = (col / (gridSize - 1)) * 100;
+    const posY = (row / (gridSize - 1)) * 100;
+    
+    return {
+      backgroundImage: `url('${currentImage}')`,
+      backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`,
+      backgroundPosition: `${posX}% ${posY}%`,
+      backgroundRepeat: 'no-repeat'
+    };
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -155,11 +173,7 @@ export default function SquareTileAnimation({
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         transition={{ duration: 0.3 }}
-                        style={{
-                          backgroundImage: `url('${images[currentImageIndex]}')`,
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center'
-                        }}
+                        style={getTileBackgroundStyle(index)}
                       />
                     )}
                   </AnimatePresence>

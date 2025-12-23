@@ -192,13 +192,23 @@ export default function G20Tab() {
       <section 
         className="relative w-full min-h-[50vh] flex items-center justify-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.95)), url('/Images/sponsours/g20-sa.png')`,
-          backgroundSize: 'contain',
+          backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.95)), url('/Images/Mining/Landing home page 1.jpg')`,
+          backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
           backgroundPosition: 'center'
         }}
       >
+        {/* Additional overlay for mining background */}
         <div className="absolute inset-0 bg-gradient-to-r from-metallic-blue-dark/90 via-metallic-blue-dark/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-metallic-blue-dark/80 via-transparent to-metallic-blue-dark/60"></div>
+        
+        {/* SA G20 Logo overlay */}
+        <div 
+          className="absolute inset-0 bg-contain bg-no-repeat bg-center opacity-20"
+          style={{
+            backgroundImage: `url('/Images/sponsours/g20-sa.png')`
+          }}
+        />
         
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
           <ScrollRevealWrapper type="fadeUp" duration={0.8}>

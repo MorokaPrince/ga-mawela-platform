@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
 import SquareTileAnimation from '@/components/SquareTileAnimation';
 import YouthChallengeSection from '@/components/YouthChallengeSection';
-import PartnersExhibition from '@/components/PartnersExhibition';
+import GaMawelaStatsSection from '@/components/GaMawelaStatsSection';
 import { createScrollRevealAnimation, createParallaxAnimation } from '@/animations/gsapAnimations';
 
 export default function HeroTab() {
@@ -247,8 +247,8 @@ export default function HeroTab() {
       {/* Youth Challenge Section - Emphasizing Community Status */}
       <YouthChallengeSection />
 
-      {/* Partners Exhibition - Interactive Display */}
-      <PartnersExhibition />
+      {/* Ga-Mawela Heritage Statistics Section */}
+      <GaMawelaStatsSection />
 
       {/* Fraud Exposure - Compact Horizontal Layout */}
       <div className="w-full py-12 px-6 md:px-12 bg-metallic-blue-gradient-vertical relative overflow-hidden">

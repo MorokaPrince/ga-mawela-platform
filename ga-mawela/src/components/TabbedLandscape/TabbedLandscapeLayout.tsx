@@ -30,7 +30,7 @@ const TABS: { id: TabId; label: string }[] = [
   { id: 'gallery', label: 'Gallery' },
   { id: 'g20', label: 'G20' },
   { id: 'google-search', label: 'Search' },
-  { id: 'sponsors', label: 'Partners' },
+  { id: 'sponsors', label: 'Partners & Resources' },
   { id: 'youth', label: 'Youth' },
   { id: 'resources', label: 'Resources' },
 ];
