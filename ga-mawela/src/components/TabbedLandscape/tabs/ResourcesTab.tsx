@@ -141,26 +141,33 @@ export default function ResourcesTab() {
         const response = await fetch('/api/resources');
         if (response.ok) {
           const data = await response.json();
-          // Group resources by category
-          const grouped = data.reduce((acc: Record<string, Resource[]>, resource: Resource) => {
-            const category = resource.category || 'Other Resources';
-            if (!acc[category]) {
-              acc[category] = [];
-            }
-            acc[category].push(resource);
-            return acc;
-          }, {});
+          
+          // Ensure data is an array before calling reduce
+          if (Array.isArray(data)) {
+            // Group resources by category
+            const grouped = data.reduce((acc: Record<string, Resource[]>, resource: Resource) => {
+              const category = resource.category || 'Other Resources';
+              if (!acc[category]) {
+                acc[category] = [];
+              }
+              acc[category].push(resource);
+              return acc;
+            }, {});
 
-          // Convert to array format expected by component
-          const formattedResources = Object.entries(grouped).map(([category, items]: [string, unknown]) => ({
-            category,
-            items: (items as Resource[]).map((item: Resource) => ({
-              name: item.name,
-              url: item.url,
-            }))
-          }));
+            // Convert to array format expected by component
+            const formattedResources = Object.entries(grouped).map(([category, items]: [string, unknown]) => ({
+              category,
+              items: (items as Resource[]).map((item: Resource) => ({
+                name: item.name,
+                url: item.url,
+              }))
+            }));
 
-          setResources(formattedResources);
+            setResources(formattedResources);
+          } else {
+            // Use comprehensive fallback data if data is not an array
+            setResources(comprehensiveResources);
+          }
         } else {
           // Use comprehensive fallback data
           setResources(comprehensiveResources);

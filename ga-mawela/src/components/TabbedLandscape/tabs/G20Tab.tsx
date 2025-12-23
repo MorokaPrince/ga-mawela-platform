@@ -188,11 +188,14 @@ export default function G20Tab() {
 
   return (
     <div className="w-full bg-metallic-blue-dark relative overflow-hidden">
-      {/* Hero Section with South Africa G20 Background */}
+      {/* Hero Section with SA G20 Logo Background */}
       <section 
-        className="relative w-full min-h-[70vh] flex items-center justify-center bg-cover bg-center bg-fixed"
+        className="relative w-full min-h-[50vh] flex items-center justify-center"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('/assets/images/g20-partners.jpg')`
+          backgroundImage: `linear-gradient(rgba(13, 27, 42, 0.9), rgba(13, 27, 42, 0.95)), url('/Images/sponsours/g20-sa.png')`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center'
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-metallic-blue-dark/90 via-metallic-blue-dark/70 to-transparent"></div>
@@ -204,22 +207,22 @@ export default function G20Tab() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-7xl font-black text-white mb-6 font-merriweather leading-tight">
-                <span className="bg-gradient-to-r from-green-400 via-yellow-400 to-red-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl md:text-6xl font-black text-white mb-4 font-merriweather leading-tight">
+                <span className="bg-gradient-to-r from-yellow-400 to-yellow-200 bg-clip-text text-transparent">
                   🇿🇦 G20
                 </span>
                 <br />
-                <span className="text-3xl md:text-5xl text-white font-light">
+                <span className="text-2xl md:text-4xl text-white font-light">
                   South Africa
                 </span>
               </h1>
               
-              <div className="flex items-center justify-center gap-4 mb-8">
-                <div className="w-16 h-0.5 bg-gradient-to-r from-green-400 to-yellow-400"></div>
-                <p className="text-xl md:text-2xl text-yellow-200 font-medium font-inter tracking-wide">
-                  African Leadership in Global Cooperation
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="w-12 h-0.5 bg-gradient-to-r from-yellow-400 to-yellow-600"></div>
+                <p className="text-lg md:text-xl text-yellow-200 font-medium font-inter tracking-wide">
+                  SA Presidency & Continental Development
                 </p>
-                <div className="w-16 h-0.5 bg-gradient-to-r from-yellow-400 to-red-400"></div>
+                <div className="w-12 h-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400"></div>
               </div>
               
               <p className="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-inter font-light">
@@ -232,24 +235,24 @@ export default function G20Tab() {
       </section>
 
       {/* Navigation Tabs */}
-      <section className="bg-metallic-blue-dark border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="flex flex-wrap justify-center gap-2 py-6">
+      <section className="bg-metallic-blue-dark border-b border-yellow/20">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-wrap justify-center gap-2 py-4">
             {[
               { id: 'overview', label: 'Overview' },
-              { id: 'priorities', label: 'SA Priorities' },
-              { id: 'partners', label: 'SA Partners' },
+              { id: 'priorities', label: 'Priorities' },
+              { id: 'partners', label: 'Partners' },
               { id: 'resources', label: 'Resources' },
               { id: 'engagement', label: 'Engagement' },
-              { id: 'highlights', label: 'SA Impact' }
+              { id: 'impact', label: 'Impact' }
             ].map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveSection(tab.id)}
-                className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 ${
+                className={`px-4 py-2 rounded-md font-medium transition-all duration-300 text-sm ${
                   activeSection === tab.id
-                    ? 'bg-yellow text-black font-bold'
-                    : 'bg-white/10 text-white hover:bg-white/20'
+                    ? 'bg-yellow text-black font-bold shadow-lg'
+                    : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
                 }`}
               >
                 {tab.label}

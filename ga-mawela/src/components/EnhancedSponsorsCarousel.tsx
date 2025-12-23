@@ -103,7 +103,7 @@ const sponsors: Sponsor[] = [
   {
     id: '11',
     name: 'Impala Platinum',
-    logo: '/Images/sponsours/implats.png',
+    logo: '/assets/logos/implats.png',
     description: 'Platinum group metals mining and processing',
     category: 'Mining',
     website: 'https://www.implats.co.za'
@@ -171,7 +171,7 @@ const sponsors: Sponsor[] = [
   {
     id: '19',
     name: 'South African Heritage Resources Agency',
-    logo: '/Images/sponsours/sahra.png',
+    logo: '/assets/logos/sahra.png',
     description: 'Heritage conservation and cultural resource management',
     category: 'Heritage',
     website: 'http://www.sahra.org.za'
@@ -189,7 +189,7 @@ const sponsors: Sponsor[] = [
   {
     id: '21',
     name: 'National Youth Development Agency',
-    logo: '/Images/sponsours/nyda.png',
+    logo: '/assets/logos/nyda.png',
     description: 'Youth empowerment and development programs',
     category: 'Youth',
     website: 'https://www.nyda.gov.za'

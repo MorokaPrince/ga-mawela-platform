@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import ScrollRevealWrapper from '@/components/ScrollRevealWrapper';
+import SquareTileAnimation from '@/components/SquareTileAnimation';
+import YouthChallengeSection from '@/components/YouthChallengeSection';
 import PartnersExhibition from '@/components/PartnersExhibition';
 import { createScrollRevealAnimation, createParallaxAnimation } from '@/animations/gsapAnimations';
 
@@ -50,33 +52,23 @@ export default function HeroTab() {
 
   return (
     <div ref={heroRef} className="flex flex-col w-full">
-      {/* Enhanced Hero Section - Modern Marketing Style */}
+      {/* Enhanced Hero Section with Square Tile Animation */}
       <motion.div
         className="w-full min-h-[85vh] relative flex items-center justify-start overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, ease: "easeOut" }}
       >
-        {/* Image Carousel Background with Enhanced Effects */}
+        {/* Square Tile Animation Background */}
         <div className="absolute inset-0 w-full h-full">
-          {slides.map((slide, index) => (
-            <motion.div
-              key={index}
-              className="absolute inset-0 carousel-slide"
-              initial={{ scale: 1.1, opacity: 0 }}
-              animate={{
-                scale: index === currentSlide ? 1 : 1.1,
-                opacity: index === currentSlide ? 1 : 0
-              }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              style={{
-                backgroundImage: `url('${slide}')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundAttachment: 'fixed'
-              }}
-            />
-          ))}
+          <SquareTileAnimation
+            imageSrc={slides[currentSlide]}
+            title="Ga-Mawela Heritage"
+            subtitle="Truth • Heritage • Justice"
+            gridSize={8}
+            animationSpeed={3000}
+            autoLoop={true}
+          />
         </div>
 
         {/* Enhanced Gradient Overlay with Multiple Layers */}
@@ -251,6 +243,9 @@ export default function HeroTab() {
           ))}
         </div>
       </motion.div>
+
+      {/* Youth Challenge Section - Emphasizing Community Status */}
+      <YouthChallengeSection />
 
       {/* Partners Exhibition - Interactive Display */}
       <PartnersExhibition />
