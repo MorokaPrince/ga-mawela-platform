@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap');
 @import "tailwindcss";
 @import "../styles/animations.css";
+@import "../styles/visual-harmony.css";
 
 /* ============================================
     GA MAWELA TRUTH PLATFORM - ENHANCED DESIGN
@@ -81,8 +82,13 @@
 }
 
 /* ============================================
-   GLOBAL STYLES
+   VISUAL HARMONY SYSTEM - IMPORTED
    ============================================ */
+@import "../styles/visual-harmony.css";
+
+/* ============================================
+    GLOBAL STYLES
+    ============================================ */
 
 html {
   scroll-behavior: smooth;
@@ -166,8 +172,8 @@ strong, .font-bold {
 }
 
 /* ============================================
-   DARK METALLIC BLUE THEME - CUSTOM COLORS
-   ============================================ */
+    DARK METALLIC BLUE THEME - CUSTOM COLORS
+    ============================================ */
 
 /* Primary Dark Metallic Blue Palette */
 :root {
@@ -246,8 +252,8 @@ strong, .font-bold {
 }
 
 /* ============================================
-   ANIMATION KEYFRAMES
-   ============================================ */
+    ANIMATION KEYFRAMES
+    ============================================ */
 
 @keyframes fadeIn {
   from {
@@ -420,8 +426,8 @@ strong, .font-bold {
 }
 
 /* ============================================
-   ACCESSIBILITY & FOCUS STATES
-   ============================================ */
+    ACCESSIBILITY & FOCUS STATES
+    ============================================ */
 
 /* Focus indicators for better accessibility */
 *:focus-visible {
@@ -457,8 +463,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   SCROLL ANIMATION UTILITIES
-   ============================================ */
+    SCROLL ANIMATION UTILITIES
+    ============================================ */
 
 /* Fade in on scroll */
 .animate-fade-in {
@@ -572,8 +578,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   BACKGROUND IMAGES WITH LIGHT SKY-BLUE TINTING
-   ============================================ */
+    BACKGROUND IMAGES WITH LIGHT SKY-BLUE TINTING
+    ============================================ */
 
 /* Light sky-blue overlay for professional appearance */
 .bg-overlay-light-blue {
@@ -791,8 +797,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   CARD-SPECIFIC BACKGROUND IMAGES
-   ============================================ */
+    CARD-SPECIFIC BACKGROUND IMAGES
+    ============================================ */
 
 /* Archaeological Tab Card Images */
 .card-initiation-sites {
@@ -832,8 +838,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   SCROLL-TRIGGERED ANIMATIONS
-   ============================================ */
+    SCROLL-TRIGGERED ANIMATIONS
+    ============================================ */
 
 /* Intersection Observer will add these classes */
 .scroll-animate {
@@ -885,8 +891,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   BACKGROUND IMAGE INTEGRATION
-   ============================================ */
+    BACKGROUND IMAGE INTEGRATION
+    ============================================ */
 
 /* Hero section with background image and overlay */
 .hero-bg {
@@ -946,8 +952,8 @@ select:focus-visible {
 }
 
 /* ============================================
-   COMPONENT-SPECIFIC THEMING
-   ============================================ */
+    COMPONENT-SPECIFIC THEMING
+    ============================================ */
 
 /* Hero Component */
 .hero-section {
@@ -1095,8 +1101,8 @@ button,
 }
 
 /* ============================================
-   RESPONSIVE UTILITIES
-   ============================================ */
+    RESPONSIVE UTILITIES
+    ============================================ */
 
 @media (max-width: 640px) {
   .text-5xl {
@@ -1125,8 +1131,8 @@ button,
 }
 
 /* ============================================
-   ACCESSIBILITY UTILITIES
-   ============================================ */
+    ACCESSIBILITY UTILITIES
+    ============================================ */
 
 /* Skip link styles */
 .sr-only {
@@ -1167,8 +1173,8 @@ button,
 }
 
 /* ============================================
-   TAB AND CAROUSEL ANIMATIONS
-   ============================================ */
+    TAB AND CAROUSEL ANIMATIONS
+    ============================================ */
 
 .animate-fade-in {
   animation: fadeIn var(--duration-base) var(--ease-out);
@@ -1202,8 +1208,8 @@ button,
 }
 
 /* ============================================
-   PRINT STYLES
-   ============================================ */
+    PRINT STYLES
+    ============================================ */
 
 @media print {
   body {
@@ -1217,8 +1223,8 @@ button,
 }
 
 /* ============================================
-   ANGLO AMERICAN DESIGN SYSTEM
-   ============================================ */
+    ANGLO AMERICAN DESIGN SYSTEM
+    ============================================ */
 
 /* Typography */
 .font-inter {
@@ -1360,8 +1366,8 @@ button,
 }
 
 /* ============================================
-   MICRO-INTERACTIONS - CARDS & LINKS
-   ============================================ */
+    MICRO-INTERACTIONS - CARDS & LINKS
+    ============================================ */
 
 /* Card hover effects */
 .card-interactive {
