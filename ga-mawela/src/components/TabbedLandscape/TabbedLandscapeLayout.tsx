@@ -83,14 +83,14 @@ export default function TabbedLandscapeLayout() {
   };
 
   return (
-    <div className="min-h-screen bg-metallic-blue-dark flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <TabNavigation
         tabs={TABS}
         activeTab={activeTab}
         onTabChange={setActiveTab}
       />
 
-      <div className="pt-24 flex-grow bg-metallic-blue-dark">
+      <div className="pt-16 flex-grow bg-gray-50">
         {renderTabContent()}
       </div>
 

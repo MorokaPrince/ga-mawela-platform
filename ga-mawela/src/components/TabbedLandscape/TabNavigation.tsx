@@ -36,12 +36,12 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-metallic-blue-gradient border-b border-yellow/20 font-inter nav-professional backdrop-blur-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 font-sans shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold font-merriweather text-white">
+            <h1 className="text-xl font-bold text-primary-700 font-sans">
               GA-MAWELA
             </h1>
           </div>
@@ -57,10 +57,10 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
                 }}
                 type="button"
                 title={tab.label}
-                className={`font-inter transition-all duration-300 text-sm font-medium px-4 py-2 relative overflow-hidden ${
+                className={`font-sans transition-all duration-300 text-sm font-medium px-4 py-2 relative overflow-hidden ${
                   activeTab === tab.id
-                    ? 'text-yellow border-b-2 border-yellow'
-                    : 'text-white hover:text-yellow hover:scale-105'
+                    ? 'text-primary-700 border-b-2 border-primary-600'
+                    : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50'
                 }`}
               >
                 {tab.label}
@@ -73,7 +73,7 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             type="button"
             title="Toggle menu"
-            className="lg:hidden transition-colors text-white hover:text-yellow"
+            className="lg:hidden transition-colors text-gray-600 hover:text-primary-600"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
@@ -83,7 +83,7 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <div className="lg:hidden pb-4 border-t border-yellow/20">
+          <div className="lg:hidden pb-4 border-t border-gray-100">
             <div className="grid grid-cols-2 gap-2 mt-4">
               {tabs.map((tab) => (
                 <button
@@ -94,10 +94,10 @@ export default function TabNavigation({ tabs, activeTab, onTabChange }: TabNavig
                     onTabChange(tab.id);
                     setMobileMenuOpen(false);
                   }}
-                  className={`px-3 py-2 rounded-lg font-medium transition-all duration-300 text-sm font-inter relative overflow-hidden ${
+                  className={`px-3 py-2 rounded-lg font-medium transition-all duration-300 text-sm font-sans relative overflow-hidden ${
                     activeTab === tab.id
-                      ? 'bg-yellow text-black hover:scale-105'
-                      : 'text-white hover:text-yellow hover:bg-white/10 hover:scale-105'
+                      ? 'bg-primary-600 text-white hover:scale-105'
+                      : 'text-gray-600 hover:text-primary-600 hover:bg-gray-50 hover:scale-105'
                   }`}
                 >
                   {tab.label}

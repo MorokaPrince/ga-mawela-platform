@@ -251,26 +251,23 @@ export default function HeroTab() {
       <GaMawelaStatsSection />
 
       {/* Fraud Exposure - Compact Horizontal Layout */}
-      <div className="w-full py-12 px-6 md:px-12 bg-metallic-blue-gradient-vertical relative overflow-hidden">
-        {/* Background Image - Top Right Corner */}
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-20 pointer-events-none bg-fraud-section-bg"></div>
-
+      <div className="w-full py-12 px-6 md:px-12 bg-gray-50 border-t border-gray-200">
         <div className="max-w-7xl mx-auto relative z-10">
           <ScrollRevealWrapper type="fadeUp" duration={0.8}>
-            <h2 className="text-3xl md:text-4xl font-bold text-blue-lighter mb-8 font-merriweather">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8 font-sans">
               Exposing the Fraud
             </h2>
           </ScrollRevealWrapper>
 
-          {/* Restored Three Column Layout with Original Metallic Blue Colors - Mobile Optimized */}
+          {/* Three Column Layout - Light Theme */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
             {/* Mankge Family Fraud */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0}>
-              <div className="card-interactive bg-white/15 backdrop-blur-md p-4 md:p-6 border border-white/30 hover:border-yellow/60 rounded-lg hover:bg-white/20">
-                <h3 className="text-base md:text-lg font-bold text-yellow mb-2 md:mb-3 font-merriweather">
+              <div className="card-interactive bg-white p-4 md:p-6 border border-gray-200 hover:border-primary-300 hover:shadow-card-hover rounded-lg">
+                <h3 className="text-base md:text-lg font-bold text-primary-700 mb-2 md:mb-3 font-sans">
                   The Mankge Deception
                 </h3>
-                <p className="text-white font-inter leading-relaxed text-xs md:text-sm">
+                <p className="text-gray-600 font-sans leading-relaxed text-xs md:text-sm">
                   Fraudulent claim through corrupt dealings with government officials. Never benefited Ga-Mawela people.
                 </p>
               </div>
@@ -278,14 +275,14 @@ export default function HeroTab() {
 
             {/* True Lineage */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.1}>
-              <div className="card-interactive bg-white/15 backdrop-blur-md p-4 md:p-6 border border-white/30 hover:border-yellow/60 rounded-lg hover:bg-white/20">
-                <h3 className="text-base md:text-lg font-bold text-yellow mb-2 md:mb-3 font-merriweather">
+              <div className="card-interactive bg-white p-4 md:p-6 border border-gray-200 hover:border-primary-300 hover:shadow-card-hover rounded-lg">
+                <h3 className="text-base md:text-lg font-bold text-primary-700 mb-2 md:mb-3 font-sans">
                   True Descendants
                 </h3>
-                <p className="text-white font-inter text-xs md:text-sm mb-2">
+                <p className="text-gray-600 font-sans text-xs md:text-sm mb-2">
                   <strong>Masetu</strong> - Founder
                 </p>
-                <p className="text-white font-inter text-xs md:text-sm">
+                <p className="text-gray-600 font-sans text-xs md:text-sm">
                   <strong>Sons:</strong> Lesedi & Moroka (brothers)
                 </p>
               </div>
@@ -293,11 +290,11 @@ export default function HeroTab() {
 
             {/* Community Impact */}
             <ScrollRevealWrapper type="fadeUp" duration={0.8} delay={0.2}>
-              <div className="card-interactive bg-gradient-to-r from-yellow/20 to-yellow/10 backdrop-blur-md p-4 md:p-6 border border-yellow/40 rounded-lg hover:from-yellow/25 hover:to-yellow/15">
-                <h3 className="text-base md:text-lg font-bold text-yellow mb-2 md:mb-3 font-merriweather">
+              <div className="card-interactive bg-primary-50 p-4 md:p-6 border border-primary-200 rounded-lg hover:shadow-card">
+                <h3 className="text-base md:text-lg font-bold text-primary-700 mb-2 md:mb-3 font-sans">
                   Our Mission
                 </h3>
-                <p className="text-white font-inter text-xs md:text-sm">
+                <p className="text-gray-600 font-sans text-xs md:text-sm">
                   Restore truth, reclaim heritage, and secure justice for Ga-Mawela community.
                 </p>
               </div>
