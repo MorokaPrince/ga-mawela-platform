@@ -3,11 +3,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BellDot,
-  Menu,
   MoonStar,
   Search,
+  Sparkles,
   SunMedium,
-  X,
 } from "lucide-react";
 import {
   useDeferredValue,
@@ -112,74 +111,6 @@ function IntroOverlay() {
   );
 }
 
-function MobileDrawer({
-  activeSection,
-  onClose,
-  onSectionChange,
-}: {
-  activeSection: SectionId;
-  onClose: () => void;
-  onSectionChange: (id: SectionId) => void;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-50 bg-slate-950/60 backdrop-blur-sm xl:hidden"
-      onClick={onClose}
-    >
-      <motion.div
-        initial={{ x: -24, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        exit={{ x: -24, opacity: 0 }}
-        className="h-full w-[86vw] max-w-sm border-r border-white/10 bg-[var(--gm-panel-strong)] p-5 shadow-2xl"
-        onClick={(event) => event.stopPropagation()}
-      >
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.3em] text-[var(--gm-subtle)]">
-              Navigation
-            </p>
-            <p className="mt-2 text-xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
-              Platform modules
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-full border border-white/10 p-2 text-[var(--gm-foreground)]"
-          >
-            <X size={18} />
-          </button>
-        </div>
-
-        <div className="mt-8 space-y-2">
-          {sectionConfigs.map((section) => (
-            <button
-              key={section.id}
-              type="button"
-              onClick={() => onSectionChange(section.id)}
-              className={`flex w-full items-start justify-between rounded-[22px] border px-4 py-4 text-left transition ${
-                activeSection === section.id
-                  ? "border-white/18 bg-white text-slate-950"
-                  : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)]"
-              }`}
-            >
-              <span>
-                <span className="block text-sm font-medium">{section.label}</span>
-                <span className={`mt-1 block text-xs ${activeSection === section.id ? "text-slate-600" : "text-[var(--gm-subtle)]"}`}>
-                  {section.eyebrow}
-                </span>
-              </span>
-            </button>
-          ))}
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
-
 export default function CommunityMiningPlatform() {
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const [selectedMineId, setSelectedMineId] = useState("st-george-2jt");
@@ -190,7 +121,6 @@ export default function CommunityMiningPlatform() {
   const [companyFilter, setCompanyFilter] = useState<CompanyFilter>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [introVisible, setIntroVisible] = useState(true);
-  const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [issues, setIssues] = useState<StoredIssue[]>(() =>
     readStoredValue<StoredIssue[]>(ISSUE_STORAGE_KEY, []),
   );
@@ -297,7 +227,6 @@ export default function CommunityMiningPlatform() {
   const handleSectionChange = (id: SectionId) => {
     startTransition(() => {
       setActiveSection(id);
-      setMobileNavOpen(false);
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
   };
@@ -448,88 +377,34 @@ export default function CommunityMiningPlatform() {
       className={`gm-theme-shell ${theme === "dark" ? "gm-theme-dark" : "gm-theme-light"}`}
     >
       <AnimatePresence>{introVisible ? <IntroOverlay /> : null}</AnimatePresence>
-      <AnimatePresence>
-        {mobileNavOpen ? (
-          <MobileDrawer
-            activeSection={activeSection}
-            onClose={() => setMobileNavOpen(false)}
-            onSectionChange={handleSectionChange}
-          />
-        ) : null}
-      </AnimatePresence>
 
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.14),transparent_22%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))]" />
       <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-45" />
+      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20" />
 
-      <div className="relative flex min-h-screen">
-        <aside className="sticky top-0 hidden h-screen w-[308px] flex-col border-r border-white/[0.08] bg-[var(--gm-panel-sidebar)] px-5 py-6 xl:flex">
-          <div>
-            <p className="text-[11px] uppercase tracking-[0.34em] text-[var(--gm-subtle)]">
-              Ga-Mawela
-            </p>
-            <h1 className="mt-4 text-3xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">
-              Mining intelligence platform
-            </h1>
-            <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-              Transparency, land awareness, and opportunity access for the St George 2 JT corridor.
-            </p>
-          </div>
+      <div className="relative min-h-screen">
+        <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[var(--gm-panel-header)] backdrop-blur-2xl">
+          <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-4 py-4 md:px-6 xl:px-8">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex items-start gap-4">
+                <div className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] shadow-[0_0_40px_rgba(209,74,40,0.12)]">
+                  <Sparkles size={18} className="text-[var(--gm-foreground)]" />
+                </div>
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.34em] text-[var(--gm-subtle)]">
+                    Ga-Mawela
+                  </p>
+                  <h1 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)] md:text-3xl">
+                    Mining & Community Intelligence Platform
+                  </h1>
+                  <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--gm-muted)]">
+                    A professional landing experience for transparency, land awareness, SLP visibility, and opportunity access around St George 2 JT.
+                  </p>
+                </div>
+              </div>
 
-          <div className="mt-8 rounded-[28px] border border-white/10 bg-white/[0.06] p-4">
-            <div className="flex items-center gap-3">
-              <BellDot size={18} className="text-[var(--gm-foreground)]" />
-              <p className="text-sm font-medium text-[var(--gm-foreground)]">
-                Live update
-              </p>
-            </div>
-            <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
-              {latestUpdates[activeUpdateIndex]}
-            </p>
-          </div>
-
-          <nav className="mt-8 flex-1 space-y-2">
-            {sectionConfigs.map((section) => (
-              <button
-                key={section.id}
-                type="button"
-                onClick={() => handleSectionChange(section.id)}
-                className={`w-full rounded-[24px] border px-4 py-4 text-left transition ${
-                  activeSection === section.id
-                    ? "border-white/18 bg-white text-slate-950 shadow-[0_12px_40px_rgba(255,255,255,0.08)]"
-                    : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
-                }`}
-              >
-                <span className="block text-sm font-medium">{section.label}</span>
-                <span className={`mt-1 block text-xs ${activeSection === section.id ? "text-slate-600" : "text-[var(--gm-subtle)]"}`}>
-                  {section.description}
-                </span>
-              </button>
-            ))}
-          </nav>
-
-          <div className="rounded-[24px] border border-white/10 bg-white/[0.04] p-4">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Focus statement
-            </p>
-            <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
-              Separate the land parcel from mining activity. Keep the tone neutral. Make community access and evidence easy to navigate.
-            </p>
-          </div>
-        </aside>
-
-        <div className="flex min-h-screen flex-1 flex-col">
-          <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[var(--gm-panel-header)] backdrop-blur-xl">
-            <div className="flex flex-col gap-4 px-4 py-4 md:px-6 xl:px-8">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => setMobileNavOpen(true)}
-                  className="rounded-full border border-white/10 p-2 text-[var(--gm-foreground)] xl:hidden"
-                >
-                  <Menu size={18} />
-                </button>
-
-                <div className="relative flex-1">
+              <div className="grid gap-3 md:grid-cols-[minmax(280px,1fr)_220px_auto]">
+                <div className="relative min-w-0">
                   <Search
                     size={16}
                     className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
@@ -560,16 +435,38 @@ export default function CommunityMiningPlatform() {
                     setTheme((current) => (current === "dark" ? "light" : "dark"))
                   }
                   className="inline-flex h-12 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
-                >
-                  {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
-                  <span className="hidden sm:inline">
-                    {theme === "dark" ? "Light mode" : "Dark mode"}
-                  </span>
+                  >
+                    {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                  <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
                 </button>
               </div>
+            </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div>
+            <div className="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-center">
+              <nav className="gm-top-tabs overflow-x-auto pb-1">
+                <div className="flex min-w-max gap-2">
+                  {sectionConfigs.map((section) => (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => handleSectionChange(section.id)}
+                      className={`group relative rounded-full border px-4 py-3 text-sm transition ${
+                        activeSection === section.id
+                          ? "border-white/18 bg-white text-slate-950 shadow-[0_12px_32px_rgba(255,255,255,0.08)]"
+                          : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
+                      }`}
+                    >
+                      <span className="block font-medium">{section.label}</span>
+                      <span className={`mt-1 block text-[11px] ${activeSection === section.id ? "text-slate-600" : "text-[var(--gm-subtle)]"}`}>
+                        {section.eyebrow}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </nav>
+
+              <div className="grid gap-3 md:grid-cols-3">
+                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                     Active module
                   </p>
@@ -577,61 +474,77 @@ export default function CommunityMiningPlatform() {
                     {activeConfig.label}
                   </p>
                 </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-[var(--gm-subtle)] md:hidden">
+                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                    Filters
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--gm-muted)]">
                     {companyFilter}
-                  </span>
-                  <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-[var(--gm-subtle)]">
-                    Search: {searchQuery ? `"${searchQuery}"` : "all records"}
-                  </span>
+                  </p>
+                </div>
+                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                    Search state
+                  </p>
+                  <p className="mt-1 text-sm text-[var(--gm-muted)]">
+                    {searchQuery ? `"${searchQuery}"` : "All records"}
+                  </p>
                   {isPending ? (
-                    <span className="rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-100">
+                    <span className="mt-2 inline-flex rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
                       Switching...
                     </span>
                   ) : null}
                 </div>
               </div>
-
-              <div className="flex gap-2 overflow-x-auto pb-1 xl:hidden">
-                {sectionConfigs.map((section) => (
-                  <button
-                    key={section.id}
-                    type="button"
-                    onClick={() => handleSectionChange(section.id)}
-                    className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm transition ${
-                      activeSection === section.id
-                        ? "border-white/18 bg-white text-slate-950"
-                        : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)]"
-                    }`}
-                  >
-                    {section.label}
-                  </button>
-                ))}
-              </div>
             </div>
-          </header>
+          </div>
+        </header>
 
-          <main className="flex-1 px-4 py-5 md:px-6 md:py-6 xl:px-8 xl:py-8">
-            <div className="mb-5 rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl">
-              <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+        <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-5 md:px-6 md:py-6 xl:px-8 xl:py-8">
+          <div className="mb-5 grid gap-4 xl:grid-cols-[1fr_auto]">
+            <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl">
+              <div className="flex items-start gap-3">
+                <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Notification
+                    Live update
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
                     {latestUpdates[activeUpdateIndex]}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleSectionChange("report")}
-                  className="rounded-full border border-white/15 bg-white/[0.08] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.12]"
-                >
-                  Submit issue
-                </button>
               </div>
             </div>
 
+            <div className="grid gap-3 sm:grid-cols-2 xl:w-[420px]">
+              <button
+                type="button"
+                onClick={() => handleSectionChange("opportunities")}
+                className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+              >
+                <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                  Quick access
+                </p>
+                <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                  Opportunities
+                </p>
+              </button>
+              <button
+                type="button"
+                onClick={() => handleSectionChange("report")}
+                className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+              >
+                <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                  Quick action
+                </p>
+                <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                  Submit issue
+                </p>
+              </button>
+            </div>
+          </div>
+
+          <div className="gm-section-stage">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection}
@@ -643,12 +556,12 @@ export default function CommunityMiningPlatform() {
                 {renderSection(activeConfig)}
               </motion.div>
             </AnimatePresence>
-          </main>
+          </div>
+        </main>
 
-          <footer className="border-t border-white/[0.08] px-4 py-5 text-sm text-[var(--gm-subtle)] md:px-6 xl:px-8">
-            World-class transparency interface for Ga-Mawela. Frontend now structured for backend integration, document pipelines, and richer data feeds.
-          </footer>
-        </div>
+        <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-4 py-5 text-sm text-[var(--gm-subtle)] md:px-6 xl:px-8">
+          World-class transparency interface for Ga-Mawela. Frontend now structured for backend integration, document pipelines, and richer data feeds.
+        </footer>
       </div>
     </div>
   );

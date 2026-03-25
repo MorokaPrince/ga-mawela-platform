@@ -128,6 +128,14 @@ video {
   mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent);
 }
 
+.gm-top-tabs {
+  scrollbar-width: none;
+}
+
+.gm-top-tabs::-webkit-scrollbar {
+  display: none;
+}
+
 .gm-filmstrip-track {
   display: flex;
   width: max-content;
@@ -149,6 +157,10 @@ video {
 
 .gm-accent-line {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(209, 74, 40, 0.9), rgba(255, 255, 255, 0));
+}
+
+.gm-section-stage {
+  min-height: calc(100vh - 260px);
 }
 
 .gm-input {
@@ -214,6 +226,10 @@ video {
 
   .gm-filmstrip-track {
     animation-duration: 28s;
+  }
+
+  .gm-section-stage {
+    min-height: auto;
   }
 }
 
