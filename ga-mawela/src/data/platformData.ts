@@ -172,7 +172,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Access hub",
     description:
       "Aggregate jobs, learnerships, bursaries, and supplier registration channels in one place.",
-    accent: "#4f46e5",
+    accent: "#0369a1",
     backgroundImage: "/platform/media/hero-gate.png",
   },
   {
@@ -190,7 +190,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Interactive intake",
     description:
       "Provide a safe channel for reporting employment, exclusion, procurement, and community issues.",
-    accent: "#9333ea",
+    accent: "#ca8a04",
     backgroundImage: "/platform/media/ridge-road.png",
   },
   {

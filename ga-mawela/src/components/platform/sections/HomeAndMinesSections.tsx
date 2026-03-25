@@ -113,7 +113,7 @@ function LandingFilmstrip({ cards }: { cards: VisualCard[] }) {
               key={`${card.id}-${index}`}
               className="w-[280px] shrink-0 overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.05]"
             >
-              <div className="relative h-56">
+              <div className="relative h-52">
                 <Image
                   src={card.image}
                   alt={card.title}
@@ -153,7 +153,7 @@ function VisualStoryCards({
     <div className={`grid gap-4 ${columns}`}>
       {cards.map((card) => (
         <GlassPanel key={card.id} className="overflow-hidden p-0">
-          <div className="relative h-60">
+          <div className="relative h-52 md:h-56">
             <Image
               src={card.image}
               alt={card.title}
@@ -198,7 +198,7 @@ function HeroShowcase({
 
   return (
     <GlassPanel className="relative overflow-hidden p-0">
-      <div className="relative min-h-[720px] overflow-hidden rounded-[30px]">
+      <div className="relative min-h-[620px] overflow-hidden rounded-[30px] xl:min-h-[680px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeFrame.id}
@@ -251,7 +251,7 @@ function HeroShowcase({
           </GlassPanel>
         </div>
 
-        <div className="pointer-events-none absolute right-10 top-52 hidden max-w-[18rem] lg:block">
+        <div className="pointer-events-none absolute right-10 top-44 hidden max-w-[18rem] lg:block">
           <GlassPanel className="gm-float-delay bg-white/[0.08]">
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
               Active frame metric
@@ -265,20 +265,20 @@ function HeroShowcase({
           </GlassPanel>
         </div>
 
-        <div className="relative z-10 flex min-h-[720px] flex-col justify-between gap-10 p-5 md:p-7 xl:p-9">
+        <div className="relative z-10 flex min-h-[620px] flex-col justify-between gap-8 p-5 md:p-6 xl:min-h-[680px] xl:p-8">
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/70">
               <span className="h-2 w-2 rounded-full bg-[var(--gm-accent)]" />
               Immersive landing sequence
             </div>
-            <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-7xl xl:text-[5.5rem] xl:leading-[0.94]">
+            <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl xl:text-[4.9rem] xl:leading-[0.94]">
               Ga-Mawela Mining & Community Platform
             </h3>
             <p className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
               A premium, data-driven transparency interface for land awareness, corridor intelligence, SLP tracking, and youth-centered opportunity access.
             </p>
 
-            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/45 p-5 backdrop-blur-xl">
+            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/45 p-4 backdrop-blur-xl md:p-5">
               <p className="text-[11px] uppercase tracking-[0.28em] text-white/60">
                 {activeFrame.eyebrow}
               </p>
@@ -313,7 +313,7 @@ function HeroShowcase({
             </div>
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-4 xl:grid-cols-[0.88fr_1.12fr]">
             <div className="grid gap-4 md:grid-cols-3">
               <GlassPanel className="bg-slate-950/45">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
@@ -347,7 +347,7 @@ function HeroShowcase({
                   key={frame.id}
                   type="button"
                   onClick={() => setActiveFrameIndex(index)}
-                  className={`group relative h-36 min-w-[180px] overflow-hidden rounded-[24px] border transition ${
+                  className={`group relative h-32 min-w-[170px] overflow-hidden rounded-[24px] border transition ${
                     activeFrameIndex === index
                       ? "border-white/25 shadow-[0_14px_40px_rgba(0,0,0,0.35)]"
                       : "border-white/10 opacity-85 hover:border-white/20 hover:opacity-100"
@@ -389,10 +389,10 @@ function CorridorMap({
   onSelectMine: (id: string) => void;
 }) {
   return (
-    <GlassPanel className="relative min-h-[460px] overflow-hidden">
+    <GlassPanel className="relative min-h-[420px] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%),linear-gradient(180deg,rgba(16,23,46,0.18),rgba(16,23,46,0.5))]" />
       <div className="absolute inset-0 gm-noise-overlay opacity-20" />
-      <div className="relative h-[460px] rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.2),rgba(8,12,28,0.68))]">
+      <div className="relative h-[420px] rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.2),rgba(8,12,28,0.68))]">
         <svg
           viewBox="0 0 100 100"
           className="absolute inset-0 h-full w-full opacity-60"
@@ -485,17 +485,17 @@ export function HomeSection({
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5">
-        <HeroShowcase selectedMine={selectedMine} onSectionChange={onSectionChange} />
+        <div className="grid gap-5">
+          <HeroShowcase selectedMine={selectedMine} onSectionChange={onSectionChange} />
 
-        <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
+        <div className="grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
           <GlassPanel className="overflow-hidden">
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                   Interactive map preview
                 </p>
-                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
+                <h3 className="mt-3 text-[1.9rem] font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
                   Understand the corridor at a glance
                 </h3>
               </div>
@@ -718,11 +718,11 @@ export function MinesSection({
         </div>
       </div>
 
-      <div className="mt-5">
+      <div className="mt-4">
         <VisualStoryCards cards={operationalVisualCards} columns="md:grid-cols-3" />
       </div>
 
-      <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {filteredPoints.map((point) => (
           <button
             key={point.id}

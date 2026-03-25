@@ -65,6 +65,34 @@ video {
   position: relative;
   min-height: 100vh;
   color: var(--gm-foreground);
+  isolation: isolate;
+}
+
+.gm-theme-shell::before,
+.gm-theme-shell::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.28;
+}
+
+.gm-theme-shell::before {
+  top: 4rem;
+  left: -8rem;
+  height: 22rem;
+  width: 22rem;
+  background: rgba(209, 74, 40, 0.22);
+}
+
+.gm-theme-shell::after {
+  right: -7rem;
+  bottom: 8rem;
+  height: 20rem;
+  width: 20rem;
+  background: rgba(56, 189, 248, 0.18);
 }
 
 .gm-theme-dark {
@@ -160,7 +188,7 @@ video {
 }
 
 .gm-section-stage {
-  min-height: calc(100vh - 260px);
+  min-height: calc(100vh - 224px);
 }
 
 .gm-input {
@@ -230,6 +258,13 @@ video {
 
   .gm-section-stage {
     min-height: auto;
+  }
+
+  .gm-theme-shell::before,
+  .gm-theme-shell::after {
+    height: 14rem;
+    width: 14rem;
+    opacity: 0.22;
   }
 }
 

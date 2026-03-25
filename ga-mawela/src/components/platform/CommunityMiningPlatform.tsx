@@ -383,8 +383,8 @@ export default function CommunityMiningPlatform() {
       <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20" />
 
       <div className="relative min-h-screen">
-        <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[var(--gm-panel-header)] backdrop-blur-2xl">
-          <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-4 px-4 py-4 md:px-6 xl:px-8">
+        <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[var(--gm-panel-header)] shadow-[0_18px_60px_rgba(7,10,24,0.18)] backdrop-blur-2xl">
+          <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-3 md:px-6 xl:px-8">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
               <div className="flex items-start gap-4">
                 <div className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] shadow-[0_0_40px_rgba(209,74,40,0.12)]">
@@ -397,7 +397,7 @@ export default function CommunityMiningPlatform() {
                   <h1 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)] md:text-3xl">
                     Mining & Community Intelligence Platform
                   </h1>
-                  <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--gm-muted)]">
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--gm-muted)]">
                     A professional landing experience for transparency, land awareness, SLP visibility, and opportunity access around St George 2 JT.
                   </p>
                 </div>
@@ -422,7 +422,7 @@ export default function CommunityMiningPlatform() {
                   onChange={(event) =>
                     setCompanyFilter(event.target.value as CompanyFilter)
                   }
-                  className="gm-input hidden h-12 min-w-[220px] md:block"
+                  className="gm-input h-12 min-w-[220px]"
                 >
                   {companyFilters.map((filter) => (
                     <option key={filter}>{filter}</option>
@@ -442,7 +442,7 @@ export default function CommunityMiningPlatform() {
               </div>
             </div>
 
-            <div className="grid gap-4 xl:grid-cols-[1fr_auto] xl:items-center">
+            <div className="grid gap-3 xl:grid-cols-[1fr_auto] xl:items-center">
               <nav className="gm-top-tabs overflow-x-auto pb-1">
                 <div className="flex min-w-max gap-2">
                   {sectionConfigs.map((section) => (
@@ -452,9 +452,17 @@ export default function CommunityMiningPlatform() {
                       onClick={() => handleSectionChange(section.id)}
                       className={`group relative rounded-full border px-4 py-3 text-sm transition ${
                         activeSection === section.id
-                          ? "border-white/18 bg-white text-slate-950 shadow-[0_12px_32px_rgba(255,255,255,0.08)]"
+                          ? "border-white/18 bg-white text-slate-950"
                           : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
                       }`}
+                      style={
+                        activeSection === section.id
+                          ? {
+                              borderColor: `${section.accent}66`,
+                              boxShadow: `0 14px 42px ${section.accent}24`,
+                            }
+                          : undefined
+                      }
                     >
                       <span className="block font-medium">{section.label}</span>
                       <span className={`mt-1 block text-[11px] ${activeSection === section.id ? "text-slate-600" : "text-[var(--gm-subtle)]"}`}>
@@ -465,43 +473,37 @@ export default function CommunityMiningPlatform() {
                 </div>
               </nav>
 
-              <div className="grid gap-3 md:grid-cols-3">
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Active module
-                  </p>
-                  <p className="mt-1 text-lg font-medium tracking-[-0.03em] text-[var(--gm-foreground)]">
+              <div className="flex flex-wrap gap-2 xl:justify-end">
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">Module:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
                     {activeConfig.label}
-                  </p>
+                  </span>
                 </div>
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Filters
-                  </p>
-                  <p className="mt-1 text-sm text-[var(--gm-muted)]">
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">Filter:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
                     {companyFilter}
-                  </p>
+                  </span>
                 </div>
-                <div className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Search state
-                  </p>
-                  <p className="mt-1 text-sm text-[var(--gm-muted)]">
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">Search:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
                     {searchQuery ? `"${searchQuery}"` : "All records"}
-                  </p>
-                  {isPending ? (
-                    <span className="mt-2 inline-flex rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
-                      Switching...
-                    </span>
-                  ) : null}
+                  </span>
                 </div>
+                {isPending ? (
+                  <span className="inline-flex rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-100">
+                    Switching...
+                  </span>
+                ) : null}
               </div>
             </div>
           </div>
         </header>
 
-        <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-5 md:px-6 md:py-6 xl:px-8 xl:py-8">
-          <div className="mb-5 grid gap-4 xl:grid-cols-[1fr_auto]">
+        <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-4 md:px-6 md:py-5 xl:px-8 xl:py-6">
+          <div className="mb-4 grid gap-4 xl:grid-cols-[1fr_auto]">
             <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl">
               <div className="flex items-start gap-3">
                 <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />

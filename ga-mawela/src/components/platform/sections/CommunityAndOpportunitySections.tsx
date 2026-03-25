@@ -30,7 +30,7 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr]">
+      <div className="grid gap-5 xl:grid-cols-[0.9fr_1.05fr_0.95fr]">
         <GlassPanel>
           <div className="flex items-center justify-between gap-4">
             <div>
@@ -94,24 +94,33 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
             ))}
           </div>
         </GlassPanel>
-      </div>
 
-      <div className="mt-5 grid gap-5 xl:grid-cols-2">
-        {legalReferences.map((item) => (
-          <GlassPanel key={item.title}>
+        <div className="grid gap-5">
+          {legalReferences.map((item) => (
+            <GlassPanel key={item.title}>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                Legal reference
+              </p>
+              <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-[var(--gm-foreground)]">
+                {item.title}
+              </p>
+              <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">{item.description}</p>
+              <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
+                <span className="font-medium text-[var(--gm-foreground)]">Why it matters:</span>{" "}
+                {item.focus}
+              </p>
+            </GlassPanel>
+          ))}
+
+          <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Legal reference
+              Reading guide
             </p>
-            <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-[var(--gm-foreground)]">
-              {item.title}
-            </p>
-            <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">{item.description}</p>
-            <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-              <span className="font-medium text-[var(--gm-foreground)]">Why it matters:</span>{" "}
-              {item.focus}
+            <p className="mt-3 text-sm leading-7 text-[var(--gm-muted)]">
+              Keep the narrative ordered like this: land parcel first, governance structures second, mining corridor third, then legal and engagement questions.
             </p>
           </GlassPanel>
-        ))}
+        </div>
       </div>
     </SectionShell>
   );
@@ -132,8 +141,8 @@ export function OpportunitiesSection({
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {cards.map((item) => (
             <GlassPanel key={item.id} className="flex h-full flex-col">
               <div className="flex items-start justify-between gap-4">
@@ -167,12 +176,12 @@ export function OpportunitiesSection({
           ))}
         </div>
 
-        <div className="grid gap-5">
+        <div className="grid gap-5 xl:grid-cols-[1fr_0.9fr]">
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
               Application checklist
             </p>
-            <div className="mt-5 space-y-3">
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
               {applicationSteps.map((step, index) => (
                 <div
                   key={step}
@@ -187,18 +196,29 @@ export function OpportunitiesSection({
             </div>
           </GlassPanel>
 
-          <GlassPanel>
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              CV upload placeholder
-            </p>
-            <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-              Backend integration can later turn this card into a resident CV bank or profile intake. The front-end is
-              already structured for that future handoff.
-            </p>
-            <div className="mt-5 rounded-[22px] border border-dashed border-white/15 bg-white/[0.04] p-5 text-sm text-[var(--gm-muted)]">
-              CV intake module placeholder
-            </div>
-          </GlassPanel>
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
+            <GlassPanel>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                CV upload placeholder
+              </p>
+              <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
+                Backend integration can later turn this card into a resident CV bank or profile intake. The front-end is
+                already structured for that future handoff.
+              </p>
+              <div className="mt-5 rounded-[22px] border border-dashed border-white/15 bg-white/[0.04] p-5 text-sm text-[var(--gm-muted)]">
+                CV intake module placeholder
+              </div>
+            </GlassPanel>
+
+            <GlassPanel>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                Access principle
+              </p>
+              <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
+                Opportunity notices should be easy to find, easy to understand, and visible before deadlines close.
+              </p>
+            </GlassPanel>
+          </div>
         </div>
       </div>
     </SectionShell>
@@ -220,7 +240,7 @@ export function TransparencySection({
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-5 xl:grid-cols-[0.85fr_1.15fr]">
         <GlassPanel>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
             Signals
@@ -252,7 +272,7 @@ export function TransparencySection({
             ))}
           </div>
 
-          <div className="grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+          <div className="grid gap-5 lg:grid-cols-[0.75fr_1.25fr]">
             <RingMeter
               label="Current disclosure maturity"
               value={46}

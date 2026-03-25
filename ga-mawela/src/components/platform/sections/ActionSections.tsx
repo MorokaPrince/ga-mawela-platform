@@ -71,7 +71,7 @@ export function ReportSection({
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5 xl:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr]">
         <GlassPanel>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
             Submission form
@@ -111,7 +111,7 @@ export function ReportSection({
                 onChange={(event) =>
                   onReportFieldChange("description", event.target.value)
                 }
-                className="gm-input min-h-[180px]"
+                className="gm-input min-h-[150px]"
                 placeholder="Describe the issue, what happened, and what kind of follow-up would help."
               />
             </label>
@@ -139,46 +139,67 @@ export function ReportSection({
           </form>
         </GlassPanel>
 
-        <GlassPanel>
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Recent local submissions
-          </p>
-          <div className="mt-5 space-y-3">
-            {issues.length === 0 ? (
-              <EmptyMessage
-                title="No issues saved yet."
-                detail="Once a report is submitted, it will appear here as a local record."
-              />
-            ) : (
-              issues.map((issue) => (
-                <div
-                  key={issue.id}
-                  className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
-                >
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <p className="text-base font-medium text-[var(--gm-foreground)]">
-                      {issue.issueType}
-                    </p>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--gm-subtle)]">
-                      {issue.submittedAt}
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-[var(--gm-muted)]">
-                    {issue.name || "Anonymous"}
-                  </p>
-                  <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
-                    {issue.description}
-                  </p>
-                  {issue.fileName ? (
-                    <p className="mt-3 text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)]">
-                      Attachment: {issue.fileName}
-                    </p>
-                  ) : null}
+        <div className="grid gap-5">
+          <GlassPanel>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+              Reporting standard
+            </p>
+            <div className="mt-5 grid gap-3 md:grid-cols-3">
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
+                Keep descriptions factual and time-bound.
+              </div>
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
+                Upload supporting files where possible.
+              </div>
+              <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
+                Records stay local for now and can later move into a formal review flow.
+              </div>
+            </div>
+          </GlassPanel>
+
+          <GlassPanel>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+              Recent local submissions
+            </p>
+            <div className="mt-5 grid gap-3 md:grid-cols-2">
+              {issues.length === 0 ? (
+                <div className="md:col-span-2">
+                  <EmptyMessage
+                    title="No issues saved yet."
+                    detail="Once a report is submitted, it will appear here as a local record."
+                  />
                 </div>
-              ))
-            )}
-          </div>
-        </GlassPanel>
+              ) : (
+                issues.map((issue) => (
+                  <div
+                    key={issue.id}
+                    className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-3">
+                      <p className="text-base font-medium text-[var(--gm-foreground)]">
+                        {issue.issueType}
+                      </p>
+                      <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--gm-subtle)]">
+                        {issue.submittedAt}
+                      </span>
+                    </div>
+                    <p className="mt-2 text-sm text-[var(--gm-muted)]">
+                      {issue.name || "Anonymous"}
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
+                      {issue.description}
+                    </p>
+                    {issue.fileName ? (
+                      <p className="mt-3 text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)]">
+                        Attachment: {issue.fileName}
+                      </p>
+                    ) : null}
+                  </div>
+                ))
+              )}
+            </div>
+          </GlassPanel>
+        </div>
       </div>
     </SectionShell>
   );
@@ -234,10 +255,10 @@ export function DocumentsSection({
         </>
       }
     >
-      <div className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
-        <div className="grid gap-4 md:grid-cols-2">
+      <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid gap-4 md:grid-cols-2 2xl:grid-cols-3">
           {visibleDocuments.length === 0 ? (
-            <div className="md:col-span-2">
+            <div className="md:col-span-2 2xl:col-span-3">
               <EmptyMessage
                 title="No documents match this category."
                 detail="Switch categories or upload a file into the library."
@@ -326,7 +347,7 @@ export function DocumentsSection({
                 onChange={(event) =>
                   onLibraryFieldChange("description", event.target.value)
                 }
-                className="gm-input min-h-[160px]"
+                className="gm-input min-h-[140px]"
                 placeholder="What is this file and why does it matter?"
               />
             </label>
@@ -409,7 +430,7 @@ export function RepresentationSection({
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
               Why this tracker matters
             </p>
-            <div className="mt-5 space-y-3">
+            <div className="mt-5 grid gap-3 md:grid-cols-3 xl:grid-cols-1">
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
                 Representation affects how community consent, engagement, and benefit discussions are understood.
               </div>
@@ -454,7 +475,7 @@ export function BenefitsSection({
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
-      <div className="grid gap-5 xl:grid-cols-[0.8fr_1.2fr]">
+      <div className="grid gap-5 xl:grid-cols-[0.78fr_1.22fr]">
         <GlassPanel className="flex flex-col items-center justify-center">
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
             Distribution view
@@ -476,7 +497,7 @@ export function BenefitsSection({
           </div>
         </GlassPanel>
 
-        <div className="grid gap-4">
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-1">
           {slices.map((slice, index) => (
             <LinearMeter
               key={slice.label}
