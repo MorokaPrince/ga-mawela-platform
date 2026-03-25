@@ -66,7 +66,7 @@ export function SectionShell({
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-18"
+          className="object-cover opacity-[0.18]"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_40%),linear-gradient(135deg,rgba(9,14,32,0.92),rgba(9,14,32,0.72))]" />
         <div
@@ -78,7 +78,7 @@ export function SectionShell({
       <div className="relative z-10 p-5 md:p-8 xl:p-10">
         <div className="mb-8 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
-            <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/6 px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[var(--gm-muted)]">
+            <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[var(--gm-muted)]">
               <span
                 className="h-2 w-2 rounded-full"
                 style={{ backgroundColor: accent }}
@@ -157,7 +157,7 @@ export function FilterChip({ active, label, onClick }: FilterChipProps) {
       className={`rounded-full border px-4 py-2 text-sm transition duration-300 ${
         active
           ? "border-white/20 bg-white text-slate-950 shadow-lg"
-          : "border-white/10 bg-white/5 text-[var(--gm-muted)] hover:border-white/20 hover:bg-white/10 hover:text-[var(--gm-foreground)]"
+          : "border-white/10 bg-white/[0.05] text-[var(--gm-muted)] hover:border-white/20 hover:bg-white/10 hover:text-[var(--gm-foreground)]"
       }`}
     >
       {label}

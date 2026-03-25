@@ -541,12 +541,12 @@ export const slpCommitments: SlpCommitment[] = [
     mineName: "Der Brochen Project",
     company: "Anglo American Platinum",
     type: "Training",
-    status: "Placeholder",
+    status: "In Progress",
     year: "Pipeline",
     notes: "Project-stage commitments need later confirmation once disclosures mature.",
     detail:
       "Project records are often less visible early on, so the dashboard treats them as future evidence slots rather than closed facts.",
-  } as unknown as SlpCommitment,
+  },
   {
     id: "tworivers-jobs",
     mineId: "two-rivers",

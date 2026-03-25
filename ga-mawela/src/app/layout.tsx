@@ -3,9 +3,17 @@ import Providers from "../components/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Ga Mawela Truth Platform",
-  description: "Investigative journalism platform uncovering truth and accountability in South Africa.",
-  keywords: ["investigative journalism", "South Africa", "truth", "accountability", "corruption"],
+  title: "Ga-Mawela Mining & Community Intelligence Platform",
+  description:
+    "A high-end transparency, opportunity, and mining corridor intelligence platform for Ga-Mawela and St George 2 JT.",
+  keywords: [
+    "Ga-Mawela",
+    "St George 2 JT",
+    "mining transparency",
+    "community intelligence",
+    "SLP tracker",
+    "Limpopo mining corridor",
+  ],
   authors: [{ name: "Ga Mawela" }],
   creator: "Ga Mawela",
   publisher: "Ga Mawela",
@@ -19,8 +27,9 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Ga Mawela Truth Platform",
-    description: "Investigative journalism platform uncovering truth and accountability in South Africa.",
+    title: "Ga-Mawela Mining & Community Intelligence Platform",
+    description:
+      "Track mining operations, SLP commitments, land governance, opportunities, and transparency signals around Ga-Mawela.",
     url: "https://truth.gamawela.org",
     siteName: "Ga Mawela",
     images: [
@@ -36,8 +45,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ga Mawela Truth Platform",
-    description: "Investigative journalism platform uncovering truth and accountability in South Africa.",
+    title: "Ga-Mawela Mining & Community Intelligence Platform",
+    description:
+      "Track mining operations, SLP commitments, land governance, opportunities, and transparency signals around Ga-Mawela.",
     images: ["https://truth.gamawela.org/api/og"],
     creator: "@gamawela",
   },
@@ -67,7 +77,7 @@ export default function RootLayout({
     "name": "Ga Mawela",
     "url": "https://truth.gamawela.org",
     "logo": "https://truth.gamawela.org/logo.png",
-    "description": "Investigative journalism platform uncovering truth and accountability in South Africa.",
+    "description": "Community intelligence, transparency, and opportunity platform focused on Ga-Mawela and the wider mining corridor.",
     "foundingDate": "2024",
     "sameAs": [
       "https://twitter.com/gamawela"
@@ -94,9 +104,7 @@ export default function RootLayout({
         />
         <script defer data-domain={process.env.PLAUSIBLE_DOMAIN || "truth.gamawela.org"} src="https://plausible.io/js/script.js"></script>
       </head>
-      <body
-        className="antialiased"
-      >
+      <body className="antialiased">
         <Providers>
           {children}
         </Providers>
