@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,100..900&family=Space+Grotesk:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -20,6 +20,7 @@ body {
   background: #050814;
   color: #f8fafc;
   font-family: "Space Grotesk", "Segoe UI Variable", sans-serif;
+  letter-spacing: -0.01em;
 }
 
 h1,
@@ -29,7 +30,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Fraunces", "Georgia", serif;
+  font-family: "Syne", "Space Grotesk", sans-serif;
   letter-spacing: -0.04em;
 }
 
@@ -113,6 +114,43 @@ video {
     linear-gradient(90deg, rgba(15, 23, 42, 0.06) 1px, transparent 1px);
 }
 
+.gm-noise-overlay {
+  background-image:
+    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px),
+    radial-gradient(circle at 85% 45%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 45% 80%, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px);
+  background-size: 18px 18px, 24px 24px, 28px 28px;
+  mix-blend-mode: soft-light;
+}
+
+.gm-filmstrip {
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, rgba(0, 0, 0, 1) 12%, rgba(0, 0, 0, 1) 88%, transparent);
+}
+
+.gm-filmstrip-track {
+  display: flex;
+  width: max-content;
+  animation: gm-marquee 42s linear infinite;
+}
+
+.gm-filmstrip:hover .gm-filmstrip-track {
+  animation-play-state: paused;
+}
+
+.gm-float-slow {
+  animation: gm-float 10s ease-in-out infinite;
+}
+
+.gm-float-delay {
+  animation: gm-float 13s ease-in-out infinite;
+  animation-delay: -4s;
+}
+
+.gm-accent-line {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(209, 74, 40, 0.9), rgba(255, 255, 255, 0));
+}
+
 .gm-input {
   width: 100%;
   border: 1px solid var(--gm-border);
@@ -150,9 +188,32 @@ video {
   color: #0f172a;
 }
 
+@keyframes gm-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gm-float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @media (max-width: 768px) {
   .gm-grid-overlay {
     background-size: 36px 36px;
+  }
+
+  .gm-filmstrip-track {
+    animation-duration: 28s;
   }
 }
 

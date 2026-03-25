@@ -66,13 +66,16 @@ export function SectionShell({
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-[0.18]"
+          className="object-cover opacity-[0.18] mix-blend-luminosity"
         />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.18),transparent_40%),linear-gradient(135deg,rgba(9,14,32,0.92),rgba(9,14,32,0.72))]" />
+        <div className="absolute inset-0 gm-noise-overlay opacity-30" />
         <div
           className="absolute -right-12 -top-12 h-64 w-64 rounded-full blur-3xl"
           style={{ background: `${accent}30` }}
         />
+        <div className="absolute inset-x-0 top-0 h-px gm-accent-line opacity-80" />
+        <div className="absolute bottom-0 left-10 right-10 h-24 bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.08))]" />
       </div>
 
       <div className="relative z-10 p-5 md:p-8 xl:p-10">

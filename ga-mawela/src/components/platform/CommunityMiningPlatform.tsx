@@ -44,6 +44,7 @@ import {
   sectionConfigs,
   slpCommitments,
   transparencySignals,
+  updates,
   type CompanyFilter,
   type DocumentCategory,
   type SectionId,
@@ -248,7 +249,7 @@ export default function CommunityMiningPlatform() {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
-      setActiveUpdateIndex((current) => (current + 1) % 3);
+      setActiveUpdateIndex((current) => (current + 1) % updates.length);
     }, 4800);
 
     return () => window.clearInterval(timer);
@@ -291,11 +292,7 @@ export default function CommunityMiningPlatform() {
   const activeConfig =
     sectionConfigs.find((section) => section.id === activeSection) ?? sectionConfigs[0];
 
-  const latestUpdates = [
-    "St George 2 JT is visualized as a land parcel rather than a mine.",
-    "SLP tracker status logic is now backend-ready and filterable.",
-    "Opportunity and representation modules elevate the youth access question.",
-  ];
+  const latestUpdates = updates.map((item) => item.detail);
 
   const handleSectionChange = (id: SectionId) => {
     startTransition(() => {

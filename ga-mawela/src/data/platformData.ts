@@ -110,6 +110,25 @@ export type BenefitSlice = {
   summary: string;
 };
 
+export type MediaFrame = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  detail: string;
+  image: string;
+  video?: string;
+  poster?: string;
+  metric: string;
+};
+
+export type VisualCard = {
+  id: string;
+  tag: string;
+  title: string;
+  summary: string;
+  image: string;
+};
+
 export const sectionConfigs: SectionConfig[] = [
   {
     id: "home",
@@ -118,7 +137,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "A living intelligence layer for Ga-Mawela, St George 2 JT, and the mining corridor around it.",
     accent: "#d14a28",
-    backgroundImage: "/platform/media/st-george-road.png",
+    backgroundImage: "/platform/media/corridor-panorama.png",
   },
   {
     id: "mines",
@@ -127,7 +146,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Track the corridor: ECM assets, Anglo American Platinum operations, regional mines, and the land parcel at the center.",
     accent: "#0f766e",
-    backgroundImage: "/platform/media/two-rivers-sign.png",
+    backgroundImage: "/platform/media/conveyor-road.png",
   },
   {
     id: "slp",
@@ -136,7 +155,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Monitor jobs, roads, schools, and training commitments across mines touching the wider corridor.",
     accent: "#2563eb",
-    backgroundImage: "/platform/media/two-rivers-entry.png",
+    backgroundImage: "/platform/media/truck-road.png",
   },
   {
     id: "community",
@@ -145,7 +164,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Explain St George 2 JT, CPA governance, youth exclusion concerns, and the land history around Ga-Mawela.",
     accent: "#854d0e",
-    backgroundImage: "/platform/media/st-george-road.png",
+    backgroundImage: "/platform/media/ridge-road.png",
   },
   {
     id: "opportunities",
@@ -154,7 +173,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Aggregate jobs, learnerships, bursaries, and supplier registration channels in one place.",
     accent: "#4f46e5",
-    backgroundImage: "/assets/images/limpopo-youth.jpg",
+    backgroundImage: "/platform/media/hero-gate.png",
   },
   {
     id: "transparency",
@@ -163,7 +182,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Frame community concerns, transparency gaps, and engagement challenges in professional, evidence-led language.",
     accent: "#be123c",
-    backgroundImage: "/platform/media/two-rivers-entry.png",
+    backgroundImage: "/platform/media/truck-road.png",
   },
   {
     id: "report",
@@ -172,7 +191,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Provide a safe channel for reporting employment, exclusion, procurement, and community issues.",
     accent: "#9333ea",
-    backgroundImage: "/platform/media/st-george-road.png",
+    backgroundImage: "/platform/media/ridge-road.png",
   },
   {
     id: "documents",
@@ -181,7 +200,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Centralize PAIA requests, mining records, SLP files, and community letters for future backend integration.",
     accent: "#0f766e",
-    backgroundImage: "/platform/media/two-rivers-sign.png",
+    backgroundImage: "/platform/media/hero-gate.png",
   },
   {
     id: "representation",
@@ -190,7 +209,7 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Surface who is visible in community structures, where engagement happens, and where youth representation gaps remain.",
     accent: "#ea580c",
-    backgroundImage: "/platform/media/two-rivers-entry.png",
+    backgroundImage: "/platform/media/corridor-panorama.png",
   },
   {
     id: "benefits",
@@ -199,7 +218,119 @@ export const sectionConfigs: SectionConfig[] = [
     description:
       "Visualize how gains may flow across companies, government, community, and still-unclear channels.",
     accent: "#047857",
-    backgroundImage: "/platform/media/st-george-road.png",
+    backgroundImage: "/platform/media/conveyor-road.png",
+  },
+];
+
+export const heroMediaFrames: MediaFrame[] = [
+  {
+    id: "corridor-reel",
+    eyebrow: "Live field reel",
+    title: "The corridor feels active, layered, and contested.",
+    detail:
+      "Video, road edges, and mountain silhouettes frame the platform as a living territory rather than a static archive.",
+    image: "/platform/media/hero-gate.png",
+    video: "/platform/media/hero-de-brochen.mp4",
+    poster: "/platform/media/two-rivers-entry.png",
+    metric: "30 MB local reel integrated",
+  },
+  {
+    id: "gate-threshold",
+    eyebrow: "Thresholds",
+    title: "Gates, access roads, and fencing mark who sees what.",
+    detail:
+      "Operational infrastructure should be read alongside community movement, land questions, and who gets access to information.",
+    image: "/platform/media/hero-gate.png",
+    metric: "Access points surfaced",
+  },
+  {
+    id: "processing-road",
+    eyebrow: "Industrial movement",
+    title: "Conveyors and haul routes extend the story beyond a single pit.",
+    detail:
+      "Processing, transport, and visible logistics matter because they shape road pressure, dust, and perceptions of benefit.",
+    image: "/platform/media/conveyor-road.png",
+    metric: "Processing footprint visible",
+  },
+  {
+    id: "truck-pressure",
+    eyebrow: "Road impact",
+    title: "Heavy movement is part of the community interface.",
+    detail:
+      "Trucks, plant traffic, and corridor wear make roads a practical accountability issue, not a cosmetic one.",
+    image: "/platform/media/truck-road.png",
+    metric: "Road pressure in view",
+  },
+  {
+    id: "ridge-memory",
+    eyebrow: "Land memory",
+    title: "Ridgelines and open land keep the land parcel central.",
+    detail:
+      "The visual language must still return to St George 2 JT as land, identity, and governance context.",
+    image: "/platform/media/ridge-road.png",
+    metric: "Land first, mine second",
+  },
+];
+
+export const landingVisualCards: VisualCard[] = [
+  {
+    id: "corridor-atlas",
+    tag: "Atlas",
+    title: "Corridor atlas",
+    summary:
+      "Large-format imagery gives the platform the same sense of place that premium editorial sites use to anchor serious stories.",
+    image: "/platform/media/corridor-panorama.png",
+  },
+  {
+    id: "gates-access",
+    tag: "Access",
+    title: "Entry and visibility",
+    summary:
+      "Who sees notices, who reaches sites, and how visible operations feel to nearby communities shape the transparency story.",
+    image: "/platform/media/hero-gate.png",
+  },
+  {
+    id: "roads-pressure",
+    tag: "Movement",
+    title: "Road pressure",
+    summary:
+      "Roads are a recurring point where community experience and extractive industry intersect most visibly.",
+    image: "/platform/media/truck-road.png",
+  },
+  {
+    id: "processing-chain",
+    tag: "Industry",
+    title: "Processing chain",
+    summary:
+      "Conveyors and plant imagery help connect extraction, processing, and the question of where value ends up.",
+    image: "/platform/media/conveyor-road.png",
+  },
+];
+
+export const operationalVisualCards: VisualCard[] = [
+  {
+    id: "haulage",
+    tag: "Field note",
+    title: "Haulage and surface movement",
+    summary:
+      "Operational traffic creates a visible interface with households, roads, and public expectations of maintenance.",
+    image: "/platform/media/truck-road.png",
+  },
+  {
+    id: "thresholds",
+    tag: "Field note",
+    title: "Thresholds and checkpoints",
+    summary:
+      "Gates and fenced access points reinforce how industry can feel physically close yet informationally distant.",
+    image: "/platform/media/hero-gate.png",
+  },
+  {
+    id: "industrial-span",
+    tag: "Field note",
+    title: "Industrial span",
+    summary:
+      "Visible plant infrastructure helps explain that the corridor is an ecosystem of linked operations, not isolated sites.",
+    image: "/platform/media/conveyor-road.png",
   },
 ];
 

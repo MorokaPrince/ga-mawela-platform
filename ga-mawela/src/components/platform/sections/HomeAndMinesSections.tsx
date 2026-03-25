@@ -1,6 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import {
   EmptyMessage,
   FilterChip,
@@ -15,8 +17,15 @@ import type {
   SectionConfig,
   SectionId,
   SlpCommitment,
+  VisualCard,
 } from "@/data/platformData";
-import { quickStats, updates } from "@/data/platformData";
+import {
+  heroMediaFrames,
+  landingVisualCards,
+  operationalVisualCards,
+  quickStats,
+  updates,
+} from "@/data/platformData";
 
 function getTypeTone(type: MinePoint["type"]) {
   switch (type) {
@@ -47,6 +56,329 @@ function getNodePalette(point: MinePoint) {
   return "border-emerald-300 bg-emerald-200 shadow-[0_0_0_10px_rgba(110,231,183,0.08)]";
 }
 
+function resolveMineVisual(point: MinePoint): VisualCard {
+  if (point.type === "land parcel") {
+    return {
+      id: "land-context",
+      tag: "Land context",
+      title: "Land parcel focus",
+      summary:
+        "The visuals still need to return to open land, road edges, and mountain context so St George 2 JT is not mistaken for a mine.",
+      image: "/platform/media/ridge-road.png",
+    };
+  }
+
+  if (point.type === "processing hub") {
+    return operationalVisualCards[2];
+  }
+
+  if (point.type === "project") {
+    return operationalVisualCards[1];
+  }
+
+  if (point.companyFilter === "Glencore") {
+    return operationalVisualCards[0];
+  }
+
+  if (point.companyFilter === "Anglo American Platinum") {
+    return operationalVisualCards[2];
+  }
+
+  return landingVisualCards[1];
+}
+
+function LandingFilmstrip({ cards }: { cards: VisualCard[] }) {
+  const reel = [...cards, ...cards];
+
+  return (
+    <GlassPanel className="overflow-hidden">
+      <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+            Landing reel
+          </p>
+          <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
+            Cinematic corridor frames
+          </h3>
+        </div>
+        <p className="max-w-xl text-sm leading-7 text-[var(--gm-muted)]">
+          A moving filmstrip keeps the landing experience alive in the RESN direction while staying lightweight enough for the current app.
+        </p>
+      </div>
+
+      <div className="mt-6 gm-filmstrip">
+        <div className="gm-filmstrip-track gap-4">
+          {reel.map((card, index) => (
+            <div
+              key={`${card.id}-${index}`}
+              className="w-[280px] shrink-0 overflow-hidden rounded-[26px] border border-white/10 bg-white/[0.05]"
+            >
+              <div className="relative h-56">
+                <Image
+                  src={card.image}
+                  alt={card.title}
+                  fill
+                  sizes="280px"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,28,0.02),rgba(8,12,28,0.78))]" />
+                <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-slate-950/50 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-white/70">
+                  {card.tag}
+                </div>
+              </div>
+              <div className="p-4">
+                <p className="text-lg font-medium tracking-[-0.03em] text-[var(--gm-foreground)]">
+                  {card.title}
+                </p>
+                <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
+                  {card.summary}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </GlassPanel>
+  );
+}
+
+function VisualStoryCards({
+  cards,
+  columns = "md:grid-cols-2",
+}: {
+  cards: VisualCard[];
+  columns?: string;
+}) {
+  return (
+    <div className={`grid gap-4 ${columns}`}>
+      {cards.map((card) => (
+        <GlassPanel key={card.id} className="overflow-hidden p-0">
+          <div className="relative h-60">
+            <Image
+              src={card.image}
+              alt={card.title}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,28,0.08),rgba(8,12,28,0.82))]" />
+            <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-slate-950/55 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-white/70">
+              {card.tag}
+            </div>
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <p className="text-2xl font-semibold tracking-[-0.04em] text-white">
+                {card.title}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-white/75">{card.summary}</p>
+            </div>
+          </div>
+        </GlassPanel>
+      ))}
+    </div>
+  );
+}
+
+function HeroShowcase({
+  selectedMine,
+  onSectionChange,
+}: {
+  selectedMine: MinePoint;
+  onSectionChange: (id: SectionId) => void;
+}) {
+  const [activeFrameIndex, setActiveFrameIndex] = useState(0);
+  const activeFrame = heroMediaFrames[activeFrameIndex];
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveFrameIndex((current) => (current + 1) % heroMediaFrames.length);
+    }, 6800);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
+  return (
+    <GlassPanel className="relative overflow-hidden p-0">
+      <div className="relative min-h-[720px] overflow-hidden rounded-[30px]">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeFrame.id}
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="absolute inset-0"
+          >
+            {activeFrame.video ? (
+              <video
+                className="h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster={activeFrame.poster}
+              >
+                <source src={activeFrame.video} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={activeFrame.image}
+                alt={activeFrame.title}
+                fill
+                sizes="100vw"
+                className="object-cover"
+                priority
+              />
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.42),transparent_35%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.16),transparent_24%),linear-gradient(120deg,rgba(6,9,19,0.2),rgba(6,9,19,0.84))]" />
+        <div className="absolute inset-0 gm-noise-overlay opacity-35" />
+        <div className="absolute inset-x-0 top-0 h-px gm-accent-line" />
+
+        <div className="pointer-events-none absolute right-6 top-6 hidden max-w-xs lg:block">
+          <GlassPanel className="gm-float-slow bg-slate-950/45">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
+              Current geographic focus
+            </p>
+            <p className="mt-3 text-xl font-medium tracking-[-0.03em] text-white">
+              {selectedMine.name}
+            </p>
+            <p className="mt-3 text-sm leading-6 text-white/70">
+              {selectedMine.communityImpact}
+            </p>
+          </GlassPanel>
+        </div>
+
+        <div className="pointer-events-none absolute right-10 top-52 hidden max-w-[18rem] lg:block">
+          <GlassPanel className="gm-float-delay bg-white/[0.08]">
+            <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
+              Active frame metric
+            </p>
+            <p className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-white">
+              {activeFrame.metric}
+            </p>
+            <p className="mt-3 text-sm leading-6 text-white/70">
+              {activeFrame.detail}
+            </p>
+          </GlassPanel>
+        </div>
+
+        <div className="relative z-10 flex min-h-[720px] flex-col justify-between gap-10 p-5 md:p-7 xl:p-9">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/70">
+              <span className="h-2 w-2 rounded-full bg-[var(--gm-accent)]" />
+              Immersive landing sequence
+            </div>
+            <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-7xl xl:text-[5.5rem] xl:leading-[0.94]">
+              Ga-Mawela Mining & Community Platform
+            </h3>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
+              A premium, data-driven transparency interface for land awareness, corridor intelligence, SLP tracking, and youth-centered opportunity access.
+            </p>
+
+            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/45 p-5 backdrop-blur-xl">
+              <p className="text-[11px] uppercase tracking-[0.28em] text-white/60">
+                {activeFrame.eyebrow}
+              </p>
+              <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white md:text-3xl">
+                {activeFrame.title}
+              </p>
+              <p className="mt-3 text-sm leading-7 text-white/70">{activeFrame.detail}</p>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <button
+                type="button"
+                onClick={() => onSectionChange("mines")}
+                className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
+              >
+                Explore Mines
+              </button>
+              <button
+                type="button"
+                onClick={() => onSectionChange("slp")}
+                className="rounded-full border border-white/15 bg-white/[0.08] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.12]"
+              >
+                Open SLP Tracker
+              </button>
+              <button
+                type="button"
+                onClick={() => onSectionChange("documents")}
+                className="rounded-full border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.08]"
+              >
+                View Evidence
+              </button>
+            </div>
+          </div>
+
+          <div className="grid gap-4 xl:grid-cols-[0.9fr_1.1fr]">
+            <div className="grid gap-4 md:grid-cols-3">
+              <GlassPanel className="bg-slate-950/45">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
+                  Clarification
+                </p>
+                <p className="mt-3 text-lg font-medium text-white">
+                  St George 2 JT is land, not a mine.
+                </p>
+              </GlassPanel>
+              <GlassPanel className="bg-slate-950/45">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
+                  Experience
+                </p>
+                <p className="mt-3 text-lg font-medium text-white">
+                  Editorial portal blended with a live dashboard.
+                </p>
+              </GlassPanel>
+              <GlassPanel className="bg-slate-950/45">
+                <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
+                  Priorities
+                </p>
+                <p className="mt-3 text-lg font-medium text-white">
+                  Transparency, governance, youth access, and land awareness.
+                </p>
+              </GlassPanel>
+            </div>
+
+            <div className="flex gap-3 overflow-x-auto pb-1">
+              {heroMediaFrames.map((frame, index) => (
+                <button
+                  key={frame.id}
+                  type="button"
+                  onClick={() => setActiveFrameIndex(index)}
+                  className={`group relative h-36 min-w-[180px] overflow-hidden rounded-[24px] border transition ${
+                    activeFrameIndex === index
+                      ? "border-white/25 shadow-[0_14px_40px_rgba(0,0,0,0.35)]"
+                      : "border-white/10 opacity-85 hover:border-white/20 hover:opacity-100"
+                  }`}
+                >
+                  <Image
+                    src={frame.image}
+                    alt={frame.title}
+                    fill
+                    sizes="180px"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,28,0.14),rgba(8,12,28,0.82))]" />
+                  <div className="absolute inset-x-0 bottom-0 p-4 text-left">
+                    <p className="text-[11px] uppercase tracking-[0.2em] text-white/60">
+                      {frame.eyebrow}
+                    </p>
+                    <p className="mt-2 line-clamp-2 text-sm font-medium text-white">
+                      {frame.title}
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </GlassPanel>
+  );
+}
+
 function CorridorMap({
   points,
   selectedMineId,
@@ -57,9 +389,10 @@ function CorridorMap({
   onSelectMine: (id: string) => void;
 }) {
   return (
-    <GlassPanel className="relative min-h-[420px] overflow-hidden">
+    <GlassPanel className="relative min-h-[460px] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%),linear-gradient(180deg,rgba(16,23,46,0.18),rgba(16,23,46,0.5))]" />
-      <div className="relative h-[420px] rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.2),rgba(8,12,28,0.68))]">
+      <div className="absolute inset-0 gm-noise-overlay opacity-20" />
+      <div className="relative h-[460px] rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.2),rgba(8,12,28,0.68))]">
         <svg
           viewBox="0 0 100 100"
           className="absolute inset-0 h-full w-full opacity-60"
@@ -91,6 +424,9 @@ function CorridorMap({
 
         <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-slate-950/[0.55] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-[var(--gm-subtle)]">
           Corridor schematic
+        </div>
+        <div className="absolute right-4 top-4 hidden rounded-full border border-white/10 bg-slate-950/[0.55] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-[var(--gm-subtle)] md:block">
+          Select a node
         </div>
 
         {points.map((point) => {
@@ -145,120 +481,22 @@ export function HomeSection({
     <SectionShell
       eyebrow={config.eyebrow}
       title="Ga-Mawela Mining & Community Platform"
-      description="A high-end community intelligence system for transparency, land awareness, SLP tracking, and opportunity access around St George 2 JT and the wider Limpopo mining corridor."
+      description="A higher-end community intelligence system shaped by immersive media, clear hierarchy, and live corridor context instead of flat brochure sections."
       accent={config.accent}
       backgroundImage={config.backgroundImage}
-      actions={
-        <>
-          <button
-            type="button"
-            onClick={() => onSectionChange("mines")}
-            className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
-          >
-            Explore Mines
-          </button>
-          <button
-            type="button"
-            onClick={() => onSectionChange("opportunities")}
-            className="rounded-full border border-white/15 bg-white/[0.06] px-5 py-3 text-sm font-medium text-[var(--gm-foreground)] transition hover:bg-white/10"
-          >
-            Opportunities
-          </button>
-          <button
-            type="button"
-            onClick={() => onSectionChange("transparency")}
-            className="rounded-full border border-white/15 bg-transparent px-5 py-3 text-sm font-medium text-[var(--gm-foreground)] transition hover:border-white/25 hover:bg-white/10"
-          >
-            Community Issues
-          </button>
-        </>
-      }
     >
-      <div className="grid gap-5 xl:grid-cols-[1.25fr_0.95fr]">
-        <GlassPanel className="relative overflow-hidden p-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_left,rgba(209,74,40,0.35),transparent_36%),linear-gradient(135deg,rgba(7,11,24,0.14),rgba(7,11,24,0.66))]" />
-          <div className="relative grid gap-5 p-5 lg:grid-cols-[1.1fr_0.9fr] lg:p-7">
-            <div className="flex flex-col justify-between gap-6">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-1 text-xs text-amber-100">
-                  Priority clarification
-                </div>
-                <h3 className="mt-5 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)] md:text-5xl">
-                  St George 2 JT is land.
-                </h3>
-                <p className="mt-4 max-w-xl text-base leading-8 text-[var(--gm-muted)]">
-                  It sits inside a broader mining corridor and should be explained as a land parcel linked to governance,
-                  restitution, representation, and opportunity debates, not as a mine in itself.
-                </p>
-              </div>
+      <div className="grid gap-5">
+        <HeroShowcase selectedMine={selectedMine} onSectionChange={onSectionChange} />
 
-              <div className="grid gap-3 sm:grid-cols-2">
-                <GlassPanel className="rounded-[24px] bg-white/[0.07]">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Key focus
-                  </p>
-                  <p className="mt-3 text-lg font-medium text-[var(--gm-foreground)]">
-                    Community intelligence, SLP transparency, and youth access
-                  </p>
-                </GlassPanel>
-                <GlassPanel className="rounded-[24px] bg-white/[0.07]">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Design mode
-                  </p>
-                  <p className="mt-3 text-lg font-medium text-[var(--gm-foreground)]">
-                    Editorial portal meets living dashboard
-                  </p>
-                </GlassPanel>
-              </div>
-            </div>
-
-            <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-slate-950/40 shadow-[0_30px_80px_rgba(2,6,23,0.4)]">
-              <video
-                className="h-full min-h-[340px] w-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                poster="/platform/media/two-rivers-entry.png"
-              >
-                <source src="/platform/media/hero-de-brochen.mp4" type="video/mp4" />
-              </video>
-
-              <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent,rgba(2,6,23,0.7))]" />
-
-              <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-slate-950/[0.55] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-white/70 backdrop-blur">
-                Live corridor reel
-              </div>
-
-              <div className="absolute bottom-4 left-4 right-4 grid gap-3 sm:grid-cols-2">
-                <GlassPanel className="rounded-[22px] bg-slate-950/50 p-4">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-                    Selected node
-                  </p>
-                  <p className="mt-2 text-lg font-medium text-white">{selectedMine.name}</p>
-                  <p className="mt-2 text-sm leading-6 text-white/70">{selectedMine.description}</p>
-                </GlassPanel>
-                <GlassPanel className="rounded-[22px] bg-slate-950/50 p-4">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-                    Community impact
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-white/80">{selectedMine.communityImpact}</p>
-                </GlassPanel>
-              </div>
-            </div>
-          </div>
-        </GlassPanel>
-
-        <div className="grid gap-5">
+        <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
           <GlassPanel className="overflow-hidden">
-            <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Intelligence preview
+                  Interactive map preview
                 </p>
-                <h3 className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
-                  Corridor map preview
+                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
+                  Understand the corridor at a glance
                 </h3>
               </div>
               <button
@@ -266,9 +504,10 @@ export function HomeSection({
                 onClick={() => onSectionChange("mines")}
                 className="rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
               >
-                Full map
+                Open full map
               </button>
             </div>
+
             <div className="mt-5">
               <CorridorMap
                 points={points}
@@ -276,40 +515,55 @@ export function HomeSection({
                 onSelectMine={onSelectMine}
               />
             </div>
-          </GlassPanel>
 
-          <GlassPanel>
-            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Current updates
-            </p>
-            <div className="mt-5 grid gap-4">
-              {updates.map((item) => (
-                <div
-                  key={item.title}
-                  className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
-                >
-                  <p className="text-base font-medium text-[var(--gm-foreground)]">
-                    {item.title}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                    {item.detail}
-                  </p>
-                </div>
-              ))}
+            <div className="mt-4 grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
+              <p className="text-sm leading-7 text-[var(--gm-muted)]">
+                The preview map keeps the land parcel visible alongside mines, projects, and a processing hub so the spatial story stays accurate.
+              </p>
+              <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)]">
+                Current node: {selectedMine.name}
+              </div>
             </div>
           </GlassPanel>
-        </div>
-      </div>
 
-      <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {quickStats.map((stat) => (
-          <StatCard
-            key={stat.label}
-            label={stat.label}
-            value={stat.value}
-            note={stat.note}
-          />
-        ))}
+          <div className="grid gap-5">
+            <GlassPanel>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                Current updates
+              </p>
+              <div className="mt-5 grid gap-4">
+                {updates.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
+                  >
+                    <p className="text-base font-medium text-[var(--gm-foreground)]">
+                      {item.title}
+                    </p>
+                    <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
+                      {item.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </GlassPanel>
+
+            <VisualStoryCards cards={landingVisualCards.slice(0, 2)} />
+          </div>
+        </div>
+
+        <LandingFilmstrip cards={landingVisualCards} />
+
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {quickStats.map((stat) => (
+            <StatCard
+              key={stat.label}
+              label={stat.label}
+              value={stat.value}
+              note={stat.note}
+            />
+          ))}
+        </div>
       </div>
     </SectionShell>
   );
@@ -334,11 +588,13 @@ export function MinesSection({
   onCompanyFilterChange: (filter: CompanyFilter) => void;
   filters: CompanyFilter[];
 }) {
+  const selectedVisual = resolveMineVisual(selectedMine);
+
   return (
     <SectionShell
       eyebrow={config.eyebrow}
       title="Mines & operations in the Ga-Mawela corridor"
-      description="Pins cover ECM mines, Anglo American Platinum assets, regional mines, and the Lion Smelter. St George 2 JT is shown separately so the land parcel remains visually distinct from extraction sites."
+      description="Pins cover ECM mines, Anglo American Platinum assets, regional mines, and the Lion Smelter. St George 2 JT remains visually separate so the land parcel is not collapsed into extraction imagery."
       accent={config.accent}
       backgroundImage={config.backgroundImage}
       actions={
@@ -354,7 +610,7 @@ export function MinesSection({
         </>
       }
     >
-      <div className="grid gap-5 xl:grid-cols-[1.1fr_0.9fr]">
+      <div className="grid gap-5 xl:grid-cols-[1.08fr_0.92fr]">
         <CorridorMap
           points={filteredPoints}
           selectedMineId={selectedMineId}
@@ -412,6 +668,26 @@ export function MinesSection({
                 SLP data {selectedMine.slpStatus === "Linked" ? "can be tracked in the dashboard." : "slot prepared for future evidence."}
               </span>
             </div>
+
+            <div className="mt-6 overflow-hidden rounded-[24px] border border-white/10 bg-white/[0.04]">
+              <div className="relative h-52">
+                <Image
+                  src={selectedVisual.image}
+                  alt={selectedVisual.title}
+                  fill
+                  sizes="(max-width: 1280px) 100vw, 33vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(8,12,28,0.06),rgba(8,12,28,0.78))]" />
+                <div className="absolute left-4 top-4 rounded-full border border-white/15 bg-slate-950/55 px-3 py-1 text-[11px] uppercase tracking-[0.24em] text-white/70">
+                  {selectedVisual.tag}
+                </div>
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="text-lg font-medium text-white">{selectedVisual.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-white/75">{selectedVisual.summary}</p>
+                </div>
+              </div>
+            </div>
           </GlassPanel>
 
           <GlassPanel>
@@ -440,6 +716,10 @@ export function MinesSection({
             </div>
           </GlassPanel>
         </div>
+      </div>
+
+      <div className="mt-5">
+        <VisualStoryCards cards={operationalVisualCards} columns="md:grid-cols-3" />
       </div>
 
       <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -535,7 +815,7 @@ export function SlpSection({
               <span>Notes</span>
             </div>
 
-            <div className="divide-y divide-white/8">
+            <div className="divide-y divide-white/[0.08]">
               {commitments.map((item) => {
                 const open = expandedId === item.id;
                 return (
@@ -550,7 +830,7 @@ export function SlpSection({
                           {item.mineName}
                         </p>
                         <p className="mt-1 text-xs uppercase tracking-[0.22em] text-[var(--gm-subtle)]">
-                          {item.company} · {item.year}
+                          {item.company} | {item.year}
                         </p>
                       </div>
                       <div className="text-sm text-[var(--gm-foreground)]">{item.type}</div>
