@@ -27,7 +27,19 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const token = createPlatformSessionToken(user);
+    // At this point, passwordHash is guaranteed to exist since authenticatePlatformUser
+    // only returns a user when password verification succeeds (which requires passwordHash)
+    const authenticatedUser = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      role: user.role,
+      passwordHash: user.passwordHash!,
+      membershipNumber: user.membershipNumber,
+      preferredLanguage: user.preferredLanguage,
+    };
+
+    const token = createPlatformSessionToken(authenticatedUser);
     const response = NextResponse.json({
       success: true,
       user: {
