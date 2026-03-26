@@ -2,6 +2,7 @@ import "server-only";
 
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import bcrypt from "bcryptjs";
 import type {
   LibraryDocument,
   MinePoint,
@@ -503,4 +504,198 @@ export async function getPlatformOverview() {
       updates: currentUpdates.length,
     },
   } satisfies PlatformOverview;
+}
+
+// ============ User CRUD Operations ============
+
+export async function createPlatformUser(input: {
+  email: string;
+  name: string;
+  role: PlatformRole;
+  password: string;
+  membershipNumber?: string;
+  preferredLanguage?: string;
+}): Promise<PlatformUserRecord> {
+  const id = crypto.randomUUID();
+  const passwordHash = await bcrypt.hash(input.password, 12);
+  const now = new Date().toISOString().slice(0, 10);
+
+  const userRecord: PlatformUserRecord = {
+    id,
+    email: input.email.toLowerCase().trim(),
+    name: input.name.trim(),
+    role: input.role,
+    membershipNumber: input.membershipNumber || null,
+    preferredLanguage: input.preferredLanguage || null,
+    passwordHash,
+  };
+
+  try {
+    await runPlatformSqlCommand(`
+      INSERT INTO dbo.Users (Id, Email, FullName, RoleName, MembershipNumber, PreferredLanguage, PasswordHash, CreatedAt)
+      VALUES (
+        N'${id}',
+        N'${userRecord.email}',
+        N'${userRecord.name}',
+        N'${userRecord.role}',
+        ${userRecord.membershipNumber ? `N'${userRecord.membershipNumber}'` : "NULL"},
+        ${userRecord.preferredLanguage ? `N'${userRecord.preferredLanguage}'` : "NULL"},
+        N'${passwordHash}',
+        N'${now}'
+      );
+    `);
+  } catch {
+    // Fallback to local storage
+    const users = await readJsonFile<PlatformUserRecord[]>(LOCAL_USERS_PATH, []);
+    users.push(userRecord);
+    await writeJsonFile(LOCAL_USERS_PATH, users);
+  }
+
+  // Return without passwordHash
+  const { passwordHash: _, ...safeUser } = userRecord;
+  return safeUser;
+}
+
+export async function updatePlatformUser(
+  id: string,
+  updates: Partial<Pick<PlatformUserRecord, "email" | "name" | "role" | "membershipNumber" | "preferredLanguage">>
+): Promise<PlatformUserRecord | null> {
+  const users = await listPlatformUsers();
+  const userIndex = users.findIndex((u) => u.id === id);
+
+  if (userIndex === -1) {
+    return null;
+  }
+
+  const updatedUser = { ...users[userIndex], ...updates };
+
+  try {
+    await runPlatformSqlCommand(`
+      UPDATE dbo.Users SET
+        Email = N'${updatedUser.email}',
+        FullName = N'${updatedUser.name}',
+        RoleName = N'${updatedUser.role}',
+        MembershipNumber = ${updatedUser.membershipNumber ? `N'${updatedUser.membershipNumber}'` : "NULL"},
+        PreferredLanguage = ${updatedUser.preferredLanguage ? `N'${updatedUser.preferredLanguage}'` : "NULL"}
+      WHERE Id = N'${id}';
+    `);
+  } catch {
+    // Fallback to local storage
+    const localUsers = await readJsonFile<PlatformUserRecord[]>(LOCAL_USERS_PATH, []);
+    const localIndex = localUsers.findIndex((u) => u.id === id);
+    if (localIndex !== -1) {
+      localUsers[localIndex] = updatedUser;
+      await writeJsonFile(LOCAL_USERS_PATH, localUsers);
+    }
+  }
+
+  const { passwordHash: _, ...safeUser } = updatedUser;
+  return safeUser;
+}
+
+export async function deletePlatformUser(id: string): Promise<boolean> {
+  const users = await listPlatformUsers();
+  const exists = users.some((u) => u.id === id);
+
+  if (!exists) {
+    return false;
+  }
+
+  try {
+    await runPlatformSqlCommand(`DELETE FROM dbo.Users WHERE Id = N'${id}';`);
+  } catch {
+    // Fallback to local storage
+    const localUsers = await readJsonFile<PlatformUserRecord[]>(LOCAL_USERS_PATH, []);
+    const filtered = localUsers.filter((u) => u.id !== id);
+    await writeJsonFile(LOCAL_USERS_PATH, filtered);
+  }
+
+  return true;
+}
+
+// ============ Document CRUD Operations ============
+
+export async function updatePlatformDocument(
+  id: string,
+  updates: Partial<Pick<LibraryDocument, "title" | "category" | "description" | "source" | "date">>
+): Promise<LibraryDocument | null> {
+  const documents = await listPlatformDocuments();
+  const docIndex = documents.findIndex((d) => d.id === id);
+
+  if (docIndex === -1) {
+    return null;
+  }
+
+  const updatedDoc = { ...documents[docIndex], ...updates };
+
+  try {
+    await runPlatformSqlCommand(`
+      UPDATE dbo.Documents SET
+        Title = N'${updatedDoc.title}',
+        Category = N'${updatedDoc.category}',
+        Description = N'${updatedDoc.description}',
+        SourceName = N'${updatedDoc.source}',
+        PublishedDate = N'${updatedDoc.date}'
+      WHERE Id = N'${id}';
+    `);
+  } catch {
+    // Fallback to local storage
+    const localDocs = await readJsonFile<LocalDocumentRecord[]>(LOCAL_DOCUMENTS_PATH, []);
+    const localIndex = localDocs.findIndex((d) => d.id === id);
+    if (localIndex !== -1) {
+      localDocs[localIndex] = { ...localDocs[localIndex], ...updates };
+      await writeJsonFile(LOCAL_DOCUMENTS_PATH, localDocs);
+    }
+  }
+
+  return updatedDoc;
+}
+
+export async function deletePlatformDocument(id: string): Promise<boolean> {
+  const documents = await listPlatformDocuments();
+  const exists = documents.some((d) => d.id === id);
+
+  if (!exists) {
+    return false;
+  }
+
+  try {
+    await runPlatformSqlCommand(`DELETE FROM dbo.Documents WHERE Id = N'${id}';`);
+  } catch {
+    // Fallback to local storage
+    const localDocs = await readJsonFile<LocalDocumentRecord[]>(LOCAL_DOCUMENTS_PATH, []);
+    const filtered = localDocs.filter((d) => d.id !== id);
+    await writeJsonFile(LOCAL_DOCUMENTS_PATH, filtered);
+  }
+
+  return true;
+}
+
+// ============ Engagement Moderation Operations ============
+
+export async function moderatePlatformEngagement(
+  id: string,
+  action: "approve" | "reject" | "delete"
+): Promise<PlatformEngagementRecord | null> {
+  const allEntries = await listPlatformEngagement();
+  const entry = allEntries.find((e) => e.id === id);
+
+  if (!entry) {
+    return null;
+  }
+
+  if (action === "delete") {
+    try {
+      await runPlatformSqlCommand(`DELETE FROM dbo.EngagementEntries WHERE Id = N'${id}';`);
+    } catch {
+      const localEntries = await readJsonFile<PlatformEngagementRecord[]>(LOCAL_ENGAGEMENT_PATH, []);
+      const filtered = localEntries.filter((e) => e.id !== id);
+      await writeJsonFile(LOCAL_ENGAGEMENT_PATH, filtered);
+    }
+    return entry;
+  }
+
+  // For approve/reject, we'd typically add a status field
+  // For now, we'll just return the entry
+  return entry;
 }
