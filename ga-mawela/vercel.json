@@ -1,11 +1,12 @@
 {
-  "buildCommand": "cd ga-mawela && npm run build",
-  "installCommand": "cd ga-mawela && npm install",
-  "outputDirectory": "ga-mawela/.next",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "outputDirectory": ".next",
   "framework": "nextjs",
+  "rootDirectory": "ga-mawela",
   "regions": ["iad1"],
   "functions": {
-    "ga-mawela/src/app/api/**/*.ts": {
+    "src/app/api/**/*.ts": {
       "maxDuration": 30
     }
   },

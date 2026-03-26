@@ -1,0 +1,33 @@
+{
+  "buildCommand": "cd ga-mawela && npm run build",
+  "installCommand": "cd ga-mawela && npm install",
+  "outputDirectory": "ga-mawela/.next",
+  "framework": "nextjs",
+  "rootDirectory": "ga-mawela",
+  "regions": ["iad1"],
+  "functions": {
+    "ga-mawela/src/app/api/**/*.ts": {
+      "maxDuration": 30
+    }
+  },
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+      ]
+    },
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
+      ]
+    }
+  ],
+  "env": {
+    "PLATFORM_SQL_DATABASE": "GaMawelaCommunityPlatform"
+  }
+}
