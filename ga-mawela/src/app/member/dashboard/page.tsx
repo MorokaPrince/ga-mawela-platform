@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { opportunities, updates } from "@/data/platformData";
 import {
   PLATFORM_SESSION_COOKIE,
   verifyPlatformSessionToken,
 } from "@/lib/platform-auth";
+import { getPlatformOverview } from "@/server/platform/service";
 
 export default async function MemberDashboard() {
   const cookieStore = await cookies();
@@ -16,6 +16,8 @@ export default async function MemberDashboard() {
   if (!session) {
     redirect("/login");
   }
+
+  const overview = await getPlatformOverview();
 
   return (
     <main className="gm-theme-shell gm-theme-dark min-h-screen">
@@ -84,7 +86,7 @@ export default async function MemberDashboard() {
                 Opportunity watch
               </p>
               <div className="mt-5 grid gap-3">
-                {opportunities.map((item) => (
+                {overview.opportunities.map((item) => (
                   <div key={item.id} className="rounded-[22px] border border-white/10 bg-white/[0.05] p-4">
                     <p className="text-base font-medium text-[var(--gm-foreground)]">{item.title}</p>
                     <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">{item.summary}</p>
@@ -98,7 +100,7 @@ export default async function MemberDashboard() {
                 Latest platform signals
               </p>
               <div className="mt-5 grid gap-3">
-                {updates.map((item) => (
+                {overview.updates.map((item) => (
                   <div key={item.title} className="rounded-[22px] border border-white/10 bg-white/[0.05] p-4">
                     <p className="text-base font-medium text-[var(--gm-foreground)]">{item.title}</p>
                     <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">{item.detail}</p>

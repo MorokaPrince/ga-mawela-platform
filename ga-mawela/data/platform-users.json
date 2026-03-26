@@ -1,16 +1,38 @@
 [
   {
-    "id": "admin-001",
+    "id": "gm-admin-001",
     "email": "admin@gamawela.org",
     "name": "Ga-Mawela Admin",
     "role": "admin",
-    "passwordHash": "$2b$10$rOMGyeWZO06HBT9idEc0I.yLfa2YZo5M3TV5y6ziP4QsrgD0G8CmO"
+    "membershipNumber": "GM-0001",
+    "preferredLanguage": "en",
+    "passwordHash": "$2b$10$uFpbq6HWVWWM0ul1pYAf/ehcUyuclQ9YYl6DftEDCV/XvFN7DpS/S"
   },
   {
-    "id": "member-001",
+    "id": "gm-member-001",
     "email": "member@gamawela.org",
     "name": "Ga-Mawela Member",
     "role": "member",
-    "passwordHash": "$2b$10$5sepaA3K0b.WCLWDG5gWK.CVJTF7pDE.l0IdFwhDmqH0qUeB3hJIu"
+    "membershipNumber": "GM-0002",
+    "preferredLanguage": "en",
+    "passwordHash": "$2b$10$QCHSq1CqMtYIohcXCFr8.eo342QUbFGrVPUEqR5cW54T3Q51jTZJC"
+  },
+  {
+    "id": "gm-youth-001",
+    "email": "youth@gamawela.org",
+    "name": "Ga-Mawela Youth Desk",
+    "role": "member",
+    "membershipNumber": "GM-0003",
+    "preferredLanguage": "nso",
+    "passwordHash": "$2b$10$8sf8NN3NaAXe1sPSyXwSA.Zqg0qh8n54EmhkV7tUoSdMfY10IyeP6"
+  },
+  {
+    "id": "gm-records-001",
+    "email": "records@gamawela.org",
+    "name": "Ga-Mawela Records Office",
+    "role": "member",
+    "membershipNumber": "GM-0004",
+    "preferredLanguage": "en",
+    "passwordHash": "$2b$10$bd3dd4ohkOuKSL0mwZmgduHxxDAD2B4G/LbmDyv3p85oFRIXMp2Qe"
   }
 ]

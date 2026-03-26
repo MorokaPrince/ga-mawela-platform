@@ -2,15 +2,10 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
-  minePoints,
-  opportunities,
-  slpCommitments,
-  transparencyMatrixRows,
-} from "@/data/platformData";
-import {
   PLATFORM_SESSION_COOKIE,
   verifyPlatformSessionToken,
 } from "@/lib/platform-auth";
+import { getPlatformOverview } from "@/server/platform/service";
 
 export default async function AdminDashboard() {
   const cookieStore = await cookies();
@@ -21,6 +16,8 @@ export default async function AdminDashboard() {
   if (!session || session.role !== "admin") {
     redirect("/login");
   }
+
+  const overview = await getPlatformOverview();
 
   return (
     <main className="gm-theme-shell gm-theme-dark min-h-screen">
@@ -51,19 +48,19 @@ export default async function AdminDashboard() {
           <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-5">
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">Mapped assets</p>
-              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{minePoints.length}</p>
+              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{overview.mines.length}</p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-5">
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">SLP records</p>
-              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{slpCommitments.length}</p>
+              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{overview.commitments.length}</p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-5">
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">Opportunity channels</p>
-              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{opportunities.length}</p>
+              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{overview.opportunities.length}</p>
             </div>
             <div className="rounded-[24px] border border-white/10 bg-white/[0.05] p-5">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">Matrix categories</p>
-              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{transparencyMatrixRows.length}</p>
+              <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">Linked sources</p>
+              <p className="mt-3 text-4xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">{overview.sources.length}</p>
             </div>
           </div>
 
@@ -74,13 +71,13 @@ export default async function AdminDashboard() {
               </p>
               <div className="mt-5 grid gap-3">
                 <div className="rounded-[22px] border border-white/10 bg-white/[0.05] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                  Move curated corridor data into the live database once the SQL authentication issue is resolved.
+                  Curated corridor data, source links, and document records now share one local backend contract.
                 </div>
                 <div className="rounded-[22px] border border-white/10 bg-white/[0.05] p-4 text-sm leading-6 text-[var(--gm-muted)]">
                   Moderate community comments and reports as participation increases.
                 </div>
                 <div className="rounded-[22px] border border-white/10 bg-white/[0.05] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                  Connect upload workflow, document approval, and role-based review for a fuller operations console.
+                  Review uploaded documents, current research sources, and role-based access as the next operations layer.
                 </div>
               </div>
             </section>

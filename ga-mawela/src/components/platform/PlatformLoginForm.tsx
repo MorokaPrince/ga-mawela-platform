@@ -70,8 +70,10 @@ export default function PlatformLoginForm() {
               <div className="rounded-[26px] border border-white/10 bg-white/[0.04] p-5">
                 <p className="text-sm font-medium text-[var(--gm-foreground)]">Demo accounts</p>
                 <div className="mt-4 grid gap-3 text-sm text-[var(--gm-muted)]">
-                  <p>Admin: `admin@gamawela.org` / `Admin@123`</p>
-                  <p>Member: `member@gamawela.org` / `Member@123`</p>
+                  <p>Admin GM-0001: `admin@gamawela.org` / `Admin@123`</p>
+                  <p>Member GM-0002: `member@gamawela.org` / `Member@123`</p>
+                  <p>Youth GM-0003: `youth@gamawela.org` / `Youth@123`</p>
+                  <p>Records GM-0004: `records@gamawela.org` / `Records@123`</p>
                 </div>
               </div>
 
