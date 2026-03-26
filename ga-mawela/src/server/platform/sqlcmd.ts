@@ -10,6 +10,10 @@ import {
 
 const execFileAsync = promisify(execFile);
 
+function shouldSkipSqlcmdDuringBuild() {
+  return process.env.npm_lifecycle_event === "build";
+}
+
 function getSqlServerTarget() {
   const dataSource = getPlatformSqlDataSource();
 
@@ -65,6 +69,10 @@ export async function runPlatformSqlCommand(
   query: string,
   database = PLATFORM_SQL_DATABASE,
 ) {
+  if (shouldSkipSqlcmdDuringBuild()) {
+    return "";
+  }
+
   const { stdout, stderr } = await execFileAsync("sqlcmd", createSqlcmdArgs(query, database), {
     windowsHide: true,
     maxBuffer: 8 * 1024 * 1024,
