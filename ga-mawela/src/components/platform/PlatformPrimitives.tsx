@@ -66,10 +66,10 @@ export function SectionShell({
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-[0.2] saturate-[0.8] contrast-[1.05] mix-blend-luminosity"
+          className="object-cover opacity-[0.3] saturate-[0.92] contrast-[1.08] mix-blend-luminosity"
         />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.16),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.06),transparent_28%),linear-gradient(145deg,rgba(9,14,32,0.88),rgba(9,14,32,0.68))]" />
-        <div className="absolute inset-0 gm-noise-overlay opacity-30" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.12),transparent_34%),radial-gradient(circle_at_bottom_right,rgba(255,255,255,0.04),transparent_28%),linear-gradient(145deg,rgba(9,14,32,0.68),rgba(9,14,32,0.42))]" />
+        <div className="absolute inset-0 gm-noise-overlay opacity-20" />
         <div
           className="absolute -right-12 -top-12 h-64 w-64 rounded-full blur-3xl"
           style={{ background: `${accent}30` }}
@@ -113,7 +113,7 @@ export function GlassPanel({
 }) {
   return (
     <div
-      className={`rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.045))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-inset ring-white/[0.03] backdrop-blur-xl md:p-5 ${className}`}
+      className={`rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.028))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-inset ring-white/[0.03] backdrop-blur-xl md:p-5 ${className}`}
     >
       {children}
     </div>

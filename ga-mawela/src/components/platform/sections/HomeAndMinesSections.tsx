@@ -233,35 +233,32 @@ function HeroShowcase({
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.42),transparent_35%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.16),transparent_24%),linear-gradient(120deg,rgba(6,9,19,0.2),rgba(6,9,19,0.84))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.28),transparent_35%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.12),transparent_24%),linear-gradient(120deg,rgba(6,9,19,0.08),rgba(6,9,19,0.68))]" />
         <div className="absolute inset-0 gm-noise-overlay opacity-35" />
         <div className="absolute inset-x-0 top-0 h-px gm-accent-line" />
 
         <div className="pointer-events-none absolute right-6 top-6 hidden max-w-xs lg:block">
-          <GlassPanel className="gm-float-slow bg-slate-950/45">
+          <GlassPanel className="gm-float-slow bg-slate-950/28">
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-              Current geographic focus
+              Current corridor focus
             </p>
             <p className="mt-3 text-xl font-medium tracking-[-0.03em] text-white">
               {selectedMine.name}
             </p>
-            <p className="mt-3 text-sm leading-6 text-white/70">
+            <p className="mt-3 text-sm leading-6 text-white/72">
               {selectedMine.communityImpact}
             </p>
-          </GlassPanel>
-        </div>
-
-        <div className="pointer-events-none absolute right-10 top-44 hidden max-w-[18rem] lg:block">
-          <GlassPanel className="gm-float-delay bg-white/[0.08]">
-            <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-              Active frame metric
-            </p>
-            <p className="mt-3 text-3xl font-semibold tracking-[-0.05em] text-white">
-              {activeFrame.metric}
-            </p>
-            <p className="mt-3 text-sm leading-6 text-white/70">
-              {activeFrame.detail}
-            </p>
+            <div className="mt-4 border-t border-white/10 pt-4">
+              <p className="text-[11px] uppercase tracking-[0.24em] text-white/55">
+                Live corridor signal
+              </p>
+              <p className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-white">
+                {activeFrame.metric}
+              </p>
+              <p className="mt-2 text-sm leading-6 text-white/68">
+                {activeFrame.detail}
+              </p>
+            </div>
           </GlassPanel>
         </div>
 
@@ -274,18 +271,20 @@ function HeroShowcase({
             <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl xl:text-[4.9rem] xl:leading-[0.94]">
               Ga-Mawela Mining & Community Platform
             </h3>
-            <p className="mt-6 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
-              A premium, data-driven transparency interface for land awareness, corridor intelligence, SLP tracking, and youth-centered opportunity access.
+            <p className="mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
+              A premium, higher-end community intelligence and transparency interface shaped by immersive media, clear hierarchy, and live corridor context for land awareness, SLP tracking, and youth-centered opportunity access.
             </p>
 
-            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/45 p-4 backdrop-blur-xl md:p-5">
+            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
               <p className="text-[11px] uppercase tracking-[0.28em] text-white/60">
                 {activeFrame.eyebrow}
               </p>
               <p className="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white md:text-3xl">
                 {activeFrame.title}
               </p>
-              <p className="mt-3 text-sm leading-7 text-white/70">{activeFrame.detail}</p>
+              <p className="mt-3 text-sm leading-7 text-white/72">
+                {activeFrame.detail} This keeps the platform beyond flat brochure sections and connects visible logistics, transport, and environmental pressure to questions of value capture and public benefit.
+              </p>
             </div>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -315,7 +314,7 @@ function HeroShowcase({
 
           <div className="grid gap-4 xl:grid-cols-[0.88fr_1.12fr]">
             <div className="grid gap-4 md:grid-cols-3">
-              <GlassPanel className="bg-slate-950/45">
+              <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   Clarification
                 </p>
@@ -323,7 +322,7 @@ function HeroShowcase({
                   St George 2 JT is land, not a mine.
                 </p>
               </GlassPanel>
-              <GlassPanel className="bg-slate-950/45">
+              <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   Experience
                 </p>
@@ -331,7 +330,7 @@ function HeroShowcase({
                   Editorial portal blended with a live dashboard.
                 </p>
               </GlassPanel>
-              <GlassPanel className="bg-slate-950/45">
+              <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   Priorities
                 </p>
@@ -481,7 +480,7 @@ export function HomeSection({
     <SectionShell
       eyebrow={config.eyebrow}
       title="Ga-Mawela Mining & Community Platform"
-      description="A higher-end community intelligence system shaped by immersive media, clear hierarchy, and live corridor context instead of flat brochure sections."
+      description="A premium, higher-end community intelligence and transparency system shaped by immersive media, clear hierarchy, and live corridor context instead of flat brochure sections."
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >

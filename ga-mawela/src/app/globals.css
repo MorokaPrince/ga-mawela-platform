@@ -98,15 +98,15 @@ video {
 .gm-theme-dark {
   --gm-background: #050814;
   --gm-background-strong: #090f1f;
-  --gm-panel: rgba(10, 16, 33, 0.72);
-  --gm-panel-strong: rgba(10, 16, 33, 0.94);
-  --gm-panel-header: rgba(5, 8, 20, 0.72);
+  --gm-panel: rgba(10, 16, 33, 0.52);
+  --gm-panel-strong: rgba(10, 16, 33, 0.74);
+  --gm-panel-header: rgba(5, 8, 20, 0.46);
   --gm-panel-sidebar: rgba(7, 10, 24, 0.9);
   --gm-foreground: #f8fafc;
   --gm-muted: rgba(226, 232, 240, 0.78);
   --gm-subtle: rgba(226, 232, 240, 0.52);
   --gm-border: rgba(255, 255, 255, 0.12);
-  --gm-input-bg: rgba(255, 255, 255, 0.05);
+  --gm-input-bg: rgba(255, 255, 255, 0.035);
   --gm-accent: rgba(209, 74, 40, 1);
   --gm-ring: rgba(209, 74, 40, 0.18);
 }
@@ -115,15 +115,15 @@ video {
   color-scheme: light;
   --gm-background: #e7edf6;
   --gm-background-strong: #dce6f0;
-  --gm-panel: rgba(255, 255, 255, 0.76);
-  --gm-panel-strong: rgba(255, 255, 255, 0.92);
-  --gm-panel-header: rgba(255, 255, 255, 0.72);
+  --gm-panel: rgba(255, 255, 255, 0.58);
+  --gm-panel-strong: rgba(255, 255, 255, 0.76);
+  --gm-panel-header: rgba(255, 255, 255, 0.5);
   --gm-panel-sidebar: rgba(247, 249, 252, 0.86);
   --gm-foreground: #0f172a;
   --gm-muted: rgba(15, 23, 42, 0.72);
   --gm-subtle: rgba(15, 23, 42, 0.46);
   --gm-border: rgba(15, 23, 42, 0.08);
-  --gm-input-bg: rgba(255, 255, 255, 0.78);
+  --gm-input-bg: rgba(255, 255, 255, 0.48);
   --gm-accent: rgba(209, 74, 40, 1);
   --gm-ring: rgba(209, 74, 40, 0.14);
 }
