@@ -11,6 +11,7 @@
     "deploy:netlify": "netlify deploy --prod --dir=out",
     "preview:netlify": "netlify deploy --dir=out",
     "seed:documents": "tsx scripts/seed-documents.ts",
+    "seed:platform-sql": "tsx scripts/seed-platform-sql.ts",
     "seed:all": "npm run seed:documents"
   },
   "dependencies": {

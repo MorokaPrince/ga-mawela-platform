@@ -1,9 +1,10 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import bcrypt from "bcryptjs";
-
-export type PlatformRole = "admin" | "member";
+import {
+  findPlatformUserByEmail,
+  listPlatformUsers,
+  type PlatformRole,
+} from "@/server/platform/service";
 
 export type PlatformUser = {
   id: string;
@@ -11,6 +12,8 @@ export type PlatformUser = {
   name: string;
   role: PlatformRole;
   passwordHash: string;
+  membershipNumber?: string | null;
+  preferredLanguage?: string | null;
 };
 
 export type PlatformSession = {
@@ -21,7 +24,6 @@ export type PlatformSession = {
   exp: number;
 };
 
-const USERS_PATH = path.join(process.cwd(), "data", "platform-users.json");
 export const PLATFORM_SESSION_COOKIE = "ga_mawela_session";
 
 function getAuthSecret() {
@@ -45,16 +47,14 @@ function signPayload(payload: string) {
 }
 
 export async function readPlatformUsers() {
-  const raw = await readFile(USERS_PATH, "utf8");
-  return JSON.parse(raw) as PlatformUser[];
+  const users = await listPlatformUsers();
+  return users.filter((entry): entry is PlatformUser => !!entry.passwordHash);
 }
 
 export async function authenticatePlatformUser(email: string, password: string) {
-  const users = await readPlatformUsers();
-  const normalizedEmail = email.trim().toLowerCase();
-  const user = users.find((entry) => entry.email.toLowerCase() === normalizedEmail);
+  const user = await findPlatformUserByEmail(email);
 
-  if (!user) {
+  if (!user?.passwordHash) {
     return null;
   }
 

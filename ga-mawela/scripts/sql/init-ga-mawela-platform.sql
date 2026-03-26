@@ -10,17 +10,31 @@ GO
 IF OBJECT_ID(N'dbo.Users', N'U') IS NULL
 BEGIN
   CREATE TABLE dbo.Users (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
     Email NVARCHAR(255) NOT NULL,
     FullName NVARCHAR(255) NOT NULL,
     RoleName NVARCHAR(50) NOT NULL DEFAULT N'member',
     StatusName NVARCHAR(50) NOT NULL DEFAULT N'active',
+    MembershipNumber NVARCHAR(50) NULL,
     PreferredLanguage NVARCHAR(10) NOT NULL DEFAULT N'en',
+    PasswordHash NVARCHAR(255) NOT NULL,
     CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
     UpdatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
   );
 
   CREATE UNIQUE INDEX IX_Users_Email ON dbo.Users (Email);
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Users', N'MembershipNumber') IS NULL
+BEGIN
+  ALTER TABLE dbo.Users ADD MembershipNumber NVARCHAR(50) NULL;
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Users', N'PasswordHash') IS NULL
+BEGIN
+  ALTER TABLE dbo.Users ADD PasswordHash NVARCHAR(255) NULL;
 END;
 GO
 
@@ -92,15 +106,43 @@ GO
 IF OBJECT_ID(N'dbo.Documents', N'U') IS NULL
 BEGIN
   CREATE TABLE dbo.Documents (
-    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
     Title NVARCHAR(255) NOT NULL,
     Category NVARCHAR(100) NOT NULL,
     Description NVARCHAR(MAX) NOT NULL,
     SourceName NVARCHAR(255) NOT NULL,
-    FileUrl NVARCHAR(1000) NULL,
     PublishedDate NVARCHAR(50) NOT NULL,
+    FileUrl NVARCHAR(1000) NULL,
+    ExternalUrl NVARCHAR(1000) NULL,
+    FileName NVARCHAR(255) NULL,
+    IsFeatured BIT NOT NULL DEFAULT 0,
+    LanguageCode NVARCHAR(10) NOT NULL DEFAULT N'en',
     CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
   );
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Documents', N'ExternalUrl') IS NULL
+BEGIN
+  ALTER TABLE dbo.Documents ADD ExternalUrl NVARCHAR(1000) NULL;
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Documents', N'FileName') IS NULL
+BEGIN
+  ALTER TABLE dbo.Documents ADD FileName NVARCHAR(255) NULL;
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Documents', N'IsFeatured') IS NULL
+BEGIN
+  ALTER TABLE dbo.Documents ADD IsFeatured BIT NOT NULL CONSTRAINT DF_Documents_IsFeatured DEFAULT 0;
+END;
+GO
+
+IF COL_LENGTH(N'dbo.Documents', N'LanguageCode') IS NULL
+BEGIN
+  ALTER TABLE dbo.Documents ADD LanguageCode NVARCHAR(10) NOT NULL CONSTRAINT DF_Documents_LanguageCode DEFAULT N'en';
 END;
 GO
 
@@ -114,11 +156,63 @@ BEGIN
     MessageText NVARCHAR(MAX) NOT NULL,
     IssueType NVARCHAR(100) NULL,
     FileName NVARCHAR(255) NULL,
+    FileUrl NVARCHAR(1000) NULL,
     PreferredLanguage NVARCHAR(10) NOT NULL DEFAULT N'en',
     CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
   );
 
   CREATE INDEX IX_EngagementEntries_SectionName_CreatedAt
     ON dbo.EngagementEntries (SectionName, CreatedAt DESC);
+END;
+GO
+
+IF COL_LENGTH(N'dbo.EngagementEntries', N'FileUrl') IS NULL
+BEGIN
+  ALTER TABLE dbo.EngagementEntries ADD FileUrl NVARCHAR(1000) NULL;
+END;
+GO
+
+IF OBJECT_ID(N'dbo.Sources', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.Sources (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    Title NVARCHAR(500) NOT NULL,
+    Publisher NVARCHAR(255) NOT NULL,
+    Category NVARCHAR(100) NOT NULL,
+    SourceDate NVARCHAR(50) NOT NULL,
+    Href NVARCHAR(1000) NOT NULL,
+    Summary NVARCHAR(MAX) NOT NULL,
+    SortOrder INT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.PlatformUpdates', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.PlatformUpdates (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    Title NVARCHAR(255) NOT NULL,
+    Detail NVARCHAR(MAX) NOT NULL,
+    SortOrder INT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.Opportunities', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.Opportunities (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    Category NVARCHAR(100) NOT NULL,
+    Title NVARCHAR(255) NOT NULL,
+    OwnerName NVARCHAR(255) NOT NULL,
+    StatusName NVARCHAR(100) NOT NULL,
+    Summary NVARCHAR(MAX) NOT NULL,
+    HowToApply NVARCHAR(MAX) NOT NULL,
+    Href NVARCHAR(500) NOT NULL,
+    SortOrder INT NOT NULL DEFAULT 0,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
 END;
 GO

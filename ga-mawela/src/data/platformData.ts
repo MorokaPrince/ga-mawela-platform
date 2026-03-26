@@ -109,6 +109,16 @@ export type LibraryDocument = {
   href?: string;
 };
 
+export type ResearchSource = {
+  id: string;
+  title: string;
+  publisher: string;
+  category: "Community history" | "Academic research" | "Government planning" | "Community advocacy";
+  date: string;
+  href: string;
+  summary: string;
+};
+
 export type RepresentationNode = {
   id: string;
   label: string;
@@ -947,50 +957,107 @@ export const libraryCategories: DocumentCategory[] = [
 
 export const baseDocuments: LibraryDocument[] = [
   {
-    id: "doc-may-rakgama-dev",
+    id: "doc-gamawela-history",
+    title: "History of the Ga Mawela Community",
+    category: "Mining Records",
+    description:
+      "A long-form historical record of Ga Mawela, St George 2 JT, settlement patterns, and the mining geography around the community.",
+    date: "Historical archive",
+    source: "South African History Online",
+    href: "https://www.sahistory.org.za/sites/default/files/History%20of%20the%20Gamawela%20Community.pdf",
+  },
+  {
+    id: "doc-present-struggle",
+    title: "History of the Present Struggle",
+    category: "PAIA Requests",
+    description:
+      "Community advocacy material describing the Ga Mawela land claim process, the St George farm claim, and development pressures in Sekhukhune.",
+    date: "2001-05-01",
+    source: "Mines and Communities",
+    href: "https://www.minesandcommunities.org/article.php?a=4044",
+  },
+  {
+    id: "doc-trapped-promised-land",
+    title: "The Trapped 'Promised Land'",
+    category: "SLP Documents",
+    description:
+      "Recent academic analysis of the Ga Mawela community land claim and the social pressures around restitution and governance in Limpopo.",
+    date: "2025-08-22",
+    source: "Noyam Journals",
+    href: "https://noyam.org/ehass20256913/",
+  },
+  {
+    id: "doc-ftlm-idp",
+    title: "Fetakgomo Tubatse Local Municipality IDP & Budget Executive Summary",
+    category: "SLP Documents",
+    description:
+      "Municipal planning context used to read roads, service delivery, settlements, and the wider mining corridor conditions affecting Ga Mawela.",
+    date: "2022-06-21",
+    source: "Fetakgomo Tubatse Local Municipality",
+    href: "https://www.ftlm.gov.za/sstaff/pages/sites/fgtm/documents/idp/FTLM%202022-23%20IDP%26%20BUDGET%20EXECUTIVE%20SUMMARY220621.pdf",
+  },
+  {
+    id: "doc-local-brief",
     title: "Ga-Mawela supporting development brief",
     category: "Community Letters",
     description:
-      "Existing PDF in the project that can stand in as an initial community-facing record.",
+      "The local project brief already included in the repository for community-facing reference during demos and local reviews.",
     date: "2025-12-06",
     source: "Platform archive",
     href: "/Images/Mining/May%20Rakgama%20S%20Dev.pdf",
   },
+];
+
+export const researchSources: ResearchSource[] = [
   {
-    id: "doc-paia-template",
-    title: "PAIA request placeholder",
-    category: "PAIA Requests",
-    description:
-      "Reserved slot for requests seeking mining, SLP, or governance disclosures relevant to Ga-Mawela.",
-    date: "Pending",
-    source: "Prepared for backend integration",
+    id: "source-sahistory",
+    title: "History of the Ga Mawela Community",
+    publisher: "South African History Online",
+    category: "Community history",
+    date: "Archive PDF",
+    href: "https://www.sahistory.org.za/sites/default/files/History%20of%20the%20Gamawela%20Community.pdf",
+    summary:
+      "Best single public historical source for the farm St George 2 JT, settlement history, lineage, and regional mineral context.",
   },
   {
-    id: "doc-ecm-slp",
-    title: "ECM SLP reference slot",
-    category: "SLP Documents",
-    description:
-      "Placeholder for Social and Labour Plan documents tied to the ECM cluster.",
-    date: "Pending",
-    source: "Awaiting upload",
+    id: "source-mac-struggle",
+    title: "History of the Present Struggle",
+    publisher: "Mines and Communities",
+    category: "Community advocacy",
+    date: "2001-05-01",
+    href: "https://www.minesandcommunities.org/article.php?a=4044",
+    summary:
+      "Primary community advocacy text on the land claim, development pressures, and the legal path around Ga Mawela's claim to St George.",
   },
   {
-    id: "doc-anglo-slp",
-    title: "Anglo American Platinum SLP reference slot",
-    category: "SLP Documents",
-    description:
-      "Placeholder for Twickenham, Mototolo, and Der Brochen linked SLP material.",
-    date: "Pending",
-    source: "Awaiting upload",
+    id: "source-mac-overview",
+    title: "Ga Mawela Community archive page",
+    publisher: "Mines and Communities",
+    category: "Community advocacy",
+    date: "Archive page",
+    href: "https://www.minesandcommunities.org/article.php?a=122",
+    summary:
+      "Useful archive entry point for older Ga Mawela material and connected advocacy reporting around the community.",
   },
   {
-    id: "doc-mining-corridor-map",
-    title: "Mining corridor operational map note",
-    category: "Mining Records",
-    description:
-      "Reserved for maps, shapefiles, or corridor visuals showing how operations relate to St George 2 JT.",
-    date: "Prepared",
-    source: "Platform working file",
+    id: "source-noyam",
+    title: "The Trapped 'Promised Land': An Interrogation of the Ga Mawela Community Land Claim, Polokwane, Limpopo",
+    publisher: "Noyam Journals",
+    category: "Academic research",
+    date: "2025-08-22",
+    href: "https://noyam.org/ehass20256913/",
+    summary:
+      "Recent peer-reviewed analysis that gives the portal a current research reference instead of relying only on older advocacy and archive materials.",
+  },
+  {
+    id: "source-ftlm-idp",
+    title: "FTLM 2022-23 IDP & Budget Executive Summary",
+    publisher: "Fetakgomo Tubatse Local Municipality",
+    category: "Government planning",
+    date: "2022-06-21",
+    href: "https://www.ftlm.gov.za/sstaff/pages/sites/fgtm/documents/idp/FTLM%202022-23%20IDP%26%20BUDGET%20EXECUTIVE%20SUMMARY220621.pdf",
+    summary:
+      "Government planning context that helps interpret local roads, services, and development pressure across the wider corridor.",
   },
 ];
 
