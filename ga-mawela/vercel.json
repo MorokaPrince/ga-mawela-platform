@@ -3,6 +3,7 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "installCommand": "npm install",
   "functions": {
     "src/app/api/**/*.ts": {
       "maxDuration": 30
@@ -41,9 +42,6 @@
     }
   ],
   "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "NEXTAUTH_SECRET": "@nextauth_secret",
-    "PLAUSIBLE_DOMAIN": "@plausible_domain",
-    "SITE_URL": "@site_url"
+    "PLATFORM_SQL_DATABASE": "GaMawelaCommunityPlatform"
   }
 }
