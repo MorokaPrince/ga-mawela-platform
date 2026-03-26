@@ -426,6 +426,11 @@ export async function listPlatformEngagement(section?: string, kind?: "comment" 
     .filter((entry) => (kind ? entry.kind === kind : true));
 }
 
+export async function listPlatformOpportunities() {
+  const sqlOpps = await listSqlOpportunities();
+  return sqlOpps.length > 0 ? sqlOpps : opportunities;
+}
+
 export async function savePlatformEngagement(input: {
   id: string;
   kind: "comment" | "report";
