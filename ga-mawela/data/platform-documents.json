@@ -1,0 +1,74 @@
+[
+  {
+    "id": "gm-doc-001",
+    "title": "Ga-Mawela Community Mining Charter",
+    "category": "Legal Frameworks",
+    "description": "The foundational charter establishing the rights and responsibilities of community members in mining operations within the Ga-Mawela corridor.",
+    "source": "Ga-Mawela Traditional Authority",
+    "date": "2024-01-15",
+    "href": "https://example.com/charter"
+  },
+  {
+    "id": "gm-doc-002",
+    "title": "SLP Annual Report 2023 - Anglo American",
+    "category": "SLP Reports",
+    "description": "Social and Labor Plan annual compliance report detailing employment targets, community development initiatives, and procurement spending.",
+    "source": "Anglo American Platinum",
+    "date": "2024-03-20",
+    "href": "https://example.com/slp-2023"
+  },
+  {
+    "id": "gm-doc-003",
+    "title": "PAIA Request - Environmental Impact Assessment",
+    "category": "PAIA Requests",
+    "description": "Request for environmental impact assessment documentation related to the Two Rivers mining expansion project.",
+    "source": "Ga-Mawela Environmental Watch",
+    "date": "2024-02-10",
+    "href": "https://example.com/paia-eia"
+  },
+  {
+    "id": "gm-doc-004",
+    "title": "Mines Health and Safety Audit 2023",
+    "category": "Environmental",
+    "description": "Independent audit of health and safety conditions across all mining operations in the Ga-Mawela corridor.",
+    "source": "Department of Mineral Resources",
+    "date": "2024-04-05",
+    "href": "https://example.com/safety-audit"
+  },
+  {
+    "id": "gm-doc-005",
+    "title": "Community Development Fund Guidelines",
+    "category": "Research",
+    "description": "Guidelines for the allocation and management of community development funds sourced from mining royalties.",
+    "source": "Limpopo Mining Development Board",
+    "date": "2024-01-28",
+    "href": "https://example.com/cdf-guidelines"
+  },
+  {
+    "id": "gm-doc-006",
+    "title": "Youth Employment Initiative Report",
+    "category": "Research",
+    "description": "Comprehensive report on youth employment programs across mining companies in the region.",
+    "source": "NYDA Limpopo Region",
+    "date": "2024-05-12",
+    "href": "https://example.com/youth-report"
+  },
+  {
+    "id": "gm-doc-007",
+    "title": "Water Usage Agreement - Two Rivers",
+    "category": "Environmental",
+    "description": "Water usage agreement between Two Rivers Platinum and surrounding communities.",
+    "source": "Ga-Mawela Water Committee",
+    "date": "2023-11-30",
+    "href": "https://example.com/water-agreement"
+  },
+  {
+    "id": "gm-doc-008",
+    "title": "Land Restoration Progress Report",
+    "category": "Environmental",
+    "description": "Quarterly report on land rehabilitation and restoration efforts in closed mining areas.",
+    "source": "Department of Environment",
+    "date": "2024-02-28",
+    "href": "https://example.com/land-restoration"
+  }
+]
