@@ -1,16 +1,10 @@
 [build]
   command = "npm run build"
   publish = ".next"
-  functions = ".next/server/functions"
   base = "ga-mawela"
 
 [build.environment]
   NODE_VERSION = "20"
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
 
 [[headers]]
   for = "/*"
@@ -19,7 +13,11 @@
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
-    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
 
 [dev]
   command = "npm run dev"
