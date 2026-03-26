@@ -13,10 +13,13 @@ import type {
   BenefitSlice,
   DocumentCategory,
   LibraryDocument,
+  ResearchSource,
   RepresentationNode,
   SectionConfig,
 } from "@/data/platformData";
 import { libraryCategories } from "@/data/platformData";
+import type { PlatformLocale } from "@/lib/platform-i18n";
+import { platformUiCopy } from "@/lib/platform-ui-copy";
 
 export type StoredIssue = {
   id: string;
@@ -52,6 +55,7 @@ export function ReportSection({
   onReportFileChange,
   onReportSubmit,
   issues,
+  locale,
 }: {
   config: SectionConfig;
   reportForm: ReportFormState;
@@ -62,34 +66,37 @@ export function ReportSection({
   onReportFileChange: (file: File | null) => void;
   onReportSubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>;
   issues: StoredIssue[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].report;
+
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Report an issue"
-      description="A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records now submit through the backend where available, with local fallback kept only as resilience."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
       <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr]">
         <GlassPanel>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Submission form
+            {copy.formEyebrow}
           </p>
           <form className="mt-5 space-y-4" onSubmit={onReportSubmit}>
             <div className="grid gap-4 md:grid-cols-2">
               <label className="space-y-2">
-                <span className="text-sm text-[var(--gm-muted)]">Name (optional)</span>
+                <span className="text-sm text-[var(--gm-muted)]">{copy.name}</span>
                 <input
                   value={reportForm.name}
                   onChange={(event) => onReportFieldChange("name", event.target.value)}
                   className="gm-input"
-                  placeholder="Anonymous is fine"
+                  placeholder={copy.anonymousPlaceholder}
                 />
               </label>
 
               <label className="space-y-2">
-                <span className="text-sm text-[var(--gm-muted)]">Issue type</span>
+                <span className="text-sm text-[var(--gm-muted)]">{copy.issueType}</span>
                 <select
                   value={reportForm.issueType}
                   onChange={(event) =>
@@ -105,19 +112,19 @@ export function ReportSection({
             </div>
 
             <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">Description</span>
+              <span className="text-sm text-[var(--gm-muted)]">{copy.descriptionLabel}</span>
               <textarea
                 value={reportForm.description}
                 onChange={(event) =>
                   onReportFieldChange("description", event.target.value)
                 }
                 className="gm-input min-h-[150px]"
-                placeholder="Describe the issue, what happened, and what kind of follow-up would help."
+                placeholder={copy.descriptionPlaceholder}
               />
             </label>
 
             <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">Upload file</span>
+              <span className="text-sm text-[var(--gm-muted)]">{copy.uploadFile}</span>
               <input
                 type="file"
                 onChange={(event) =>
@@ -126,7 +133,7 @@ export function ReportSection({
                 className="gm-input cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-slate-950"
               />
               <p className="text-xs text-[var(--gm-subtle)]">
-                File name metadata is captured now, and full file workflow can plug into the upload pipeline next.
+                {copy.uploadHint}
               </p>
             </label>
 
@@ -134,7 +141,7 @@ export function ReportSection({
               type="submit"
               className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
             >
-              Submit report
+              {copy.submit}
             </button>
           </form>
         </GlassPanel>
@@ -142,31 +149,31 @@ export function ReportSection({
         <div className="grid gap-5">
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Reporting standard
+              {copy.standard}
             </p>
             <div className="mt-5 grid gap-3 md:grid-cols-3">
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Keep descriptions factual and time-bound.
+                {copy.standardOne}
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Upload supporting files where possible.
+                {copy.standardTwo}
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Reports can feed a formal review flow and role-based moderation workspace next.
+                {copy.standardThree}
               </div>
             </div>
           </GlassPanel>
 
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Recent local submissions
+              {copy.recent}
             </p>
             <div className="mt-5 grid gap-3 md:grid-cols-2">
               {issues.length === 0 ? (
                 <div className="md:col-span-2">
                   <EmptyMessage
-                    title="No issues saved yet."
-                    detail="Once a report is submitted, it will appear here as a tracked participation record."
+                    title={copy.emptyTitle}
+                    detail={copy.emptyDetail}
                   />
                 </div>
               ) : (
@@ -184,14 +191,14 @@ export function ReportSection({
                       </span>
                     </div>
                     <p className="mt-2 text-sm text-[var(--gm-muted)]">
-                      {issue.name || "Anonymous"}
+                      {issue.name || copy.anonymousPlaceholder}
                     </p>
                     <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
                       {issue.description}
                     </p>
                     {issue.fileName ? (
                       <p className="mt-3 text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)]">
-                        Attachment: {issue.fileName}
+                        {copy.attachment}: {issue.fileName}
                       </p>
                     ) : null}
                   </div>
@@ -212,6 +219,8 @@ export function DocumentsSection({
   onLibraryFieldChange,
   onLibraryFileChange,
   onLibrarySubmit,
+  sources,
+  locale,
 }: {
   config: SectionConfig;
   documents: UploadedDocument[];
@@ -222,7 +231,10 @@ export function DocumentsSection({
   ) => void;
   onLibraryFileChange: (file: File | null) => void;
   onLibrarySubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>;
+  sources: ResearchSource[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].documents;
   const [activeCategory, setActiveCategory] = useState<DocumentCategory | "All">("All");
 
   const visibleDocuments =
@@ -233,15 +245,15 @@ export function DocumentsSection({
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Document library"
-      description="The library is categorized for PAIA requests, mining records, SLP documents, and community letters. Upload support is ready and local preview links work for the current session."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
       actions={
         <>
           <FilterChip
             active={activeCategory === "All"}
-            label="All"
+            label={copy.all}
             onClick={() => setActiveCategory("All")}
           />
           {libraryCategories.map((category) => (
@@ -260,8 +272,8 @@ export function DocumentsSection({
           {visibleDocuments.length === 0 ? (
             <div className="md:col-span-2 2xl:col-span-3">
               <EmptyMessage
-                title="No documents match this category."
-                detail="Switch categories or upload a file into the library."
+                title={copy.emptyTitle}
+                detail={copy.emptyDetail}
               />
             </div>
           ) : (
@@ -277,8 +289,8 @@ export function DocumentsSection({
                   {document.description}
                 </p>
                 <div className="mt-5 grid gap-2 text-sm text-[var(--gm-muted)]">
-                  <p>Date: {document.date}</p>
-                  <p>Source: {document.source}</p>
+                  <p>{copy.date}: {document.date}</p>
+                  <p>{copy.source}: {document.source}</p>
                 </div>
                 <div className="mt-auto flex gap-3 pt-5">
                   {document.previewUrl || document.href ? (
@@ -288,7 +300,7 @@ export function DocumentsSection({
                       rel="noreferrer"
                       className="rounded-full bg-white px-4 py-2 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
                     >
-                      Preview
+                      {copy.preview}
                     </a>
                   ) : null}
                   {document.previewUrl || document.href ? (
@@ -297,11 +309,11 @@ export function DocumentsSection({
                       download
                       className="rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
                     >
-                      Download
+                      {copy.download}
                     </a>
                   ) : (
                     <span className="rounded-full border border-white/10 px-4 py-2 text-sm text-[var(--gm-subtle)]">
-                      Awaiting file
+                      {copy.awaiting}
                     </span>
                   )}
                 </div>
@@ -310,65 +322,102 @@ export function DocumentsSection({
           )}
         </div>
 
-        <GlassPanel>
-          <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Upload to library
-          </p>
-          <form className="mt-5 space-y-4" onSubmit={onLibrarySubmit}>
-            <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">Title</span>
-              <input
-                value={libraryForm.title}
-                onChange={(event) =>
-                  onLibraryFieldChange("title", event.target.value)
-                }
-                className="gm-input"
-                placeholder="Document title"
-              />
-            </label>
-            <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">Category</span>
-              <select
-                value={libraryForm.category}
-                onChange={(event) =>
-                  onLibraryFieldChange("category", event.target.value)
-                }
-                className="gm-input"
+        <div className="grid gap-5">
+          <GlassPanel>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+              {copy.uploadEyebrow}
+            </p>
+            <form className="mt-5 space-y-4" onSubmit={onLibrarySubmit}>
+              <label className="space-y-2">
+                <span className="text-sm text-[var(--gm-muted)]">{copy.uploadTitle}</span>
+                <input
+                  value={libraryForm.title}
+                  onChange={(event) =>
+                    onLibraryFieldChange("title", event.target.value)
+                  }
+                  className="gm-input"
+                  placeholder={copy.uploadTitle}
+                />
+              </label>
+              <label className="space-y-2">
+                <span className="text-sm text-[var(--gm-muted)]">{copy.uploadCategory}</span>
+                <select
+                  value={libraryForm.category}
+                  onChange={(event) =>
+                    onLibraryFieldChange("category", event.target.value)
+                  }
+                  className="gm-input"
+                >
+                  {libraryCategories.map((category) => (
+                    <option key={category}>{category}</option>
+                  ))}
+                </select>
+              </label>
+              <label className="space-y-2">
+                <span className="text-sm text-[var(--gm-muted)]">{copy.uploadDescription}</span>
+                <textarea
+                  value={libraryForm.description}
+                  onChange={(event) =>
+                    onLibraryFieldChange("description", event.target.value)
+                  }
+                  className="gm-input min-h-[140px]"
+                  placeholder={copy.uploadDescriptionPlaceholder}
+                />
+              </label>
+              <label className="space-y-2">
+                <span className="text-sm text-[var(--gm-muted)]">{copy.uploadFile}</span>
+                <input
+                  type="file"
+                  onChange={(event) =>
+                    onLibraryFileChange(event.target.files?.[0] ?? null)
+                  }
+                  className="gm-input cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-slate-950"
+                />
+              </label>
+              <button
+                type="submit"
+                className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
               >
-                {libraryCategories.map((category) => (
-                  <option key={category}>{category}</option>
-                ))}
-              </select>
-            </label>
-            <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">Description</span>
-              <textarea
-                value={libraryForm.description}
-                onChange={(event) =>
-                  onLibraryFieldChange("description", event.target.value)
-                }
-                className="gm-input min-h-[140px]"
-                placeholder="What is this file and why does it matter?"
-              />
-            </label>
-            <label className="space-y-2">
-              <span className="text-sm text-[var(--gm-muted)]">File</span>
-              <input
-                type="file"
-                onChange={(event) =>
-                  onLibraryFileChange(event.target.files?.[0] ?? null)
-                }
-                className="gm-input cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-slate-950"
-              />
-            </label>
-            <button
-              type="submit"
-              className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
-            >
-              Add document locally
-            </button>
-          </form>
-        </GlassPanel>
+                {copy.uploadSubmit}
+              </button>
+            </form>
+          </GlassPanel>
+
+          <GlassPanel>
+            <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+              {copy.sourcesEyebrow}
+            </p>
+            <p className="mt-3 text-xl font-medium text-[var(--gm-foreground)]">
+              {copy.sourcesTitle}
+            </p>
+            <div className="mt-5 grid gap-3">
+              {sources.map((source) => (
+                <a
+                  key={source.id}
+                  href={source.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 transition hover:border-white/20 hover:bg-white/[0.09]"
+                >
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <p className="text-sm font-medium text-[var(--gm-foreground)]">
+                      {source.title}
+                    </p>
+                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--gm-subtle)]">
+                      {source.date}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)]">
+                    {source.publisher}
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-[var(--gm-muted)]">
+                    {source.summary}
+                  </p>
+                </a>
+              ))}
+            </div>
+          </GlassPanel>
+        </div>
       </div>
     </SectionShell>
   );
@@ -377,10 +426,13 @@ export function DocumentsSection({
 export function RepresentationSection({
   config,
   nodes,
+  locale,
 }: {
   config: SectionConfig;
   nodes: RepresentationNode[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].representation;
   const toneMap: Record<RepresentationNode["type"], string> = {
     known: "border-emerald-300/20 bg-emerald-400/10 text-emerald-100",
     engagement: "border-sky-300/20 bg-sky-400/10 text-sky-100",
@@ -390,15 +442,15 @@ export function RepresentationSection({
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Community representation tracker"
-      description="This module highlights the known structure, the engagement layer where mines and stakeholders meet the community, and the youth representation gap that still needs attention."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
       <div className="grid gap-5 xl:grid-cols-[0.95fr_1.05fr]">
         <GlassPanel>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Organizational view
+            {copy.organization}
           </p>
           <div className="mt-6 grid gap-4">
             {nodes.map((node, index) => (
@@ -421,24 +473,24 @@ export function RepresentationSection({
 
         <div className="grid gap-5">
           <RingMeter
-            label="Visible youth representation"
+            label={copy.visibleYouth}
             value={32}
             accent="#f59e0b"
-            summary="A deliberate low score to reflect that youth inclusion remains a strategic concern across land, jobs, and governance discussions."
+            summary={copy.visibleYouthSummary}
           />
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Why this tracker matters
+              {copy.why}
             </p>
             <div className="mt-5 grid gap-3 md:grid-cols-3 xl:grid-cols-1">
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Representation affects how community consent, engagement, and benefit discussions are understood.
+                {copy.whyOne}
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Youth visibility is not a cosmetic issue; it shapes trust, opportunity flow, and future leadership.
+                {copy.whyTwo}
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                A structured tracker can later add meeting records, stakeholder names, and election or nomination evidence.
+                {copy.whyThree}
               </div>
             </div>
           </GlassPanel>
@@ -451,10 +503,13 @@ export function RepresentationSection({
 export function BenefitsSection({
   config,
   slices,
+  locale,
 }: {
   config: SectionConfig;
   slices: BenefitSlice[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].benefits;
   const total = slices.reduce((sum, item) => sum + item.value, 0);
   const stops: string[] = [];
   let cursor = 0;
@@ -470,15 +525,15 @@ export function BenefitsSection({
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Who benefits?"
-      description="This strategic view shows how value may be distributed across companies, government, community, and still-unclear channels. It is meant to drive questions, not overclaim precision."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
       <div className="grid gap-5 xl:grid-cols-[0.78fr_1.22fr]">
         <GlassPanel className="flex flex-col items-center justify-center">
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Distribution view
+            {copy.distributionView}
           </p>
           <div
             className="mt-6 grid h-64 w-64 place-items-center rounded-full"
@@ -490,7 +545,7 @@ export function BenefitsSection({
                   {total}%
                 </p>
                 <p className="mt-2 text-sm text-[var(--gm-muted)]">
-                  strategic view
+                  {copy.strategicView}
                 </p>
               </div>
             </div>

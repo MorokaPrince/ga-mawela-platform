@@ -42,6 +42,7 @@ import {
   companyFilters,
   minePoints,
   opportunities,
+  researchSources,
   representationNodes,
   sectionConfigs,
   slpCommitments,
@@ -50,12 +51,14 @@ import {
   updates,
   type CompanyFilter,
   type DocumentCategory,
+  type ResearchSource,
   type SectionId,
 } from "@/data/platformData";
 import {
   platformCopy,
   type PlatformLocale,
 } from "@/lib/platform-i18n";
+import { platformUiCopy } from "@/lib/platform-ui-copy";
 
 const SECTION_STORAGE_KEY = "ga-mawela-theme";
 const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
@@ -85,6 +88,21 @@ type AuthViewer = {
   email: string;
   name: string;
   role: "admin" | "member";
+};
+
+type PlatformSystemSnapshot = {
+  sql: {
+    configured: boolean;
+    database: string;
+    dataSource: string;
+    usesIntegratedSecurity: boolean;
+    usesDefaultLocalConnection: boolean;
+    serverTarget: string;
+  };
+  users: number;
+  documents: number;
+  sources: number;
+  updates: number;
 };
 
 function readStoredValue<T>(key: string, fallback: T): T {
@@ -170,13 +188,24 @@ export default function CommunityMiningPlatform() {
     readStoredValue<StoredIssue[]>(ISSUE_STORAGE_KEY, []),
   );
   const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>(() =>
-    readStoredValue<UploadedDocument[]>(DOC_STORAGE_KEY, []),
+    readStoredValue<UploadedDocument[]>(
+      DOC_STORAGE_KEY,
+      baseDocuments.map((document) => ({ ...document })),
+    ),
   );
   const [comments, setComments] = useState<PlatformComment[]>(() =>
     readStoredValue<PlatformComment[]>(COMMENT_STORAGE_KEY, []),
   );
   const [viewer, setViewer] = useState<AuthViewer | null>(null);
   const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
+  const [mineRecords, setMineRecords] = useState(minePoints);
+  const [commitmentRecords, setCommitmentRecords] = useState(slpCommitments);
+  const [opportunityRecords, setOpportunityRecords] = useState(opportunities);
+  const [sourceRecords, setSourceRecords] = useState<ResearchSource[]>(researchSources);
+  const [updateRecords, setUpdateRecords] = useState(updates);
+  const [systemSnapshot, setSystemSnapshot] = useState<PlatformSystemSnapshot | null>(
+    null,
+  );
   const [isPending, startTransition] = useTransition();
   const deferredSearch = useDeferredValue(searchQuery);
 
@@ -209,6 +238,7 @@ export default function CommunityMiningPlatform() {
   });
 
   const copy = platformCopy[locale];
+  const uiCopy = platformUiCopy[locale];
   const localizedSectionConfigs = sectionConfigs.map((section) => ({
     ...section,
     label: copy.sections[section.id].label,
@@ -246,15 +276,58 @@ export default function CommunityMiningPlatform() {
   }, [uploadedDocuments]);
 
   useEffect(() => {
+    if (updateRecords.length === 0) {
+      return;
+    }
+
     const timer = window.setInterval(() => {
-      setActiveUpdateIndex((current) => (current + 1) % updates.length);
+      setActiveUpdateIndex((current) => (current + 1) % updateRecords.length);
     }, 4800);
 
     return () => window.clearInterval(timer);
-  }, []);
+  }, [updateRecords.length]);
 
   useEffect(() => {
     let cancelled = false;
+
+    async function loadOverview() {
+      try {
+        const response = await fetch("/api/platform-overview/", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to load platform overview");
+        }
+
+        const payload = (await response.json()) as {
+          success: boolean;
+          data?: {
+            mines: typeof minePoints;
+            commitments: typeof slpCommitments;
+            opportunities: typeof opportunities;
+            documents: UploadedDocument[];
+            sources: ResearchSource[];
+            updates: typeof updates;
+            system: PlatformSystemSnapshot;
+          };
+        };
+
+        if (!payload.success || !payload.data || cancelled) {
+          return;
+        }
+
+        setMineRecords(payload.data.mines);
+        setCommitmentRecords(payload.data.commitments);
+        setOpportunityRecords(payload.data.opportunities);
+        setUploadedDocuments(payload.data.documents);
+        setSourceRecords(payload.data.sources);
+        setUpdateRecords(payload.data.updates);
+        setSystemSnapshot(payload.data.system);
+      } catch {
+        // Preserve the static dataset if the backend overview is unavailable.
+      }
+    }
 
     async function loadEngagement() {
       try {
@@ -307,6 +380,7 @@ export default function CommunityMiningPlatform() {
       }
     }
 
+    void loadOverview();
     void loadEngagement();
 
     return () => {
@@ -351,7 +425,7 @@ export default function CommunityMiningPlatform() {
 
   const searchTerm = deferredSearch.trim().toLowerCase();
 
-  const filteredMinePoints = minePoints.filter((point) => {
+  const filteredMinePoints = mineRecords.filter((point) => {
     const matchesCompany =
       companyFilter === "All" ||
       point.companyFilter === companyFilter ||
@@ -361,11 +435,11 @@ export default function CommunityMiningPlatform() {
     return matchesCompany && matchesSearch;
   });
 
-  const corridorPoints = filteredMinePoints.length > 0 ? filteredMinePoints : minePoints;
+  const corridorPoints = filteredMinePoints.length > 0 ? filteredMinePoints : mineRecords;
   const selectedMine =
     corridorPoints.find((point) => point.id === selectedMineId) ?? corridorPoints[0];
 
-  const filteredCommitments = slpCommitments.filter((item) => {
+  const filteredCommitments = commitmentRecords.filter((item) => {
     const matchesCompany =
       companyFilter === "All" || item.company === companyFilter;
     const searchable = `${item.mineName} ${item.type} ${item.notes} ${item.detail}`.toLowerCase();
@@ -373,12 +447,12 @@ export default function CommunityMiningPlatform() {
     return matchesCompany && matchesSearch;
   });
 
-  const filteredOpportunities = opportunities.filter((item) => {
+  const filteredOpportunities = opportunityRecords.filter((item) => {
     const searchable = `${item.category} ${item.title} ${item.owner} ${item.summary} ${item.howToApply}`.toLowerCase();
     return !searchTerm || searchable.includes(searchTerm);
   });
 
-  const visibleDocuments = [...baseDocuments, ...uploadedDocuments].filter((item) => {
+  const visibleDocuments = uploadedDocuments.filter((item) => {
     const searchable = `${item.title} ${item.category} ${item.description} ${item.source}`.toLowerCase();
     return !searchTerm || searchable.includes(searchTerm);
   });
@@ -387,7 +461,7 @@ export default function CommunityMiningPlatform() {
     localizedSectionConfigs.find((section) => section.id === activeSection) ??
     localizedSectionConfigs[0];
 
-  const latestUpdates = updates.map((item) => item.detail);
+  const latestUpdates = updateRecords.map((item) => item.detail);
 
   const handleSectionChange = (id: SectionId) => {
     startTransition(() => {
@@ -412,20 +486,20 @@ export default function CommunityMiningPlatform() {
     };
 
     try {
+      const body = new FormData();
+      body.set("kind", "report");
+      body.set("section", "report");
+      body.set("name", nextIssue.name);
+      body.set("message", nextIssue.description);
+      body.set("issueType", nextIssue.issueType);
+      body.set("locale", locale);
+      if (reportForm.file) {
+        body.set("file", reportForm.file);
+      }
+
       const response = await fetch("/api/platform-engagement/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          kind: "report",
-          section: "report",
-          name: nextIssue.name,
-          message: nextIssue.description,
-          issueType: nextIssue.issueType,
-          fileName: nextIssue.fileName,
-          locale,
-        }),
+        body,
       });
 
       if (!response.ok) {
@@ -540,27 +614,65 @@ export default function CommunityMiningPlatform() {
     router.refresh();
   };
 
-  const handleLibrarySubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleLibrarySubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!libraryForm.title.trim()) {
       return;
     }
 
-    const previewUrl = libraryForm.file
-      ? URL.createObjectURL(libraryForm.file)
-      : undefined;
+    try {
+      const body = new FormData();
+      body.set("title", libraryForm.title.trim());
+      body.set("category", libraryForm.category);
+      body.set(
+        "description",
+        libraryForm.description.trim() || "Resident-uploaded document",
+      );
+      body.set("source", "Local resident upload");
+      if (libraryForm.file) {
+        body.set("file", libraryForm.file);
+      }
 
-    const nextDocument: UploadedDocument = {
-      id: crypto.randomUUID(),
-      title: libraryForm.title.trim(),
-      category: libraryForm.category,
-      description: libraryForm.description.trim() || "Resident-uploaded document",
-      date: new Date().toISOString().slice(0, 10),
-      source: "Local resident upload",
-      previewUrl,
-    };
+      const response = await fetch("/api/platform-documents/", {
+        method: "POST",
+        body,
+      });
 
-    setUploadedDocuments((current) => [nextDocument, ...current]);
+      if (!response.ok) {
+        throw new Error("Failed to save document");
+      }
+
+      const payload = (await response.json()) as {
+        success: boolean;
+        data?: UploadedDocument;
+      };
+
+      if (!payload.success || !payload.data) {
+        throw new Error("Invalid document response");
+      }
+
+      setUploadedDocuments((current) => [payload.data!, ...current]);
+      setSystemSnapshot((current) =>
+        current ? { ...current, documents: current.documents + 1 } : current,
+      );
+    } catch {
+      const previewUrl = libraryForm.file
+        ? URL.createObjectURL(libraryForm.file)
+        : undefined;
+
+      const nextDocument: UploadedDocument = {
+        id: crypto.randomUUID(),
+        title: libraryForm.title.trim(),
+        category: libraryForm.category,
+        description: libraryForm.description.trim() || "Resident-uploaded document",
+        date: new Date().toISOString().slice(0, 10),
+        source: "Local resident upload",
+        previewUrl,
+      };
+
+      setUploadedDocuments((current) => [nextDocument, ...current]);
+    }
+
     setLibraryForm({
       title: "",
       category: "PAIA Requests",
@@ -579,6 +691,7 @@ export default function CommunityMiningPlatform() {
             selectedMine={selectedMine}
             onSelectMine={setSelectedMineId}
             onSectionChange={handleSectionChange}
+            locale={locale}
           />
         );
       case "mines":
@@ -592,6 +705,7 @@ export default function CommunityMiningPlatform() {
             companyFilter={companyFilter}
             onCompanyFilterChange={setCompanyFilter}
             filters={companyFilters}
+            locale={locale}
           />
         );
       case "slp":
@@ -603,13 +717,18 @@ export default function CommunityMiningPlatform() {
             onToggleCommitment={(id) =>
               setExpandedCommitmentId((current) => (current === id ? null : id))
             }
+            locale={locale}
           />
         );
       case "community":
-        return <CommunitySection config={section} />;
+        return <CommunitySection config={section} locale={locale} />;
       case "opportunities":
         return (
-          <OpportunitiesSection config={section} cards={filteredOpportunities} />
+          <OpportunitiesSection
+            config={section}
+            cards={filteredOpportunities}
+            locale={locale}
+          />
         );
       case "transparency":
         return (
@@ -643,6 +762,7 @@ export default function CommunityMiningPlatform() {
               commentEmptyTitle: copy.commentEmptyTitle,
               commentEmptyDetail: copy.commentEmptyDetail,
             }}
+            locale={locale}
           />
         );
       case "report":
@@ -658,6 +778,7 @@ export default function CommunityMiningPlatform() {
             }
             onReportSubmit={handleReportSubmit}
             issues={issues}
+            locale={locale}
           />
         );
       case "documents":
@@ -673,12 +794,26 @@ export default function CommunityMiningPlatform() {
               setLibraryForm((current) => ({ ...current, file }))
             }
             onLibrarySubmit={handleLibrarySubmit}
+            sources={sourceRecords}
+            locale={locale}
           />
         );
       case "representation":
-        return <RepresentationSection config={section} nodes={representationNodes} />;
+        return (
+          <RepresentationSection
+            config={section}
+            nodes={representationNodes}
+            locale={locale}
+          />
+        );
       case "benefits":
-        return <BenefitsSection config={section} slices={benefitSlices} />;
+        return (
+          <BenefitsSection
+            config={section}
+            slices={benefitSlices}
+            locale={locale}
+          />
+        );
       default:
         return null;
     }
@@ -815,6 +950,35 @@ export default function CommunityMiningPlatform() {
                   </span>
                 </div>
                 <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">
+                    {systemSnapshot?.sql.configured
+                      ? uiCopy.dashboard.sqlReady
+                      : uiCopy.dashboard.localFallback}
+                    :
+                  </span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
+                    {systemSnapshot?.sql.dataSource ?? "static"}
+                  </span>
+                </div>
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.members}:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
+                    {systemSnapshot?.users ?? 0}
+                  </span>
+                </div>
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.documents}:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
+                    {systemSnapshot?.documents ?? uploadedDocuments.length}
+                  </span>
+                </div>
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.sources}:</span>{" "}
+                  <span className="font-medium text-[var(--gm-foreground)]">
+                    {systemSnapshot?.sources ?? sourceRecords.length}
+                  </span>
+                </div>
+                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
                   <span className="text-[var(--gm-subtle)]">{copy.searchLabel}:</span>{" "}
                   <span className="font-medium text-[var(--gm-foreground)]">
                     {searchQuery ? `"${searchQuery}"` : copy.allRecords}
@@ -870,7 +1034,7 @@ export default function CommunityMiningPlatform() {
                     {copy.liveUpdate}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                    {latestUpdates[activeUpdateIndex]}
+                    {latestUpdates[activeUpdateIndex] ?? copy.appSubtitle}
                   </p>
                 </div>
               </div>

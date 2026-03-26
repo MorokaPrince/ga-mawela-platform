@@ -26,6 +26,8 @@ import {
   quickStats,
   updates,
 } from "@/data/platformData";
+import type { PlatformLocale } from "@/lib/platform-i18n";
+import { platformUiCopy } from "@/lib/platform-ui-copy";
 
 function getTypeTone(type: MinePoint["type"]) {
   switch (type) {
@@ -181,10 +183,13 @@ function VisualStoryCards({
 function HeroShowcase({
   selectedMine,
   onSectionChange,
+  locale,
 }: {
   selectedMine: MinePoint;
   onSectionChange: (id: SectionId) => void;
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].hero;
   const [activeFrameIndex, setActiveFrameIndex] = useState(0);
   const activeFrame = heroMediaFrames[activeFrameIndex];
 
@@ -240,7 +245,7 @@ function HeroShowcase({
         <div className="pointer-events-none absolute right-6 top-6 hidden max-w-xs lg:block">
           <GlassPanel className="gm-float-slow bg-slate-950/28">
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
-              Current corridor focus
+              {copy.floatingEyebrow}
             </p>
             <p className="mt-3 text-xl font-medium tracking-[-0.03em] text-white">
               {selectedMine.name}
@@ -250,7 +255,7 @@ function HeroShowcase({
             </p>
             <div className="mt-4 border-t border-white/10 pt-4">
               <p className="text-[11px] uppercase tracking-[0.24em] text-white/55">
-                Live corridor signal
+                {copy.floatingSignal}
               </p>
               <p className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-white">
                 {activeFrame.metric}
@@ -266,13 +271,13 @@ function HeroShowcase({
           <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/[0.08] px-3 py-1 text-[11px] uppercase tracking-[0.32em] text-white/70">
               <span className="h-2 w-2 rounded-full bg-[var(--gm-accent)]" />
-              Immersive landing sequence
+              {copy.badge}
             </div>
             <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl xl:text-[4.9rem] xl:leading-[0.94]">
-              Ga-Mawela Mining & Community Platform
+              {copy.title}
             </h3>
             <p className="mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
-              A premium, higher-end community intelligence and transparency interface shaped by immersive media, clear hierarchy, and live corridor context for land awareness, SLP tracking, and youth-centered opportunity access.
+              {copy.description}
             </p>
 
             <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
@@ -293,21 +298,21 @@ function HeroShowcase({
                 onClick={() => onSectionChange("mines")}
                 className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
               >
-                Explore Mines
+                {copy.primaryAction}
               </button>
               <button
                 type="button"
                 onClick={() => onSectionChange("slp")}
                 className="rounded-full border border-white/15 bg-white/[0.08] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.12]"
               >
-                Open SLP Tracker
+                {copy.secondaryAction}
               </button>
               <button
                 type="button"
                 onClick={() => onSectionChange("documents")}
                 className="rounded-full border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.08]"
               >
-                View Evidence
+                {copy.tertiaryAction}
               </button>
             </div>
           </div>
@@ -316,26 +321,26 @@ function HeroShowcase({
             <div className="grid gap-4 md:grid-cols-3">
               <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-                  Clarification
+                  {copy.clarification}
                 </p>
                 <p className="mt-3 text-lg font-medium text-white">
-                  St George 2 JT is land, not a mine.
+                  {copy.clarificationDetail}
                 </p>
               </GlassPanel>
               <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-                  Experience
+                  {copy.experience}
                 </p>
                 <p className="mt-3 text-lg font-medium text-white">
-                  Editorial portal blended with a live dashboard.
+                  {copy.experienceDetail}
                 </p>
               </GlassPanel>
               <GlassPanel className="bg-slate-950/24">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
-                  Priorities
+                  {copy.priorities}
                 </p>
                 <p className="mt-3 text-lg font-medium text-white">
-                  Transparency, governance, youth access, and land awareness.
+                  {copy.prioritiesDetail}
                 </p>
               </GlassPanel>
             </div>
@@ -469,33 +474,41 @@ export function HomeSection({
   selectedMine,
   onSelectMine,
   onSectionChange,
+  locale,
 }: {
   config: SectionConfig;
   points: MinePoint[];
   selectedMine: MinePoint;
   onSelectMine: (id: string) => void;
   onSectionChange: (id: SectionId) => void;
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].home;
+
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Ga-Mawela Mining & Community Platform"
-      description="A premium, higher-end community intelligence and transparency system shaped by immersive media, clear hierarchy, and live corridor context instead of flat brochure sections."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
         <div className="grid gap-5">
-          <HeroShowcase selectedMine={selectedMine} onSectionChange={onSectionChange} />
+          <HeroShowcase
+            selectedMine={selectedMine}
+            onSectionChange={onSectionChange}
+            locale={locale}
+          />
 
         <div className="grid gap-5 xl:grid-cols-[1.12fr_0.88fr]">
           <GlassPanel className="overflow-hidden">
             <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Interactive map preview
+                  {copy.mapEyebrow}
                 </p>
                 <h3 className="mt-3 text-[1.9rem] font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
-                  Understand the corridor at a glance
+                  {copy.mapTitle}
                 </h3>
               </div>
               <button
@@ -503,7 +516,7 @@ export function HomeSection({
                 onClick={() => onSectionChange("mines")}
                 className="rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
               >
-                Open full map
+                {copy.openMap}
               </button>
             </div>
 
@@ -517,10 +530,10 @@ export function HomeSection({
 
             <div className="mt-4 grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
               <p className="text-sm leading-7 text-[var(--gm-muted)]">
-                The preview map keeps the land parcel visible alongside mines, projects, and a processing hub so the spatial story stays accurate.
+                {copy.mapSummary}
               </p>
               <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)]">
-                Current node: {selectedMine.name}
+                {copy.currentNode}: {selectedMine.name}
               </div>
             </div>
           </GlassPanel>
@@ -528,7 +541,7 @@ export function HomeSection({
           <div className="grid gap-5">
             <GlassPanel>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                Current updates
+                {copy.updatesEyebrow}
               </p>
               <div className="mt-5 grid gap-4">
                 {updates.map((item) => (
@@ -577,6 +590,7 @@ export function MinesSection({
   companyFilter,
   onCompanyFilterChange,
   filters,
+  locale,
 }: {
   config: SectionConfig;
   filteredPoints: MinePoint[];
@@ -586,14 +600,16 @@ export function MinesSection({
   companyFilter: CompanyFilter;
   onCompanyFilterChange: (filter: CompanyFilter) => void;
   filters: CompanyFilter[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].mines;
   const selectedVisual = resolveMineVisual(selectedMine);
 
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Mines & operations in the Ga-Mawela corridor"
-      description="Pins cover ECM mines, Anglo American Platinum assets, regional mines, and the Lion Smelter. St George 2 JT remains visually separate so the land parcel is not collapsed into extraction imagery."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
       actions={
@@ -621,7 +637,7 @@ export function MinesSection({
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Selected location
+                  {copy.selectedLocation}
                 </p>
                 <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
                   {selectedMine.name}
@@ -639,13 +655,13 @@ export function MinesSection({
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Company
+                  {copy.company}
                 </p>
                 <p className="mt-2 text-base text-[var(--gm-foreground)]">{selectedMine.company}</p>
               </div>
               <div>
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Commodity / role
+                  {copy.commodityRole}
                 </p>
                 <p className="mt-2 text-base text-[var(--gm-foreground)]">
                   {selectedMine.commodity}
@@ -657,14 +673,14 @@ export function MinesSection({
               {selectedMine.description}
             </p>
             <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-              <span className="font-medium text-[var(--gm-foreground)]">Community impact:</span>{" "}
+              <span className="font-medium text-[var(--gm-foreground)]">{copy.communityImpact}:</span>{" "}
               {selectedMine.communityImpact}
             </p>
 
             <div className="mt-5 flex items-center gap-3">
               <StatusBadge status={selectedMine.slpStatus} />
               <span className="text-sm text-[var(--gm-muted)]">
-                SLP data {selectedMine.slpStatus === "Linked" ? "can be tracked in the dashboard." : "slot prepared for future evidence."}
+                {selectedMine.slpStatus === "Linked" ? copy.linkedSlp : copy.placeholderSlp}
               </span>
             </div>
 
@@ -691,25 +707,25 @@ export function MinesSection({
 
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Reading the corridor
+              {copy.readingTitle}
             </p>
             <div className="mt-4 grid gap-3">
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4">
-                <p className="text-sm font-medium text-[var(--gm-foreground)]">Primary layer</p>
+                <p className="text-sm font-medium text-[var(--gm-foreground)]">{copy.primaryLayer}</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                  Glencore ECM assets anchor the chrome footprint: Thorncliffe, Helena, and Magareng.
+                  {copy.primaryLayerDetail}
                 </p>
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4">
-                <p className="text-sm font-medium text-[var(--gm-foreground)]">Secondary layer</p>
+                <p className="text-sm font-medium text-[var(--gm-foreground)]">{copy.secondaryLayer}</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                  Anglo American Platinum brings Twickenham, Mototolo, and the Der Brochen project into the picture.
+                  {copy.secondaryLayerDetail}
                 </p>
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4">
-                <p className="text-sm font-medium text-[var(--gm-foreground)]">Regional layer</p>
+                <p className="text-sm font-medium text-[var(--gm-foreground)]">{copy.regionalLayer}</p>
                 <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                  Dwarsrivier, Two Rivers, and Lion Smelter extend the story into a wider industrial ecosystem.
+                  {copy.regionalLayerDetail}
                 </p>
               </div>
             </div>
@@ -763,12 +779,15 @@ export function SlpSection({
   commitments,
   expandedId,
   onToggleCommitment,
+  locale,
 }: {
   config: SectionConfig;
   commitments: SlpCommitment[];
   expandedId: string | null;
   onToggleCommitment: (id: string) => void;
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].slp;
   const completed = commitments.filter((item) => item.status === "Completed").length;
   const inProgress = commitments.filter((item) => item.status === "In Progress").length;
   const notDelivered = commitments.filter((item) => item.status === "Not Delivered").length;
@@ -776,42 +795,42 @@ export function SlpSection({
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Social & Labour Plan tracker"
-      description="The table is structured to show mine name, commitment type, delivery status, and expandable notes. It is designed for evidence uploads later, but already works as a usable accountability dashboard."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
       <div className="grid gap-4 md:grid-cols-3">
         <StatCard
-          label="Completed"
+          label={copy.completed}
           value={String(completed)}
-          note="Items presently marked complete in the working tracker."
+          note={copy.completedNote}
         />
         <StatCard
-          label="In progress"
+          label={copy.inProgress}
           value={String(inProgress)}
-          note="Commitments that still need ongoing monitoring and clearer disclosure."
+          note={copy.inProgressNote}
         />
         <StatCard
-          label="Not delivered"
+          label={copy.notDelivered}
           value={String(notDelivered)}
-          note="Rows requiring follow-up or visible evidence of implementation."
+          note={copy.notDeliveredNote}
         />
       </div>
 
       <div className="mt-5">
         {commitments.length === 0 ? (
           <EmptyMessage
-            title="No commitments match the current filter."
-            detail="Try widening the company or search filter to repopulate the tracker."
+            title={copy.emptyTitle}
+            detail={copy.emptyDetail}
           />
         ) : (
           <GlassPanel className="overflow-hidden p-0">
             <div className="hidden grid-cols-[1.5fr_1fr_1fr_1.8fr] gap-3 border-b border-white/10 bg-white/[0.08] px-5 py-4 text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)] md:grid">
-              <span>Mine name</span>
-              <span>Commitment type</span>
-              <span>Status</span>
-              <span>Notes</span>
+              <span>{copy.mineName}</span>
+              <span>{copy.commitmentType}</span>
+              <span>{copy.status}</span>
+              <span>{copy.notes}</span>
             </div>
 
             <div className="divide-y divide-white/[0.08]">
@@ -845,7 +864,7 @@ export function SlpSection({
                         <div className="grid gap-4 lg:grid-cols-[1fr_0.9fr]">
                           <div>
                             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                              Detail view
+                              {copy.detailView}
                             </p>
                             <p className="mt-3 text-sm leading-7 text-[var(--gm-muted)]">
                               {item.detail}
@@ -853,13 +872,13 @@ export function SlpSection({
                           </div>
                           <GlassPanel className="rounded-[24px] bg-white/[0.06]">
                             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                              Backend-ready fields
+                              {copy.backendFields}
                             </p>
                             <div className="mt-3 space-y-2 text-sm text-[var(--gm-muted)]">
                               <p>Mine: {item.mineName}</p>
                               <p>Commitment type: {item.type}</p>
                               <p>Status: {item.status}</p>
-                              <p>Evidence slot: pending document attachment</p>
+                              <p>{copy.evidenceSlot}</p>
                             </div>
                           </GlassPanel>
                         </div>

@@ -25,13 +25,23 @@ import {
   legalReferences,
   timelineEvents,
 } from "@/data/platformData";
+import type { PlatformLocale } from "@/lib/platform-i18n";
+import { platformUiCopy } from "@/lib/platform-ui-copy";
 
-export function CommunitySection({ config }: { config: SectionConfig }) {
+export function CommunitySection({
+  config,
+  locale,
+}: {
+  config: SectionConfig;
+  locale: PlatformLocale;
+}) {
+  const copy = platformUiCopy[locale].community;
+
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Community, land, and governance"
-      description="This page explains the land parcel, the CPA governance frame, the youth exclusion concern, and the legal references needed to keep the conversation grounded."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
@@ -40,19 +50,17 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                Core context
+                {copy.coreContext}
               </p>
               <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
-                Land first, mining corridor second
+                {copy.coreTitle}
               </h3>
             </div>
             <StatusBadge status="Placeholder" />
           </div>
 
           <p className="mt-5 text-sm leading-7 text-[var(--gm-muted)]">
-            The platform distinguishes between land identity and mining operations. St George 2 JT should be read as
-            a land parcel tied to governance, family history, and representation, while nearby mines and projects sit
-            within a broader corridor that affects the community.
+            {copy.coreDetail}
           </p>
 
           <div className="mt-6 grid gap-3">
@@ -74,7 +82,7 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
 
         <GlassPanel>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Timeline
+            {copy.timeline}
           </p>
           <div className="mt-6 space-y-5">
             {timelineEvents.map((item, index) => (
@@ -104,14 +112,14 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
           {legalReferences.map((item) => (
             <GlassPanel key={item.title}>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                Legal reference
+                {copy.legalReference}
               </p>
               <p className="mt-3 text-2xl font-semibold tracking-[-0.03em] text-[var(--gm-foreground)]">
                 {item.title}
               </p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">{item.description}</p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-                <span className="font-medium text-[var(--gm-foreground)]">Why it matters:</span>{" "}
+                <span className="font-medium text-[var(--gm-foreground)]">{copy.whyItMatters}:</span>{" "}
                 {item.focus}
               </p>
             </GlassPanel>
@@ -119,10 +127,10 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
 
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Reading guide
+              {copy.readingGuide}
             </p>
             <p className="mt-3 text-sm leading-7 text-[var(--gm-muted)]">
-              Keep the narrative ordered like this: land parcel first, governance structures second, mining corridor third, then legal and engagement questions.
+              {copy.readingGuideDetail}
             </p>
           </GlassPanel>
         </div>
@@ -134,15 +142,19 @@ export function CommunitySection({ config }: { config: SectionConfig }) {
 export function OpportunitiesSection({
   config,
   cards,
+  locale,
 }: {
   config: SectionConfig;
   cards: OpportunityCard[];
+  locale: PlatformLocale;
 }) {
+  const copy = platformUiCopy[locale].opportunities;
+
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title="Opportunities hub"
-      description="Jobs, learnerships, bursaries, and supplier registration are packaged in one place with practical guidance on how to apply."
+      title={copy.title}
+      description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
@@ -166,7 +178,7 @@ export function OpportunitiesSection({
               <p className="mt-4 text-sm text-[var(--gm-foreground)]">{item.owner}</p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">{item.summary}</p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-                <span className="font-medium text-[var(--gm-foreground)]">How to apply:</span>{" "}
+                <span className="font-medium text-[var(--gm-foreground)]">{copy.howToApply}:</span>{" "}
                 {item.howToApply}
               </p>
               <div className="mt-auto pt-5">
@@ -174,7 +186,7 @@ export function OpportunitiesSection({
                   href={item.href}
                   className="inline-flex rounded-full border border-white/15 bg-white/[0.08] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.12]"
                 >
-                  Open guide
+                  {copy.openGuide}
                 </a>
               </div>
             </GlassPanel>
@@ -184,7 +196,7 @@ export function OpportunitiesSection({
         <div className="grid gap-5 xl:grid-cols-[1fr_0.9fr]">
           <GlassPanel>
             <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-              Application checklist
+              {copy.checklist}
             </p>
             <div className="mt-5 grid gap-3 md:grid-cols-3">
               {applicationSteps.map((step, index) => (
@@ -193,7 +205,7 @@ export function OpportunitiesSection({
                   className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
                 >
                   <p className="text-sm font-medium text-[var(--gm-foreground)]">
-                    Step {index + 1}
+                    {copy.step} {index + 1}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">{step}</p>
                 </div>
@@ -204,23 +216,22 @@ export function OpportunitiesSection({
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-1">
             <GlassPanel>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                CV upload placeholder
+                {copy.cvPlaceholder}
               </p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-                Backend integration can later turn this card into a resident CV bank or profile intake. The front-end is
-                already structured for that future handoff.
+                {copy.cvDetail}
               </p>
               <div className="mt-5 rounded-[22px] border border-dashed border-white/15 bg-white/[0.04] p-5 text-sm text-[var(--gm-muted)]">
-                CV intake module placeholder
+                {copy.cvBox}
               </div>
             </GlassPanel>
 
             <GlassPanel>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                Access principle
+                {copy.accessPrinciple}
               </p>
               <p className="mt-4 text-sm leading-7 text-[var(--gm-muted)]">
-                Opportunity notices should be easy to find, easy to understand, and visible before deadlines close.
+                {copy.accessDetail}
               </p>
             </GlassPanel>
           </div>
@@ -239,6 +250,7 @@ export function TransparencySection({
   onCommentFieldChange,
   onCommentSubmit,
   copy,
+  locale,
 }: {
   config: SectionConfig;
   signals: TransparencySignal[];
@@ -269,7 +281,9 @@ export function TransparencySection({
     commentEmptyTitle: string;
     commentEmptyDetail: string;
   };
+  locale: PlatformLocale;
 }) {
+  const ui = platformUiCopy[locale].transparency;
   const disclosureAverage = Math.round(
     matrixRows.reduce((sum, row) => sum + row.disclosure, 0) / matrixRows.length,
   );
@@ -282,17 +296,17 @@ export function TransparencySection({
 
   const statusSlices = [
     {
-      label: "Visible",
+      label: ui.visible,
       value: matrixRows.filter((row) => row.status === "Visible").length,
       accent: "#34d399",
     },
     {
-      label: "Partial",
+      label: ui.partial,
       value: matrixRows.filter((row) => row.status === "Partial").length,
       accent: "#f59e0b",
     },
     {
-      label: "Weak",
+      label: ui.weak,
       value: matrixRows.filter((row) => row.status === "Weak").length,
       accent: "#f43f5e",
     },
@@ -300,17 +314,17 @@ export function TransparencySection({
 
   const riskSlices = [
     {
-      label: "Low risk",
+      label: ui.lowRisk,
       value: matrixRows.filter((row) => row.risk === "Low").length,
       accent: "#34d399",
     },
     {
-      label: "Medium risk",
+      label: ui.mediumRisk,
       value: matrixRows.filter((row) => row.risk === "Medium").length,
       accent: "#38bdf8",
     },
     {
-      label: "High risk",
+      label: ui.highRisk,
       value: matrixRows.filter((row) => row.risk === "High").length,
       accent: "#f97316",
     },
@@ -348,19 +362,19 @@ export function TransparencySection({
               </p>
             </div>
             <div className="rounded-full border border-white/10 bg-white/[0.06] px-4 py-2 text-sm text-[var(--gm-muted)]">
-              {matrixRows.length} monitored rows
+              {matrixRows.length} {ui.monitoredRows}
             </div>
           </div>
 
           <div className="mt-5 overflow-hidden rounded-[24px] border border-white/10">
             <div className="hidden grid-cols-[1.2fr_1.1fr_120px_120px_120px_120px_120px] gap-3 border-b border-white/10 bg-white/[0.08] px-5 py-4 text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)] xl:grid">
-              <span>Theme</span>
-              <span>Owner</span>
-              <span>Disclosure</span>
-              <span>Delivery</span>
-              <span>Youth</span>
-              <span>Risk</span>
-              <span>Status</span>
+              <span>{ui.theme}</span>
+              <span>{ui.owner}</span>
+              <span>{ui.disclosure}</span>
+              <span>{ui.delivery}</span>
+              <span>{ui.youth}</span>
+              <span>{ui.risk}</span>
+              <span>{ui.status}</span>
             </div>
             <div className="divide-y divide-white/[0.08]">
               {matrixRows.map((row) => (
@@ -423,30 +437,30 @@ export function TransparencySection({
 
             <div className="grid gap-5 lg:grid-cols-2">
               <GaugeMeter
-                label="Disclosure maturity"
+                label={ui.disclosureMaturity}
                 value={Math.round((disclosureAverage + deliveryAverage) / 2)}
                 accent="#d14a28"
-                summary="Composite reading of disclosure quality and visible delivery across the monitored categories."
+                summary={ui.disclosureSummary}
               />
               <GaugeMeter
-                label="Youth access visibility"
+                label={ui.youthAccessVisibility}
                 value={youthAverage}
                 accent="#38bdf8"
-                summary="How legible the corridor currently is for youth looking for jobs, training, procurement, and representation entry points."
+                summary={ui.youthAccessSummary}
               />
             </div>
 
             <div className="grid gap-5 lg:grid-cols-2">
               <DonutChart
-                label="Status mix"
+                label={ui.statusMix}
                 centerLabel={`${statusSlices[0].value}/${matrixRows.length}`}
-                summary="A quick read of how many monitored areas are currently visible, partial, or weak."
+                summary={ui.statusMixSummary}
                 slices={statusSlices}
               />
               <DonutChart
-                label="Risk distribution"
+                label={ui.riskDistribution}
                 centerLabel={`${riskSlices[2].value}`}
-                summary="Risk signals point to where disclosure gaps and delivery uncertainty create the strongest community pressure."
+                summary={ui.riskDistributionSummary}
                 slices={riskSlices}
               />
             </div>
@@ -467,15 +481,15 @@ export function TransparencySection({
 
           <div className="grid gap-5">
             <RingMeter
-              label="Current disclosure maturity"
+              label={ui.currentMaturity}
               value={Math.round((disclosureAverage + deliveryAverage) / 2)}
               accent="#d14a28"
-              summary="A working score showing that the platform can structure accountability even where records and source trails are still incomplete."
+              summary={ui.currentMaturitySummary}
             />
 
             <GlassPanel>
               <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                Community voice summaries
+                {ui.communityVoices}
               </p>
               <div className="mt-5 space-y-3">
                 {communityVoices.map((voice) => (
@@ -500,7 +514,7 @@ export function TransparencySection({
                   </p>
                 </div>
                 <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  {comments.length} comments
+                  {comments.length} {ui.comments}
                 </div>
               </div>
 
@@ -511,7 +525,7 @@ export function TransparencySection({
                     value={commentForm.name}
                     onChange={(event) => onCommentFieldChange("name", event.target.value)}
                     className="gm-input"
-                    placeholder="Anonymous is fine"
+                    placeholder={ui.anonymousPlaceholder}
                   />
                 </label>
                 <label className="space-y-2">
@@ -520,7 +534,7 @@ export function TransparencySection({
                     value={commentForm.message}
                     onChange={(event) => onCommentFieldChange("message", event.target.value)}
                     className="gm-input min-h-[120px]"
-                    placeholder="Share an observation on transparency, access, notices, roads, or participation."
+                    placeholder={ui.commentPlaceholder}
                   />
                 </label>
                 <button
@@ -545,7 +559,7 @@ export function TransparencySection({
                     >
                       <div className="flex flex-wrap items-center justify-between gap-3">
                         <p className="text-base font-medium text-[var(--gm-foreground)]">
-                          {comment.name || "Anonymous"}
+                          {comment.name || ui.anonymousPlaceholder}
                         </p>
                         <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-[var(--gm-subtle)]">
                           {comment.submittedAt}
