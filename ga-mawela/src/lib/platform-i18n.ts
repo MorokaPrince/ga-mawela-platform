@@ -22,6 +22,10 @@ type PlatformLanguagePack = {
   quickAction: string;
   opportunities: string;
   submitIssue: string;
+  signIn: string;
+  signOut: string;
+  dashboard: string;
+  welcomeBack: string;
   lightMode: string;
   darkMode: string;
   footer: string;
@@ -57,6 +61,10 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     quickAction: "Quick action",
     opportunities: "Opportunities",
     submitIssue: "Submit issue",
+    signIn: "Sign in",
+    signOut: "Sign out",
+    dashboard: "Dashboard",
+    welcomeBack: "Welcome",
     lightMode: "Light mode",
     darkMode: "Dark mode",
     footer:
@@ -105,6 +113,10 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     quickAction: "Tiro ya ka pela",
     opportunities: "Menyetla",
     submitIssue: "Bega taba",
+    signIn: "Tsena",
+    signOut: "Tswa",
+    dashboard: "Dashboard",
+    welcomeBack: "Amogelehile",
     lightMode: "Mokgwa wa seetša",
     darkMode: "Mokgwa wa leswiswi",
     footer:

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BellDot,
@@ -78,6 +80,13 @@ type EngagementEntry = {
   fileName?: string;
 };
 
+type AuthViewer = {
+  id: string;
+  email: string;
+  name: string;
+  role: "admin" | "member";
+};
+
 function readStoredValue<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") {
     return fallback;
@@ -146,6 +155,7 @@ function IntroOverlay() {
 }
 
 export default function CommunityMiningPlatform() {
+  const router = useRouter();
   const [activeSection, setActiveSection] = useState<SectionId>("home");
   const [selectedMineId, setSelectedMineId] = useState("st-george-2jt");
   const [expandedCommitmentId, setExpandedCommitmentId] = useState<string | null>(
@@ -165,6 +175,7 @@ export default function CommunityMiningPlatform() {
   const [comments, setComments] = useState<PlatformComment[]>(() =>
     readStoredValue<PlatformComment[]>(COMMENT_STORAGE_KEY, []),
   );
+  const [viewer, setViewer] = useState<AuthViewer | null>(null);
   const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
   const [isPending, startTransition] = useTransition();
   const deferredSearch = useDeferredValue(searchQuery);
@@ -247,7 +258,7 @@ export default function CommunityMiningPlatform() {
 
     async function loadEngagement() {
       try {
-        const response = await fetch("/api/platform-engagement", {
+        const response = await fetch("/api/platform-engagement/", {
           cache: "no-store",
         });
 
@@ -297,6 +308,41 @@ export default function CommunityMiningPlatform() {
     }
 
     void loadEngagement();
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadSession() {
+      try {
+        const response = await fetch("/api/platform-auth/session/", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to load session");
+        }
+
+        const payload = (await response.json()) as {
+          authenticated: boolean;
+          user: AuthViewer | null;
+        };
+
+        if (!cancelled) {
+          setViewer(payload.authenticated ? payload.user : null);
+        }
+      } catch {
+        if (!cancelled) {
+          setViewer(null);
+        }
+      }
+    }
+
+    void loadSession();
 
     return () => {
       cancelled = true;
@@ -366,7 +412,7 @@ export default function CommunityMiningPlatform() {
     };
 
     try {
-      const response = await fetch("/api/platform-engagement", {
+      const response = await fetch("/api/platform-engagement/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -436,7 +482,7 @@ export default function CommunityMiningPlatform() {
     };
 
     try {
-      const response = await fetch("/api/platform-engagement", {
+      const response = await fetch("/api/platform-engagement/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -480,6 +526,14 @@ export default function CommunityMiningPlatform() {
       name: "",
       message: "",
     });
+  };
+
+  const handleLogout = async () => {
+    await fetch("/api/platform-auth/logout/", {
+      method: "POST",
+    });
+    setViewer(null);
+    router.refresh();
   };
 
   const handleLibrarySubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -767,6 +821,36 @@ export default function CommunityMiningPlatform() {
                     {copy.switching}
                   </span>
                 ) : null}
+                {viewer ? (
+                  <>
+                    <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
+                      <span className="text-[var(--gm-subtle)]">{copy.welcomeBack}:</span>{" "}
+                      <span className="font-medium text-[var(--gm-foreground)]">
+                        {viewer.name}
+                      </span>
+                    </div>
+                    <Link
+                      href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
+                      className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                    >
+                      {copy.dashboard}
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={() => void handleLogout()}
+                      className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                    >
+                      {copy.signOut}
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                  >
+                    {copy.signIn}
+                  </Link>
+                )}
               </div>
             </div>
           </div>

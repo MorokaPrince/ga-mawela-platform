@@ -1,0 +1,16 @@
+[
+  {
+    "id": "admin-001",
+    "email": "admin@gamawela.org",
+    "name": "Ga-Mawela Admin",
+    "role": "admin",
+    "passwordHash": "$2b$10$rOMGyeWZO06HBT9idEc0I.yLfa2YZo5M3TV5y6ziP4QsrgD0G8CmO"
+  },
+  {
+    "id": "member-001",
+    "email": "member@gamawela.org",
+    "name": "Ga-Mawela Member",
+    "role": "member",
+    "passwordHash": "$2b$10$5sepaA3K0b.WCLWDG5gWK.CVJTF7pDE.l0IdFwhDmqH0qUeB3hJIu"
+  }
+]
