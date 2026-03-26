@@ -441,18 +441,20 @@ export default function CommunityMiningPlatform() {
         throw new Error("Invalid report response");
       }
 
+      const { id, name, message, issueType, fileName, submittedAt } = payload.data;
+
       setIssues((current) => [
         {
-          id: payload.data.id,
-          name: payload.data.name,
+          id,
+          name,
           issueType:
-            payload.data.issueType === "Community exclusion" ||
-            payload.data.issueType === "Procurement"
-              ? payload.data.issueType
+            issueType === "Community exclusion" ||
+            issueType === "Procurement"
+              ? issueType
               : "Employment",
-          description: payload.data.message,
-          fileName: payload.data.fileName,
-          submittedAt: payload.data.submittedAt,
+          description: message,
+          fileName,
+          submittedAt,
         },
         ...current,
       ]);
@@ -509,12 +511,14 @@ export default function CommunityMiningPlatform() {
         throw new Error("Invalid comment response");
       }
 
+      const { id, name, message, submittedAt } = payload.data;
+
       setComments((current) => [
         {
-          id: payload.data.id,
-          name: payload.data.name,
-          message: payload.data.message,
-          submittedAt: payload.data.submittedAt,
+          id,
+          name,
+          message,
+          submittedAt,
         },
         ...current,
       ]);
