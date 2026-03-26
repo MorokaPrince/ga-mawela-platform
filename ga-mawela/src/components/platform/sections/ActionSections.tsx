@@ -60,14 +60,14 @@ export function ReportSection({
     value: string,
   ) => void;
   onReportFileChange: (file: File | null) => void;
-  onReportSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onReportSubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>;
   issues: StoredIssue[];
 }) {
   return (
     <SectionShell
       eyebrow={config.eyebrow}
       title="Report an issue"
-      description="A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records are kept locally for now and can later move into a backend workflow."
+      description="A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records now submit through the backend where available, with local fallback kept only as resilience."
       accent={config.accent}
       backgroundImage={config.backgroundImage}
     >
@@ -126,7 +126,7 @@ export function ReportSection({
                 className="gm-input cursor-pointer file:mr-4 file:rounded-full file:border-0 file:bg-white file:px-4 file:py-2 file:text-sm file:font-medium file:text-slate-950"
               />
               <p className="text-xs text-[var(--gm-subtle)]">
-                Local mock storage only at this stage.
+                File name metadata is captured now, and full file workflow can plug into the upload pipeline next.
               </p>
             </label>
 
@@ -134,7 +134,7 @@ export function ReportSection({
               type="submit"
               className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
             >
-              Save report locally
+              Submit report
             </button>
           </form>
         </GlassPanel>
@@ -152,7 +152,7 @@ export function ReportSection({
                 Upload supporting files where possible.
               </div>
               <div className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4 text-sm leading-6 text-[var(--gm-muted)]">
-                Records stay local for now and can later move into a formal review flow.
+                Reports can feed a formal review flow and role-based moderation workspace next.
               </div>
             </div>
           </GlassPanel>
@@ -166,7 +166,7 @@ export function ReportSection({
                 <div className="md:col-span-2">
                   <EmptyMessage
                     title="No issues saved yet."
-                    detail="Once a report is submitted, it will appear here as a local record."
+                    detail="Once a report is submitted, it will appear here as a tracked participation record."
                   />
                 </div>
               ) : (
@@ -221,7 +221,7 @@ export function DocumentsSection({
     value: string,
   ) => void;
   onLibraryFileChange: (file: File | null) => void;
-  onLibrarySubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onLibrarySubmit: (event: FormEvent<HTMLFormElement>) => void | Promise<void>;
 }) {
   const [activeCategory, setActiveCategory] = useState<DocumentCategory | "All">("All");
 

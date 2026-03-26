@@ -1,0 +1,124 @@
+IF DB_ID(N'GaMawelaCommunityPlatform') IS NULL
+BEGIN
+  CREATE DATABASE [GaMawelaCommunityPlatform];
+END;
+GO
+
+USE [GaMawelaCommunityPlatform];
+GO
+
+IF OBJECT_ID(N'dbo.Users', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.Users (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    Email NVARCHAR(255) NOT NULL,
+    FullName NVARCHAR(255) NOT NULL,
+    RoleName NVARCHAR(50) NOT NULL DEFAULT N'member',
+    StatusName NVARCHAR(50) NOT NULL DEFAULT N'active',
+    PreferredLanguage NVARCHAR(10) NOT NULL DEFAULT N'en',
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME(),
+    UpdatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+
+  CREATE UNIQUE INDEX IX_Users_Email ON dbo.Users (Email);
+END;
+GO
+
+IF OBJECT_ID(N'dbo.Mines', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.Mines (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    Name NVARCHAR(255) NOT NULL,
+    Company NVARCHAR(255) NOT NULL,
+    CompanyFilter NVARCHAR(100) NOT NULL,
+    Commodity NVARCHAR(100) NOT NULL,
+    MineType NVARCHAR(50) NOT NULL,
+    Corridor NVARCHAR(50) NOT NULL,
+    Description NVARCHAR(MAX) NOT NULL,
+    CommunityImpact NVARCHAR(MAX) NOT NULL,
+    SlpStatus NVARCHAR(50) NOT NULL,
+    MapX DECIMAL(5,2) NOT NULL,
+    MapY DECIMAL(5,2) NOT NULL
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.SlpCommitments', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.SlpCommitments (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    MineId NVARCHAR(100) NOT NULL,
+    MineName NVARCHAR(255) NOT NULL,
+    Company NVARCHAR(255) NOT NULL,
+    CommitmentType NVARCHAR(100) NOT NULL,
+    StatusName NVARCHAR(50) NOT NULL,
+    ReportYear NVARCHAR(30) NOT NULL,
+    Notes NVARCHAR(MAX) NOT NULL,
+    Detail NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.TransparencySignals', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.TransparencySignals (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    Title NVARCHAR(255) NOT NULL,
+    MetricValue INT NOT NULL,
+    Summary NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.TransparencyMatrixRows', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.TransparencyMatrixRows (
+    Id NVARCHAR(100) NOT NULL PRIMARY KEY,
+    Theme NVARCHAR(255) NOT NULL,
+    OwnerName NVARCHAR(255) NOT NULL,
+    DisclosureScore INT NOT NULL,
+    DeliveryScore INT NOT NULL,
+    YouthAccessScore INT NOT NULL,
+    StatusName NVARCHAR(50) NOT NULL,
+    RiskLevel NVARCHAR(50) NOT NULL,
+    NoteText NVARCHAR(MAX) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.Documents', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.Documents (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    Title NVARCHAR(255) NOT NULL,
+    Category NVARCHAR(100) NOT NULL,
+    Description NVARCHAR(MAX) NOT NULL,
+    SourceName NVARCHAR(255) NOT NULL,
+    FileUrl NVARCHAR(1000) NULL,
+    PublishedDate NVARCHAR(50) NOT NULL,
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+END;
+GO
+
+IF OBJECT_ID(N'dbo.EngagementEntries', N'U') IS NULL
+BEGIN
+  CREATE TABLE dbo.EngagementEntries (
+    Id UNIQUEIDENTIFIER NOT NULL PRIMARY KEY DEFAULT NEWID(),
+    EntryKind NVARCHAR(50) NOT NULL,
+    SectionName NVARCHAR(100) NOT NULL,
+    FullName NVARCHAR(255) NOT NULL,
+    MessageText NVARCHAR(MAX) NOT NULL,
+    IssueType NVARCHAR(100) NULL,
+    FileName NVARCHAR(255) NULL,
+    PreferredLanguage NVARCHAR(10) NOT NULL DEFAULT N'en',
+    CreatedAt DATETIME2 NOT NULL DEFAULT SYSUTCDATETIME()
+  );
+
+  CREATE INDEX IX_EngagementEntries_SectionName_CreatedAt
+    ON dbo.EngagementEntries (SectionName, CreatedAt DESC);
+END;
+GO

@@ -3,6 +3,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import {
   BellDot,
+  Languages,
   MoonStar,
   Search,
   Sparkles,
@@ -42,16 +43,40 @@ import {
   representationNodes,
   sectionConfigs,
   slpCommitments,
+  transparencyMatrixRows,
   transparencySignals,
   updates,
   type CompanyFilter,
   type DocumentCategory,
   type SectionId,
 } from "@/data/platformData";
+import {
+  platformCopy,
+  type PlatformLocale,
+} from "@/lib/platform-i18n";
 
 const SECTION_STORAGE_KEY = "ga-mawela-theme";
 const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
 const DOC_STORAGE_KEY = "ga-mawela-local-docs";
+const COMMENT_STORAGE_KEY = "ga-mawela-local-comments";
+const LOCALE_STORAGE_KEY = "ga-mawela-locale";
+
+type PlatformComment = {
+  id: string;
+  name: string;
+  message: string;
+  submittedAt: string;
+};
+
+type EngagementEntry = {
+  id: string;
+  kind: "comment" | "report";
+  name: string;
+  message: string;
+  submittedAt: string;
+  issueType?: string;
+  fileName?: string;
+};
 
 function readStoredValue<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") {
@@ -73,6 +98,15 @@ function readStoredTheme(): "dark" | "light" {
 
   const raw = window.localStorage.getItem(SECTION_STORAGE_KEY);
   return raw === "light" ? "light" : "dark";
+}
+
+function readStoredLocale(): PlatformLocale {
+  if (typeof window === "undefined") {
+    return "en";
+  }
+
+  const raw = window.localStorage.getItem(LOCALE_STORAGE_KEY);
+  return raw === "nso" ? "nso" : "en";
 }
 
 function IntroOverlay() {
@@ -118,6 +152,7 @@ export default function CommunityMiningPlatform() {
     slpCommitments[0]?.id ?? null,
   );
   const [theme, setTheme] = useState<"dark" | "light">(readStoredTheme);
+  const [locale, setLocale] = useState<PlatformLocale>(readStoredLocale);
   const [companyFilter, setCompanyFilter] = useState<CompanyFilter>("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [introVisible, setIntroVisible] = useState(true);
@@ -126,6 +161,9 @@ export default function CommunityMiningPlatform() {
   );
   const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>(() =>
     readStoredValue<UploadedDocument[]>(DOC_STORAGE_KEY, []),
+  );
+  const [comments, setComments] = useState<PlatformComment[]>(() =>
+    readStoredValue<PlatformComment[]>(COMMENT_STORAGE_KEY, []),
   );
   const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
   const [isPending, startTransition] = useTransition();
@@ -154,6 +192,17 @@ export default function CommunityMiningPlatform() {
     description: "",
     file: null,
   });
+  const [commentForm, setCommentForm] = useState({
+    name: "",
+    message: "",
+  });
+
+  const copy = platformCopy[locale];
+  const localizedSectionConfigs = sectionConfigs.map((section) => ({
+    ...section,
+    label: copy.sections[section.id].label,
+    eyebrow: copy.sections[section.id].eyebrow,
+  }));
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIntroVisible(false), 1800);
@@ -165,8 +214,16 @@ export default function CommunityMiningPlatform() {
   }, [theme]);
 
   useEffect(() => {
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  }, [locale]);
+
+  useEffect(() => {
     window.localStorage.setItem(ISSUE_STORAGE_KEY, JSON.stringify(issues));
   }, [issues]);
+
+  useEffect(() => {
+    window.localStorage.setItem(COMMENT_STORAGE_KEY, JSON.stringify(comments));
+  }, [comments]);
 
   useEffect(() => {
     const docsToStore = uploadedDocuments.map((document) => {
@@ -183,6 +240,67 @@ export default function CommunityMiningPlatform() {
     }, 4800);
 
     return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadEngagement() {
+      try {
+        const response = await fetch("/api/platform-engagement", {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to load platform engagement");
+        }
+
+        const payload = (await response.json()) as {
+          success: boolean;
+          data?: EngagementEntry[];
+        };
+
+        if (!payload.success || !payload.data || cancelled) {
+          return;
+        }
+
+        setIssues(
+          payload.data
+            .filter((entry) => entry.kind === "report")
+            .map<StoredIssue>((entry) => ({
+              id: entry.id,
+              name: entry.name,
+              issueType:
+                entry.issueType === "Community exclusion" ||
+                entry.issueType === "Procurement"
+                  ? entry.issueType
+                  : "Employment",
+              description: entry.message,
+              fileName: entry.fileName,
+              submittedAt: entry.submittedAt,
+            })),
+        );
+
+        setComments(
+          payload.data
+            .filter((entry) => entry.kind === "comment")
+            .map<PlatformComment>((entry) => ({
+              id: entry.id,
+              name: entry.name,
+              message: entry.message,
+              submittedAt: entry.submittedAt,
+            })),
+        );
+      } catch {
+        // Preserve local fallback if backend engagement storage is unavailable.
+      }
+    }
+
+    void loadEngagement();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const searchTerm = deferredSearch.trim().toLowerCase();
@@ -220,7 +338,8 @@ export default function CommunityMiningPlatform() {
   });
 
   const activeConfig =
-    sectionConfigs.find((section) => section.id === activeSection) ?? sectionConfigs[0];
+    localizedSectionConfigs.find((section) => section.id === activeSection) ??
+    localizedSectionConfigs[0];
 
   const latestUpdates = updates.map((item) => item.detail);
 
@@ -231,7 +350,7 @@ export default function CommunityMiningPlatform() {
     });
   };
 
-  const handleReportSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleReportSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!reportForm.description.trim()) {
       return;
@@ -246,12 +365,120 @@ export default function CommunityMiningPlatform() {
       submittedAt: new Date().toISOString().slice(0, 10),
     };
 
-    setIssues((current) => [nextIssue, ...current]);
+    try {
+      const response = await fetch("/api/platform-engagement", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          kind: "report",
+          section: "report",
+          name: nextIssue.name,
+          message: nextIssue.description,
+          issueType: nextIssue.issueType,
+          fileName: nextIssue.fileName,
+          locale,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save report");
+      }
+
+      const payload = (await response.json()) as {
+        success: boolean;
+        data?: EngagementEntry;
+      };
+
+      if (!payload.success || !payload.data) {
+        throw new Error("Invalid report response");
+      }
+
+      setIssues((current) => [
+        {
+          id: payload.data.id,
+          name: payload.data.name,
+          issueType:
+            payload.data.issueType === "Community exclusion" ||
+            payload.data.issueType === "Procurement"
+              ? payload.data.issueType
+              : "Employment",
+          description: payload.data.message,
+          fileName: payload.data.fileName,
+          submittedAt: payload.data.submittedAt,
+        },
+        ...current,
+      ]);
+    } catch {
+      setIssues((current) => [nextIssue, ...current]);
+    }
+
     setReportForm({
       name: "",
       issueType: "Employment",
       description: "",
       file: null,
+    });
+  };
+
+  const handleCommentSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!commentForm.message.trim()) {
+      return;
+    }
+
+    const nextComment: PlatformComment = {
+      id: crypto.randomUUID(),
+      name: commentForm.name.trim() || "Anonymous",
+      message: commentForm.message.trim(),
+      submittedAt: new Date().toISOString().slice(0, 10),
+    };
+
+    try {
+      const response = await fetch("/api/platform-engagement", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          kind: "comment",
+          section: "transparency",
+          name: nextComment.name,
+          message: nextComment.message,
+          locale,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save comment");
+      }
+
+      const payload = (await response.json()) as {
+        success: boolean;
+        data?: EngagementEntry;
+      };
+
+      if (!payload.success || !payload.data) {
+        throw new Error("Invalid comment response");
+      }
+
+      setComments((current) => [
+        {
+          id: payload.data.id,
+          name: payload.data.name,
+          message: payload.data.message,
+          submittedAt: payload.data.submittedAt,
+        },
+        ...current,
+      ]);
+    } catch {
+      setComments((current) => [nextComment, ...current]);
+    }
+
+    setCommentForm({
+      name: "",
+      message: "",
     });
   };
 
@@ -284,7 +511,7 @@ export default function CommunityMiningPlatform() {
     });
   };
 
-  const renderSection = (section: (typeof sectionConfigs)[number]) => {
+  const renderSection = (section: (typeof localizedSectionConfigs)[number]) => {
     switch (section.id) {
       case "home":
         return (
@@ -331,6 +558,33 @@ export default function CommunityMiningPlatform() {
           <TransparencySection
             config={section}
             signals={transparencySignals}
+            matrixRows={transparencyMatrixRows}
+            comments={comments}
+            commentForm={commentForm}
+            onCommentFieldChange={(field, value) =>
+              setCommentForm((current) => ({ ...current, [field]: value }))
+            }
+            onCommentSubmit={handleCommentSubmit}
+            copy={{
+              title:
+                locale === "nso"
+                  ? "Ponagalo le boikarabelo"
+                  : "Transparency & accountability",
+              description:
+                locale === "nso"
+                  ? "Segalo se dula e le sa profeshenale: dingongorego tsa setshaba, dikgoba tsa ponagalo le ditlhohlo tsa poledisano di bewa bjalo ka ditaba tsa taolo le kabo ya tshedimoso."
+                  : "The tone stays professional: community concerns, transparency gaps, and engagement challenges are framed as governance and disclosure issues rather than accusations.",
+              matrixTitle: copy.matrixTitle,
+              matrixDescription: copy.matrixDescription,
+              chartOverview: copy.chartOverview,
+              commentTitle: copy.commentTitle,
+              commentPrompt: copy.commentPrompt,
+              commentName: copy.commentName,
+              commentMessage: copy.commentMessage,
+              commentButton: copy.commentButton,
+              commentEmptyTitle: copy.commentEmptyTitle,
+              commentEmptyDetail: copy.commentEmptyDetail,
+            }}
           />
         );
       case "report":
@@ -395,15 +649,15 @@ export default function CommunityMiningPlatform() {
                     Ga-Mawela
                   </p>
                   <h1 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)] md:text-3xl">
-                    Mining & Community Intelligence Platform
+                    {copy.appTitle}
                   </h1>
                   <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--gm-muted)]">
-                    A professional landing experience for transparency, land awareness, SLP visibility, and opportunity access around St George 2 JT.
+                    {copy.appSubtitle}
                   </p>
                 </div>
               </div>
 
-              <div className="grid gap-3 md:grid-cols-[minmax(280px,1fr)_220px_auto]">
+              <div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_220px_190px_auto]">
                 <div className="relative min-w-0">
                   <Search
                     size={16}
@@ -413,7 +667,7 @@ export default function CommunityMiningPlatform() {
                     value={searchQuery}
                     onChange={(event) => setSearchQuery(event.target.value)}
                     className="gm-input h-12 w-full pl-11"
-                    placeholder="Search mines, commitments, opportunities, and documents"
+                    placeholder={copy.searchPlaceholder}
                   />
                 </div>
 
@@ -429,15 +683,31 @@ export default function CommunityMiningPlatform() {
                   ))}
                 </select>
 
+                <label className="relative min-w-0">
+                  <Languages
+                    size={16}
+                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
+                  />
+                  <select
+                    value={locale}
+                    onChange={(event) => setLocale(event.target.value as PlatformLocale)}
+                    className="gm-input h-12 w-full pl-11"
+                    aria-label={copy.languageLabel}
+                  >
+                    <option value="en">English</option>
+                    <option value="nso">Sepedi / Northern Sotho</option>
+                  </select>
+                </label>
+
                 <button
                   type="button"
                   onClick={() =>
                     setTheme((current) => (current === "dark" ? "light" : "dark"))
                   }
                   className="inline-flex h-12 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
-                  >
-                    {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
-                  <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+                >
+                  {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                  <span>{theme === "dark" ? copy.lightMode : copy.darkMode}</span>
                 </button>
               </div>
             </div>
@@ -445,7 +715,7 @@ export default function CommunityMiningPlatform() {
             <div className="grid gap-3 xl:grid-cols-[1fr_auto] xl:items-center">
               <nav className="gm-top-tabs overflow-x-auto pb-1">
                 <div className="flex min-w-max gap-2">
-                  {sectionConfigs.map((section) => (
+                  {localizedSectionConfigs.map((section) => (
                     <button
                       key={section.id}
                       type="button"
@@ -475,26 +745,26 @@ export default function CommunityMiningPlatform() {
 
               <div className="flex flex-wrap gap-2 xl:justify-end">
                 <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">Module:</span>{" "}
+                  <span className="text-[var(--gm-subtle)]">{copy.moduleLabel}:</span>{" "}
                   <span className="font-medium text-[var(--gm-foreground)]">
                     {activeConfig.label}
                   </span>
                 </div>
                 <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">Filter:</span>{" "}
+                  <span className="text-[var(--gm-subtle)]">{copy.filterLabel}:</span>{" "}
                   <span className="font-medium text-[var(--gm-foreground)]">
                     {companyFilter}
                   </span>
                 </div>
                 <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">Search:</span>{" "}
+                  <span className="text-[var(--gm-subtle)]">{copy.searchLabel}:</span>{" "}
                   <span className="font-medium text-[var(--gm-foreground)]">
-                    {searchQuery ? `"${searchQuery}"` : "All records"}
+                    {searchQuery ? `"${searchQuery}"` : copy.allRecords}
                   </span>
                 </div>
                 {isPending ? (
                   <span className="inline-flex rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-100">
-                    Switching...
+                    {copy.switching}
                   </span>
                 ) : null}
               </div>
@@ -509,7 +779,7 @@ export default function CommunityMiningPlatform() {
                 <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />
                 <div>
                   <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    Live update
+                    {copy.liveUpdate}
                   </p>
                   <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
                     {latestUpdates[activeUpdateIndex]}
@@ -525,10 +795,10 @@ export default function CommunityMiningPlatform() {
                 className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
               >
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Quick access
+                  {copy.quickAccess}
                 </p>
                 <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
-                  Opportunities
+                  {copy.opportunities}
                 </p>
               </button>
               <button
@@ -537,10 +807,10 @@ export default function CommunityMiningPlatform() {
                 className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
               >
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  Quick action
+                  {copy.quickAction}
                 </p>
                 <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
-                  Submit issue
+                  {copy.submitIssue}
                 </p>
               </button>
             </div>
@@ -562,7 +832,7 @@ export default function CommunityMiningPlatform() {
         </main>
 
         <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-4 py-5 text-sm text-[var(--gm-subtle)] md:px-6 xl:px-8">
-          World-class transparency interface for Ga-Mawela. Frontend now structured for backend integration, document pipelines, and richer data feeds.
+          {copy.footer}
         </footer>
       </div>
     </div>

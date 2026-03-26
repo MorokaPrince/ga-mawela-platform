@@ -81,6 +81,18 @@ export type TransparencySignal = {
   summary: string;
 };
 
+export type TransparencyMatrixRow = {
+  id: string;
+  theme: string;
+  owner: string;
+  disclosure: number;
+  delivery: number;
+  youthAccess: number;
+  status: "Visible" | "Partial" | "Weak";
+  risk: "Low" | "Medium" | "High";
+  note: string;
+};
+
 export type DocumentCategory =
   | "PAIA Requests"
   | "Mining Records"
@@ -824,6 +836,81 @@ export const transparencySignals: TransparencySignal[] = [
     title: "Youth-centered opportunity visibility",
     value: 35,
     summary: "Represents the portion of opportunity pathways that are easy to understand today.",
+  },
+];
+
+export const transparencyMatrixRows: TransparencyMatrixRow[] = [
+  {
+    id: "jobs-local-access",
+    theme: "Local jobs access",
+    owner: "Mine HR and contractor channels",
+    disclosure: 48,
+    delivery: 44,
+    youthAccess: 39,
+    status: "Partial",
+    risk: "High",
+    note:
+      "Recruitment routes exist, but local weighting, shortlisting visibility, and contractor access still need clearer disclosure.",
+  },
+  {
+    id: "training-pipeline",
+    theme: "Training and learnership pipelines",
+    owner: "SLP and training partners",
+    disclosure: 58,
+    delivery: 52,
+    youthAccess: 55,
+    status: "Partial",
+    risk: "Medium",
+    note:
+      "Learnership pathways are visible in principle, but progression into practical workplace opportunities remains uneven.",
+  },
+  {
+    id: "roads-maintenance",
+    theme: "Roads and corridor maintenance",
+    owner: "Operators and public infrastructure stakeholders",
+    disclosure: 34,
+    delivery: 29,
+    youthAccess: 22,
+    status: "Weak",
+    risk: "High",
+    note:
+      "Road pressure is highly visible to residents, while evidence of sustained corridor-facing maintenance remains inconsistent.",
+  },
+  {
+    id: "procurement-local",
+    theme: "Local procurement access",
+    owner: "Procurement and supplier onboarding teams",
+    disclosure: 41,
+    delivery: 37,
+    youthAccess: 33,
+    status: "Weak",
+    risk: "High",
+    note:
+      "Supplier registration channels exist, but local SMEs still need easier onboarding guidance, timing visibility, and feedback loops.",
+  },
+  {
+    id: "community-notices",
+    theme: "Community notice visibility",
+    owner: "Mine-community engagement channels",
+    disclosure: 63,
+    delivery: 57,
+    youthAccess: 46,
+    status: "Visible",
+    risk: "Medium",
+    note:
+      "Notice flow is more visible than some other categories, but timing, language access, and household reach are still uneven.",
+  },
+  {
+    id: "land-governance",
+    theme: "Land and governance communication",
+    owner: "CPA and related stakeholders",
+    disclosure: 46,
+    delivery: 42,
+    youthAccess: 28,
+    status: "Partial",
+    risk: "High",
+    note:
+      "Land identity is clearer in the platform than in many public discussions, but youth-facing governance visibility remains limited.",
   },
 ];
 

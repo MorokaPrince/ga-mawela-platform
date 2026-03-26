@@ -44,6 +44,26 @@ type RingMeterProps = {
   summary: string;
 };
 
+type GaugeMeterProps = {
+  label: string;
+  value: number;
+  accent: string;
+  summary: string;
+};
+
+type DonutSlice = {
+  label: string;
+  value: number;
+  accent: string;
+};
+
+type DonutChartProps = {
+  label: string;
+  summary: string;
+  centerLabel: string;
+  slices: DonutSlice[];
+};
+
 export function SectionShell({
   eyebrow,
   title,
@@ -212,6 +232,105 @@ export function RingMeter({ label, value, accent, summary }: RingMeterProps) {
         <p className="mt-2 max-w-sm text-sm leading-6 text-[var(--gm-muted)]">
           {summary}
         </p>
+      </div>
+    </GlassPanel>
+  );
+}
+
+export function GaugeMeter({ label, value, accent, summary }: GaugeMeterProps) {
+  const clampedValue = Math.max(0, Math.min(100, value));
+  const rotation = -90 + clampedValue * 1.8;
+
+  return (
+    <GlassPanel>
+      <p className="text-sm font-medium text-[var(--gm-foreground)]">{label}</p>
+      <div className="mt-5 flex items-center gap-5">
+        <div className="relative h-28 w-56 overflow-hidden">
+          <div
+            className="absolute left-1/2 top-full h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            style={{
+              background: `conic-gradient(from 180deg at 50% 50%, rgba(255,255,255,0.1) 0deg, ${accent} ${clampedValue * 1.8}deg, rgba(255,255,255,0.08) ${clampedValue * 1.8}deg 180deg, transparent 180deg 360deg)`,
+            }}
+          />
+          <div className="absolute inset-x-6 bottom-0 top-6 rounded-t-full bg-[var(--gm-panel-strong)]" />
+          <div
+            className="absolute bottom-1 left-1/2 h-[4.5rem] w-px origin-bottom"
+            style={{
+              transform: `translateX(-50%) rotate(${rotation}deg)`,
+            }}
+          >
+            <div
+              className="absolute bottom-0 left-1/2 h-16 w-1 -translate-x-1/2 rounded-full"
+              style={{ backgroundColor: accent }}
+            />
+          </div>
+          <div className="absolute bottom-0 left-1/2 h-4 w-4 -translate-x-1/2 rounded-full bg-white shadow-[0_0_18px_rgba(255,255,255,0.24)]" />
+          <div className="absolute inset-x-0 bottom-2 text-center">
+            <p className="text-3xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)]">
+              {clampedValue}%
+            </p>
+          </div>
+        </div>
+        <p className="max-w-sm text-sm leading-6 text-[var(--gm-muted)]">{summary}</p>
+      </div>
+    </GlassPanel>
+  );
+}
+
+export function DonutChart({
+  label,
+  summary,
+  centerLabel,
+  slices,
+}: DonutChartProps) {
+  const total = slices.reduce((sum, slice) => sum + slice.value, 0);
+  let cursor = 0;
+  const stops = slices.map((slice) => {
+    const start = total === 0 ? 0 : (cursor / total) * 360;
+    cursor += slice.value;
+    const end = total === 0 ? 360 : (cursor / total) * 360;
+    return `${slice.accent} ${start}deg ${end}deg`;
+  });
+
+  return (
+    <GlassPanel>
+      <p className="text-sm font-medium text-[var(--gm-foreground)]">{label}</p>
+      <div className="mt-5 flex flex-col gap-5 xl:flex-row xl:items-center">
+        <div
+          className="grid h-44 w-44 shrink-0 place-items-center rounded-full"
+          style={{ background: `conic-gradient(${stops.join(",")})` }}
+        >
+          <div className="grid h-28 w-28 place-items-center rounded-full bg-[var(--gm-panel-strong)] text-center">
+            <div>
+              <p className="text-2xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
+                {centerLabel}
+              </p>
+              <p className="mt-1 text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)]">
+                overview
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm leading-6 text-[var(--gm-muted)]">{summary}</p>
+          <div className="mt-4 grid gap-3">
+            {slices.map((slice) => (
+              <div
+                key={slice.label}
+                className="flex items-center justify-between gap-4 rounded-[18px] border border-white/10 bg-white/[0.05] px-4 py-3"
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="h-3 w-3 rounded-full"
+                    style={{ backgroundColor: slice.accent }}
+                  />
+                  <span className="text-sm text-[var(--gm-foreground)]">{slice.label}</span>
+                </div>
+                <span className="text-sm text-[var(--gm-muted)]">{slice.value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </GlassPanel>
   );
