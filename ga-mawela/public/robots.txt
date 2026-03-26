@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://truth.gamawela.org
+Host: https://ga-mawela-platform.vercel.app
 
 # Sitemaps
-Sitemap: https://truth.gamawela.org/sitemap.xml
+Sitemap: https://ga-mawela-platform.vercel.app/sitemap.xml
