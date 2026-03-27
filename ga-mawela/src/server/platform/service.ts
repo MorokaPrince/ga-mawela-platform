@@ -557,8 +557,9 @@ export async function createPlatformUser(input: {
   }
 
   // Return without passwordHash
-  const { passwordHash: _, ...safeUser } = userRecord;
-  return safeUser;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordHash: _pwh, ...safeUser } = userRecord;
+  return safeUser as Omit<PlatformUserRecord, 'passwordHash'>;
 }
 
 export async function updatePlatformUser(
@@ -594,8 +595,9 @@ export async function updatePlatformUser(
     }
   }
 
-  const { passwordHash: _, ...safeUser } = updatedUser;
-  return safeUser;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { passwordHash: _pwh, ...safeUser } = updatedUser;
+  return safeUser as Omit<PlatformUserRecord, 'passwordHash'>;
 }
 
 export async function deletePlatformUser(id: string): Promise<boolean> {

@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   listPlatformEngagement,
   moderatePlatformEngagement,
-  type PlatformEngagementRecord,
 } from "@/server/platform/service";
 import { verifyPlatformSessionToken, PLATFORM_SESSION_COOKIE } from "@/lib/platform-auth";
 

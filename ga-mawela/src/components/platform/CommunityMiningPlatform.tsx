@@ -870,6 +870,7 @@ export default function CommunityMiningPlatform() {
                     setCompanyFilter(event.target.value as CompanyFilter)
                   }
                   className="gm-input h-12 min-w-[220px]"
+                  aria-label="Filter by company"
                 >
                   {companyFilters.map((filter) => (
                     <option key={filter}>{filter}</option>
