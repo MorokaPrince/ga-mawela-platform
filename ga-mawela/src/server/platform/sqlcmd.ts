@@ -17,8 +17,10 @@ function shouldSkipSqlcmdDuringBuild() {
 function getSqlServerTarget() {
   const dataSource = getPlatformSqlDataSource();
 
+  // Return empty string if no data source configured - this allows fallback to JSON data
+  // This enables deployment without a database
   if (!dataSource) {
-    throw new Error("PLATFORM_SQL_CONNECTION_STRING is missing a Data Source value.");
+    return "";
   }
 
   return dataSource;
@@ -71,6 +73,13 @@ export async function runPlatformSqlCommand(
 ) {
   if (shouldSkipSqlcmdDuringBuild()) {
     return "";
+  }
+
+  const serverTarget = getSqlServerTarget();
+  
+  // Skip SQL execution if no server target configured (no database mode)
+  if (!serverTarget) {
+    throw new Error("No SQL Server configured - using fallback data");
   }
 
   const { stdout, stderr } = await execFileAsync("sqlcmd", createSqlcmdArgs(query, database), {
