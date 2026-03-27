@@ -1,0 +1,17 @@
+{
+  "name": "ga-mawela-platform",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "ga-mawela"
+  ],
+  "scripts": {
+    "dev": "cd ga-mawela && npm run dev",
+    "build": "cd ga-mawela && npm run build",
+    "start": "cd ga-mawela && npm run start",
+    "lint": "cd ga-mawela && npm run lint"
+  },
+  "dependencies": {
+    "next": "^16.0.7"
+  }
+}
