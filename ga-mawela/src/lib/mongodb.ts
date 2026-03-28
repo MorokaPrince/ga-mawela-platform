@@ -1,112 +1,224 @@
 /**
- * MongoDB Connection Utility
- * Handles database connection and collection initialization
+ * Static MongoDB Mock for Vercel Deployment
+ * Uses JSON files instead of a real MongoDB database
  */
 
-import { MongoClient, Db, Collection, Document } from 'mongodb';
-import { COLLECTIONS, INDEXES } from './mongodb-schemas';
+import { COLLECTIONS } from './mongodb-schemas';
 
-let cachedClient: MongoClient | null = null;
-let cachedDb: Db | null = null;
+// Import static data
+import documentsData from '../data/platform-documents.json';
+import usersData from '../data/platform-users.json';
+import engagementData from '../data/platform-engagement.json';
 
-const MONGODB_URI = process.env.MONGODB_URI;
-const DB_NAME = process.env.DB_NAME || 'ga-mawela';
-
-// Only check for MONGODB_URI in runtime, not build time
-if (typeof window === 'undefined' && !MONGODB_URI) {
-  console.warn('MONGODB_URI environment variable not set. Database operations will fail.');
+// Define simple types to satisfy imports
+export interface Document {
+  _id?: string;
+  id?: string;
+  title: string;
+  description: string;
+  category: string;
+  fileUrl?: string;
+  fileName?: string;
+  fileSize?: number;
+  fileType?: string;
+  uploadedBy?: string;
+  uploadedAt?: Date;
+  isPublic?: boolean;
+  requiresAuthentication?: boolean;
+  tags?: string[];
+  downloadCount?: number;
+  lastDownloadedAt?: Date;
+  metadata?: any;
+  [key: string]: any;
 }
 
+export interface User {
+  _id?: string;
+  id?: string;
+  email: string;
+  name: string;
+  password?: string;
+  image?: string;
+  role: string;
+  status?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  lastLogin?: Date;
+  emailVerified?: boolean;
+  profile?: any;
+  [key: string]: any;
+}
+
+export interface Petition {
+  _id?: string;
+  id?: string;
+  title: string;
+  description: string;
+  targetSignatures: number;
+  currentSignatures: number;
+  status: string;
+  createdAt: Date;
+  updatedAt: Date;
+  expiresAt?: Date;
+  category: string;
+  signatures?: any[];
+  [key: string]: any;
+}
+
+export interface FormSubmission {
+  _id?: string;
+  id?: string;
+  formType: string;
+  submittedBy: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  message: string;
+  attachments?: string[];
+  status: string;
+  submittedAt: Date;
+  respondedAt?: Date;
+  response?: string;
+  respondedBy?: string;
+  metadata?: Record<string, any>;
+  [key: string]: any;
+}
+
+export type Db = {
+  collection: (name: string) => Collection;
+};
+
+export type Collection = {
+  name: string;
+  data: any[];
+  find: (query?: any) => { toArray: () => any[] };
+  findOne: (query?: any) => any;
+  insertOne: (doc: any) => { insertedId: string };
+  updateOne: (query: any, update: any) => { modifiedCount: number };
+  deleteOne: (query: any) => { deletedCount: number };
+  countDocuments: (query?: any) => Promise<number>;
+  createIndex: (key: any, options?: any) => Promise<void>;
+};
+
+export type Document = any;
+
+// Mock data storage (in-memory)
+const mockData: Record<string, any[]> = {
+  [COLLECTIONS.DOCUMENTS]: documentsData.map((doc, idx) => ({ ...doc, _id: doc.id || `doc-${idx}` })),
+  [COLLECTIONS.USERS]: usersData.map((user, idx) => ({ ...user, _id: user.id || `user-${idx}` })),
+  [COLLECTIONS.COMMUNITY]: engagementData.community || [],
+  [COLLECTIONS.PETITIONS]: [],
+  [COLLECTIONS.FORMS]: [],
+  [COLLECTIONS.LINEAGE]: [],
+  [COLLECTIONS.INVESTIGATIONS]: [],
+  [COLLECTIONS.SESSIONS]: [],
+  [COLLECTIONS.ACCOUNTS]: [],
+  [COLLECTIONS.VERIFICATION_TOKENS]: [],
+  [COLLECTIONS.HISTORICAL_EVENTS]: [],
+  [COLLECTIONS.FRAUD_REPORTS]: [],
+  [COLLECTIONS.SOURCES]: [],
+  [COLLECTIONS.LEGAL_FRAMEWORKS]: [],
+  [COLLECTIONS.RESOURCES]: [],
+};
+
+// Create mock collection
+function createMockCollection(name: string): Collection {
+  return {
+    name,
+    data: mockData[name] || [],
+    find: (query?: any) => {
+      let result = this.data;
+      if (query) {
+        // Simple query matching for exact fields
+        Object.keys(query).forEach((key) => {
+          if (query[key] !== undefined) {
+            result = result.filter((item) => item[key] === query[key]);
+          }
+        });
+      }
+      return {
+        toArray: () => result,
+      };
+    },
+    findOne: (query?: any) => {
+      if (!query) return this.data[0] || null;
+      return this.data.find((item) => {
+        return Object.keys(query).every((key) => item[key] === query[key]);
+      }) || null;
+    },
+    insertOne: (doc: any) => {
+      const newDoc = { ...doc, _id: doc._id || `gen-${Date.now()}` };
+      this.data.push(newDoc);
+      return { insertedId: newDoc._id };
+    },
+    updateOne: (query: any, update: any) => {
+      const index = this.data.findIndex((item) => {
+        return Object.keys(query).every((key) => item[key] === query[key]);
+      });
+      if (index !== -1) {
+        // Apply update (support $set)
+        if (update.$set) {
+          this.data[index] = { ...this.data[index], ...update.$set };
+        }
+        return { modifiedCount: 1 };
+      }
+      return { modifiedCount: 0 };
+    },
+    deleteOne: (query: any) => {
+      const index = this.data.findIndex((item) => {
+        return Object.keys(query).every((key) => item[key] === query[key]);
+      });
+      if (index !== -1) {
+        this.data.splice(index, 1);
+        return { deletedCount: 1 };
+      }
+      return { deletedCount: 0 };
+    },
+    countDocuments: async (query?: any) => {
+      if (!query) return this.data.length;
+      return this.data.filter((item) => {
+        return Object.keys(query).every((key) => item[key] === query[key]);
+      }).length;
+    },
+    createIndex: async (key: any, options?: any) => {
+      // Mock index creation - no-op
+      console.log(`[MockDB] Index created on ${name}: ${JSON.stringify(key)}`);
+    },
+  };
+}
+
+// Create mock database
+const mockDb: Db = {
+  collection: (name: string) => createMockCollection(name),
+};
+
+// Mock client
+let cachedDb = mockDb;
+
 /**
- * Connect to MongoDB
+ * Connect to database (mock - does nothing)
  */
 export async function connectToDatabase() {
-  if (cachedClient && cachedDb) {
-    return { client: cachedClient, db: cachedDb };
+  if (cachedDb) {
+    return { client: null, db: cachedDb };
   }
-
-  try {
-    if (!MONGODB_URI) {
-      throw new Error('MONGODB_URI environment variable is required');
-    }
-    const client = new MongoClient(MONGODB_URI);
-    await client.connect();
-
-    const db = client.db(DB_NAME);
-
-    // Verify connection
-    await db.admin().ping();
-    console.log('✅ Connected to MongoDB');
-
-    cachedClient = client;
-    cachedDb = db;
-
-    // Initialize collections and indexes
-    await initializeCollections(db);
-
-    return { client, db };
-  } catch (error) {
-    console.error('❌ MongoDB connection error:', error);
-    throw error;
-  }
-}
-
-/**
- * Initialize collections and create indexes
- */
-async function initializeCollections(db: Db) {
-  try {
-    // Create collections if they don't exist
-    const existingCollections = await db.listCollections().toArray();
-    const existingNames = existingCollections.map((c) => c.name);
-
-    for (const [key, collectionName] of Object.entries(COLLECTIONS)) {
-      if (!existingNames.includes(collectionName)) {
-        await db.createCollection(collectionName);
-        console.log(`✅ Created collection: ${collectionName}`);
-      }
-    }
-
-    // Create indexes
-    for (const [collectionName, indexList] of Object.entries(INDEXES)) {
-      const collection = db.collection(collectionName);
-      for (const indexSpec of indexList) {
-        try {
-          await collection.createIndex(indexSpec.key, {
-            unique: (indexSpec as any).unique || false,
-          });
-        } catch (error) {
-          // Index might already exist, which is fine
-          console.log(`Index creation note for ${collectionName}:`, (error as Error).message);
-        }
-      }
-    }
-
-    console.log('✅ Collections and indexes initialized');
-  } catch (error) {
-    console.error('❌ Error initializing collections:', error);
-    throw error;
-  }
+  cachedDb = mockDb;
+  return { client: null, db: mockDb };
 }
 
 /**
  * Get a collection
  */
-export async function getCollection<T extends Document = Document>(collectionName: string): Promise<Collection<T>> {
+export async function getCollection<T = any>(collectionName: string): Promise<Collection<T>> {
   const { db } = await connectToDatabase();
   return db.collection<T>(collectionName);
 }
 
 /**
- * Close database connection
+ * Close database connection (mock - does nothing)
  */
 export async function closeDatabase() {
-  if (cachedClient) {
-    await cachedClient.close();
-    cachedClient = null;
-    cachedDb = null;
-    console.log('✅ Disconnected from MongoDB');
-  }
+  console.log('✅ [MockDB] Disconnected');
 }
 
 /**
@@ -121,13 +233,6 @@ export async function getDatabase(): Promise<Db> {
  * Health check
  */
 export async function checkDatabaseHealth(): Promise<boolean> {
-  try {
-    const { db } = await connectToDatabase();
-    await db.admin().ping();
-    return true;
-  } catch (error) {
-    console.error('Database health check failed:', error);
-    return false;
-  }
+  return true;
 }
 

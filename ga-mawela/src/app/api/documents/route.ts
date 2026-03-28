@@ -8,7 +8,7 @@ import { getCollection } from '@/lib/mongodb';
 import { COLLECTIONS } from '@/lib/mongodb-schemas';
 import axios from 'axios';
 import { put } from '@vercel/blob';
-import { ObjectId } from 'mongodb';
+// Using string IDs from static data
 
 export async function GET(request: NextRequest) {
   try {
@@ -178,7 +178,7 @@ export async function GET_SINGLE(request: NextRequest) {
     }
 
     const documentsCollection = await getCollection(COLLECTIONS.DOCUMENTS);
-    const document = await documentsCollection.findOne({ _id: new ObjectId(documentId) });
+    const document = await documentsCollection.findOne({ _id: documentId });
 
     if (!document) {
       return NextResponse.json(
@@ -215,7 +215,7 @@ export async function GET_DOWNLOAD(request: NextRequest) {
     }
 
     const documentsCollection = await getCollection(COLLECTIONS.DOCUMENTS);
-    const document = await documentsCollection.findOne({ _id: new ObjectId(documentId) });
+    const document = await documentsCollection.findOne({ _id: documentId });
 
     if (!document) {
       return NextResponse.json(
@@ -226,7 +226,7 @@ export async function GET_DOWNLOAD(request: NextRequest) {
 
     // Increment download count
     await documentsCollection.updateOne(
-      { _id: new ObjectId(documentId) },
+      { _id: documentId },
       { $inc: { downloadCount: 1 }, $set: { lastDownloadedAt: new Date() } }
     );
 
