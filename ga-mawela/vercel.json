@@ -1,5 +1,4 @@
 {
-  "root": "ga-mawela",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
