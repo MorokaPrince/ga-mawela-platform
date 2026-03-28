@@ -4,7 +4,11 @@
   "outputDirectory": "ga-mawela/.next",
   "framework": "nextjs",
   "regions": ["iad1"],
-  
+  "build": {
+    "env": {
+      "PLATFORM_SQL_DATABASE": "GaMawelaCommunityPlatform"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
@@ -21,8 +25,5 @@
         { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
     }
-  ],
-  "env": {
-    "PLATFORM_SQL_DATABASE": "GaMawelaCommunityPlatform"
-  }
+  ]
 }
