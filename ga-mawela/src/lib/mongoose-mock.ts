@@ -1,12 +1,23 @@
 // Minimal mock for mongoose to satisfy imports for static deployment
-export class Schema {
+
+// Schema class
+class Schema {
   constructor(public definition: any) {}
   static Types = { ObjectId: { fromHexString: (s: string) => s } };
 }
 
-export function model<T>(name: string, schema: any, collectionName?: string): any {
-  // Return a mock model with common methods
-  return {
+// Model cache for mongoose.models
+const modelCache: Record<string, any> = {};
+
+// Model function
+function model(name: string, schema?: any, collectionName?: string): any {
+  // Return cached model if exists
+  if (modelCache[name]) {
+    return modelCache[name];
+  }
+
+  // Create a mock model with common methods
+  const mockModel = {
     find: (query?: any) => ({
       sort: () => ({ toArray: () => Promise.resolve([]) }),
       limit: () => ({ toArray: () => Promise.resolve([]) }),
@@ -20,21 +31,41 @@ export function model<T>(name: string, schema: any, collectionName?: string): an
     aggregate: (pipeline: any[]) => ({ toArray: () => Promise.resolve([]) }),
     insertMany: (docs: any[]) => Promise.resolve({ insertedCount: docs.length }),
   };
+
+  // Cache the model
+  modelCache[name] = mockModel;
+  return mockModel;
 }
 
-export interface Document { _id?: string; [key: string]: any }
-// Dummy value for runtime usage
-export const Document = {};
+// Document dummy value for runtime
+const Document = {};
 
-export const connection = { readyState: 1 };
+// Connection object
+const connection = { readyState: 1 };
 
-export async function connect(uri?: string, options?: any): Promise<typeof connection> {
+// Connect function
+async function connect(uri?: string, options?: any): Promise<typeof connection> {
   console.log('[MockDB] mongoose.connect called with', uri);
   return connection;
 }
 
-export async function disconnect(): Promise<void> {
+// Disconnect function
+async function disconnect(): Promise<void> {
   console.log('[MockDB] mongoose.disconnect called');
 }
 
-export default { Schema, model, Document, connect, disconnect, connection };
+// Default export with models property
+const mongooseMock = {
+  Schema,
+  model,
+  get models() { return modelCache; },
+  Document,
+  connect,
+  disconnect,
+  connection,
+};
+
+// Named exports
+export { Schema, model, Document, connect, disconnect, connection };
+// Default export
+export default mongooseMock;
