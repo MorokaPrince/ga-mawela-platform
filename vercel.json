@@ -1,6 +1,6 @@
 {
-  "buildCommand": "cd ga-mawela && npm run build",
-  "installCommand": "cd ga-mawela && npm install",
+  "buildCommand": "npm run build",
+  "installCommand": "npm install",
   "outputDirectory": "ga-mawela/.next",
   "framework": "nextjs",
   "regions": ["iad1"],
