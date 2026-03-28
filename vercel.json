@@ -1,7 +1,8 @@
 {
+  "root": "ga-mawela",
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "outputDirectory": "ga-mawela/.next",
+  "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1"],
   "build": {
