@@ -6,9 +6,9 @@
 import { COLLECTIONS } from './mongodb-schemas';
 
 // Import static data
-import documentsData from '../data/platform-documents.json';
-import usersData from '../data/platform-users.json';
-import engagementData from '../data/platform-engagement.json';
+import documentsData from './static-data/platform-documents.json';
+import usersData from './static-data/platform-users.json';
+import engagementData from './static-data/platform-engagement.json';
 
 // Define simple types to satisfy imports
 export interface Document {
