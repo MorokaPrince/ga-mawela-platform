@@ -23,6 +23,8 @@ export function model<T>(name: string, schema: any, collectionName?: string): an
 }
 
 export interface Document { _id?: string; [key: string]: any }
+// Dummy value for runtime usage
+export const Document = {};
 
 export const connection = { readyState: 1 };
 
