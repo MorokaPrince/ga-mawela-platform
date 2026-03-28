@@ -165,9 +165,9 @@ export async function PUT(request: NextRequest) {
 }
 
 /**
- * Get a specific document by ID
+ * Get a specific document by ID (internal helper)
  */
-export async function GET_SINGLE(request: NextRequest) {
+async function getSingle(request: NextRequest) {
   try {
     const documentId = request.nextUrl.searchParams.get('id');
     if (!documentId) {
@@ -202,9 +202,9 @@ export async function GET_SINGLE(request: NextRequest) {
 }
 
 /**
- * Handle document download requests
+ * Handle document download requests (internal helper)
  */
-export async function GET_DOWNLOAD(request: NextRequest) {
+async function getDownload(request: NextRequest) {
   try {
     const documentId = request.nextUrl.searchParams.get('id');
     if (!documentId) {
