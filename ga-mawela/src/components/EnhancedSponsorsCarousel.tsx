@@ -362,7 +362,7 @@ export default function EnhancedSponsorsCarousel() {
                           width={80}
                           height={80}
                           className="max-h-full max-w-full object-contain p-2"
-                          onError={(e) => {
+                          onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                             const target = e.target as HTMLImageElement;
                             target.src = '/Images/sponsours/zimele.png'; // Fallback image
                           }}
@@ -498,7 +498,7 @@ export default function EnhancedSponsorsCarousel() {
                       width={48}
                       height={48}
                       className="max-h-full max-w-full object-contain"
-                      onError={(e) => {
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/Images/sponsours/zimele.png';
                       }}

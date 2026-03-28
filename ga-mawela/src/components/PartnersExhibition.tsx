@@ -355,7 +355,7 @@ export default function PartnersExhibition() {
                       width={120}
                       height={120}
                       className="max-h-full max-w-full object-contain p-4"
-                      onError={(e) => {
+                      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                         const target = e.target as HTMLImageElement;
                         target.src = '/Images/sponsours/zimele.png';
                       }}
@@ -450,7 +450,7 @@ export default function PartnersExhibition() {
                           width={48}
                           height={48}
                           className="max-h-full max-w-full object-contain"
-                          onError={(e) => {
+                          onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                             const target = e.target as HTMLImageElement;
                             target.src = '/Images/sponsours/zimele.png';
                           }}
