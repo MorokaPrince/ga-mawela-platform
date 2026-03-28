@@ -7,7 +7,6 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "postbuild": "next-sitemap",
     "deploy:netlify": "netlify deploy --prod --dir=out",
     "preview:netlify": "netlify deploy --dir=out",
     "seed:documents": "tsx scripts/seed-documents.ts",
