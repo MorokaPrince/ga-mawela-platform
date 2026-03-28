@@ -33,6 +33,7 @@ export default function FloatingBlobsSection() {
         </motion.div>
       </div>
 
+      {/* @ts-expect-error - styled-jsx type definitions not available */}
       <style jsx>{`
         .animate-blob { animation: blob 8s infinite; }
         .animation-delay-2000 { animation-delay: 2s; }
