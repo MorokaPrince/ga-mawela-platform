@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://ga-mawela-platform.vercel.app
+Host: https://www.gamawela.com
 
 # Sitemaps
-Sitemap: https://ga-mawela-platform.vercel.app/sitemap.xml
+Sitemap: https://www.gamawela.com/sitemap.xml
