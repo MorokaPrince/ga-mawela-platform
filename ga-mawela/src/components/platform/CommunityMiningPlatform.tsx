@@ -829,24 +829,36 @@ export default function CommunityMiningPlatform() {
     >
       <AnimatePresence>{introVisible ? <IntroOverlay /> : null}</AnimatePresence>
 
-      {/* 80% Viewport Wrapper with Mobile Scaling - Government Platform Style */}
-      <div className="min-h-screen w-full flex items-start justify-center px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4">
-        <div className="w-full max-w-[97%] sm:max-w-[95%] lg:max-w-[92%] xl:max-w-[88%] 2xl:max-w-[85%]">
-          {/* Government/Community Platform Background */}
-          <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_26%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))] -z-10" />
-          <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-50 -z-10" />
-          <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-25 -z-10" />
+      {/* Full-width background with Gallery image overlay */}
+      <div 
+        className="fixed inset-0 -z-20"
+        style={{
+          backgroundImage: 'url("/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: 0.08,
+        }}
+      />
+      
+      {/* Gradient overlays */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.18),transparent_30%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))] -z-10" />
+      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-40 -z-10" />
+      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20 -z-10" />
+
+      {/* 80% Viewport Container - Government PaaS Style */}
+      <div className="min-h-screen w-full flex items-start justify-center px-2 sm:px-3 md:px-4 lg:px-6 py-1 sm:py-2">
+        <div className="w-full max-w-[98%] sm:max-w-[96%] lg:max-w-[94%] xl:max-w-[90%] 2xl:max-w-[1400px]">
 
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
             <header className="sticky top-0 z-40">
-              {/* Simplified Top Bar - Logo & Essentials */}
-              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-2xl">
-                <div className="mx-auto max-w-[1600px] px-4 py-3 md:px-6 lg:px-8">
-                  <div className="flex items-center justify-between gap-4">
-                    {/* Logo Section - Left */}
-                    <Link href="/" className="flex items-center gap-3 group">
-                      <div className="relative w-12 h-12 md:w-14 md:h-14 overflow-hidden rounded-xl border border-white/10 bg-white/[0.06]">
+              {/* Top Navigation Bar */}
+              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-xl">
+                <div className="mx-auto max-w-[1600px] px-3 py-2 sm:px-4 md:px-6 lg:px-8">
+                  <div className="flex items-center justify-between gap-3 sm:gap-4">
+                    {/* Logo & Brand - Left */}
+                    <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 shadow-lg">
                         <video 
                           src="/Images/Gallery/Ga Mawela Logo.mp4"
                           autoPlay 
@@ -856,23 +868,23 @@ export default function CommunityMiningPlatform() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="hidden sm:block">
-                        <h1 className="text-base md:text-lg font-semibold text-[var(--gm-foreground)] tracking-tight">Ga-Mawela</h1>
-                        <p className="text-[10px] text-[var(--gm-subtle)] tracking-wider uppercase">{copy.appTitle}</p>
+                      <div className="hidden xs:block">
+                        <h1 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--gm-foreground)] tracking-tight leading-none">Ga-Mawela</h1>
+                        <p className="text-[9px] sm:text-[10px] text-[var(--gm-subtle)] tracking-wider uppercase mt-0.5">{copy.appTitle}</p>
                       </div>
                     </Link>
 
                     {/* Desktop Navigation - Center */}
-                    <nav className="hidden lg:flex items-center gap-1">
+                    <nav className="hidden lg:flex items-center gap-0.5">
                       {localizedSectionConfigs.map((section) => (
                         <button
                           key={section.id}
                           type="button"
                           onClick={() => handleSectionChange(section.id)}
-                          className={`relative px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
+                          className={`relative px-3 py-2 text-xs font-medium transition-all duration-300 rounded-md ${
                             activeSection === section.id
-                              ? "text-white"
-                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)]"
+                              ? "text-white bg-white/[0.08]"
+                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.04]"
                           }`}
                           style={
                             activeSection === section.id
@@ -884,7 +896,7 @@ export default function CommunityMiningPlatform() {
                           {activeSection === section.id && (
                             <motion.div 
                               layoutId="navIndicator"
-                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full"
                               style={{ backgroundColor: section.accent }}
                               transition={{ type: "spring", stiffness: 500, damping: 30 }}
                             />
@@ -894,55 +906,69 @@ export default function CommunityMiningPlatform() {
                     </nav>
 
                     {/* Right Controls */}
-                    <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      {/* Desktop Search Bar */}
+                      <div className="hidden md:flex items-center">
+                        <div className="relative">
+                          <Search size={12} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                          <input
+                            id="main-search-desktop"
+                            value={searchQuery}
+                            onChange={(event) => setSearchQuery(event.target.value)}
+                            className="gm-input h-8 w-32 lg:w-40 pl-8 pr-3 text-xs rounded-lg"
+                            placeholder={copy.searchPlaceholder}
+                          />
+                        </div>
+                      </div>
+
                       {/* Language Toggle */}
                       <label className="relative flex items-center hidden md:flex">
-                        <Languages size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                        <Languages size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
                         <select
                           value={locale}
                           onChange={(event) => setLocale(event.target.value as PlatformLocale)}
-                          className="h-9 pl-9 pr-6 rounded-lg border border-white/10 bg-white/[0.04] text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
+                          className="h-8 pl-8 pr-5 rounded-lg border border-white/10 bg-white/[0.04] text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
                           aria-label={copy.languageLabel}
                         >
                           <option value="en">EN</option>
                           <option value="nso">NSO</option>
                         </select>
-                        <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                        <ChevronDown size={10} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
                       </label>
 
                       {/* Theme Toggle */}
                       <button
                         type="button"
                         onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                         title={theme === "dark" ? copy.lightMode : copy.darkMode}
                       >
-                        {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                        {theme === "dark" ? <SunMedium size={14} /> : <MoonStar size={14} />}
                       </button>
 
                       {/* Mobile Menu Button */}
                       <button
                         type="button"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                       >
-                        {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
+                        {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}
                       </button>
 
                       {/* User Actions */}
                       {viewer ? (
-                        <div className="hidden sm:flex items-center gap-2">
+                        <div className="hidden sm:flex items-center gap-1.5">
                           <Link
                             href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
-                            className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                            className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                           >
-                            <LayoutDashboard size={14} />
+                            <LayoutDashboard size={12} />
                             <span className="hidden md:inline">{copy.dashboard}</span>
                           </Link>
                           <button
                             type="button"
                             onClick={() => void handleLogout()}
-                            className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                            className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                           >
                             {copy.signOut}
                           </button>
@@ -950,9 +976,9 @@ export default function CommunityMiningPlatform() {
                       ) : (
                         <Link
                           href="/login"
-                          className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                          className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                         >
-                          <Users size={14} />
+                          <Users size={12} />
                           <span className="hidden sm:inline">{copy.signIn}</span>
                         </Link>
                       )}
@@ -1014,40 +1040,40 @@ export default function CommunityMiningPlatform() {
             </header>
 
             {/* Main Content Area */}
-            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-4 md:px-6 md:py-5 xl:px-8 xl:py-6">
+            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-2 sm:px-3 md:px-4 lg:px-6 py-3 sm:py-4 md:py-5">
               {/* Live Updates & Quick Actions */}
-              <div className="mb-4 grid gap-4 xl:grid-cols-[1fr_auto]">
+              <div className="mb-3 sm:mb-4 grid gap-2 sm:gap-3 md:gap-4 xl:grid-cols-[1fr_auto]">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="rounded-[20px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl"
+                  className="rounded-xl sm:rounded-[20px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-3 sm:p-4 backdrop-blur-xl"
                 >
-                  <div className="flex items-start gap-3">
-                    <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />
-                    <div>
-                      <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                  <div className="flex items-start gap-2 sm:gap-3">
+                    <BellDot size={16} className="mt-0.5 sm:mt-1 text-[var(--gm-foreground)] flex-shrink-0" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                         {copy.liveUpdate}
                       </p>
-                      <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
+                      <p className="mt-1 sm:mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-[var(--gm-muted)] line-clamp-2">
                         {latestUpdates[activeUpdateIndex] ?? copy.appSubtitle}
                       </p>
                     </div>
                   </div>
                 </motion.div>
 
-                <div className="grid gap-3 sm:grid-cols-2 xl:w-[420px]">
+                <div className="grid gap-2 sm:gap-3 xs:grid-cols-2 xl:w-[380px] sm:xl:w-[420px]">
                   <motion.button
                     type="button"
                     onClick={() => handleSectionChange("opportunities")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                    className="rounded-xl sm:rounded-[20px] border border-white/10 bg-white/[0.05] px-3 sm:px-4 py-2.5 sm:py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
                   >
-                    <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                       {copy.quickAccess}
                     </p>
-                    <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                    <p className="mt-1 sm:mt-2 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
                       {copy.opportunities}
                     </p>
                   </motion.button>
@@ -1056,12 +1082,12 @@ export default function CommunityMiningPlatform() {
                     onClick={() => handleSectionChange("report")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                    className="rounded-xl sm:rounded-[20px] border border-white/10 bg-white/[0.05] px-3 sm:px-4 py-2.5 sm:py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
                   >
-                    <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                       {copy.quickAction}
                     </p>
-                    <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                    <p className="mt-1 sm:mt-2 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
                       {copy.submitIssue}
                     </p>
                   </motion.button>
@@ -1085,21 +1111,28 @@ export default function CommunityMiningPlatform() {
             </main>
 
             {/* Professional Footer */}
-            <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-4 py-5 md:px-6 xl:px-8">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.06]">
-                    <Sparkles size={14} className="text-[var(--gm-foreground)]" />
+            <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-3 py-3 sm:px-4 md:px-6">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 overflow-hidden shadow-lg">
+                    <video 
+                      src="/Images/Gallery/Ga Mawela Logo.mp4"
+                      autoPlay 
+                      muted 
+                      loop 
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-                  <div>
-                    <p className="text-xs font-medium text-[var(--gm-foreground)]">Ga-Mawela Platform</p>
-                    <p className="text-[10px] text-[var(--gm-subtle)]">Community Intelligence System</p>
+                  <div className="min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] truncate">{locale === "nso" ? "Polatifomo ya Ga-Mawela" : "Ga-Mawela Platform"}</p>
+                    <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] truncate">{locale === "nso" ? "Mokgwa wa tshedimosetso ya setshaba" : "Community Intelligence System"}</p>
                   </div>
                 </div>
-                <p className="text-xs text-[var(--gm-subtle)]">
+                <p className="text-xs text-[var(--gm-subtle)] text-center sm:text-left">
                   {copy.footer}
                 </p>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <span className="text-xs text-[var(--gm-subtle)]">© {new Date().getFullYear()} Ga-Mawela</span>
                 </div>
               </div>

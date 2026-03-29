@@ -89,7 +89,7 @@ function resolveMineVisual(point: MinePoint): VisualCard {
   return landingVisualCards[1];
 }
 
-function LandingFilmstrip({ cards }: { cards: VisualCard[] }) {
+function LandingFilmstrip({ cards, locale }: { cards: VisualCard[]; locale: PlatformLocale }) {
   const reel = [...cards, ...cards];
 
   return (
@@ -97,14 +97,17 @@ function LandingFilmstrip({ cards }: { cards: VisualCard[] }) {
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-            Landing reel
+            {locale === "nso" ? "Reele ya go tsena" : "Landing reel"}
           </p>
           <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
-            Cinematic corridor frames
+            {locale === "nso" ? "Difreime tša khoridoro" : "Cinematic corridor frames"}
           </h3>
         </div>
-        <p className="max-w-xl text-sm leading-7 text-[var(--gm-muted)]">
-          A moving filmstrip keeps the landing experience alive in the RESN direction while staying lightweight enough for the current app.
+        <p className="text-sm leading-7 text-[var(--gm-muted)]">
+          {locale === "nso" 
+            ? "Reele ye e tsweletšego e boloka tiragalo ya go tsena e phela ka tsela ya RESN mola e nna le maferefere ao a lekanego bakeng sa app ya bjale."
+            : "A moving filmstrip keeps the landing experience alive in the RESN direction while staying lightweight enough for the current app."
+          }
         </p>
       </div>
 
@@ -387,10 +390,12 @@ function CorridorMap({
   points,
   selectedMineId,
   onSelectMine,
+  locale,
 }: {
   points: MinePoint[];
   selectedMineId: string;
   onSelectMine: (id: string) => void;
+  locale: PlatformLocale;
 }) {
   return (
     <GlassPanel className="relative min-h-[420px] overflow-hidden">
@@ -427,10 +432,10 @@ function CorridorMap({
         </svg>
 
         <div className="absolute left-4 top-4 rounded-full border border-white/10 bg-slate-950/[0.55] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-[var(--gm-subtle)]">
-          Corridor schematic
+          {locale === "nso" ? "Mokgwa wa khoridoro" : "Corridor schematic"}
         </div>
         <div className="absolute right-4 top-4 hidden rounded-full border border-white/10 bg-slate-950/[0.55] px-3 py-1 text-[11px] uppercase tracking-[0.28em] text-[var(--gm-subtle)] md:block">
-          Select a node
+          {locale === "nso" ? "Kgetha node" : "Select a node"}
         </div>
 
         {points.map((point) => {
@@ -525,6 +530,7 @@ export function HomeSection({
                 points={points}
                 selectedMineId={selectedMine.id}
                 onSelectMine={onSelectMine}
+                locale={locale}
               />
             </div>
 
@@ -564,7 +570,7 @@ export function HomeSection({
           </div>
         </div>
 
-        <LandingFilmstrip cards={landingVisualCards} />
+        <LandingFilmstrip cards={landingVisualCards} locale={locale} />
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {quickStats.map((stat) => (
@@ -630,6 +636,7 @@ export function MinesSection({
           points={filteredPoints}
           selectedMineId={selectedMineId}
           onSelectMine={onSelectMine}
+          locale={locale}
         />
 
         <div className="grid gap-5">
