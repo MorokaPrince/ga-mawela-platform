@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
 import {
   BellDot,
   Languages,
@@ -21,13 +22,7 @@ import {
   Globe,
   ChevronDown,
 } from "lucide-react";
-import {
-  useDeferredValue,
-  useEffect,
-  useState,
-  useTransition,
-  type FormEvent,
-} from "react";
+import { useDeferredValue, useEffect, useState, type FormEvent } from "react";
 import {
   BenefitsSection,
   DocumentsSection,
@@ -216,7 +211,8 @@ export default function CommunityMiningPlatform() {
   const [systemSnapshot, setSystemSnapshot] = useState<PlatformSystemSnapshot | null>(
     null,
   );
-  const [isPending, startTransition] = useTransition();
+  // Mobile menu state for fade animation
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const deferredSearch = useDeferredValue(searchQuery);
 
   const [reportForm, setReportForm] = useState<{
@@ -474,10 +470,8 @@ export default function CommunityMiningPlatform() {
   const latestUpdates = updateRecords.map((item) => item.detail);
 
   const handleSectionChange = (id: SectionId) => {
-    startTransition(() => {
-      setActiveSection(id);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
+    setActiveSection(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleReportSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -846,29 +840,63 @@ export default function CommunityMiningPlatform() {
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
             <header className="sticky top-0 z-40">
-              {/* Top Bar - Platform Identity & Quick Controls */}
+              {/* Simplified Top Bar - Logo & Essentials */}
               <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-2xl">
                 <div className="mx-auto max-w-[1600px] px-4 py-3 md:px-6 lg:px-8">
-                  <div className="flex items-center justify-between gap-3">
-                    {/* Platform Identity - Left Aligned */}
-                    <div className="flex items-center gap-3">
-                      <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] shadow-[0_0_40px_rgba(209,74,40,0.12)]">
-                        <Sparkles size={16} className="text-[var(--gm-foreground)]" />
+                  <div className="flex items-center justify-between gap-4">
+                    {/* Logo Section - Left */}
+                    <Link href="/" className="flex items-center gap-3 group">
+                      <div className="relative w-12 h-12 md:w-14 md:h-14 overflow-hidden rounded-xl border border-white/10 bg-white/[0.06]">
+                        <video 
+                          src="/Images/Gallery/Ga Mawela Logo.mp4"
+                          autoPlay 
+                          muted 
+                          loop 
+                          playsInline
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gm-subtle)] hidden sm:block">Ga-Mawela</p>
-                          <div className="h-3 w-px bg-white/20 hidden sm:block"></div>
-                          <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gm-subtle)]">{copy.appTitle}</p>
-                        </div>
-                        <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] mt-0.5">{copy.appSubtitle}</p>
+                      <div className="hidden sm:block">
+                        <h1 className="text-base md:text-lg font-semibold text-[var(--gm-foreground)] tracking-tight">Ga-Mawela</h1>
+                        <p className="text-[10px] text-[var(--gm-subtle)] tracking-wider uppercase">{copy.appTitle}</p>
                       </div>
-                    </div>
+                    </Link>
 
-                    {/* Quick Controls - Right Aligned */}
+                    {/* Desktop Navigation - Center */}
+                    <nav className="hidden lg:flex items-center gap-1">
+                      {localizedSectionConfigs.map((section) => (
+                        <button
+                          key={section.id}
+                          type="button"
+                          onClick={() => handleSectionChange(section.id)}
+                          className={`relative px-4 py-2.5 text-sm font-medium transition-all duration-300 ${
+                            activeSection === section.id
+                              ? "text-white"
+                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)]"
+                          }`}
+                          style={
+                            activeSection === section.id
+                              ? { color: section.accent }
+                              : undefined
+                          }
+                        >
+                          {section.label}
+                          {activeSection === section.id && (
+                            <motion.div 
+                              layoutId="navIndicator"
+                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+                              style={{ backgroundColor: section.accent }}
+                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                            />
+                          )}
+                        </button>
+                      ))}
+                    </nav>
+
+                    {/* Right Controls */}
                     <div className="flex items-center gap-2 sm:gap-3">
                       {/* Language Toggle */}
-                      <label className="relative flex items-center">
+                      <label className="relative flex items-center hidden md:flex">
                         <Languages size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
                         <select
                           value={locale}
@@ -892,23 +920,18 @@ export default function CommunityMiningPlatform() {
                         {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
                       </button>
 
-                      {/* Search Toggle */}
+                      {/* Mobile Menu Button */}
                       <button
                         type="button"
-                        onClick={() => document.getElementById('main-search')?.focus()}
-                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:hidden"
-                        title="Search"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        className="lg:hidden flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
                       >
-                        <Search size={16} />
+                        {mobileMenuOpen ? <X size={16} /> : <Menu size={16} />}
                       </button>
 
                       {/* User Actions */}
                       {viewer ? (
                         <div className="hidden sm:flex items-center gap-2">
-                          <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
-                            <span className="text-xs text-[var(--gm-subtle)]">{copy.welcomeBack}:</span>
-                            <span className="text-xs font-medium text-[var(--gm-foreground)]">{viewer.name}</span>
-                          </div>
                           <Link
                             href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
                             className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
@@ -938,99 +961,56 @@ export default function CommunityMiningPlatform() {
                 </div>
               </div>
 
-              {/* Search & Filter Bar */}
-              <div className="border-b border-white/[0.06] bg-[var(--gm-panel)] backdrop-blur-xl">
-                <div className="mx-auto max-w-[1600px] px-4 py-2 md:px-6 lg:px-8">
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                    {/* Main Search */}
-                    <div className="relative flex-1 w-full sm:max-w-md">
-                      <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                      <input
-                        id="main-search"
-                        value={searchQuery}
-                        onChange={(event) => setSearchQuery(event.target.value)}
-                        className="gm-input h-10 w-full pl-9 text-sm"
-                        placeholder={copy.searchPlaceholder}
-                      />
-                    </div>
-
-                    {/* Company Filter */}
-                    <select
-                      value={companyFilter}
-                      onChange={(event) => setCompanyFilter(event.target.value as CompanyFilter)}
-                      className="h-10 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer"
-                      aria-label="Filter by company"
-                    >
-                      {companyFilters.map((filter) => (
-                        <option key={filter}>{filter}</option>
-                      ))}
-                    </select>
-
-                    {/* Status Indicators */}
-                    <div className="flex items-center gap-2">
-                      <div className="hidden md:flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
-                        <Globe size={12} className="text-[var(--gm-subtle)]" />
-                        <span className="text-xs text-[var(--gm-muted)]">
-                          {systemSnapshot?.sql.configured ? uiCopy.dashboard.sqlReady : uiCopy.dashboard.localFallback}
-                        </span>
+              {/* Mobile Menu - Fade Animation */}
+              <AnimatePresence>
+                {mobileMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="lg:hidden border-b border-white/[0.06] bg-[var(--gm-panel)] overflow-hidden"
+                  >
+                    <div className="mx-auto max-w-[1600px] px-4 py-4">
+                      <nav className="flex flex-col gap-1">
+                        {localizedSectionConfigs.map((section) => (
+                          <button
+                            key={section.id}
+                            type="button"
+                            onClick={() => {
+                              handleSectionChange(section.id);
+                              setMobileMenuOpen(false);
+                            }}
+                            className={`px-4 py-3 text-sm font-medium text-left transition-all rounded-lg ${
+                              activeSection === section.id
+                                ? "bg-white/[0.08] text-white"
+                                : "text-[var(--gm-muted)] hover:bg-white/[0.04] hover:text-[var(--gm-foreground)]"
+                            }`}
+                            style={
+                              activeSection === section.id
+                                ? { color: section.accent }
+                                : undefined
+                            }
+                          >
+                            {section.label}
+                          </button>
+                        ))}
+                      </nav>
+                      {/* Mobile Search */}
+                      <div className="mt-4 relative">
+                        <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                        <input
+                          id="main-search-mobile"
+                          value={searchQuery}
+                          onChange={(event) => setSearchQuery(event.target.value)}
+                          className="gm-input h-10 w-full pl-9 text-sm"
+                          placeholder={copy.searchPlaceholder}
+                        />
                       </div>
-                      <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
-                        <span className="text-xs text-[var(--gm-muted)]">{uiCopy.dashboard.documents}:</span>
-                        <span className="text-xs font-medium text-[var(--gm-foreground)]">{systemSnapshot?.documents ?? uploadedDocuments.length}</span>
-                      </div>
-                      <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
-                        <span className="text-xs text-[var(--gm-muted)]">{uiCopy.dashboard.sources}:</span>
-                        <span className="text-xs font-medium text-[var(--gm-foreground)]">{systemSnapshot?.sources ?? sourceRecords.length}</span>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Navigation Tab Bar */}
-              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-xl">
-                <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-8">
-                  <nav className="gm-top-tabs overflow-x-auto py-2">
-                    <div className="flex min-w-max gap-1.5">
-                      {localizedSectionConfigs.map((section) => (
-                        <button
-                          key={section.id}
-                          type="button"
-                          onClick={() => handleSectionChange(section.id)}
-                          className={`group relative flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition ${
-                            activeSection === section.id
-                              ? "border-white/18 bg-white text-slate-950 shadow-lg"
-                              : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
-                          }`}
-                          style={
-                            activeSection === section.id
-                              ? {
-                                  borderColor: `${section.accent}66`,
-                                  boxShadow: `0 10px 35px ${section.accent}20, 0 4px 12px ${section.accent}10`,
-                                }
-                              : undefined
-                          }
-                        >
-                          {/* Section Icon */}
-                          <span className={`text-base ${activeSection === section.id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`}>
-                            {section.id === 'home' && '🏠'}
-                            {section.id === 'mines' && '⛏️'}
-                            {section.id === 'slp' && '📋'}
-                            {section.id === 'community' && '👥'}
-                            {section.id === 'opportunities' && '💼'}
-                            {section.id === 'transparency' && '🔍'}
-                            {section.id === 'report' && '📢'}
-                            {section.id === 'documents' && '📁'}
-                            {section.id === 'representation' && '🗺️'}
-                            {section.id === 'benefits' && '🎯'}
-                          </span>
-                          <span className="block font-medium">{section.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </nav>
-                </div>
-              </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </header>
 
             {/* Main Content Area */}
