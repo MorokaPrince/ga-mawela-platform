@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FaChevronLeft, FaChevronRight, FaExternalLinkAlt, FaPlay, FaPause } from 'react-icons/fa';
@@ -233,9 +233,18 @@ export default function PartnersExhibition() {
     }
   }, [selectedCategory]);
 
+  // Use ref to track previous filtered partners length to avoid cascading renders
+  const prevFilteredLengthRef = useRef<number>(filteredPartners.length);
+  
   // Reset current index when filtered partners change
   useEffect(() => {
-    setCurrentIndex(0);
+    // Only reset if length actually changed
+    if (prevFilteredLengthRef.current !== filteredPartners.length) {
+      prevFilteredLengthRef.current = filteredPartners.length;
+      // Use setTimeout to defer the state update and prevent cascading renders
+      const timeout = setTimeout(() => setCurrentIndex(0), 0);
+      return () => clearTimeout(timeout);
+    }
   }, [filteredPartners.length]);
 
   // Auto-play functionality

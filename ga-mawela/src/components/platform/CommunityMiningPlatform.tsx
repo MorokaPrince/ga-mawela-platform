@@ -10,6 +10,16 @@ import {
   Search,
   Sparkles,
   SunMedium,
+  Menu,
+  X,
+  LayoutDashboard,
+  FileText,
+  Shield,
+  Users,
+  Briefcase,
+  Building2,
+  Globe,
+  ChevronDown,
 } from "lucide-react";
 import {
   useDeferredValue,
@@ -825,268 +835,297 @@ export default function CommunityMiningPlatform() {
     >
       <AnimatePresence>{introVisible ? <IntroOverlay /> : null}</AnimatePresence>
 
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.16),transparent_24%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.14),transparent_22%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))]" />
-      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-45" />
-      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20" />
+      {/* 80% Viewport Wrapper with Mobile Scaling - Government Platform Style */}
+      <div className="min-h-screen w-full flex items-start justify-center px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3 md:py-4">
+        <div className="w-full max-w-[97%] sm:max-w-[95%] lg:max-w-[92%] xl:max-w-[88%] 2xl:max-w-[85%]">
+          {/* Government/Community Platform Background */}
+          <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.18),transparent_28%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.16),transparent_26%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))] -z-10" />
+          <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-50 -z-10" />
+          <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-25 -z-10" />
 
-      <div className="relative min-h-screen">
-        <header className="sticky top-0 z-40 border-b border-white/[0.08] bg-[var(--gm-panel-header)] shadow-[0_18px_60px_rgba(7,10,24,0.18)] backdrop-blur-2xl">
-          <div className="mx-auto flex w-full max-w-[1600px] flex-col gap-3 px-4 py-3 md:px-6 xl:px-8">
-            <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-              <div className="flex items-start gap-4">
-                <div className="grid h-12 w-12 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] shadow-[0_0_40px_rgba(209,74,40,0.12)]">
-                  <Sparkles size={18} className="text-[var(--gm-foreground)]" />
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.34em] text-[var(--gm-subtle)]">
-                    Ga-Mawela
-                  </p>
-                  <h1 className="mt-2 text-2xl font-semibold tracking-[-0.05em] text-[var(--gm-foreground)] md:text-3xl">
-                    {copy.appTitle}
-                  </h1>
-                  <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--gm-muted)]">
-                    {copy.appSubtitle}
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_220px_190px_auto]">
-                <div className="relative min-w-0">
-                  <Search
-                    size={16}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
-                  />
-                  <input
-                    value={searchQuery}
-                    onChange={(event) => setSearchQuery(event.target.value)}
-                    className="gm-input h-12 w-full pl-11"
-                    placeholder={copy.searchPlaceholder}
-                  />
-                </div>
-
-                <select
-                  value={companyFilter}
-                  onChange={(event) =>
-                    setCompanyFilter(event.target.value as CompanyFilter)
-                  }
-                  className="gm-input h-12 min-w-[220px]"
-                  aria-label="Filter by company"
-                >
-                  {companyFilters.map((filter) => (
-                    <option key={filter}>{filter}</option>
-                  ))}
-                </select>
-
-                <label className="relative min-w-0">
-                  <Languages
-                    size={16}
-                    className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
-                  />
-                  <select
-                    value={locale}
-                    onChange={(event) => setLocale(event.target.value as PlatformLocale)}
-                    className="gm-input h-12 w-full pl-11"
-                    aria-label={copy.languageLabel}
-                  >
-                    <option value="en">English</option>
-                    <option value="nso">Sepedi / Northern Sotho</option>
-                  </select>
-                </label>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setTheme((current) => (current === "dark" ? "light" : "dark"))
-                  }
-                  className="inline-flex h-12 items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-4 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
-                >
-                  {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
-                  <span>{theme === "dark" ? copy.lightMode : copy.darkMode}</span>
-                </button>
-              </div>
-            </div>
-
-            <div className="grid gap-3 xl:grid-cols-[1fr_auto] xl:items-center">
-              <nav className="gm-top-tabs overflow-x-auto pb-1">
-                <div className="flex min-w-max gap-2">
-                  {localizedSectionConfigs.map((section) => (
-                    <button
-                      key={section.id}
-                      type="button"
-                      onClick={() => handleSectionChange(section.id)}
-                      className={`group relative rounded-full border px-4 py-3 text-sm transition ${
-                        activeSection === section.id
-                          ? "border-white/18 bg-white text-slate-950"
-                          : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
-                      }`}
-                      style={
-                        activeSection === section.id
-                          ? {
-                              borderColor: `${section.accent}66`,
-                              boxShadow: `0 14px 42px ${section.accent}24`,
-                            }
-                          : undefined
-                      }
-                    >
-                      <span className="block font-medium">{section.label}</span>
-                      <span className={`mt-1 block text-[11px] ${activeSection === section.id ? "text-slate-600" : "text-[var(--gm-subtle)]"}`}>
-                        {section.eyebrow}
-                      </span>
-                    </button>
-                  ))}
-                </div>
-              </nav>
-
-              <div className="flex flex-wrap gap-2 xl:justify-end">
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{copy.moduleLabel}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {activeConfig.label}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{copy.filterLabel}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {companyFilter}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">
-                    {systemSnapshot?.sql.configured
-                      ? uiCopy.dashboard.sqlReady
-                      : uiCopy.dashboard.localFallback}
-                    :
-                  </span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {systemSnapshot?.sql.dataSource ?? "static"}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.members}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {systemSnapshot?.users ?? 0}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.documents}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {systemSnapshot?.documents ?? uploadedDocuments.length}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{uiCopy.dashboard.sources}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {systemSnapshot?.sources ?? sourceRecords.length}
-                  </span>
-                </div>
-                <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                  <span className="text-[var(--gm-subtle)]">{copy.searchLabel}:</span>{" "}
-                  <span className="font-medium text-[var(--gm-foreground)]">
-                    {searchQuery ? `"${searchQuery}"` : copy.allRecords}
-                  </span>
-                </div>
-                {isPending ? (
-                  <span className="inline-flex rounded-full border border-amber-300/20 bg-amber-300/10 px-3 py-2 text-xs text-amber-100">
-                    {copy.switching}
-                  </span>
-                ) : null}
-                {viewer ? (
-                  <>
-                    <div className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-muted)]">
-                      <span className="text-[var(--gm-subtle)]">{copy.welcomeBack}:</span>{" "}
-                      <span className="font-medium text-[var(--gm-foreground)]">
-                        {viewer.name}
-                      </span>
+          <div className="relative min-h-screen">
+            {/* Enhanced Professional Header with Stacked Layout */}
+            <header className="sticky top-0 z-40">
+              {/* Top Bar - Platform Identity & Quick Controls */}
+              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-2xl">
+                <div className="mx-auto max-w-[1600px] px-4 py-3 md:px-6 lg:px-8">
+                  <div className="flex items-center justify-between gap-3">
+                    {/* Platform Identity - Left Aligned */}
+                    <div className="flex items-center gap-3">
+                      <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] shadow-[0_0_40px_rgba(209,74,40,0.12)]">
+                        <Sparkles size={16} className="text-[var(--gm-foreground)]" />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gm-subtle)] hidden sm:block">Ga-Mawela</p>
+                          <div className="h-3 w-px bg-white/20 hidden sm:block"></div>
+                          <p className="text-[10px] uppercase tracking-[0.3em] text-[var(--gm-subtle)]">{copy.appTitle}</p>
+                        </div>
+                        <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] mt-0.5">{copy.appSubtitle}</p>
+                      </div>
                     </div>
-                    <Link
-                      href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
-                      className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                    >
-                      {copy.dashboard}
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => void handleLogout()}
-                      className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                    >
-                      {copy.signOut}
-                    </button>
-                  </>
-                ) : (
-                  <Link
-                    href="/login"
-                    className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                  >
-                    {copy.signIn}
-                  </Link>
-                )}
-              </div>
-            </div>
-          </div>
-        </header>
 
-        <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-4 md:px-6 md:py-5 xl:px-8 xl:py-6">
-          <div className="mb-4 grid gap-4 xl:grid-cols-[1fr_auto]">
-            <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl">
-              <div className="flex items-start gap-3">
-                <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />
-                <div>
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                    {copy.liveUpdate}
-                  </p>
-                  <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
-                    {latestUpdates[activeUpdateIndex] ?? copy.appSubtitle}
-                  </p>
+                    {/* Quick Controls - Right Aligned */}
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      {/* Language Toggle */}
+                      <label className="relative flex items-center">
+                        <Languages size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                        <select
+                          value={locale}
+                          onChange={(event) => setLocale(event.target.value as PlatformLocale)}
+                          className="h-9 pl-9 pr-6 rounded-lg border border-white/10 bg-white/[0.04] text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
+                          aria-label={copy.languageLabel}
+                        >
+                          <option value="en">EN</option>
+                          <option value="nso">NSO</option>
+                        </select>
+                        <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                      </label>
+
+                      {/* Theme Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        title={theme === "dark" ? copy.lightMode : copy.darkMode}
+                      >
+                        {theme === "dark" ? <SunMedium size={16} /> : <MoonStar size={16} />}
+                      </button>
+
+                      {/* Search Toggle */}
+                      <button
+                        type="button"
+                        onClick={() => document.getElementById('main-search')?.focus()}
+                        className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:hidden"
+                        title="Search"
+                      >
+                        <Search size={16} />
+                      </button>
+
+                      {/* User Actions */}
+                      {viewer ? (
+                        <div className="hidden sm:flex items-center gap-2">
+                          <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
+                            <span className="text-xs text-[var(--gm-subtle)]">{copy.welcomeBack}:</span>
+                            <span className="text-xs font-medium text-[var(--gm-foreground)]">{viewer.name}</span>
+                          </div>
+                          <Link
+                            href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
+                            className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                          >
+                            <LayoutDashboard size={14} />
+                            <span className="hidden md:inline">{copy.dashboard}</span>
+                          </Link>
+                          <button
+                            type="button"
+                            onClick={() => void handleLogout()}
+                            className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                          >
+                            {copy.signOut}
+                          </button>
+                        </div>
+                      ) : (
+                        <Link
+                          href="/login"
+                          className="flex h-9 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        >
+                          <Users size={14} />
+                          <span className="hidden sm:inline">{copy.signIn}</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="grid gap-3 sm:grid-cols-2 xl:w-[420px]">
-              <button
-                type="button"
-                onClick={() => handleSectionChange("opportunities")}
-                className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
-              >
-                <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  {copy.quickAccess}
+              {/* Search & Filter Bar */}
+              <div className="border-b border-white/[0.06] bg-[var(--gm-panel)] backdrop-blur-xl">
+                <div className="mx-auto max-w-[1600px] px-4 py-2 md:px-6 lg:px-8">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                    {/* Main Search */}
+                    <div className="relative flex-1 w-full sm:max-w-md">
+                      <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                      <input
+                        id="main-search"
+                        value={searchQuery}
+                        onChange={(event) => setSearchQuery(event.target.value)}
+                        className="gm-input h-10 w-full pl-9 text-sm"
+                        placeholder={copy.searchPlaceholder}
+                      />
+                    </div>
+
+                    {/* Company Filter */}
+                    <select
+                      value={companyFilter}
+                      onChange={(event) => setCompanyFilter(event.target.value as CompanyFilter)}
+                      className="h-10 rounded-lg border border-white/10 bg-white/[0.04] px-3 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer"
+                      aria-label="Filter by company"
+                    >
+                      {companyFilters.map((filter) => (
+                        <option key={filter}>{filter}</option>
+                      ))}
+                    </select>
+
+                    {/* Status Indicators */}
+                    <div className="flex items-center gap-2">
+                      <div className="hidden md:flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
+                        <Globe size={12} className="text-[var(--gm-subtle)]" />
+                        <span className="text-xs text-[var(--gm-muted)]">
+                          {systemSnapshot?.sql.configured ? uiCopy.dashboard.sqlReady : uiCopy.dashboard.localFallback}
+                        </span>
+                      </div>
+                      <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
+                        <span className="text-xs text-[var(--gm-muted)]">{uiCopy.dashboard.documents}:</span>
+                        <span className="text-xs font-medium text-[var(--gm-foreground)]">{systemSnapshot?.documents ?? uploadedDocuments.length}</span>
+                      </div>
+                      <div className="flex h-9 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3">
+                        <span className="text-xs text-[var(--gm-muted)]">{uiCopy.dashboard.sources}:</span>
+                        <span className="text-xs font-medium text-[var(--gm-foreground)]">{systemSnapshot?.sources ?? sourceRecords.length}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Navigation Tab Bar */}
+              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-xl">
+                <div className="mx-auto max-w-[1600px] px-4 md:px-6 lg:px-8">
+                  <nav className="gm-top-tabs overflow-x-auto py-2">
+                    <div className="flex min-w-max gap-1.5">
+                      {localizedSectionConfigs.map((section) => (
+                        <button
+                          key={section.id}
+                          type="button"
+                          onClick={() => handleSectionChange(section.id)}
+                          className={`group relative flex items-center gap-2 rounded-full border px-4 py-2.5 text-sm transition ${
+                            activeSection === section.id
+                              ? "border-white/18 bg-white text-slate-950 shadow-lg"
+                              : "border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] hover:border-white/18 hover:bg-white/[0.08]"
+                          }`}
+                          style={
+                            activeSection === section.id
+                              ? {
+                                  borderColor: `${section.accent}66`,
+                                  boxShadow: `0 10px 35px ${section.accent}20, 0 4px 12px ${section.accent}10`,
+                                }
+                              : undefined
+                          }
+                        >
+                          {/* Section Icon */}
+                          <span className={`text-base ${activeSection === section.id ? 'opacity-100' : 'opacity-60 group-hover:opacity-100'}`}>
+                            {section.id === 'home' && '🏠'}
+                            {section.id === 'mines' && '⛏️'}
+                            {section.id === 'slp' && '📋'}
+                            {section.id === 'community' && '👥'}
+                            {section.id === 'opportunities' && '💼'}
+                            {section.id === 'transparency' && '🔍'}
+                            {section.id === 'report' && '📢'}
+                            {section.id === 'documents' && '📁'}
+                            {section.id === 'representation' && '🗺️'}
+                            {section.id === 'benefits' && '🎯'}
+                          </span>
+                          <span className="block font-medium">{section.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </nav>
+                </div>
+              </div>
+            </header>
+
+            {/* Main Content Area */}
+            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 py-4 md:px-6 md:py-5 xl:px-8 xl:py-6">
+              {/* Live Updates & Quick Actions */}
+              <div className="mb-4 grid gap-4 xl:grid-cols-[1fr_auto]">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="rounded-[20px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 backdrop-blur-xl"
+                >
+                  <div className="flex items-start gap-3">
+                    <BellDot size={18} className="mt-1 text-[var(--gm-foreground)]" />
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                        {copy.liveUpdate}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-[var(--gm-muted)]">
+                        {latestUpdates[activeUpdateIndex] ?? copy.appSubtitle}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+
+                <div className="grid gap-3 sm:grid-cols-2 xl:w-[420px]">
+                  <motion.button
+                    type="button"
+                    onClick={() => handleSectionChange("opportunities")}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                      {copy.quickAccess}
+                    </p>
+                    <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                      {copy.opportunities}
+                    </p>
+                  </motion.button>
+                  <motion.button
+                    type="button"
+                    onClick={() => handleSectionChange("report")}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="rounded-[20px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                  >
+                    <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                      {copy.quickAction}
+                    </p>
+                    <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
+                      {copy.submitIssue}
+                    </p>
+                  </motion.button>
+                </div>
+              </div>
+
+              {/* Section Content with Fade Transitions */}
+              <div className="gm-section-stage">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeSection}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                  >
+                    {renderSection(activeConfig)}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </main>
+
+            {/* Professional Footer */}
+            <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-4 py-5 md:px-6 xl:px-8">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.06]">
+                    <Sparkles size={14} className="text-[var(--gm-foreground)]" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-medium text-[var(--gm-foreground)]">Ga-Mawela Platform</p>
+                    <p className="text-[10px] text-[var(--gm-subtle)]">Community Intelligence System</p>
+                  </div>
+                </div>
+                <p className="text-xs text-[var(--gm-subtle)]">
+                  {copy.footer}
                 </p>
-                <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
-                  {copy.opportunities}
-                </p>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleSectionChange("report")}
-                className="rounded-[24px] border border-white/10 bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
-              >
-                <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                  {copy.quickAction}
-                </p>
-                <p className="mt-2 text-base font-medium text-[var(--gm-foreground)]">
-                  {copy.submitIssue}
-                </p>
-              </button>
-            </div>
+                <div className="flex items-center gap-4">
+                  <span className="text-xs text-[var(--gm-subtle)]">© {new Date().getFullYear()} Ga-Mawela</span>
+                </div>
+              </div>
+            </footer>
           </div>
-
-          <div className="gm-section-stage">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
-              >
-                {renderSection(activeConfig)}
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </main>
-
-        <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-4 py-5 text-sm text-[var(--gm-subtle)] md:px-6 xl:px-8">
-          {copy.footer}
-        </footer>
+        </div>
       </div>
     </div>
   );
