@@ -16,11 +16,14 @@ import {
   LayoutDashboard,
   FileText,
   Shield,
+  ShieldCheck,
   Users,
   Briefcase,
   Building2,
   Globe,
   ChevronDown,
+  Activity,
+  Database,
 } from "lucide-react";
 import { useDeferredValue, useEffect, useState, type FormEvent } from "react";
 import {
@@ -836,14 +839,16 @@ export default function CommunityMiningPlatform() {
           backgroundImage: 'url("/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.08,
+          opacity: 0.12,
         }}
       />
       
-      {/* Gradient overlays */}
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(56,189,248,0.18),transparent_30%),linear-gradient(180deg,var(--gm-background),var(--gm-background-strong))] -z-10" />
-      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-40 -z-10" />
-      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20 -z-10" />
+      {/* Professional gradient overlays */}
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(209,74,40,0.18),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(56,189,248,0.15),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(139,92,246,0.08),transparent_30%),linear-gradient(180deg,var(--gm-background)_0%,var(--gm-background-strong)_100%)] -z-10" />
+      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-50 -z-10" />
+      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-25 -z-10" />
+      {/* Top fade for seamless header */}
+      <div className="pointer-events-none fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-[var(--gm-background)] to-transparent opacity-60 -z-5" />
 
       {/* 80% Viewport Container - Government PaaS Style */}
       <div className="min-h-screen w-full flex items-start justify-center px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3">
@@ -852,12 +857,12 @@ export default function CommunityMiningPlatform() {
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
             <header className="sticky top-0 z-40">
-              {/* Top Navigation Bar */}
+              {/* Top Navigation Bar - Government PaaS Style */}
               <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-xl">
-                <div className="mx-auto max-w-[1600px] px-3 py-2 sm:px-4 md:px-6 lg:px-8">
-                  <div className="flex items-center justify-between gap-3 sm:gap-4">
+                <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
+                  <div className="flex items-center justify-between gap-4 sm:gap-6">
                     {/* Logo & Brand - Left */}
-                    <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
+                    <Link href="/" className="flex items-center gap-3 sm:gap-4 group flex-shrink-0">
                       <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 shadow-lg">
                         <video 
                           src="/Images/Gallery/Ga Mawela Logo.mp4"
@@ -868,20 +873,23 @@ export default function CommunityMiningPlatform() {
                           className="w-full h-full object-cover"
                         />
                       </div>
-                      <div className="hidden xs:block">
-                        <h1 className="text-sm sm:text-base md:text-lg font-semibold text-[var(--gm-foreground)] tracking-tight leading-none">Ga-Mawela</h1>
-                        <p className="text-[9px] sm:text-[10px] text-[var(--gm-subtle)] tracking-wider uppercase mt-0.5">{copy.appTitle}</p>
+                      <div className="hidden sm:block">
+                        <h1 className="text-base sm:text-lg md:text-xl font-bold text-[var(--gm-foreground)] tracking-tight leading-none">Ga-Mawela</h1>
+                        <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] tracking-wider uppercase mt-1 flex items-center gap-1.5">
+                          <Shield size={10} className="opacity-60" />
+                          {copy.appTitle}
+                        </p>
                       </div>
                     </Link>
 
                     {/* Desktop Navigation - Center */}
-                    <nav className="hidden lg:flex items-center gap-0.5">
+                    <nav className="hidden xl:flex items-center gap-0.5">
                       {localizedSectionConfigs.map((section) => (
                         <button
                           key={section.id}
                           type="button"
                           onClick={() => handleSectionChange(section.id)}
-                          className={`relative px-3 py-2 text-xs font-medium transition-all duration-300 rounded-md ${
+                          className={`relative px-4 py-2.5 text-xs font-medium transition-all duration-300 rounded-lg ${
                             activeSection === section.id
                               ? "text-white bg-white/[0.08]"
                               : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.04]"
@@ -896,7 +904,7 @@ export default function CommunityMiningPlatform() {
                           {activeSection === section.id && (
                             <motion.div 
                               layoutId="navIndicator"
-                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 rounded-full"
+                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
                               style={{ backgroundColor: section.accent }}
                               transition={{ type: "spring", stiffness: 500, damping: 30 }}
                             />
@@ -906,7 +914,7 @@ export default function CommunityMiningPlatform() {
                     </nav>
 
                     {/* Right Controls */}
-                    <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="flex items-center gap-2 sm:gap-3">
                       {/* Desktop Search Bar */}
                       <div className="hidden md:flex items-center">
                         <div className="relative">
@@ -1093,49 +1101,71 @@ export default function CommunityMiningPlatform() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="rounded-xl sm:rounded-[20px] border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-3 sm:p-4 backdrop-blur-xl"
+                  className="rounded-xl sm:rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 sm:p-5 backdrop-blur-xl"
                 >
-                  <div className="flex items-start gap-2 sm:gap-3">
-                    <BellDot size={16} className="mt-0.5 sm:mt-1 text-[var(--gm-foreground)] flex-shrink-0" />
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="flex-shrink-0">
+                      <div className="relative">
+                        <BellDot size={18} className="text-[var(--gm-foreground)]" />
+                        <span className="absolute -top-0.5 -right-0.5 h-2 w-2 rounded-full bg-emerald-400 status-pulse" />
+                      </div>
+                    </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
+                      <p className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[var(--gm-subtle)] flex items-center gap-2">
+                        <Activity size={10} className="opacity-60" />
                         {copy.liveUpdate}
                       </p>
-                      <p className="mt-1 sm:mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-[var(--gm-muted)] line-clamp-2">
+                      <p className="mt-2 sm:mt-3 text-sm sm:text-base leading-6 text-[var(--gm-muted)] line-clamp-2">
                         {latestUpdates[activeUpdateIndex] ?? copy.appSubtitle}
                       </p>
                     </div>
                   </div>
                 </motion.div>
 
-                <div className="grid gap-2 sm:gap-3 xs:grid-cols-2 xl:w-[380px] sm:xl:w-[420px]">
+                <div className="grid gap-2 sm:gap-3 md:gap-4 xs:grid-cols-2 xl:w-[420px] sm:xl:w-[480px]">
                   <motion.button
                     type="button"
                     onClick={() => handleSectionChange("opportunities")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-xl sm:rounded-[20px] border border-white/10 bg-white/[0.05] px-3 sm:px-4 py-2.5 sm:py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                    className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.05] px-4 sm:px-5 py-3 sm:py-4 text-left transition hover:border-white/18 hover:bg-white/[0.08] group"
                   >
-                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                      {copy.quickAccess}
-                    </p>
-                    <p className="mt-1 sm:mt-2 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
-                      {copy.opportunities}
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[var(--gm-subtle)] flex items-center gap-1.5">
+                          <Briefcase size={10} className="opacity-60" />
+                          {copy.quickAccess}
+                        </p>
+                        <p className="mt-2 sm:mt-3 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
+                          {copy.opportunities}
+                        </p>
+                      </div>
+                      <div className="h-8 w-8 rounded-lg bg-white/[0.06] flex items-center justify-center group-hover:bg-white/[0.1] transition">
+                        <Sparkles size={14} className="text-[var(--gm-accent)]" />
+                      </div>
+                    </div>
                   </motion.button>
                   <motion.button
                     type="button"
                     onClick={() => handleSectionChange("report")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-xl sm:rounded-[20px] border border-white/10 bg-white/[0.05] px-3 sm:px-4 py-2.5 sm:py-3 text-left transition hover:border-white/18 hover:bg-white/[0.08]"
+                    className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.05] px-4 sm:px-5 py-3 sm:py-4 text-left transition hover:border-white/18 hover:bg-white/[0.08] group"
                   >
-                    <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
-                      {copy.quickAction}
-                    </p>
-                    <p className="mt-1 sm:mt-2 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
-                      {copy.submitIssue}
-                    </p>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[var(--gm-subtle)] flex items-center gap-1.5">
+                          <ShieldCheck size={10} className="opacity-60" />
+                          {copy.quickAction}
+                        </p>
+                        <p className="mt-2 sm:mt-3 text-sm sm:text-base font-medium text-[var(--gm-foreground)]">
+                          {copy.submitIssue}
+                        </p>
+                      </div>
+                      <div className="h-8 w-8 rounded-lg bg-white/[0.06] flex items-center justify-center group-hover:bg-white/[0.1] transition">
+                        <Globe size={14} className="text-amber-400" />
+                      </div>
+                    </div>
                   </motion.button>
                 </div>
               </div>
