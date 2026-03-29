@@ -846,8 +846,8 @@ export default function CommunityMiningPlatform() {
       <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20 -z-10" />
 
       {/* 80% Viewport Container - Government PaaS Style */}
-      <div className="min-h-screen w-full flex items-start justify-center px-2 sm:px-3 md:px-4 lg:px-6 py-1 sm:py-2">
-        <div className="w-full max-w-[98%] sm:max-w-[96%] lg:max-w-[94%] xl:max-w-[90%] 2xl:max-w-[1400px]">
+      <div className="min-h-screen w-full flex items-start justify-center px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3">
+        <div className="w-full max-w-[96%] sm:max-w-[92%] lg:max-w-[88%] xl:max-w-[1320px]">
 
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
@@ -1040,9 +1040,55 @@ export default function CommunityMiningPlatform() {
             </header>
 
             {/* Main Content Area */}
-            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-2 sm:px-3 md:px-4 lg:px-6 py-3 sm:py-4 md:py-5">
+            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 md:py-8">
+              {/* Status Bar - Government PaaS Style */}
+              <motion.div 
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="mb-4 sm:mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/08 bg-[var(--gm-panel)] px-4 py-2.5 backdrop-blur-md"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--gm-subtle)]">{copy.moduleLabel}:</span>
+                    <span className="text-xs font-medium text-[var(--gm-foreground)]">{activeConfig.label}</span>
+                  </div>
+                  <div className="h-4 w-px bg-white/10" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--gm-subtle)]">{copy.filterLabel}:</span>
+                    <span className="status-badge info text-[10px]">{companyFilter}</span>
+                  </div>
+                  {systemSnapshot && (
+                    <>
+                      <div className="h-4 w-px bg-white/10 hidden sm:block" />
+                      <div className="hidden sm:flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
+                        <span className="flex items-center gap-1">
+                          <span className="status-badge success">SQL</span>
+                          {systemSnapshot.sql.configured ? systemSnapshot.sql.serverTarget.split('\\').pop() : 'Local'}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users size={10} />
+                          {systemSnapshot.users}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <FileText size={10} />
+                          {systemSnapshot.documents}
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
+                  <span className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
+                    {copy.liveUpdate}
+                  </span>
+                  <span className="hidden xs:inline">{copy.searchLabel}: {copy.allRecords}</span>
+                </div>
+              </motion.div>
+
               {/* Live Updates & Quick Actions */}
-              <div className="mb-3 sm:mb-4 grid gap-2 sm:gap-3 md:gap-4 xl:grid-cols-[1fr_auto]">
+              <div className="mb-4 sm:mb-6 grid gap-3 sm:gap-4 md:gap-5 xl:grid-cols-[1fr_auto]">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
