@@ -8,7 +8,8 @@ export type SectionId =
   | "report"
   | "documents"
   | "representation"
-  | "benefits";
+  | "benefits"
+  | "profiles";
 
 export type CompanyFilter =
   | "All"
@@ -132,6 +133,24 @@ export type BenefitSlice = {
   summary: string;
 };
 
+export type CpaProfile = {
+  id: string;
+  name: string;
+  role: string;
+  term: string;
+  status: "Active" | "Disputed" | "Unknown";
+  contact: string;
+  image?: string;
+  notes: string;
+};
+
+export type MineLogo = {
+  id: string;
+  company: string;
+  logo: string;
+  color: string;
+};
+
 export type MediaFrame = {
   id: string;
   eyebrow: string;
@@ -241,6 +260,15 @@ export const sectionConfigs: SectionConfig[] = [
       "Visualize how gains may flow across companies, government, community, and still-unclear channels.",
     accent: "#047857",
     backgroundImage: "/platform/media/conveyor-road.png",
+  },
+  {
+    id: "profiles",
+    label: "Community Profiles",
+    eyebrow: "Who represents you",
+    description:
+      "Know your CPA representatives, community leaders, and stakeholder contacts. This section exposes representation for transparency and accountability.",
+    accent: "#7c3aed",
+    backgroundImage: "/platform/media/corridor-panorama.png",
   },
 ];
 
@@ -1108,5 +1136,92 @@ export const benefitSlices: BenefitSlice[] = [
     label: "Unknown or unclear channels",
     value: 20,
     summary: "This slice represents the transparency gap the platform is designed to shrink.",
+  },
+];
+
+export const cpaProfiles: CpaProfile[] = [
+  {
+    id: "cpa-chairperson",
+    name: "Position: Chairperson",
+    role: "CPA Chairperson",
+    term: "Current term",
+    status: "Active",
+    contact: "Contact via community office",
+    notes: "Primary representative for community matters and mining engagement.",
+  },
+  {
+    id: "cpa-secretary",
+    name: "Position: Secretary",
+    role: "CPA Secretary",
+    term: "Current term",
+    status: "Active",
+    contact: "Contact via community office",
+    notes: "Handles documentation, meeting minutes, and correspondence.",
+  },
+  {
+    id: "cpa-treasurer",
+    name: "Position: Treasurer",
+    role: "CPA Treasurer",
+    term: "Current term",
+    status: "Active",
+    contact: "Contact via community office",
+    notes: "Manages community funds and financial reporting.",
+  },
+  {
+    id: "cpa-executive-1",
+    name: "Position: Executive Member",
+    role: "CPA Executive",
+    term: "Current term",
+    status: "Active",
+    contact: "Contact via community office",
+    notes: "Executive committee member for community governance.",
+  },
+  {
+    id: "cpa-executive-2",
+    name: "Position: Executive Member",
+    role: "CPA Executive",
+    term: "Current term",
+    status: "Active",
+    contact: "Contact via community office",
+    notes: "Executive committee member for community governance.",
+  },
+  {
+    id: "youth-rep",
+    name: "Youth Representative",
+    role: "Youth Forum",
+    term: "Appointed",
+    status: "Unknown",
+    contact: "Youth coordination channel",
+    notes: "Position often unclear or contested. Youth seek clearer representation.",
+  },
+  {
+    id: "mining-liaison",
+    name: "Mining Liaison",
+    role: "Stakeholder Forum",
+    term: "Appointed",
+    status: "Active",
+    contact: "Mine community office",
+    notes: "Interface between mining companies and community structures.",
+  },
+];
+
+export const mineLogos: MineLogo[] = [
+  {
+    id: "glencore",
+    company: "Glencore",
+    logo: "/assets/logos/glencore-logo.png",
+    color: "#078037",
+  },
+  {
+    id: "amplats",
+    company: "Anglo American Platinum",
+    logo: "/assets/logos/amplats.png",
+    color: "#0066b3",
+  },
+  {
+    id: "regional",
+    company: "Regional Operations",
+    logo: "/assets/logos/regional-mine.png",
+    color: "#6b7280",
   },
 ];

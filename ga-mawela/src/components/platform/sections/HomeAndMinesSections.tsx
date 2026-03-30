@@ -48,14 +48,31 @@ function getNodePalette(point: MinePoint) {
   }
 
   if (point.companyFilter === "Glencore") {
-    return "border-sky-300 bg-sky-200 shadow-[0_0_0_10px_rgba(125,211,252,0.08)]";
+    return "border-green-400 bg-green-500 shadow-[0_0_0_10px_rgba(74,222,128,0.15)]";
   }
 
   if (point.companyFilter === "Anglo American Platinum") {
-    return "border-violet-300 bg-violet-200 shadow-[0_0_0_10px_rgba(196,181,253,0.08)]";
+    return "border-blue-400 bg-blue-600 shadow-[0_0_0_10px_rgba(96,165,250,0.15)]";
   }
 
   return "border-emerald-300 bg-emerald-200 shadow-[0_0_0_10px_rgba(110,231,183,0.08)]";
+}
+
+function getMineLogoUrl(point: MinePoint): string {
+  if (point.companyFilter === "Glencore") {
+    return "/assets/logos/glencore-logo.png";
+  }
+  if (point.companyFilter === "Anglo American Platinum") {
+    return "/assets/logos/amplats.png";
+  }
+  return "/assets/logos/anglo.png";
+}
+
+function getMineColor(point: MinePoint): string {
+  if (point.type === "land parcel") return "#f59e0b";
+  if (point.companyFilter === "Glencore") return "#078037";
+  if (point.companyFilter === "Anglo American Platinum") return "#0066b3";
+  return "#6b7280";
 }
 
 function resolveMineVisual(point: MinePoint): VisualCard {
@@ -440,6 +457,7 @@ function CorridorMap({
 
         {points.map((point) => {
           const isSelected = selectedMineId === point.id;
+          const mineColor = getMineColor(point);
           return (
             <button
               key={point.id}
@@ -448,22 +466,43 @@ function CorridorMap({
               className="absolute -translate-x-1/2 -translate-y-1/2 text-left"
               style={{ left: `${point.x}%`, top: `${point.y}%` }}
             >
-              <motion.span
-                whileHover={{ scale: 1.08 }}
-                className={`relative flex h-5 w-5 items-center justify-center rounded-full border-2 transition duration-300 ${getNodePalette(
-                  point,
-                )} ${isSelected ? "scale-125" : ""}`}
+              <motion.div
+                whileHover={{ scale: 1.15 }}
+                className={`relative flex items-center justify-center rounded-full border-2 transition-all duration-300 ${
+                  isSelected 
+                    ? "border-white ring-4 ring-white/30 scale-110" 
+                    : "border-white/60 hover:border-white"
+                }`}
+                style={{ 
+                  backgroundColor: mineColor,
+                  width: point.type === "land parcel" ? 48 : 40,
+                  height: point.type === "land parcel" ? 48 : 40,
+                  boxShadow: `0 4px 20px ${mineColor}60`
+                }}
               >
-                <span className="absolute h-full w-full animate-ping rounded-full bg-white/20" />
-              </motion.span>
+                {/* Mine/Company Logo Display */}
+                <div className="flex items-center justify-center">
+                  {point.type === "land parcel" ? (
+                    <span className="text-white text-lg font-bold">🏡</span>
+                  ) : point.companyFilter === "Glencore" ? (
+                    <span className="text-white text-xs font-bold">G</span>
+                  ) : point.companyFilter === "Anglo American Platinum" ? (
+                    <span className="text-white text-xs font-bold">A</span>
+                  ) : (
+                    <span className="text-white text-xs font-bold">R</span>
+                  )}
+                </div>
+                {/* Pulsing indicator */}
+                <span className="absolute h-full w-full animate-ping rounded-full bg-white/30" />
+              </motion.div>
               <span
-                className={`mt-3 inline-flex max-w-[11rem] rounded-full border px-3 py-1 text-xs ring-1 backdrop-blur ${
+                className={`mt-2 inline-flex max-w-[12rem] rounded-full border px-3 py-1.5 text-xs font-medium ring-1 backdrop-blur ${
                   isSelected
-                    ? "border-white/20 bg-white text-slate-950 ring-white/20"
-                    : "border-white/10 bg-slate-950/70 text-white/80 ring-white/10"
+                    ? "border-white/30 bg-white/90 text-slate-900 ring-white/30 shadow-lg"
+                    : "border-white/15 bg-slate-950/80 text-white/90 ring-white/10"
                 }`}
               >
-                {point.name}
+                <span className="truncate">{point.name}</span>
               </span>
             </button>
           );
