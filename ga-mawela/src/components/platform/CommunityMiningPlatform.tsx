@@ -1067,30 +1067,13 @@ export default function CommunityMiningPlatform() {
                       </span>
                       <div className="h-3 w-px bg-white/10 hidden sm:block" />
                       
-                      {/* Language Toggle - Always visible */}
-                      <label className="relative flex items-center">
-                        <Languages size={10} className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                        <select
-                          value={locale}
-                          onChange={(event) => setLocale(event.target.value as PlatformLocale)}
-                          className="h-7 pl-6 pr-4 rounded-md border border-white/10 bg-white/[0.04] text-[10px] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
-                          aria-label={copy.languageLabel}
-                        >
-                          <option value="en">EN</option>
-                          <option value="nso">NSO</option>
-                        </select>
-                        <ChevronDown size={8} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                      </label>
-
-                      {/* Theme Toggle - Always visible */}
-                      <button
-                        type="button"
-                        onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-                        className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                        title={theme === "dark" ? copy.lightMode : copy.darkMode}
-                      >
-                        {theme === "dark" ? <SunMedium size={12} /> : <MoonStar size={12} />}
-                      </button>
+                      {/* Only show live stats here, controls are in header */}
+                      <div className="flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
+                        <span className="flex items-center gap-1.5">
+                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
+                          {copy.liveUpdate}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
