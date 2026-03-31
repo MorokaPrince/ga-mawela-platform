@@ -995,3 +995,16 @@ video {
     scroll-behavior: auto !important;
   }
 }
+
+/* Map point positioning - uses CSS variables */
+.map-point-position {
+  position: absolute;
+  left: var(--point-x, 50%);
+  top: var(--point-y, 50%);
+  transform: translate(-50%, -50%);
+}
+
+/* Mine marker color - uses CSS variable */
+.mine-marker-color {
+  background-color: var(--mine-color, currentColor);
+}
