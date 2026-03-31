@@ -114,6 +114,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       documents: { label: "Document Library", eyebrow: "Evidence store" },
       representation: { label: "Representation", eyebrow: "Stakeholder map" },
       benefits: { label: "Who Benefits", eyebrow: "Value distribution" },
+      profiles: { label: "Community Profiles", eyebrow: "Who represents you" },
     },
   },
   nso: {
@@ -167,6 +168,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       documents: { label: "Laeborari ya Ditokomane", eyebrow: "Polokelo ya bohlatse" },
       representation: { label: "Kemedi", eyebrow: "Mmapa wa batshwarakabelo" },
       benefits: { label: "Ke Mang yo a Holegago", eyebrow: "Kabo ya boleng" },
+      profiles: { label: "Baetsasedi ba Setshaba", eyebrow: "Ke mang yo a go representa" },
     },
   },
 };

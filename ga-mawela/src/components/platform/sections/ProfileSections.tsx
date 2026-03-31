@@ -223,10 +223,7 @@ export function SlpLiveTracker({
           </p>
           <p className="mt-2 text-3xl font-bold text-emerald-400">{completed}</p>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-            <div 
-              className="h-full rounded-full bg-emerald-500 transition-all duration-700" 
-              style={{ width: `${total > 0 ? (completed/total)*100 : 0}%` }}
-            />
+            <div className="progress-bar-emerald" style={{ width: `${total > 0 ? (completed/total)*100 : 0}%` }} />
           </div>
         </GlassPanel>
         
@@ -237,10 +234,7 @@ export function SlpLiveTracker({
           </p>
           <p className="mt-2 text-3xl font-bold text-blue-400">{inProgress}</p>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-            <div 
-              className="h-full rounded-full bg-blue-500 transition-all duration-700" 
-              style={{ width: `${total > 0 ? (inProgress/total)*100 : 0}%` }}
-            />
+            <div className="progress-bar-blue" style={{ width: `${total > 0 ? (inProgress/total)*100 : 0}%` }} />
           </div>
         </GlassPanel>
         
@@ -251,10 +245,7 @@ export function SlpLiveTracker({
           </p>
           <p className="mt-2 text-3xl font-bold text-red-400">{notDelivered}</p>
           <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-white/10">
-            <div 
-              className="h-full rounded-full bg-red-500 transition-all duration-700" 
-              style={{ width: `${total > 0 ? (notDelivered/total)*100 : 0}%` }}
-            />
+            <div className="progress-bar-red" style={{ width: `${total > 0 ? (notDelivered/total)*100 : 0}%` }} />
           </div>
         </GlassPanel>
         

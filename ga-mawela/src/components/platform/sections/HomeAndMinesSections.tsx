@@ -509,12 +509,15 @@ function CorridorMap({
                   isSelected 
                     ? "border-white ring-4 ring-white/30 scale-110" 
                     : "border-white/60 hover:border-white"
+                } mine-point-glow ${
+                  point.type === "land parcel" ? "land-parcel" : 
+                  point.companyFilter === "Glencore" ? "glencore" :
+                  point.companyFilter === "Anglo American Platinum" ? "amplats" : ""
                 }`}
                 style={{ 
                   backgroundColor: mineColor,
                   width: point.type === "land parcel" ? 48 : 40,
                   height: point.type === "land parcel" ? 48 : 40,
-                  boxShadow: `0 4px 20px ${mineColor}60`
                 }}
               >
                 {/* Mine/Company Logo Display */}

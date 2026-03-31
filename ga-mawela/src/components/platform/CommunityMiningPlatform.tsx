@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import {
   BellDot,
   Languages,
@@ -19,11 +18,9 @@ import {
   ShieldCheck,
   Users,
   Briefcase,
-  Building2,
   Globe,
   ChevronDown,
   Activity,
-  Database,
 } from "lucide-react";
 import { useDeferredValue, useEffect, useState, type FormEvent } from "react";
 import {
@@ -66,12 +63,7 @@ import {
   type ResearchSource,
   type SectionId,
 } from "@/data/platformData";
-import {
-  platformCopy,
-  platformSlogans,
-  type PlatformLocale,
-} from "@/lib/platform-i18n";
-import { platformUiCopy } from "@/lib/platform-ui-copy";
+import { platformCopy, type PlatformLocale } from "@/lib/platform-i18n";
 
 const SECTION_STORAGE_KEY = "ga-mawela-theme";
 const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
@@ -845,15 +837,7 @@ export default function CommunityMiningPlatform() {
       <AnimatePresence>{introVisible ? <IntroOverlay /> : null}</AnimatePresence>
 
       {/* Full-width background with Gallery image overlay */}
-      <div 
-        className="fixed inset-0 -z-20"
-        style={{
-          backgroundImage: 'url("/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png")',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          opacity: 0.12,
-        }}
-      />
+      <div className="fixed inset-0 -z-20 bg-gallery-overlay" />
       
       {/* Professional gradient overlays */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(209,74,40,0.18),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(56,189,248,0.15),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(139,92,246,0.08),transparent_30%),linear-gradient(180deg,var(--gm-background)_0%,var(--gm-background-strong)_100%)] -z-10" />
@@ -862,9 +846,9 @@ export default function CommunityMiningPlatform() {
       {/* Top fade for seamless header */}
       <div className="pointer-events-none fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-[var(--gm-background)] to-transparent opacity-60 -z-5" />
 
-      {/* 80% Viewport Container - Government PaaS Style */}
-      <div className="min-h-screen w-full flex items-start justify-center px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3">
-        <div className="w-full max-w-[96%] sm:max-w-[92%] lg:max-w-[88%] xl:max-w-[1320px]">
+      {/* 80% Viewport Container - Full Width for Proper Device Fit */}
+      <div className="min-h-screen w-full flex items-start justify-center px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">
+        <div className="w-full max-w-[1920px]">
 
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
@@ -942,7 +926,7 @@ export default function CommunityMiningPlatform() {
                       </div>
 
                       {/* Language Toggle */}
-                      <label className="relative flex items-center hidden md:flex">
+                      <label className="relative flex items-center">
                         <Languages size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
                         <select
                           value={locale}
@@ -1060,7 +1044,7 @@ export default function CommunityMiningPlatform() {
             </header>
 
             {/* Main Content Area */}
-            <main className="mx-auto flex w-full max-w-[1600px] flex-1 flex-col px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 md:py-8">
+            <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
               {/* Status Bar - Government PaaS Style */}
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
@@ -1199,7 +1183,7 @@ export default function CommunityMiningPlatform() {
             </main>
 
             {/* Professional Footer */}
-            <footer className="mx-auto w-full max-w-[1600px] border-t border-white/[0.08] px-3 py-3 sm:px-4 md:px-6">
+            <footer className="mx-auto w-full max-w-[1920px] border-t border-white/[0.08] px-2 py-3 sm:px-3 md:px-5">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 overflow-hidden shadow-lg">

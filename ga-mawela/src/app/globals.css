@@ -303,6 +303,47 @@ video {
   transition: width 0.5s ease;
 }
 
+/* Progress bar emerald */
+.progress-bar-emerald {
+  height: 100%;
+  border-radius: 9999px;
+  background: #22c55e;
+  transition: all 0.7s;
+}
+
+/* Progress bar blue */
+.progress-bar-blue {
+  height: 100%;
+  border-radius: 9999px;
+  background: #3b82f6;
+  transition: all 0.7s;
+}
+
+/* Progress bar red */
+.progress-bar-red {
+  height: 100%;
+  border-radius: 9999px;
+  background: #ef4444;
+  transition: all 0.7s;
+}
+
+/* Mine point glow */
+.mine-point-glow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mine-point-glow.land-parcel {
+  box-shadow: 0 4px 20px rgba(245, 158, 11, 0.6);
+}
+
+.mine-point-glow.glencore {
+  box-shadow: 0 4px 20px rgba(7, 128, 55, 0.6);
+}
+
+.mine-point-glow.amplats {
+  box-shadow: 0 4px 20px rgba(0, 102, 179, 0.6);
+}
+
 /* Tab hover effects */
 .tab-button {
   position: relative;
@@ -452,6 +493,14 @@ video {
     radial-gradient(circle at 45% 80%, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px);
   background-size: 18px 18px, 24px 24px, 28px 28px;
   mix-blend-mode: soft-light;
+}
+
+/* Gallery Background Overlay */
+.bg-gallery-overlay {
+  background-image: url("/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.12;
 }
 
 .gm-filmstrip {
