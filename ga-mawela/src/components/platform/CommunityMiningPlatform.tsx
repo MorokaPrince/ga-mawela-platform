@@ -887,21 +887,17 @@ export default function CommunityMiningPlatform() {
                           onClick={() => handleSectionChange(section.id)}
                           className={`relative px-4 py-2.5 text-xs font-medium transition-all duration-300 rounded-lg ${
                             activeSection === section.id
-                              ? "text-white bg-white/[0.08]"
+                              ? "text-white bg-white/[0.08] section-nav-accent"
                               : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.04]"
                           }`}
-                          style={
-                            activeSection === section.id
-                              ? { color: section.accent }
-                              : undefined
-                          }
+                          style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
                         >
                           {section.label}
                           {activeSection === section.id && (
                             <motion.div 
                               layoutId="navIndicator"
                               className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
-                              style={{ backgroundColor: section.accent }}
+                              style={{ '--section-accent': section.accent } as React.CSSProperties}
                               transition={{ type: "spring", stiffness: 500, damping: 30 }}
                             />
                           )}
@@ -1013,14 +1009,10 @@ export default function CommunityMiningPlatform() {
                             }}
                             className={`px-4 py-3 text-sm font-medium text-left transition-all rounded-lg ${
                               activeSection === section.id
-                                ? "bg-white/[0.08] text-white"
+                                ? "bg-white/[0.08] text-white section-nav-accent"
                                 : "text-[var(--gm-muted)] hover:bg-white/[0.04] hover:text-[var(--gm-foreground)]"
                             }`}
-                            style={
-                              activeSection === section.id
-                                ? { color: section.accent }
-                                : undefined
-                            }
+                            style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
                           >
                             {section.label}
                           </button>
@@ -1061,7 +1053,7 @@ export default function CommunityMiningPlatform() {
                               ? "bg-white/[0.12] text-white"
                               : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.06]"
                           }`}
-                          style={activeSection === section.id ? { color: section.accent } : undefined}
+                          style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
                         >
                           {section.label}
                         </button>

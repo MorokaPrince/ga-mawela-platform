@@ -330,6 +330,16 @@ video {
   width: var(--progress-width, 0%);
 }
 
+/* Section navigation active accent - uses CSS variable */
+.section-nav-accent {
+  color: var(--section-accent, currentColor);
+}
+
+/* Section tab active - uses CSS variable */
+.section-tab-active {
+  color: var(--section-accent, white) !important;
+}
+
 /* Mine point glow */
 .mine-point-glow {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
