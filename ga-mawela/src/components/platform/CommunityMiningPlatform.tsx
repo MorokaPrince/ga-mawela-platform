@@ -878,8 +878,8 @@ export default function CommunityMiningPlatform() {
                       </div>
                     </Link>
 
-                    {/* Desktop Navigation - Center */}
-                    <nav className="hidden xl:flex items-center gap-0.5">
+                    {/* Desktop Navigation - Show on large tablets and up */}
+                    <nav className="hidden lg:flex items-center gap-0.5">
                       {localizedSectionConfigs.map((section) => (
                         <button
                           key={section.id}
@@ -1045,7 +1045,66 @@ export default function CommunityMiningPlatform() {
 
             {/* Main Content Area */}
             <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-              {/* Status Bar - Government PaaS Style */}
+              {/* Status Bar - Now below header with tabs info */}
+              <div className="border-b border-white/[0.06] bg-[var(--gm-panel)]/50 backdrop-blur-sm">
+                <div className="mx-auto max-w-[1920px] px-3 sm:px-4 md:px-6 py-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
+                    {/* Section Tabs */}
+                    <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-hide">
+                      {localizedSectionConfigs.map((section) => (
+                        <button
+                          key={section.id}
+                          type="button"
+                          onClick={() => handleSectionChange(section.id)}
+                          className={`shrink-0 px-3 py-1.5 text-xs font-medium transition-all rounded-md ${
+                            activeSection === section.id
+                              ? "bg-white/[0.12] text-white"
+                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.06]"
+                          }`}
+                          style={activeSection === section.id ? { color: section.accent } : undefined}
+                        >
+                          {section.label}
+                        </button>
+                      ))}
+                    </div>
+                    
+                    {/* Right side - Theme & Language together */}
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--gm-subtle)] hidden sm:inline">
+                        {activeConfig.label}
+                      </span>
+                      <div className="h-3 w-px bg-white/10 hidden sm:block" />
+                      
+                      {/* Language Toggle - Always visible */}
+                      <label className="relative flex items-center">
+                        <Languages size={10} className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                        <select
+                          value={locale}
+                          onChange={(event) => setLocale(event.target.value as PlatformLocale)}
+                          className="h-7 pl-6 pr-4 rounded-md border border-white/10 bg-white/[0.04] text-[10px] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
+                          aria-label={copy.languageLabel}
+                        >
+                          <option value="en">EN</option>
+                          <option value="nso">NSO</option>
+                        </select>
+                        <ChevronDown size={8} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
+                      </label>
+
+                      {/* Theme Toggle - Always visible */}
+                      <button
+                        type="button"
+                        onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                        className="flex h-7 w-7 items-center justify-center rounded-md border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        title={theme === "dark" ? copy.lightMode : copy.darkMode}
+                      >
+                        {theme === "dark" ? <SunMedium size={12} /> : <MoonStar size={12} />}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Status Info */}
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}

@@ -309,6 +309,7 @@ video {
   border-radius: 9999px;
   background: #22c55e;
   transition: all 0.7s;
+  width: var(--progress-width, 0%);
 }
 
 /* Progress bar blue */
@@ -317,6 +318,7 @@ video {
   border-radius: 9999px;
   background: #3b82f6;
   transition: all 0.7s;
+  width: var(--progress-width, 0%);
 }
 
 /* Progress bar red */
@@ -325,6 +327,7 @@ video {
   border-radius: 9999px;
   background: #ef4444;
   transition: all 0.7s;
+  width: var(--progress-width, 0%);
 }
 
 /* Mine point glow */
