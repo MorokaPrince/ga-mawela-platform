@@ -42,7 +42,6 @@ import {
 import {
   HomeSection,
   MinesSection,
-  SlpSection,
 } from "@/components/platform/sections/HomeAndMinesSections";
 import {
   ProfilesSection,
@@ -252,7 +251,6 @@ export default function CommunityMiningPlatform() {
   });
 
   const copy = platformCopy[locale];
-  const uiCopy = platformUiCopy[locale];
   const localizedSectionConfigs = sectionConfigs.map((section) => ({
     ...section,
     label: copy.sections[section.id].label,

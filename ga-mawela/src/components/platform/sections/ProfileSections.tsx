@@ -1,7 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   GlassPanel,
   SectionShell,

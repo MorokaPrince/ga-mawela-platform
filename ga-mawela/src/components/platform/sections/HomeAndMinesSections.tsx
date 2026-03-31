@@ -42,32 +42,6 @@ function getTypeTone(type: MinePoint["type"]) {
   }
 }
 
-function getNodePalette(point: MinePoint) {
-  if (point.type === "land parcel") {
-    return "border-amber-300 bg-amber-200 shadow-[0_0_0_10px_rgba(251,191,36,0.1)]";
-  }
-
-  if (point.companyFilter === "Glencore") {
-    return "border-green-400 bg-green-500 shadow-[0_0_0_10px_rgba(74,222,128,0.15)]";
-  }
-
-  if (point.companyFilter === "Anglo American Platinum") {
-    return "border-blue-400 bg-blue-600 shadow-[0_0_0_10px_rgba(96,165,250,0.15)]";
-  }
-
-  return "border-emerald-300 bg-emerald-200 shadow-[0_0_0_10px_rgba(110,231,183,0.08)]";
-}
-
-function getMineLogoUrl(point: MinePoint): string {
-  if (point.companyFilter === "Glencore") {
-    return "/assets/logos/glencore-logo.png";
-  }
-  if (point.companyFilter === "Anglo American Platinum") {
-    return "/assets/logos/amplats.png";
-  }
-  return "/assets/logos/anglo.png";
-}
-
 function getMineColor(point: MinePoint): string {
   if (point.type === "land parcel") return "#f59e0b";
   if (point.companyFilter === "Glencore") return "#078037";

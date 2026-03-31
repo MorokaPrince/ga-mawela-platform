@@ -1205,6 +1205,106 @@ export const cpaProfiles: CpaProfile[] = [
   },
 ];
 
+// Platform Slogans
+export const platformSlogans = {
+  primary: "Restoring Land. Rebuilding Unity. Empowering Ga-Mawela.",
+  secondary: "Our Land Must Benefit Our People.",
+  tertiary: "One Land. One Community. One Future.",
+  legal: "Justice for the Land. Voice for the People.",
+  community: "Unity Over Division. Progress for All.",
+  mining: "Mining Growth. Community First.",
+  youth: "Led by Youth. Driven by Purpose.",
+  transparency: "Transparency. Representation. Accountability.",
+};
+
+// Detailed Mining Company Information
+export const miningCompanies = [
+  {
+    id: "der-brochen",
+    name: "Der Brochen Project",
+    operator: "Rustenburg Platinum Mines (Amplats)",
+    parent: "Anglo American Platinum",
+    type: "Platinum Group Metals",
+    location: "St George 2 JT, Richmond, Helena, Hebron farms",
+    status: "Operating",
+    miningRightExpiry: "~2040",
+    slpCommitments: [
+      "170+ local jobs created",
+      "School infrastructure",
+      "Clinic development",
+      "Farming projects",
+    ],
+    keyFacts: [
+      "Located directly on St George 2 JT land parcel",
+      "Integrated with Mototolo mine operations",
+      "Uses shared processing plant",
+      "Long-life mine planned for decades",
+    ],
+  },
+  {
+    id: "mototolo",
+    name: "Mototolo Project",
+    operator: "Anglo American Platinum",
+    parent: "Anglo American Platinum",
+    type: "Platinum Group Metals",
+    location: "Steelpoort Belt, Limpopo",
+    status: "Operating",
+    miningRightExpiry: "~2040",
+    slpCommitments: [
+      "Learner pipelines",
+      "Procurement pathways",
+      "Local employment",
+      "Community development",
+    ],
+    keyFacts: [
+      "Originally joint venture with Glencore",
+      "Now mostly controlled by Amplats",
+      "Created major platinum hub",
+      "Shared processing with Der Brochen",
+    ],
+  },
+  {
+    id: "twickenham",
+    name: "Twickenham Mine",
+    operator: "Anglo American Platinum",
+    parent: "Anglo American Platinum",
+    type: "Platinum Group Metals",
+    location: "Limpopo",
+    status: "Operating",
+    miningRightExpiry: "~2040",
+    slpCommitments: [
+      "Education commitments",
+      "Training programs",
+      "Local procurement",
+    ],
+    keyFacts: [
+      "Large mining right (17,000+ hectares)",
+      "Platinum operation in broader corridor",
+      "Influences regional employment expectations",
+    ],
+  },
+  {
+    id: "glencore-ecm",
+    name: "Glencore Eastern Chrome Mines",
+    operator: "Glencore",
+    parent: "Glencore",
+    type: "Chrome",
+    location: "Steelpoort Belt, Limpopo",
+    status: "Operating",
+    miningRightExpiry: "Variable",
+    slpCommitments: [
+      "Local hiring pathways",
+      "Road maintenance",
+      "Training channels",
+    ],
+    keyFacts: [
+      "Chrome operations in primary corridor",
+      "Influences local labour demand",
+      "Contractor access issues",
+    ],
+  },
+];
+
 export const mineLogos: MineLogo[] = [
   {
     id: "glencore",
