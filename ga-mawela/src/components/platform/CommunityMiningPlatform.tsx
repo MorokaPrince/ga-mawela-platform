@@ -68,6 +68,7 @@ import {
 } from "@/data/platformData";
 import {
   platformCopy,
+  platformSlogans,
   type PlatformLocale,
 } from "@/lib/platform-i18n";
 import { platformUiCopy } from "@/lib/platform-ui-copy";
@@ -165,7 +166,7 @@ function IntroOverlay() {
             Ga-Mawela intelligence platform
           </p>
           <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-white md:text-6xl">
-            {platformSlogans.primary}
+            Restoring Land. Rebuilding Unity. Empowering Ga-Mawela.
           </h1>
           <p className="mt-4 text-base leading-8 text-white/70">
             The first real transparency system for Ga-Mawela. Track SLP commitments, monitor delivery, and enforce accountability.

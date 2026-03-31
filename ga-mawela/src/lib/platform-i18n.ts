@@ -2,6 +2,24 @@ import type { SectionId } from "@/data/platformData";
 
 export type PlatformLocale = "en" | "nso";
 
+// Platform Slogans
+export const platformSlogans = {
+  primary: "Restoring Land. Rebuilding Unity. Empowering Ga-Mawela.",
+  secondary: "Our Land Must Benefit Our People.",
+  tertiary: "One Land. One Community. One Future.",
+  legal: "Justice for the Land. Voice for the People.",
+  community: "Unity Over Division. Progress for All.",
+  mining: "Mining Growth. Community First.",
+  youth: "Led by Youth. Driven by Purpose.",
+  transparency: "Transparency. Representation. Accountability.",
+  fromLandRights: "From Land Rights to Real Opportunities.",
+  claimOurs: "Claiming What Is Ours — Lawfully and Together.",
+  togetherRise: "Together We Rise, Together We Reclaim.",
+  futureGaMawela: "Building the Future of Ga-Mawela — As One.",
+  groundToOpportunities: "From the Ground Beneath Us to Opportunities Above Us.",
+  newGeneration: "New Generation. Same Land. Better Future.",
+};
+
 type LocalizedSectionMeta = {
   label: string;
   eyebrow: string;
