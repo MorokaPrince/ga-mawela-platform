@@ -45,9 +45,14 @@ import {
   SlpSection,
 } from "@/components/platform/sections/HomeAndMinesSections";
 import {
+  ProfilesSection,
+  SlpLiveTracker,
+} from "@/components/platform/sections/ProfileSections";
+import {
   baseDocuments,
   benefitSlices,
   companyFilters,
+  cpaProfiles,
   minePoints,
   opportunities,
   researchSources,
@@ -717,7 +722,7 @@ export default function CommunityMiningPlatform() {
         );
       case "slp":
         return (
-          <SlpSection
+          <SlpLiveTracker
             config={section}
             commitments={filteredCommitments}
             expandedId={expandedCommitmentId}
@@ -810,6 +815,14 @@ export default function CommunityMiningPlatform() {
           <RepresentationSection
             config={section}
             nodes={representationNodes}
+            locale={locale}
+          />
+        );
+      case "profiles":
+        return (
+          <ProfilesSection
+            config={section}
+            profiles={cpaProfiles}
             locale={locale}
           />
         );

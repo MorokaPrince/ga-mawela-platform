@@ -7,12 +7,20 @@ import {
   SectionShell,
   StatusBadge,
 } from "@/components/platform/PlatformPrimitives";
-import type { SectionConfig, CpaProfile } from "@/data/platformData";
+import type { SectionConfig, CpaProfile, SlpCommitment } from "@/data/platformData";
 import type { PlatformLocale } from "@/lib/platform-i18n";
 
 interface ProfilesSectionProps {
   config: SectionConfig;
   profiles: CpaProfile[];
+  locale: PlatformLocale;
+}
+
+interface SlpLiveTrackerProps {
+  config: SectionConfig;
+  commitments: SlpCommitment[];
+  expandedId: string | null;
+  onToggleCommitment: (id: string) => void;
   locale: PlatformLocale;
 }
 
@@ -191,13 +199,7 @@ export function SlpLiveTracker({
   expandedId,
   onToggleCommitment,
   locale,
-}: {
-  config: SectionConfig;
-  commitments: any[];
-  expandedId: string | null;
-  onToggleCommitment: (id: string) => void;
-  locale: PlatformLocale;
-}) {
+}: SlpLiveTrackerProps) {
   const completed = commitments.filter((item) => item.status === "Completed").length;
   const inProgress = commitments.filter((item) => item.status === "In Progress").length;
   const notDelivered = commitments.filter((item) => item.status === "Not Delivered").length;
