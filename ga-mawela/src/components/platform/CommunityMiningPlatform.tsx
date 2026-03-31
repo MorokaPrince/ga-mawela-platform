@@ -165,10 +165,10 @@ function IntroOverlay() {
             Ga-Mawela intelligence platform
           </p>
           <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-white md:text-6xl">
-            Loading corridor intelligence
+            {platformSlogans.primary}
           </h1>
           <p className="mt-4 text-base leading-8 text-white/70">
-            Preparing land context, mining operations, SLP status, and community access layers.
+            The first real transparency system for Ga-Mawela. Track SLP commitments, monitor delivery, and enforce accountability.
           </p>
           <div className="mx-auto mt-8 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-white/10">
             <motion.div
