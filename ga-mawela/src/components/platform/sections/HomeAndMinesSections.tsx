@@ -2,6 +2,13 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import {
+  CalendarDays,
+  GitBranch,
+  MapPinned,
+  ShieldAlert,
+  type LucideIcon,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import {
   EmptyMessage,
@@ -26,6 +33,13 @@ import {
 } from "@/data/platformData";
 import type { PlatformLocale } from "@/lib/platform-i18n";
 import { platformUiCopy } from "@/lib/platform-ui-copy";
+
+type LandingPillar = {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  detail: string;
+};
 
 function getTypeTone(type: MinePoint["type"]) {
   switch (type) {
@@ -184,6 +198,44 @@ function HeroShowcase({
   const copy = platformUiCopy[locale].hero;
   const [activeFrameIndex, setActiveFrameIndex] = useState(0);
   const activeFrame = heroMediaFrames[activeFrameIndex];
+  const landingPillars: LandingPillar[] = [
+    {
+      id: "land",
+      icon: MapPinned,
+      title: locale === "nso" ? "Naga pele" : "Land first",
+      detail:
+        locale === "nso"
+          ? "St George 2 JT e swanetse go balwa bjalo ka naga, bohwa, le lefelo la taolo."
+          : "St George 2 JT stays readable as land, heritage ground, and governance space.",
+    },
+    {
+      id: "lineage",
+      icon: GitBranch,
+      title: locale === "nso" ? "Histori le lineage" : "History & lineage",
+      detail:
+        locale === "nso"
+          ? "Masetu, Lesedi, Moroka, le meloko e mengwe di bewa bjalo ka lane ya tlhahlobo ya histori."
+          : "Masetu, Lesedi, Moroka, and related family narratives now sit inside a clear lineage-review lane.",
+    },
+    {
+      id: "watch",
+      icon: ShieldAlert,
+      title: locale === "nso" ? "Compliance watch" : "Compliance watch",
+      detail:
+        locale === "nso"
+          ? "Tlhahlo ya meepo, SLP, le kemedi di kgokagane le methopo le bohlatse."
+          : "Mining exposure, SLP delivery, and representation gaps stay tied to source material and evidence.",
+    },
+    {
+      id: "culture",
+      icon: CalendarDays,
+      title: locale === "nso" ? "Setso le bafsa" : "Culture & youth",
+      detail:
+        locale === "nso"
+          ? "Dikoma, dikgobokano, le dibaka tsa tsebo di tshwanetse go bonagala mo polatifomong e tee."
+          : "Dikoma memory, gatherings, and youth knowledge spaces belong inside the same community product.",
+    },
+  ];
 
   useEffect(() => {
     const timer = window.setInterval(() => {
@@ -273,8 +325,59 @@ function HeroShowcase({
               {copy.description}
             </p>
 
+            <div className="mt-6 grid gap-3 xl:grid-cols-[1.04fr_0.96fr]">
+              <div className="rounded-[28px] border border-white/10 bg-slate-950/30 p-4 backdrop-blur-xl md:p-5">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-300">
+                  Unified landing lens
+                </p>
+                <p className="mt-3 text-xl font-semibold tracking-[-0.04em] text-white md:text-[1.7rem]">
+                  {locale === "nso"
+                    ? "Naga, histori, lineage, le boikarabelo bja meepo bjale di bala mmogo."
+                    : "Land, history, lineage, and mining accountability now read as one story."}
+                </p>
+                <p className="mt-3 text-sm leading-7 text-white/74">
+                  {locale === "nso"
+                    ? "Polatifomo e kopanya memory ya setshaba, lane ya tlhahlobo ya lineage, ponagalo ya meepo, le ditsela tsa phihlelelo gore moeng a se ke a thulana le dikarolo tseo di iphetago."
+                    : "The platform now keeps community memory, lineage review, corridor exposure, and access routes in one screen so the landing no longer repeats itself in disconnected blocks."}
+                </p>
+                <p className="mt-4 text-sm leading-7 text-white/68">{activeFrame.detail}</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <span className="rounded-full border border-white/12 bg-white/[0.08] px-3 py-1.5 text-xs text-white/78">
+                    {activeFrame.metric}
+                  </span>
+                  <span className="rounded-full border border-amber-500/25 bg-amber-500/10 px-3 py-1.5 text-xs text-amber-200">
+                    {selectedMine.name}
+                  </span>
+                  <span className="rounded-full border border-sky-400/20 bg-sky-400/10 px-3 py-1.5 text-xs text-sky-100">
+                    {locale === "nso" ? "Digital thread e phela" : "Digital thread active"}
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid gap-3 sm:grid-cols-2">
+                {landingPillars.map((pillar) => {
+                  const Icon = pillar.icon;
+
+                  return (
+                    <div
+                      key={pillar.id}
+                      className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl"
+                    >
+                      <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08] text-white/88">
+                        <Icon size={18} />
+                      </div>
+                      <p className="mt-4 text-base font-medium tracking-[-0.03em] text-white">
+                        {pillar.title}
+                      </p>
+                      <p className="mt-2 text-sm leading-6 text-white/70">{pillar.detail}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             {/* EXPOSURE CONTENT - Key Truths */}
-            <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
+            <div className="hidden max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
               <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-400">
                 Ground context
               </p>
@@ -300,7 +403,7 @@ function HeroShowcase({
             </div>
 
             {/* Platform Promise */}
-            <div className="mt-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
+            <div className="hidden rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-400">
                 Platform focus
               </p>
@@ -319,7 +422,7 @@ function HeroShowcase({
               </button>
               <button
                 type="button"
-                onClick={() => onSectionChange("slp")}
+                onClick={() => onSectionChange("history")}
                 className="rounded-full border border-white/15 bg-white/[0.08] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.12]"
               >
                 {copy.secondaryAction}
@@ -578,6 +681,7 @@ export function HomeSection({
       description={copy.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}
+      showHeader={false}
     >
         <div className="grid gap-5">
           <HeroShowcase

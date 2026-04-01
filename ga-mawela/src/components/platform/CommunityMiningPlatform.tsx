@@ -40,6 +40,7 @@ import {
   HomeSection,
   MinesSection,
 } from "@/components/platform/sections/HomeAndMinesSections";
+import { HistoryLineageSection } from "@/components/platform/sections/HistoryLineageSections";
 import {
   ProfilesSection,
   SlpLiveTracker,
@@ -737,6 +738,14 @@ export default function CommunityMiningPlatform() {
             updates={updateRecords}
             stats={homeStats}
             locale={locale}
+          />
+        );
+      case "history":
+        return (
+          <HistoryLineageSection
+            config={section}
+            locale={locale}
+            onSectionChange={handleSectionChange}
           />
         );
       case "mines":
