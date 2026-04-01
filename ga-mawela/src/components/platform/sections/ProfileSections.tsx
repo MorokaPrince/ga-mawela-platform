@@ -135,7 +135,7 @@ export function ProfilesSection({
             <p className="mt-1 text-xs leading-5 text-amber-200/80">
               {locale === "nso" 
                 ? "Bakgwiši ba setšaba ba bodišwa goba gore ba šetše goba ba gapeletšwe. Sepedi se se bone goba goba se se sego se tshwanele. Ikemišetše goba goba goba le ka gare ga ga-Mawela."
-                : "This section exposes community representatives for transparency. If you see outdated info, incorrect roles, or missing youth representation, document it here. This is YOUR platform and YOUR right to know who represents you."}
+                : "This section helps residents review the current representation picture. If a role is outdated, unclear, or missing youth visibility, record it here so the platform stays accurate."}
             </p>
           </div>
         </div>
@@ -209,7 +209,7 @@ export function SlpLiveTracker({
   return (
     <SectionShell
       eyebrow={config.eyebrow}
-      title={locale === "nso" ? "TLhabollo ya SLP" : "SLP Tracker LIVE"}
+      title={locale === "nso" ? "TLhabollo ya SLP" : "SLP delivery tracker"}
       description={config.description}
       accent={config.accent}
       backgroundImage={config.backgroundImage}

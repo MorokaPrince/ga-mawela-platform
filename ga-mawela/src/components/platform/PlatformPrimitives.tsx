@@ -21,7 +21,7 @@ type StatCardProps = {
 };
 
 type StatusBadgeProps = {
-  status: "Completed" | "In Progress" | "Not Delivered" | "Linked" | "Placeholder";
+  status: "Completed" | "In Progress" | "Not Delivered" | "Linked" | "Monitoring";
 };
 
 type FilterChipProps = {
@@ -78,7 +78,7 @@ export function SectionShell({
       initial={{ opacity: 0, y: 22 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="relative overflow-hidden rounded-[32px] border border-white/10 bg-[var(--gm-panel)] shadow-[0_24px_120px_rgba(7,10,24,0.32)] backdrop-blur-2xl"
+      className="relative overflow-hidden rounded-[30px] border border-white/[0.06] bg-[linear-gradient(180deg,rgba(10,16,33,0.62),rgba(10,16,33,0.48))] shadow-[0_18px_80px_rgba(7,10,24,0.24)] backdrop-blur-2xl"
     >
       <div className="pointer-events-none absolute inset-0">
         <Image
@@ -98,8 +98,8 @@ export function SectionShell({
         <div className="absolute bottom-0 left-10 right-10 h-24 bg-[linear-gradient(180deg,transparent,rgba(255,255,255,0.08))]" />
       </div>
 
-      <div className="relative z-10 p-4 md:p-6 xl:p-7">
-        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+      <div className="relative z-10 p-4 sm:p-5 xl:p-6">
+        <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-3xl">
             <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[var(--gm-muted)]">
               <span
@@ -133,7 +133,7 @@ export function GlassPanel({
 }) {
   return (
     <div
-      className={`rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.1),rgba(255,255,255,0.028))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] ring-1 ring-inset ring-white/[0.03] backdrop-blur-xl md:p-5 ${className}`}
+      className={`rounded-[26px] border border-white/[0.06] bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] backdrop-blur-xl md:p-5 ${className}`}
     >
       {children}
     </div>
@@ -160,7 +160,7 @@ export function StatusBadge({ status }: StatusBadgeProps) {
     "In Progress": "bg-sky-400/15 text-sky-200 ring-sky-400/20",
     "Not Delivered": "bg-rose-400/15 text-rose-200 ring-rose-400/20",
     Linked: "bg-emerald-400/15 text-emerald-200 ring-emerald-400/20",
-    Placeholder: "bg-amber-400/15 text-amber-200 ring-amber-400/20",
+    Monitoring: "bg-amber-400/15 text-amber-200 ring-amber-400/20",
   };
 
   return (

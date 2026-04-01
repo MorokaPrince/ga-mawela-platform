@@ -56,7 +56,7 @@ export function CommunitySection({
                 {copy.coreTitle}
               </h3>
             </div>
-            <StatusBadge status="Placeholder" />
+            <StatusBadge status="Monitoring" />
           </div>
 
           <p className="mt-5 text-sm leading-7 text-[var(--gm-muted)]">

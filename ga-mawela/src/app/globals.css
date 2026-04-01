@@ -357,6 +357,10 @@ video {
   box-shadow: 0 4px 20px rgba(0, 102, 179, 0.6);
 }
 
+.mine-point-glow.valterra {
+  box-shadow: 0 4px 20px rgba(0, 102, 179, 0.6);
+}
+
 /* Tab hover effects */
 .tab-button {
   position: relative;
@@ -529,6 +533,15 @@ video {
 }
 
 .gm-top-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
 

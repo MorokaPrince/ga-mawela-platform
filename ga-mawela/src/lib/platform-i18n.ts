@@ -68,7 +68,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     searchPlaceholder: "Search mines, commitments, opportunities, and documents",
     appTitle: "Mining & Community Intelligence Platform",
     appSubtitle:
-      "A professional landing experience for transparency, land awareness, SLP visibility, and opportunity access around St George 2 JT in Limpopo.",
+      "A community evidence platform for land awareness, SLP visibility, public documents, and opportunity access around St George 2 JT in Limpopo.",
     moduleLabel: "Module",
     filterLabel: "Filter",
     searchLabel: "Search",
@@ -86,7 +86,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     lightMode: "Light mode",
     darkMode: "Dark mode",
     footer:
-      "World-class transparency interface for Ga-Mawela. Frontend now structured for backend integration, document pipelines, participation workflows, and richer data feeds.",
+      "Evidence-led community platform for land, operations, documents, and participation around Ga-Mawela.",
     commentTitle: "Community comments",
     commentPrompt:
       "Residents, members, and youth participants can add grounded observations to keep the accountability view current.",
@@ -102,7 +102,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     chartOverview: "Dashboard signals",
     reportSave: "Submit report",
     reportDescription:
-      "A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records are submitted through the backend when available and fall back locally if needed.",
+      "A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records sync through the backend when available and remain usable locally when not.",
     sections: {
       home: { label: "Home", eyebrow: "Mission control" },
       mines: { label: "Mines & Operations", eyebrow: "Spatial view" },

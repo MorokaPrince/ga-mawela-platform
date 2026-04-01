@@ -206,7 +206,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
       badge: "Immersive landing sequence",
       title: "Ga-Mawela Mining & Community Platform",
       description:
-        "A premium local demo portal for land awareness, SLP tracking, documents, source links, and youth-centered opportunity access.",
+        "A land, mining, and community platform that brings evidence, commitments, source links, and youth-facing access routes into one place.",
       primaryAction: "Explore mines",
       secondaryAction: "Open SLP tracker",
       tertiaryAction: "View evidence",
@@ -220,20 +220,20 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
     mines: {
       title: "Mines & operations in the Ga-Mawela corridor",
       description:
-        "Pins cover ECM mines, Anglo American Platinum assets, regional mines, and the Lion Smelter while St George 2 JT stays separate as land.",
+        "Pins cover ECM mines, Valterra Platinum assets, regional mines, and Lion Smelter while St George 2 JT stays separate as land.",
       selectedLocation: "Selected location",
       company: "Company",
       commodityRole: "Commodity / role",
       communityImpact: "Community impact",
       linkedSlp: "SLP data can be tracked in the dashboard.",
-      placeholderSlp: "SLP slot prepared for future evidence.",
+      placeholderSlp: "Monitoring is open while linked evidence is still being assembled.",
       readingTitle: "Reading the corridor",
       primaryLayer: "Primary layer",
       primaryLayerDetail:
         "Glencore ECM assets anchor the chrome footprint: Thorncliffe, Helena, and Magareng.",
       secondaryLayer: "Secondary layer",
       secondaryLayerDetail:
-        "Anglo American Platinum brings Twickenham, Mototolo, and the Der Brochen project into view.",
+        "Valterra Platinum brings Twickenham, Mototolo, and the Der Brochen project into view.",
       regionalLayer: "Regional layer",
       regionalLayerDetail:
         "Dwarsrivier, Two Rivers, and Lion Smelter extend the story into a wider industrial ecosystem.",
@@ -281,10 +281,10 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
       openGuide: "Open guide",
       checklist: "Application checklist",
       step: "Step",
-      cvPlaceholder: "CV upload placeholder",
+      cvPlaceholder: "Application readiness",
       cvDetail:
-        "This card is ready for local CV-bank or profile intake handoff once the next backend step is enabled.",
-      cvBox: "CV intake module placeholder",
+        "Use this space to keep a current CV, certified documents, and proof of residence ready for official application windows.",
+      cvBox: "Keep CV, ID, qualifications, and proof of residence ready.",
       accessPrinciple: "Access principle",
       accessDetail:
         "Opportunity notices should be easy to find, easy to understand, and visible before deadlines close.",
@@ -318,7 +318,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
         "Risk signals point to where disclosure gaps and delivery uncertainty create the strongest community pressure.",
       currentMaturity: "Current disclosure maturity",
       currentMaturitySummary:
-        "A working score showing that the platform can structure accountability even where records and source trails are still incomplete.",
+        "A working score showing how much of the corridor can already be tracked with visible records, current sources, and grounded community reporting.",
       communityVoices: "Community voice summaries",
       comments: "comments",
       anonymousPlaceholder: "Anonymous is fine",
@@ -328,7 +328,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
     report: {
       title: "Report an issue",
       description:
-        "A neutral intake point for employment, exclusion, procurement, and community concerns with SQL-backed persistence when available.",
+        "A neutral intake point for employment, exclusion, procurement, and community concerns with local capture and backend sync where available.",
       formEyebrow: "Submission form",
       name: "Name (optional)",
       issueType: "Issue type",
@@ -337,7 +337,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
         "Describe the issue, what happened, and what kind of follow-up would help.",
       uploadFile: "Upload file",
       uploadHint:
-        "Attachments are now stored locally for the demo and linked into the backend record when possible.",
+        "Attachments are stored with the local record and linked into the backend record when available.",
       submit: "Submit report",
       standard: "Reporting standard",
       standardOne: "Keep descriptions factual and time-bound.",
@@ -353,7 +353,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
     documents: {
       title: "Document library",
       description:
-        "The library now combines seeded Ga-Mawela references, local uploads, and source links into one backend-connected evidence view.",
+        "The library combines community history, municipal records, company reporting, local uploads, and research links into one evidence view.",
       all: "All",
       emptyTitle: "No documents match this category.",
       emptyDetail: "Switch categories or upload a file into the library.",
@@ -370,7 +370,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
       uploadFile: "File",
       uploadSubmit: "Upload document",
       sourcesEyebrow: "Research sources",
-      sourcesTitle: "Linked sources and current references",
+      sourcesTitle: "Official links and current references",
     },
     representation: {
       title: "Community representation tracker",
@@ -436,7 +436,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
     mines: {
       title: "Meepo le ditshepetso khoridorong ya Ga-Mawela",
       description:
-        "Diphini di bontsha meepo ya ECM, ditiro tsa Anglo American Platinum, meepo ya selete, le Lion Smelter mola St George 2 JT e dule e ikgethile bjalo ka naga.",
+        "Diphini di bontsha meepo ya ECM, ditiro tsa Valterra Platinum, meepo ya selete, le Lion Smelter mola St George 2 JT e dule e ikgethile bjalo ka naga.",
       selectedLocation: "Lefelo le le kgethilwego",
       company: "Khamphani",
       commodityRole: "Setšweletšwa / karolo",
@@ -449,7 +449,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
         "Dithoto tsa Glencore ECM di tiiša motheo wa chrome: Thorncliffe, Helena, le Magareng.",
       secondaryLayer: "Lera la bobedi",
       secondaryLayerDetail:
-        "Anglo American Platinum e tliša Twickenham, Mototolo, le porojeke ya Der Brochen ponong.",
+        "Valterra Platinum e tliša Twickenham, Mototolo, le porojeke ya Der Brochen ponong.",
       regionalLayer: "Lera la selete",
       regionalLayerDetail:
         "Dwarsrivier, Two Rivers, le Lion Smelter di otlolla kanegelo go ya tikologong e kgolo ya intasteri.",

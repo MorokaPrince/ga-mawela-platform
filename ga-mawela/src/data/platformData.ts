@@ -14,7 +14,7 @@ export type SectionId =
 export type CompanyFilter =
   | "All"
   | "Glencore"
-  | "Anglo American Platinum"
+  | "Valterra Platinum"
   | "Regional";
 
 export type SectionConfig = {
@@ -36,7 +36,7 @@ export type MinePoint = {
   corridor: "Ga-Mawela" | "Primary" | "Secondary" | "Regional";
   description: string;
   communityImpact: string;
-  slpStatus: "Linked" | "Placeholder";
+  slpStatus: "Linked" | "Monitoring";
   x: number;
   y: number;
 };
@@ -70,7 +70,7 @@ export type OpportunityCard = {
   category: "Jobs" | "Learnerships" | "Bursaries" | "Supplier Registration";
   title: string;
   owner: string;
-  status: "Open channel" | "Rolling intake" | "Placeholder watch";
+  status: "Active portal" | "Rolling notices" | "Seasonal window";
   summary: string;
   howToApply: string;
   href: string;
@@ -114,7 +114,12 @@ export type ResearchSource = {
   id: string;
   title: string;
   publisher: string;
-  category: "Community history" | "Academic research" | "Government planning" | "Community advocacy";
+  category:
+    | "Community history"
+    | "Academic research"
+    | "Government planning"
+    | "Community advocacy"
+    | "Company reporting";
   date: string;
   href: string;
   summary: string;
@@ -185,7 +190,7 @@ export const sectionConfigs: SectionConfig[] = [
     label: "Mines & Operations",
     eyebrow: "Spatial view",
     description:
-      "Track the corridor: ECM assets, Anglo American Platinum operations, regional mines, and the land parcel at the center.",
+      "Track the corridor: ECM assets, Valterra Platinum operations, regional mines, and the land parcel at the center.",
     accent: "#0f766e",
     backgroundImage: "/platform/media/conveyor-road.png",
   },
@@ -393,7 +398,7 @@ export const quickStats = [
   {
     label: "Tracked commitments",
     value: "12",
-    note: "SLP items structured for backend-ready status monitoring.",
+    note: "SLP items structured for clear status monitoring.",
   },
   {
     label: "Opportunity channels",
@@ -409,26 +414,26 @@ export const quickStats = [
 
 export const updates = [
   {
-    title: "St George 2 JT context clarified",
+    title: "Valterra naming refreshed across the corridor",
     detail:
-      "The platform now visually separates the land parcel from operating mines and regional processing assets.",
+      "Twickenham, Mototolo, and Der Brochen now carry the current Valterra Platinum identity used in the company's 2025 and 2026 reporting.",
   },
   {
-    title: "SLP monitoring structure prepared",
+    title: "Lion Smelter returned to production",
     detail:
-      "Status logic is in place for commitments even where source documents remain pending or partial.",
+      "Glencore reported first ferrochrome production at Lion Smelter on 16 February 2026 after the recommissioning programme in Steelpoort.",
   },
   {
-    title: "Youth access elevated",
+    title: "Current municipal planning references linked",
     detail:
-      "Opportunity and representation modules foreground the youth participation gap without drifting into accusation.",
+      "The evidence layer now points residents to current Fetakgomo Tubatse planning and tariff material so local roads, services, and access debates can be read against official records.",
   },
 ];
 
 export const companyFilters: CompanyFilter[] = [
   "All",
   "Glencore",
-  "Anglo American Platinum",
+  "Valterra Platinum",
   "Regional",
 ];
 
@@ -445,7 +450,7 @@ export const minePoints: MinePoint[] = [
       "St George 2 JT is a land parcel within the broader mining corridor. It should not be presented as a mine.",
     communityImpact:
       "This parcel anchors land, governance, restitution, and representation questions affecting nearby households and youth.",
-    slpStatus: "Placeholder",
+    slpStatus: "Monitoring",
     x: 24,
     y: 52,
   },
@@ -500,8 +505,8 @@ export const minePoints: MinePoint[] = [
   {
     id: "twickenham",
     name: "Twickenham Mine",
-    company: "Anglo American Platinum",
-    companyFilter: "Anglo American Platinum",
+    company: "Valterra Platinum",
+    companyFilter: "Valterra Platinum",
     commodity: "Platinum",
     type: "mine",
     corridor: "Secondary",
@@ -516,8 +521,8 @@ export const minePoints: MinePoint[] = [
   {
     id: "mototolo",
     name: "Mototolo Mine",
-    company: "Anglo American Platinum",
-    companyFilter: "Anglo American Platinum",
+    company: "Valterra Platinum",
+    companyFilter: "Valterra Platinum",
     commodity: "Platinum",
     type: "mine",
     corridor: "Secondary",
@@ -532,8 +537,8 @@ export const minePoints: MinePoint[] = [
   {
     id: "der-brochen",
     name: "Der Brochen Project",
-    company: "Anglo American Platinum",
-    companyFilter: "Anglo American Platinum",
+    company: "Valterra Platinum",
+    companyFilter: "Valterra Platinum",
     commodity: "Platinum",
     type: "project",
     corridor: "Secondary",
@@ -541,7 +546,7 @@ export const minePoints: MinePoint[] = [
       "A project-stage development that still shapes expectations around future land use, jobs, and infrastructure commitments.",
     communityImpact:
       "Projects create anticipation and uncertainty, especially where youth seek clarity about timelines and access pathways.",
-    slpStatus: "Placeholder",
+    slpStatus: "Monitoring",
     x: 81,
     y: 55,
   },
@@ -557,7 +562,7 @@ export const minePoints: MinePoint[] = [
       "A regional chrome node that helps show the corridor beyond the two major company clusters.",
     communityImpact:
       "Useful for comparing how information, jobs, and road impacts are felt across a larger mining geography.",
-    slpStatus: "Placeholder",
+    slpStatus: "Monitoring",
     x: 30,
     y: 72,
   },
@@ -573,7 +578,7 @@ export const minePoints: MinePoint[] = [
       "A regional platinum operation and a useful spatial reference in the Steelpoort corridor.",
     communityImpact:
       "Visible access roads and plant infrastructure make Two Rivers a strong anchor for explaining the corridor to visitors.",
-    slpStatus: "Placeholder",
+    slpStatus: "Monitoring",
     x: 67,
     y: 73,
   },
@@ -589,7 +594,7 @@ export const minePoints: MinePoint[] = [
       "A processing hub that extends the story beyond extraction and into downstream industrial activity.",
     communityImpact:
       "Processing assets reinforce questions about value capture, environmental burden, and who benefits along the chain.",
-    slpStatus: "Placeholder",
+    slpStatus: "Monitoring",
     x: 87,
     y: 28,
   },
@@ -640,7 +645,7 @@ export const slpCommitments: SlpCommitment[] = [
     type: "Schools",
     status: "Completed",
     year: "2024",
-    notes: "Education-linked support is recorded as completed in the current placeholder register.",
+    notes: "Education-linked support is marked complete in the current monitoring register.",
     detail:
       "This item remains open for document verification and can later connect to scanned evidence in the document library.",
   },
@@ -672,7 +677,7 @@ export const slpCommitments: SlpCommitment[] = [
     id: "twickenham-schools",
     mineId: "twickenham",
     mineName: "Twickenham Mine",
-    company: "Anglo American Platinum",
+    company: "Valterra Platinum",
     type: "Schools",
     status: "In Progress",
     year: "2025",
@@ -684,7 +689,7 @@ export const slpCommitments: SlpCommitment[] = [
     id: "twickenham-training",
     mineId: "twickenham",
     mineName: "Twickenham Mine",
-    company: "Anglo American Platinum",
+    company: "Valterra Platinum",
     type: "Training",
     status: "In Progress",
     year: "2025",
@@ -696,11 +701,11 @@ export const slpCommitments: SlpCommitment[] = [
     id: "mototolo-jobs",
     mineId: "mototolo",
     mineName: "Mototolo Mine",
-    company: "Anglo American Platinum",
+    company: "Valterra Platinum",
     type: "Jobs",
     status: "Completed",
     year: "2024",
-    notes: "Recorded as completed in the current placeholder monitor.",
+    notes: "Recorded as completed in the current monitoring view.",
     detail:
       "This can later split into permanent roles, short-term roles, and contractor-linked access once evidence is available.",
   },
@@ -708,7 +713,7 @@ export const slpCommitments: SlpCommitment[] = [
     id: "mototolo-roads",
     mineId: "mototolo",
     mineName: "Mototolo Mine",
-    company: "Anglo American Platinum",
+    company: "Valterra Platinum",
     type: "Roads",
     status: "Not Delivered",
     year: "2025",
@@ -720,7 +725,7 @@ export const slpCommitments: SlpCommitment[] = [
     id: "derbrochen-training",
     mineId: "der-brochen",
     mineName: "Der Brochen Project",
-    company: "Anglo American Platinum",
+    company: "Valterra Platinum",
     type: "Training",
     status: "In Progress",
     year: "Pipeline",
@@ -738,7 +743,7 @@ export const slpCommitments: SlpCommitment[] = [
     year: "2025",
     notes: "Regional opportunities matter because corridor communities compare access across operators.",
     detail:
-      "This placeholder row helps benchmark whether similar opportunity pipelines are easier to understand elsewhere in the region.",
+      "This regional row helps benchmark whether similar opportunity pipelines are easier to understand elsewhere in the region.",
   },
 ];
 
@@ -806,50 +811,50 @@ export const opportunities: OpportunityCard[] = [
   {
     id: "jobs-watch",
     category: "Jobs",
-    title: "Mining corridor jobs watch",
-    owner: "Company career portals and local notice channels",
-    status: "Rolling intake",
+    title: "Glencore ECM vacancies",
+    owner: "Glencore careers portal",
+    status: "Rolling notices",
     summary:
-      "Monitor mining companies and contractors for local openings, artisan roles, administration, security, and entry-level posts.",
+      "Use the official Glencore careers portal for current Eastern Chrome Mines vacancies, including Steelpoort and Thorncliffe-linked roles.",
     howToApply:
-      "Prepare a current CV, ID copy, proof of residence where requested, and track official recruitment pages rather than informal intermediaries.",
-    href: "#jobs-watch",
+      "Keep a current CV, ID, qualifications, and proof of residence ready, then apply only through the official recruitment portal.",
+    href: "https://www.glencore.com/careers/career-opportunities",
   },
   {
     id: "learnership-watch",
     category: "Learnerships",
-    title: "Technical learnership pipeline",
-    owner: "Mining operators and training partners",
-    status: "Open channel",
+    title: "Technical trainee and artisan routes",
+    owner: "Valterra Platinum careers",
+    status: "Seasonal window",
     summary:
-      "Use this module to publish learnerships tied to engineering, plant operations, safety, and business administration.",
+      "Valterra Platinum's careers pages remain the best official route for trainee, artisan-aid, and early-career intake around Mototolo, Twickenham, and Der Brochen.",
     howToApply:
-      "Check qualification requirements early, gather certified documents, and watch for short application windows.",
-    href: "#learnership-watch",
+      "Check qualification requirements early, gather certified copies, and monitor official openings because intake windows are often short.",
+    href: "https://www.valterraplatinum.com/careers",
   },
   {
     id: "bursary-watch",
     category: "Bursaries",
-    title: "Bursary and study funding tracker",
-    owner: "Corporate social investment and education partners",
-    status: "Placeholder watch",
+    title: "Glencore bursary opportunities",
+    owner: "Glencore South Africa bursary notices",
+    status: "Seasonal window",
     summary:
-      "A structured space for tertiary bursaries, TVET support, and bridging programs focused on youth progression.",
+      "Official bursary notices remain one of the clearest routes into mining, engineering, and business-support studies linked to the corridor economy.",
     howToApply:
-      "Upload academic results, a motivation letter, and community-linked proof where required, then track announced closing dates.",
-    href: "#bursary-watch",
+      "Prepare academic results, a motivation letter, certified documents, and watch official closing dates closely before submitting.",
+    href: "https://www.glencore.com/south-africa/news/Glencore-Coal-SA-Bursary-Programme-2026",
   },
   {
     id: "supplier-watch",
     category: "Supplier Registration",
-    title: "Supplier registration access point",
-    owner: "Procurement portals and vendor onboarding teams",
-    status: "Open channel",
+    title: "Supplier registration and compliance",
+    owner: "National Treasury CSD",
+    status: "Active portal",
     summary:
-      "A practical route for local businesses to understand onboarding requirements and bid-readiness basics.",
+      "The Central Supplier Database is still the baseline registration route for public procurement and is commonly needed before broader vendor onboarding work.",
     howToApply:
-      "Prepare CIPC, tax, banking, B-BBEE, safety, and capability documents before registration windows open.",
-    href: "#supplier-watch",
+      "Prepare CIPC, tax, banking, B-BBEE, safety, and capability documents before opening or updating the supplier profile.",
+    href: "https://secure.csd.gov.za/Account/Register",
   },
 ];
 
@@ -863,7 +868,7 @@ export const transparencySignals: TransparencySignal[] = [
   {
     title: "Commitments with visible delivery evidence",
     value: 42,
-    summary: "Current placeholder estimate showing how much can already be surfaced in a structured way.",
+    summary: "Working estimate showing how much delivery evidence can already be surfaced in a structured way.",
   },
   {
     title: "Commitments needing stronger disclosure",
@@ -995,41 +1000,51 @@ export const baseDocuments: LibraryDocument[] = [
     href: "https://www.sahistory.org.za/sites/default/files/History%20of%20the%20Gamawela%20Community.pdf",
   },
   {
-    id: "doc-present-struggle",
-    title: "History of the Present Struggle",
-    category: "PAIA Requests",
+    id: "doc-ftlm-idp",
+    title: "FTLM Tariffs 2025/2026",
+    category: "SLP Documents",
     description:
-      "Community advocacy material describing the Ga Mawela land claim process, the St George farm claim, and development pressures in Sekhukhune.",
-    date: "2001-05-01",
-    source: "Mines and Communities",
-    href: "https://www.minesandcommunities.org/article.php?a=4044",
+      "Current municipal tariff material that helps residents read service costs, infrastructure pressure, and the broader local planning environment around the corridor.",
+    date: "2025/2026",
+    source: "Fetakgomo Tubatse Local Municipality",
+    href: "https://www.ftlm.gov.za/?q=ts_25_26",
+  },
+  {
+    id: "doc-valterra-integrated-report",
+    title: "Valterra Platinum integrated reporting suite 2025",
+    category: "Mining Records",
+    description:
+      "Current company reporting used to read the operator's structure, sustainability framing, and the latest public operating context around Mototolo and Der Brochen.",
+    date: "2025",
+    source: "Valterra Platinum",
+    href: "https://www.valterraplatinum.com/investors/annual-reporting",
+  },
+  {
+    id: "doc-lion-smelter-update",
+    title: "Lion Smelter recommissioning update",
+    category: "Mining Records",
+    description:
+      "Glencore's February 2026 statement confirming first ferrochrome production at Lion Smelter after recommissioning.",
+    date: "2026-02-17",
+    source: "Glencore South Africa",
+    href: "https://www.glencore.com/south-africa/news/Glencore-Statement-Regarding-The-Recommissioning-Of-Lion-Smelters-And-Ferroalloys-Industry-In-South-Africa",
   },
   {
     id: "doc-trapped-promised-land",
     title: "The Trapped 'Promised Land'",
-    category: "SLP Documents",
+    category: "Community Letters",
     description:
-      "Recent academic analysis of the Ga Mawela community land claim and the social pressures around restitution and governance in Limpopo.",
+      "Recent academic analysis of the Ga Mawela land claim and the governance pressures surrounding restitution and representation.",
     date: "2025-08-22",
     source: "Noyam Journals",
     href: "https://noyam.org/ehass20256913/",
-  },
-  {
-    id: "doc-ftlm-idp",
-    title: "Fetakgomo Tubatse Local Municipality IDP & Budget Executive Summary",
-    category: "SLP Documents",
-    description:
-      "Municipal planning context used to read roads, service delivery, settlements, and the wider mining corridor conditions affecting Ga Mawela.",
-    date: "2022-06-21",
-    source: "Fetakgomo Tubatse Local Municipality",
-    href: "https://www.ftlm.gov.za/sstaff/pages/sites/fgtm/documents/idp/FTLM%202022-23%20IDP%26%20BUDGET%20EXECUTIVE%20SUMMARY220621.pdf",
   },
   {
     id: "doc-local-brief",
     title: "Ga-Mawela supporting development brief",
     category: "Community Letters",
     description:
-      "The local project brief already included in the repository for community-facing reference during demos and local reviews.",
+      "A local working brief kept in the platform archive for community-facing reference alongside the public source material.",
     date: "2025-12-06",
     source: "Platform archive",
     href: "/Images/Mining/May%20Rakgama%20S%20Dev.pdf",
@@ -1048,26 +1063,6 @@ export const researchSources: ResearchSource[] = [
       "Best single public historical source for the farm St George 2 JT, settlement history, lineage, and regional mineral context.",
   },
   {
-    id: "source-mac-struggle",
-    title: "History of the Present Struggle",
-    publisher: "Mines and Communities",
-    category: "Community advocacy",
-    date: "2001-05-01",
-    href: "https://www.minesandcommunities.org/article.php?a=4044",
-    summary:
-      "Primary community advocacy text on the land claim, development pressures, and the legal path around Ga Mawela's claim to St George.",
-  },
-  {
-    id: "source-mac-overview",
-    title: "Ga Mawela Community archive page",
-    publisher: "Mines and Communities",
-    category: "Community advocacy",
-    date: "Archive page",
-    href: "https://www.minesandcommunities.org/article.php?a=122",
-    summary:
-      "Useful archive entry point for older Ga Mawela material and connected advocacy reporting around the community.",
-  },
-  {
     id: "source-noyam",
     title: "The Trapped 'Promised Land': An Interrogation of the Ga Mawela Community Land Claim, Polokwane, Limpopo",
     publisher: "Noyam Journals",
@@ -1078,14 +1073,34 @@ export const researchSources: ResearchSource[] = [
       "Recent peer-reviewed analysis that gives the portal a current research reference instead of relying only on older advocacy and archive materials.",
   },
   {
-    id: "source-ftlm-idp",
-    title: "FTLM 2022-23 IDP & Budget Executive Summary",
+    id: "source-ftlm-tariffs",
+    title: "FTLM tariffs 2025/2026",
     publisher: "Fetakgomo Tubatse Local Municipality",
     category: "Government planning",
-    date: "2022-06-21",
-    href: "https://www.ftlm.gov.za/sstaff/pages/sites/fgtm/documents/idp/FTLM%202022-23%20IDP%26%20BUDGET%20EXECUTIVE%20SUMMARY220621.pdf",
+    date: "2025/2026",
+    href: "https://www.ftlm.gov.za/?q=ts_25_26",
     summary:
-      "Government planning context that helps interpret local roads, services, and development pressure across the wider corridor.",
+      "Current municipal material that helps interpret services, infrastructure pressure, and the local operating environment around Ga-Mawela.",
+  },
+  {
+    id: "source-valterra-reporting",
+    title: "Valterra Platinum annual reporting",
+    publisher: "Valterra Platinum",
+    category: "Company reporting",
+    date: "2025",
+    href: "https://www.valterraplatinum.com/investors/annual-reporting",
+    summary:
+      "Current corporate reporting used to keep operator naming, structure, and public disclosures aligned with the latest standalone company material.",
+  },
+  {
+    id: "source-glencore-lion",
+    title: "Lion Smelter recommissioning statement",
+    publisher: "Glencore South Africa",
+    category: "Company reporting",
+    date: "2026-02-17",
+    href: "https://www.glencore.com/south-africa/news/Glencore-Statement-Regarding-The-Recommissioning-Of-Lion-Smelters-And-Ferroalloys-Industry-In-South-Africa",
+    summary:
+      "Useful current source for the Steelpoort processing context and Glencore's latest public update on Lion Smelter activity.",
   },
 ];
 

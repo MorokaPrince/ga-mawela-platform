@@ -23,8 +23,6 @@ import {
   heroMediaFrames,
   landingVisualCards,
   operationalVisualCards,
-  quickStats,
-  updates,
 } from "@/data/platformData";
 import type { PlatformLocale } from "@/lib/platform-i18n";
 import { platformUiCopy } from "@/lib/platform-ui-copy";
@@ -45,7 +43,7 @@ function getTypeTone(type: MinePoint["type"]) {
 function getMineColor(point: MinePoint): string {
   if (point.type === "land parcel") return "#f59e0b";
   if (point.companyFilter === "Glencore") return "#078037";
-  if (point.companyFilter === "Anglo American Platinum") return "#0066b3";
+  if (point.companyFilter === "Valterra Platinum") return "#0066b3";
   return "#6b7280";
 }
 
@@ -73,7 +71,7 @@ function resolveMineVisual(point: MinePoint): VisualCard {
     return operationalVisualCards[0];
   }
 
-  if (point.companyFilter === "Anglo American Platinum") {
+  if (point.companyFilter === "Valterra Platinum") {
     return operationalVisualCards[2];
   }
 
@@ -277,12 +275,12 @@ function HeroShowcase({
 
             {/* EXPOSURE CONTENT - Key Truths */}
             <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-amber-400 font-semibold">
-                THE REAL FOUNDATION
+              <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-400">
+                Ground context
               </p>
               <div className="mt-3 space-y-3">
                 <p className="text-lg font-semibold tracking-[-0.04em] text-white md:text-xl">
-                  St George 2 JT = LAND, NOT a mine
+                  St George 2 JT is land, not a mine.
                 </p>
                 <p className="text-sm leading-6 text-white/72">
                   Located in Sekhukhune District along Dwars River / Steelpoort mining belt. This area sits on one of the richest mineral zones globally — the Bushveld Complex. The land itself is extremely valuable due to platinum + chrome deposits.
@@ -303,11 +301,11 @@ function HeroShowcase({
 
             {/* Platform Promise */}
             <div className="mt-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
-              <p className="text-xs font-medium text-emerald-400">
-                THIS PLATFORM = FIRST REAL TRANSPARENCY SYSTEM FOR GA-MAWELA
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-emerald-400">
+                Platform focus
               </p>
               <p className="mt-2 text-xs leading-5 text-emerald-200/80">
-                Track SLP commitments - Monitor delivery - Report issues - Document representation - Access documents - Expose truth
+                Follow commitments, surface public evidence, track participation, and keep documents, representation, and opportunities in one view.
               </p>
             </div>
 
@@ -425,8 +423,8 @@ function CorridorMap({
           <span className="rounded-md bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-amber-400 border border-amber-500/30">
             Sekhukhune District
           </span>
-          <span className="rounded-md bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-blue-400 border border-blue-500/30">
-            Dwars River Belt
+          <span className="rounded-md border border-blue-500/30 bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-blue-400">
+            Dwars River belt
           </span>
         </div>
         
@@ -488,7 +486,7 @@ function CorridorMap({
             <span className="h-2 w-2 rounded-full bg-green-500" /> Glencore
           </span>
           <span className="flex items-center gap-1 rounded bg-slate-950/70 px-2 py-1 text-blue-400">
-            <span className="h-2 w-2 rounded-full bg-blue-600" /> Amplats
+            <span className="h-2 w-2 rounded-full bg-blue-600" /> Valterra
           </span>
         </div>
 
@@ -512,7 +510,7 @@ function CorridorMap({
                 } mine-point-glow ${
                   point.type === "land parcel" ? "land-parcel" : 
                   point.companyFilter === "Glencore" ? "glencore" :
-                  point.companyFilter === "Anglo American Platinum" ? "amplats" : ""
+                  point.companyFilter === "Valterra Platinum" ? "valterra" : ""
                 }`}
                 style={{ 
                   backgroundColor: mineColor,
@@ -526,8 +524,8 @@ function CorridorMap({
                     <span className="text-white text-lg font-bold">L</span>
                   ) : point.companyFilter === "Glencore" ? (
                     <span className="text-white text-xs font-bold">G</span>
-                  ) : point.companyFilter === "Anglo American Platinum" ? (
-                    <span className="text-white text-xs font-bold">A</span>
+                  ) : point.companyFilter === "Valterra Platinum" ? (
+                    <span className="text-white text-xs font-bold">V</span>
                   ) : (
                     <span className="text-white text-xs font-bold">R</span>
                   )}
@@ -558,6 +556,8 @@ export function HomeSection({
   selectedMine,
   onSelectMine,
   onSectionChange,
+  updates,
+  stats,
   locale,
 }: {
   config: SectionConfig;
@@ -565,6 +565,8 @@ export function HomeSection({
   selectedMine: MinePoint;
   onSelectMine: (id: string) => void;
   onSectionChange: (id: SectionId) => void;
+  updates: Array<{ title: string; detail: string }>;
+  stats: Array<{ label: string; value: string; note: string }>;
   locale: PlatformLocale;
 }) {
   const copy = platformUiCopy[locale].home;
@@ -632,7 +634,7 @@ export function HomeSection({
                 {updates.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-[22px] border border-white/10 bg-white/[0.06] p-4"
+                    className="rounded-[22px] border border-white/[0.08] bg-white/[0.05] p-4"
                   >
                     <p className="text-base font-medium text-[var(--gm-foreground)]">
                       {item.title}
@@ -652,7 +654,7 @@ export function HomeSection({
         <LandingFilmstrip cards={landingVisualCards} locale={locale} />
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {quickStats.map((stat) => (
+          {stats.map((stat) => (
             <StatCard
               key={stat.label}
               label={stat.label}
