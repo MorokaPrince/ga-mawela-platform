@@ -110,6 +110,12 @@ type PlatformSystemSnapshot = {
   updates: number;
 };
 
+type HomeStat = {
+  label: string;
+  value: string;
+  note: string;
+};
+
 function readStoredValue<T>(key: string, fallback: T): T {
   if (typeof window === "undefined") {
     return fallback;
@@ -161,7 +167,7 @@ function IntroOverlay() {
             Restoring Land. Rebuilding Unity. Empowering Ga-Mawela.
           </h1>
           <p className="mt-4 text-base leading-8 text-white/70">
-            The first real transparency system for Ga-Mawela. Track SLP commitments, monitor delivery, and enforce accountability.
+            A dedicated transparency platform for Ga-Mawela. Track corridor activity, follow SLP commitments, and keep evidence in one place.
           </p>
           <div className="mx-auto mt-8 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-white/10">
             <motion.div
@@ -467,6 +473,40 @@ export default function CommunityMiningPlatform() {
     localizedSectionConfigs[0];
 
   const latestUpdates = updateRecords.map((item) => item.detail);
+  const homeStats: HomeStat[] = [
+    {
+      label: locale === "nso" ? "Dinode tse di mapilwego" : "Mapped corridor nodes",
+      value: `${mineRecords.length}`,
+      note:
+        locale === "nso"
+          ? "Naga, meepo, diporojeke le dihub di bewa lefelong le tee."
+          : "Land parcels, mines, projects, and shared industrial hubs are kept in one spatial view.",
+    },
+    {
+      label: locale === "nso" ? "Boitlamo bjo bo latelwago" : "Tracked commitments",
+      value: `${commitmentRecords.length}`,
+      note:
+        locale === "nso"
+          ? "Mesomo, ditsela, dikolo le tlwaetso di bewa leihlo ka sesupo sa maemo."
+          : "Jobs, roads, schools, and training commitments now sit in one delivery view.",
+    },
+    {
+      label: locale === "nso" ? "Dikanale tsa semmuso" : "Official access channels",
+      value: `${opportunityRecords.length}`,
+      note:
+        locale === "nso"
+          ? "Menyetla e supa diphihlelelo tsa semmuso tsa mesomo, dithuto le bareki."
+          : "Opportunity cards point to official jobs, training, funding, and supplier routes.",
+    },
+    {
+      label: locale === "nso" ? "Bohlatse le methopo" : "Evidence and sources",
+      value: `${uploadedDocuments.length + sourceRecords.length}`,
+      note:
+        locale === "nso"
+          ? "Ditokomane tsa laeborari le methopo ya nyakisisso di kopantswe."
+          : "Library documents and research references are combined into one evidence layer.",
+    },
+  ];
 
   const handleSectionChange = (id: SectionId) => {
     setActiveSection(id);
@@ -694,6 +734,8 @@ export default function CommunityMiningPlatform() {
             selectedMine={selectedMine}
             onSelectMine={setSelectedMineId}
             onSectionChange={handleSectionChange}
+            updates={updateRecords}
+            stats={homeStats}
             locale={locale}
           />
         );
@@ -852,137 +894,123 @@ export default function CommunityMiningPlatform() {
 
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
-            <header className="sticky top-0 z-40">
-              {/* Top Navigation Bar - Government PaaS Style */}
-              <div className="border-b border-white/[0.06] bg-[var(--gm-panel-header)] backdrop-blur-xl">
-                <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 py-2.5 sm:py-3">
-                  <div className="flex items-center justify-between gap-4 sm:gap-6">
-                    {/* Logo & Brand - Left */}
-                    <Link href="/" className="flex items-center gap-3 sm:gap-4 group flex-shrink-0">
-                      <div className="relative w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 overflow-hidden rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 shadow-lg">
-                        <video 
-                          src="/Images/Gallery/Ga Mawela Logo.mp4"
-                          autoPlay 
-                          muted 
-                          loop 
-                          playsInline
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <div className="hidden sm:block">
-                        <h1 className="text-base sm:text-lg md:text-xl font-bold text-[var(--gm-foreground)] tracking-tight leading-none">Ga-Mawela</h1>
-                        <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] tracking-wider uppercase mt-1 flex items-center gap-1.5">
-                          <Shield size={10} className="opacity-60" />
-                          {copy.appTitle}
-                        </p>
-                      </div>
-                    </Link>
-
-                    {/* Desktop Navigation - Show on large tablets and up */}
-                    <nav className="hidden lg:flex items-center gap-0.5">
-                      {localizedSectionConfigs.map((section) => (
-                        <button
-                          key={section.id}
-                          type="button"
-                          onClick={() => handleSectionChange(section.id)}
-                          className={`relative px-4 py-2.5 text-xs font-medium transition-all duration-300 rounded-lg ${
-                            activeSection === section.id
-                              ? "text-white bg-white/[0.08] section-nav-accent"
-                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.04]"
-                          }`}
-                          style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
-                        >
-                          {section.label}
-                          {activeSection === section.id && (
-                            <motion.div 
-                              layoutId="navIndicator"
-                              className="absolute bottom-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
-                              style={{ '--section-accent': section.accent } as React.CSSProperties}
-                              transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                            />
-                          )}
-                        </button>
-                      ))}
-                    </nav>
-
-                    {/* Right Controls */}
-                    <div className="flex items-center gap-2 sm:gap-3">
-                      {/* Desktop Search Bar - Compact on smaller screens */}
-                      <div className="hidden md:flex items-center">
-                        <div className="relative">
-                          <Search size={12} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                          <input
-                            id="main-search-desktop"
-                            value={searchQuery}
-                            onChange={(event) => setSearchQuery(event.target.value)}
-                            className="gm-input h-8 w-24 lg:w-48 pl-8 pr-3 text-xs rounded-lg"
-                            placeholder="Search..."
-                          />
-                        </div>
-                      </div>
-
-                      {/* Language Toggle */}
-                      <label className="relative flex items-center">
-                        <Languages size={11} className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                        <select
-                          value={locale}
-                          onChange={(event) => setLocale(event.target.value as PlatformLocale)}
-                          className="h-8 pl-8 pr-5 rounded-lg border border-white/10 bg-white/[0.04] text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08] cursor-pointer appearance-none"
-                          aria-label={copy.languageLabel}
-                        >
-                          <option value="en">EN</option>
-                          <option value="nso">NSO</option>
-                        </select>
-                        <ChevronDown size={10} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                      </label>
-
-                      {/* Theme Toggle */}
-                      <button
-                        type="button"
-                        onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                        title={theme === "dark" ? copy.lightMode : copy.darkMode}
-                      >
-                        {theme === "dark" ? <SunMedium size={14} /> : <MoonStar size={14} />}
-                      </button>
-
-                      {/* Mobile Menu Button */}
-                      <button
-                        type="button"
-                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-white/[0.04] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                      >
-                        {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}
-                      </button>
-
-                      {/* User Actions */}
-                      {viewer ? (
-                        <div className="hidden sm:flex items-center gap-1.5">
-                          <Link
-                            href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
-                            className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                          >
-                            <LayoutDashboard size={12} />
-                            <span className="hidden md:inline">{copy.dashboard}</span>
-                          </Link>
-                          <button
-                            type="button"
-                            onClick={() => void handleLogout()}
-                            className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                          >
-                            {copy.signOut}
-                          </button>
-                        </div>
-                      ) : (
-                        <Link
-                          href="/login"
-                          className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.04] px-2.5 text-xs text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
-                        >
-                          <Users size={12} />
-                          <span className="hidden sm:inline">{copy.signIn}</span>
-                        </Link>
-                      )}
+            <header className="sticky top-0 z-40 overflow-hidden rounded-[30px] border border-white/[0.06] bg-[var(--gm-panel-header)]/90 shadow-[0_18px_48px_rgba(4,7,18,0.28)] backdrop-blur-2xl">
+              <div className="mx-auto max-w-[1600px] px-3 sm:px-4 lg:px-6">
+                <div className="flex flex-wrap items-center justify-between gap-3 py-3 sm:py-4">
+                  <Link href="/" className="group flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-lg sm:h-14 sm:w-14">
+                      <video
+                        src="/Images/Gallery/Ga Mawela Logo.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="h-full w-full object-cover"
+                      />
                     </div>
+                    <div className="min-w-0">
+                      <h1 className="truncate text-sm font-bold tracking-tight text-[var(--gm-foreground)] sm:text-lg md:text-xl">
+                        Ga-Mawela
+                      </h1>
+                      <p className="mt-1 hidden items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--gm-subtle)] sm:flex">
+                        <Shield size={10} className="opacity-60" />
+                        <span className="truncate">{copy.appTitle}</span>
+                      </p>
+                    </div>
+                  </Link>
+
+                  <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-2.5">
+                    <label className="relative flex h-9 items-center">
+                      <Languages
+                        size={12}
+                        className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
+                      />
+                      <select
+                        value={locale}
+                        onChange={(event) => setLocale(event.target.value as PlatformLocale)}
+                        className="h-9 w-[76px] rounded-xl border border-white/10 bg-white/[0.05] pl-8 pr-6 text-[11px] font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:w-[82px] sm:text-xs"
+                        aria-label={copy.languageLabel}
+                      >
+                        <option value="en">EN</option>
+                        <option value="nso">NSO</option>
+                      </select>
+                      <ChevronDown
+                        size={10}
+                        className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
+                      />
+                    </label>
+
+                    <button
+                      type="button"
+                      onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                      title={theme === "dark" ? copy.lightMode : copy.darkMode}
+                    >
+                      {theme === "dark" ? <SunMedium size={14} /> : <MoonStar size={14} />}
+                    </button>
+
+                    {viewer ? (
+                      <div className="flex items-center gap-2">
+                        <Link
+                          href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
+                          className="flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        >
+                          <LayoutDashboard size={13} />
+                          <span className="hidden lg:inline">{copy.dashboard}</span>
+                        </Link>
+                        <button
+                          type="button"
+                          onClick={() => void handleLogout()}
+                          className="hidden h-9 items-center rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:flex"
+                        >
+                          {copy.signOut}
+                        </button>
+                      </div>
+                    ) : (
+                      <Link
+                        href="/login"
+                        className="flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                      >
+                        <Users size={13} />
+                        <span className="hidden sm:inline">{copy.signIn}</span>
+                      </Link>
+                    )}
+
+                    <button
+                      type="button"
+                      onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] md:hidden"
+                    >
+                      {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="hidden border-t border-white/[0.06] py-2.5 md:flex md:items-center md:gap-3">
+                  <nav className="gm-top-tabs flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1">
+                    {localizedSectionConfigs.map((section) => (
+                      <button
+                        key={section.id}
+                        type="button"
+                        onClick={() => handleSectionChange(section.id)}
+                        className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-medium transition sm:px-4 sm:text-xs ${
+                          activeSection === section.id
+                            ? "bg-white/[0.12] text-white section-nav-accent"
+                            : "text-[var(--gm-muted)] hover:bg-white/[0.06] hover:text-[var(--gm-foreground)]"
+                        }`}
+                        style={
+                          activeSection === section.id
+                            ? ({ "--section-accent": section.accent } as React.CSSProperties)
+                            : undefined
+                        }
+                      >
+                        {section.label}
+                      </button>
+                    ))}
+                  </nav>
+                  <div className="hidden items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] text-[var(--gm-subtle)] xl:flex">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
+                    {copy.liveUpdate}
                   </div>
                 </div>
               </div>
@@ -995,7 +1023,7 @@ export default function CommunityMiningPlatform() {
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="lg:hidden border-b border-white/[0.06] bg-[var(--gm-panel)] overflow-hidden"
+                    className="overflow-hidden border-t border-white/[0.06] bg-[var(--gm-panel)] md:hidden"
                   >
                     <div className="mx-auto max-w-[1600px] px-4 py-4">
                       <nav className="flex flex-col gap-1">
@@ -1018,17 +1046,6 @@ export default function CommunityMiningPlatform() {
                           </button>
                         ))}
                       </nav>
-                      {/* Mobile Search */}
-                      <div className="mt-4 relative">
-                        <Search size={14} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
-                        <input
-                          id="main-search-mobile"
-                          value={searchQuery}
-                          onChange={(event) => setSearchQuery(event.target.value)}
-                          className="gm-input h-10 w-full pl-9 text-sm"
-                          placeholder="Search..."
-                        />
-                      </div>
                     </div>
                   </motion.div>
                 )}
@@ -1036,102 +1053,79 @@ export default function CommunityMiningPlatform() {
             </header>
 
             {/* Main Content Area */}
-            <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 sm:px-4 md:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
-              {/* Status Bar - Now below header with tabs info */}
-              <div className="border-b border-white/[0.06] bg-[var(--gm-panel)]/50 backdrop-blur-sm">
-                <div className="mx-auto max-w-[1920px] px-3 sm:px-4 md:px-6 py-2">
-                  <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
-                    {/* Section Tabs */}
-                    <div className="flex items-center gap-1 overflow-x-auto pb-1 scrollbar-hide">
-                      {localizedSectionConfigs.map((section) => (
-                        <button
-                          key={section.id}
-                          type="button"
-                          onClick={() => handleSectionChange(section.id)}
-                          className={`shrink-0 px-3 py-1.5 text-xs font-medium transition-all rounded-md ${
-                            activeSection === section.id
-                              ? "bg-white/[0.12] text-white"
-                              : "text-[var(--gm-muted)] hover:text-[var(--gm-foreground)] hover:bg-white/[0.06]"
-                          }`}
-                          style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
-                        >
-                          {section.label}
-                        </button>
-                      ))}
-                    </div>
-                    
-                    {/* Right side - Theme & Language together */}
-                    <div className="flex items-center gap-2">
-                      <span className="text-[10px] uppercase tracking-[0.15em] text-[var(--gm-subtle)] hidden sm:inline">
-                        {activeConfig.label}
-                      </span>
-                      <div className="h-3 w-px bg-white/10 hidden sm:block" />
-                      
-                      {/* Only show live stats here, controls are in header */}
-                      <div className="flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
-                        <span className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
-                          {copy.liveUpdate}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 py-4 sm:px-4 sm:py-5 md:px-6 lg:px-8">
 
               {/* Quick Status Info */}
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mb-4 sm:mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/08 bg-[var(--gm-panel)] px-4 py-2.5 backdrop-blur-md"
+                className="mb-4 rounded-[24px] border border-white/[0.06] bg-[var(--gm-panel)]/78 p-3 shadow-[0_10px_32px_rgba(5,8,20,0.18)] backdrop-blur-xl sm:mb-6 sm:p-4"
               >
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--gm-subtle)]">{copy.moduleLabel}:</span>
-                    <span className="text-xs font-medium text-[var(--gm-foreground)]">{activeConfig.label}</span>
-                  </div>
-                  <div className="h-4 w-px bg-white/10" />
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--gm-subtle)]">{copy.filterLabel}:</span>
-                    <span className="status-badge info text-[10px]">{companyFilter}</span>
-                  </div>
-                  {systemSnapshot && (
-                    <>
-                      <div className="h-4 w-px bg-white/10 hidden sm:block" />
-                      <div className="hidden sm:flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
-                        <span className="flex items-center gap-1">
-                          <span className="status-badge success">SQL</span>
-                          {systemSnapshot.sql.configured ? systemSnapshot.sql.serverTarget.split('\\').pop() : 'Local'}
+                <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] xl:items-center">
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    <span className="inline-flex rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">
+                      {activeConfig.eyebrow}
+                    </span>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5">
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">{copy.moduleLabel}</span>
+                      <span className="text-xs font-medium text-[var(--gm-foreground)]">{activeConfig.label}</span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5">
+                      <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">{copy.filterLabel}</span>
+                      <span className="text-xs font-medium text-[var(--gm-foreground)]">{companyFilter}</span>
+                    </div>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
+                      {copy.liveUpdate}
+                    </div>
+                    {systemSnapshot ? (
+                      <div className="inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                        <span className="inline-flex items-center gap-1.5">
+                          <span className="status-badge success text-[10px]">SQL</span>
+                          {systemSnapshot.sql.configured
+                            ? systemSnapshot.sql.serverTarget.split("\\").pop()
+                            : "Local"}
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="inline-flex items-center gap-1">
                           <Users size={10} />
                           {systemSnapshot.users}
                         </span>
-                        <span className="flex items-center gap-1">
+                        <span className="inline-flex items-center gap-1">
                           <FileText size={10} />
                           {systemSnapshot.documents}
                         </span>
                       </div>
-                    </>
-                  )}
-                </div>
-                <div className="flex items-center gap-3 text-[10px] text-[var(--gm-subtle)]">
-                  <span className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
-                    {copy.liveUpdate}
-                  </span>
-                  <span className="hidden xs:inline">{copy.searchLabel}: {copy.allRecords}</span>
+                    ) : null}
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                      <BellDot size={10} />
+                      {latestUpdates.length} updates
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <Search
+                      size={14}
+                      className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]"
+                    />
+                    <input
+                      id="main-search"
+                      value={searchQuery}
+                      onChange={(event) => setSearchQuery(event.target.value)}
+                      className="gm-input h-11 rounded-[18px] pl-9 pr-4 text-sm"
+                      placeholder={copy.searchPlaceholder}
+                    />
+                  </div>
                 </div>
               </motion.div>
 
               {/* Live Updates & Quick Actions */}
-              <div className="mb-4 sm:mb-6 grid gap-3 sm:gap-4 md:gap-5 xl:grid-cols-[1fr_auto]">
+              <div className="mb-4 grid gap-3 sm:mb-6 sm:gap-4 md:gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)]">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="rounded-xl sm:rounded-2xl border border-white/10 bg-[linear-gradient(135deg,rgba(255,255,255,0.12),rgba(255,255,255,0.04))] p-4 sm:p-5 backdrop-blur-xl"
+                  className="rounded-[26px] border border-white/[0.06] bg-[linear-gradient(135deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035))] p-4 shadow-[0_12px_36px_rgba(5,8,20,0.16)] backdrop-blur-xl sm:p-5"
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="flex-shrink-0">
@@ -1152,13 +1146,13 @@ export default function CommunityMiningPlatform() {
                   </div>
                 </motion.div>
 
-                <div className="grid gap-2 sm:gap-3 md:gap-4 xs:grid-cols-2 xl:w-[420px] sm:xl:w-[480px]">
+                <div className="grid gap-2 sm:grid-cols-2 sm:gap-3 md:gap-4 xl:grid-cols-1 2xl:grid-cols-2">
                   <motion.button
                     type="button"
                     onClick={() => handleSectionChange("opportunities")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.05] px-4 sm:px-5 py-3 sm:py-4 text-left transition hover:border-white/18 hover:bg-white/[0.08] group"
+                    className="group rounded-[24px] border border-white/[0.06] bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/16 hover:bg-white/[0.08] sm:px-5 sm:py-4"
                   >
                     <div className="flex items-center justify-between">
                       <div>
@@ -1180,7 +1174,7 @@ export default function CommunityMiningPlatform() {
                     onClick={() => handleSectionChange("report")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.05] px-4 sm:px-5 py-3 sm:py-4 text-left transition hover:border-white/18 hover:bg-white/[0.08] group"
+                    className="group rounded-[24px] border border-white/[0.06] bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/16 hover:bg-white/[0.08] sm:px-5 sm:py-4"
                   >
                     <div className="flex items-center justify-between">
                       <div>
