@@ -191,7 +191,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
     home: {
       title: "Ga-Mawela Mining & Community Platform",
       description:
-        "A local full-stack intelligence and transparency system shaped by immersive media, clear hierarchy, and connected backend data for the Ga-Mawela corridor.",
+        "A unified land, lineage, mining-accountability, and opportunity platform for the Ga-Mawela corridor.",
       mapEyebrow: "Interactive map preview",
       mapTitle: "Understand the corridor at a glance",
       openMap: "Open full map",
@@ -204,18 +204,18 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
       floatingEyebrow: "Current corridor focus",
       floatingSignal: "Live corridor signal",
       badge: "Immersive landing sequence",
-      title: "Ga-Mawela Mining & Community Platform",
+      title: "Ga-Mawela Land, Lineage & Mining Accountability",
       description:
-        "A land, mining, and community platform that brings evidence, commitments, source links, and youth-facing access routes into one place.",
+        "One landing thread now holds land history, oral memory, mining exposure, compliance watch, source links, and youth-facing access routes for Ga-Mawela.",
       primaryAction: "Explore mines",
-      secondaryAction: "Open SLP tracker",
+      secondaryAction: "Open history tab",
       tertiaryAction: "View evidence",
-      clarification: "Clarification",
-      clarificationDetail: "St George 2 JT is land, not a mine.",
-      experience: "Experience",
-      experienceDetail: "Editorial portal blended with a live dashboard.",
-      priorities: "Priorities",
-      prioritiesDetail: "Transparency, governance, youth access, and land awareness.",
+      clarification: "Land first",
+      clarificationDetail: "St George 2 JT stays visible as territory, heritage ground, and governance space.",
+      experience: "Digital thread",
+      experienceDetail: "History, documents, SLP tracking, and community reporting now move together.",
+      priorities: "Must-have lens",
+      prioritiesDetail: "Lineage review, mining compliance watch, youth access, and community memory.",
     },
     mines: {
       title: "Mines & operations in the Ga-Mawela corridor",
@@ -405,7 +405,7 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
   },
   nso: {
     home: {
-      title: "Polatifomo ya Meepo le Setshaba ya Ga-Mawela",
+      title: "Naga, Lineage le Boikarabelo bja Meepo ya Ga-Mawela",
       description:
         "Ke sisteme ya lehae ya bohlale le ponagalo e kopanyang media, tatelano ya data, le backend ya sebele bakeng sa khoridoro ya Ga-Mawela.",
       mapEyebrow: "Pono ya mmapa",
@@ -420,17 +420,17 @@ export const platformUiCopy: Record<PlatformLocale, SectionUiCopy> = {
       floatingEyebrow: "Tsepamo ya khoridoro ya bjale",
       floatingSignal: "Sesupo sa khoridoro ka nako ya nnete",
       badge: "Go tsena ga maemo a godimo",
-      title: "Polatifomo ya Meepo le Setshaba ya Ga-Mawela",
+      title: "Naga, Lineage le Boikarabelo bja Meepo ya Ga-Mawela",
       description:
         "Portal ya demo ya lefelong ya temošo ya naga, tatelelo ya SLP, ditokomane, dilinki tsa methopo, le menyetla ya bafsa.",
       primaryAction: "Lekola meepo",
-      secondaryAction: "Bula tracker ya SLP",
+      secondaryAction: "Bula tab ya histori",
       tertiaryAction: "Bona bohlatse",
-      clarification: "Tlhakiso",
+      clarification: "Naga pele",
       clarificationDetail: "St George 2 JT ke naga, e sego moepo.",
-      experience: "Boitemogelo",
+      experience: "Digital thread",
       experienceDetail: "Portal ya bongwadi e kopane le dashboard ya ka nako ya nnete.",
-      priorities: "Dilo tsa bohlokwa",
+      priorities: "Tsepamo ye kgolo",
       prioritiesDetail: "Ponagalo, taolo, phihlelelo ya bafsa, le temošo ya naga.",
     },
     mines: {

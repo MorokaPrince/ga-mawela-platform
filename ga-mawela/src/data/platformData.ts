@@ -1,5 +1,6 @@
 export type SectionId =
   | "home"
+  | "history"
   | "mines"
   | "slp"
   | "community"
@@ -186,6 +187,15 @@ export const sectionConfigs: SectionConfig[] = [
     backgroundImage: "/platform/media/corridor-panorama.png",
   },
   {
+    id: "history",
+    label: "History & Lineage",
+    eyebrow: "Legacy and memory",
+    description:
+      "Bring archival history, oral-lineage memory, cultural sites, and current accountability questions into one readable timeline.",
+    accent: "#b45309",
+    backgroundImage: "/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png",
+  },
+  {
     id: "mines",
     label: "Mines & Operations",
     eyebrow: "Spatial view",
@@ -281,84 +291,84 @@ export const heroMediaFrames: MediaFrame[] = [
   {
     id: "corridor-reel",
     eyebrow: "Live field reel",
-    title: "The corridor feels active, layered, and contested.",
+    title: "The corridor feels lived, layered, and politically important.",
     detail:
-      "Video, road edges, and mountain silhouettes frame the platform as a living territory rather than a static archive.",
+      "Video, roads, mountains, and community edges frame the platform as territory first and dashboard second.",
     image: "/platform/media/hero-gate.png",
     video: "/platform/media/hero-de-brochen.mp4",
     poster: "/platform/media/two-rivers-entry.png",
-    metric: "30 MB local reel integrated",
+    metric: "Live corridor reel",
   },
   {
-    id: "gate-threshold",
-    eyebrow: "Thresholds",
-    title: "Gates, access roads, and fencing mark who sees what.",
-    detail:
-      "Operational infrastructure should be read alongside community movement, land questions, and who gets access to information.",
-    image: "/platform/media/hero-gate.png",
-    metric: "Access points surfaced",
-  },
-  {
-    id: "processing-road",
-    eyebrow: "Industrial movement",
-    title: "Conveyors and haul routes extend the story beyond a single pit.",
-    detail:
-      "Processing, transport, and visible logistics matter because they shape road pressure, dust, and perceptions of benefit.",
-    image: "/platform/media/conveyor-road.png",
-    metric: "Processing footprint visible",
-  },
-  {
-    id: "truck-pressure",
-    eyebrow: "Road impact",
-    title: "Heavy movement is part of the community interface.",
-    detail:
-      "Trucks, plant traffic, and corridor wear make roads a practical accountability issue, not a cosmetic one.",
-    image: "/platform/media/truck-road.png",
-    metric: "Road pressure in view",
-  },
-  {
-    id: "ridge-memory",
+    id: "land-memory",
     eyebrow: "Land memory",
-    title: "Ridgelines and open land keep the land parcel central.",
+    title: "Rivers, ridges, and open ground keep St George 2 JT legible as land.",
     detail:
-      "The visual language must still return to St George 2 JT as land, identity, and governance context.",
-    image: "/platform/media/ridge-road.png",
-    metric: "Land first, mine second",
+      "The visual direction returns to valley, water, and terrain so the landing does not collapse land identity into mine imagery.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png",
+    metric: "Land first",
+  },
+  {
+    id: "community-presence",
+    eyebrow: "Community presence",
+    title: "Real field imagery makes the platform feel rooted in Ga-Mawela itself.",
+    detail:
+      "Gallery images now help carry heritage, observation, and community memory instead of relying on generic placeholders.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 7.png",
+    metric: "Gallery assets live",
+  },
+  {
+    id: "corridor-routes",
+    eyebrow: "Movement",
+    title: "Roads and viewpoints show how the corridor is actually experienced.",
+    detail:
+      "Routes, edges, and distant operations connect the land story to mining pressure, logistics, and visibility.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 3.png",
+    metric: "Routes in view",
+  },
+  {
+    id: "archive-visual",
+    eyebrow: "Digital thread",
+    title: "Land history, documents, and compliance watch now sit in one visual system.",
+    detail:
+      "The landing links lineage review, evidence, and mining-accountability work so users do not have to jump between disconnected pages.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 10.png",
+    metric: "Unified storyline",
   },
 ];
 
 export const landingVisualCards: VisualCard[] = [
   {
-    id: "corridor-atlas",
-    tag: "Atlas",
-    title: "Corridor atlas",
+    id: "lineage-atlas",
+    tag: "Legacy",
+    title: "History and lineage atlas",
     summary:
-      "Large-format imagery gives the platform the same sense of place that premium editorial sites use to anchor serious stories.",
-    image: "/platform/media/corridor-panorama.png",
+      "The home experience now prepares the history tab by showing land, memory, and corridor accountability as one connected story.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 8.png",
   },
   {
-    id: "gates-access",
-    tag: "Access",
-    title: "Entry and visibility",
+    id: "heritage-ground",
+    tag: "Heritage",
+    title: "Heritage ground and cultural memory",
     summary:
-      "Who sees notices, who reaches sites, and how visible operations feel to nearby communities shape the transparency story.",
-    image: "/platform/media/hero-gate.png",
+      "Sacred places, initiation memory, and oral family records can sit alongside modern evidence tools without becoming a separate microsite.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 9.png",
   },
   {
-    id: "roads-pressure",
-    tag: "Movement",
-    title: "Road pressure",
+    id: "corridor-observation",
+    tag: "Observation",
+    title: "Routes, ridges, and observation points",
     summary:
-      "Roads are a recurring point where community experience and extractive industry intersect most visibly.",
-    image: "/platform/media/truck-road.png",
+      "Real photography gives the interface stronger local credibility while still leaving room for data, maps, and source trails.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 4.png",
   },
   {
-    id: "processing-chain",
-    tag: "Industry",
-    title: "Processing chain",
+    id: "community-presence-card",
+    tag: "Community",
+    title: "People-facing accountability design",
     summary:
-      "Conveyors and plant imagery help connect extraction, processing, and the question of where value ends up.",
-    image: "/platform/media/conveyor-road.png",
+      "The platform is being tuned so youth, families, and community researchers can read history, documents, and opportunities without visual clutter.",
+    image: "/Images/Gallery/Ga Mawela Debrochen Proj 11.png",
   },
 ];
 

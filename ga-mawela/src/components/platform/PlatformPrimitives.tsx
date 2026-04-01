@@ -12,6 +12,7 @@ type SectionShellProps = {
   backgroundImage: string;
   children: ReactNode;
   actions?: ReactNode;
+  showHeader?: boolean;
 };
 
 type StatCardProps = {
@@ -72,6 +73,7 @@ export function SectionShell({
   backgroundImage,
   children,
   actions,
+  showHeader = true,
 }: SectionShellProps) {
   return (
     <motion.section
@@ -99,24 +101,26 @@ export function SectionShell({
       </div>
 
       <div className="relative z-10 p-4 sm:p-5 xl:p-6">
-        <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
-            <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[var(--gm-muted)]">
-              <span
-                className="h-2 w-2 rounded-full"
-                style={{ backgroundColor: accent }}
-              />
-              {eyebrow}
+        {showHeader ? (
+          <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-3xl">
+              <div className="mb-3 inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-[11px] uppercase tracking-[0.3em] text-[var(--gm-muted)]">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ backgroundColor: accent }}
+                />
+                {eyebrow}
+              </div>
+              <h2 className="max-w-4xl text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)] md:text-4xl xl:text-[3.2rem]">
+                {title}
+              </h2>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--gm-muted)] md:text-base">
+                {description}
+              </p>
             </div>
-            <h2 className="max-w-4xl text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)] md:text-4xl xl:text-[3.2rem]">
-              {title}
-            </h2>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--gm-muted)] md:text-base">
-              {description}
-            </p>
+            {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
           </div>
-          {actions ? <div className="flex flex-wrap gap-3">{actions}</div> : null}
-        </div>
+        ) : null}
 
         {children}
       </div>

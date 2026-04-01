@@ -105,6 +105,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       "A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records sync through the backend when available and remain usable locally when not.",
     sections: {
       home: { label: "Home", eyebrow: "Mission control" },
+      history: { label: "History & Lineage", eyebrow: "Legacy and memory" },
       mines: { label: "Mines & Operations", eyebrow: "Spatial view" },
       slp: { label: "SLP Tracker", eyebrow: "Commitment dashboard" },
       community: { label: "Community & Land", eyebrow: "Land and governance" },
@@ -159,6 +160,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       "Ke tsela ya go amogela dingongorego ntle le kgethollo mabapi le mosomo, go se akaretswe, procurement, goba maitemogelo a mangwe a setshaba. Direkhoto di romelwa ka backend ge e le gona gomme di boela go leveleng ge go hlokega.",
     sections: {
       home: { label: "Gae", eyebrow: "Taolo ya morero" },
+      history: { label: "Histori le Lineage", eyebrow: "Legacy le kgopolo" },
       mines: { label: "Meepo le Ditshepetso", eyebrow: "Pono ya lefelo" },
       slp: { label: "Molatedi wa SLP", eyebrow: "Dashboard ya boitlamo" },
       community: { label: "Setshaba le Naga", eyebrow: "Naga le taolo" },
