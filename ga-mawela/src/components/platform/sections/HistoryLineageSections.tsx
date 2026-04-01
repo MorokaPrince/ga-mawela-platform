@@ -55,21 +55,21 @@ const lineageNodes = [
     label: "Masetu",
     badge: "Community oral archive",
     detail:
-      "Family narratives already shaping this platform place Masetu at the root of an important leadership and settlement memory that deserves a dedicated evidence trail.",
+      "Family narratives already shaping this platform place Masetu at the root of an important leadership and settlement memory, and identify him as the father of Lesedi and Moroka.",
   },
   {
     id: "lesedi",
     label: "Lesedi",
     badge: "Succession branch",
     detail:
-      "Presented in oral submissions as a major branch through which present-day descendants continue to interpret leadership, land memory, and belonging.",
+      "Presented in oral submissions as one of Masetu's key succession branches, with descendants still using this line to interpret leadership, land memory, and belonging.",
   },
   {
     id: "moroka",
     label: "Moroka",
     badge: "Succession branch",
     detail:
-      "Also presented in oral submissions as a key family line whose descendants remain visible across Sekhukhune, Tubatse, and Jane Furse-linked networks.",
+      "Also presented in oral submissions as a key branch alongside Lesedi, with descendants remaining visible across Sekhukhune, Tubatse, and Jane Furse-linked networks.",
   },
   {
     id: "descendants",
