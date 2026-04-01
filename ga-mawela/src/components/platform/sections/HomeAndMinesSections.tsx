@@ -278,7 +278,7 @@ function HeroShowcase({
             {/* EXPOSURE CONTENT - Key Truths */}
             <div className="mt-6 max-w-3xl rounded-[28px] border border-white/10 bg-slate-950/28 p-4 backdrop-blur-xl md:p-5">
               <p className="text-[11px] uppercase tracking-[0.28em] text-amber-400 font-semibold">
-                ⚡ THE REAL FOUNDATION
+                THE REAL FOUNDATION
               </p>
               <div className="mt-3 space-y-3">
                 <p className="text-lg font-semibold tracking-[-0.04em] text-white md:text-xl">
@@ -289,13 +289,13 @@ function HeroShowcase({
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-400">
-                    🔴 Der Brochen Mine
+                    Der Brochen Mine
                   </span>
                   <span className="rounded-full border border-blue-500/30 bg-blue-500/10 px-3 py-1 text-xs text-blue-400">
-                    🔵 Mototolo Project
+                    Mototolo Project
                   </span>
                   <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-xs text-violet-400">
-                    ⚪ Twickenham
+                    Twickenham
                   </span>
                 </div>
               </div>
@@ -304,10 +304,10 @@ function HeroShowcase({
             {/* Platform Promise */}
             <div className="mt-4 rounded-xl border border-emerald-500/20 bg-emerald-500/10 p-4">
               <p className="text-xs font-medium text-emerald-400">
-                🎯 THIS PLATFORM = FIRST REAL TRANSPARENCY SYSTEM FOR GA-MAWELA
+                THIS PLATFORM = FIRST REAL TRANSPARENCY SYSTEM FOR GA-MAWELA
               </p>
               <p className="mt-2 text-xs leading-5 text-emerald-200/80">
-                Track SLP commitments • Monitor delivery • Report issues • Document representation • Access documents • Expose truth
+                Track SLP commitments - Monitor delivery - Report issues - Document representation - Access documents - Expose truth
               </p>
             </div>
 
@@ -423,10 +423,10 @@ function CorridorMap({
         {/* Real Map Labels Layer */}
         <div className="absolute left-3 top-3 z-10 flex flex-col gap-1">
           <span className="rounded-md bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-amber-400 border border-amber-500/30">
-            🗺️ Sekhukhune District
+            Sekhukhune District
           </span>
           <span className="rounded-md bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-blue-400 border border-blue-500/30">
-            📍 Dwars River Belt
+            Dwars River Belt
           </span>
         </div>
         
@@ -476,7 +476,7 @@ function CorridorMap({
 
         {/* Compass Rose */}
         <div className="absolute bottom-4 right-4 flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-slate-950/50">
-          <span className="text-lg">🧭</span>
+          <span className="text-lg">N</span>
         </div>
 
         {/* Legend */}
@@ -523,7 +523,7 @@ function CorridorMap({
                 {/* Mine/Company Logo Display */}
                 <div className="flex items-center justify-center">
                   {point.type === "land parcel" ? (
-                    <span className="text-white text-lg font-bold">🏡</span>
+                    <span className="text-white text-lg font-bold">L</span>
                   ) : point.companyFilter === "Glencore" ? (
                     <span className="text-white text-xs font-bold">G</span>
                   ) : point.companyFilter === "Anglo American Platinum" ? (
