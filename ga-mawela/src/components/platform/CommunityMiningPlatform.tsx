@@ -907,7 +907,7 @@ export default function CommunityMiningPlatform() {
 
                     {/* Right Controls */}
                     <div className="flex items-center gap-2 sm:gap-3">
-                      {/* Desktop Search Bar */}
+                      {/* Desktop Search Bar - Compact on smaller screens */}
                       <div className="hidden md:flex items-center">
                         <div className="relative">
                           <Search size={12} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[var(--gm-subtle)]" />
@@ -915,8 +915,8 @@ export default function CommunityMiningPlatform() {
                             id="main-search-desktop"
                             value={searchQuery}
                             onChange={(event) => setSearchQuery(event.target.value)}
-                            className="gm-input h-8 w-32 lg:w-40 pl-8 pr-3 text-xs rounded-lg"
-                            placeholder={copy.searchPlaceholder}
+                            className="gm-input h-8 w-24 lg:w-48 pl-8 pr-3 text-xs rounded-lg"
+                            placeholder="Search..."
                           />
                         </div>
                       </div>
@@ -1026,7 +1026,7 @@ export default function CommunityMiningPlatform() {
                           value={searchQuery}
                           onChange={(event) => setSearchQuery(event.target.value)}
                           className="gm-input h-10 w-full pl-9 text-sm"
-                          placeholder={copy.searchPlaceholder}
+                          placeholder="Search..."
                         />
                       </div>
                     </div>
