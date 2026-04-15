@@ -183,7 +183,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Mission control",
     description:
       "A living intelligence layer for Ga-Mawela, St George 2 JT, and the mining corridor around it.",
-    accent: "#d14a28",
+    accent: "#c7a56d",
     backgroundImage: "/platform/media/corridor-panorama.png",
   },
   {
@@ -192,7 +192,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Legacy and memory",
     description:
       "Bring archival history, oral-lineage memory, cultural sites, and current accountability questions into one readable timeline.",
-    accent: "#b45309",
+    accent: "#b28858",
     backgroundImage: "/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png",
   },
   {
@@ -201,7 +201,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Spatial view",
     description:
       "Track the corridor: ECM assets, Valterra Platinum operations, regional mines, and the land parcel at the center.",
-    accent: "#0f766e",
+    accent: "#7b93a3",
     backgroundImage: "/platform/media/conveyor-road.png",
   },
   {
@@ -210,7 +210,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Commitment dashboard",
     description:
       "Monitor jobs, roads, schools, and training commitments across mines touching the wider corridor.",
-    accent: "#2563eb",
+    accent: "#6f8ba0",
     backgroundImage: "/platform/media/truck-road.png",
   },
   {
@@ -219,7 +219,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Land and governance",
     description:
       "Explain St George 2 JT, CPA governance, youth exclusion concerns, and the land history around Ga-Mawela.",
-    accent: "#854d0e",
+    accent: "#a27a4f",
     backgroundImage: "/platform/media/ridge-road.png",
   },
   {
@@ -228,7 +228,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Access hub",
     description:
       "Aggregate jobs, learnerships, bursaries, and supplier registration channels in one place.",
-    accent: "#0369a1",
+    accent: "#8199a8",
     backgroundImage: "/platform/media/hero-gate.png",
   },
   {
@@ -237,7 +237,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Accountability lens",
     description:
       "Frame community concerns, transparency gaps, and engagement challenges in professional, evidence-led language.",
-    accent: "#be123c",
+    accent: "#ba8655",
     backgroundImage: "/platform/media/truck-road.png",
   },
   {
@@ -246,7 +246,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Interactive intake",
     description:
       "Provide a safe channel for reporting employment, exclusion, procurement, and community issues.",
-    accent: "#ca8a04",
+    accent: "#c49a63",
     backgroundImage: "/platform/media/ridge-road.png",
   },
   {
@@ -255,7 +255,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Evidence store",
     description:
       "Centralize PAIA requests, mining records, SLP files, and community letters for future backend integration.",
-    accent: "#0f766e",
+    accent: "#7d97a4",
     backgroundImage: "/platform/media/hero-gate.png",
   },
   {
@@ -264,7 +264,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Stakeholder map",
     description:
       "Surface who is visible in community structures, where engagement happens, and where youth representation gaps remain.",
-    accent: "#ea580c",
+    accent: "#b38a61",
     backgroundImage: "/platform/media/corridor-panorama.png",
   },
   {
@@ -273,7 +273,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Value distribution",
     description:
       "Visualize how gains may flow across companies, government, community, and still-unclear channels.",
-    accent: "#047857",
+    accent: "#9f7b56",
     backgroundImage: "/platform/media/conveyor-road.png",
   },
   {
@@ -282,7 +282,7 @@ export const sectionConfigs: SectionConfig[] = [
     eyebrow: "Who represents you",
     description:
       "Know your CPA representatives, community leaders, and stakeholder contacts. This section exposes representation for transparency and accountability.",
-    accent: "#7c3aed",
+    accent: "#7c90a1",
     backgroundImage: "/platform/media/corridor-panorama.png",
   },
 ];

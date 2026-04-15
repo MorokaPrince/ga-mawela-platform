@@ -282,13 +282,13 @@ function HeroShowcase({
           </motion.div>
         </AnimatePresence>
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(209,74,40,0.28),transparent_35%),radial-gradient(circle_at_top_right,rgba(56,189,248,0.12),transparent_24%),linear-gradient(120deg,rgba(6,9,19,0.08),rgba(6,9,19,0.68))]" />
-        <div className="absolute inset-0 gm-noise-overlay opacity-35" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(199,165,109,0.26),transparent_30%),linear-gradient(115deg,rgba(7,12,17,0.14),rgba(7,12,17,0.82))]" />
+        <div className="absolute inset-0 gm-noise-overlay opacity-24" />
         <div className="absolute inset-x-0 top-0 h-px gm-accent-line" />
 
         {/* REAL FOUNDATION - Exposure Content */}
         <div className="pointer-events-none absolute right-6 top-6 hidden max-w-xs lg:block">
-          <GlassPanel className="gm-float-slow bg-slate-950/28">
+          <GlassPanel className="gm-float-slow bg-slate-950/24">
             <p className="text-[11px] uppercase tracking-[0.24em] text-white/60">
               {copy.floatingEyebrow}
             </p>
@@ -318,7 +318,7 @@ function HeroShowcase({
               <span className="h-2 w-2 rounded-full bg-[var(--gm-accent)]" />
               {copy.badge}
             </div>
-            <h3 className="mt-6 max-w-5xl text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl xl:text-[4.9rem] xl:leading-[0.94]">
+            <h3 className="gm-display mt-6 max-w-5xl text-5xl font-semibold text-white md:text-6xl xl:text-[4.9rem] xl:leading-[0.94]">
               {copy.title}
             </h3>
             <p className="mt-6 max-w-3xl text-base leading-8 text-white/78 md:text-lg">
@@ -326,11 +326,11 @@ function HeroShowcase({
             </p>
 
             <div className="mt-6 grid gap-3 xl:grid-cols-[1.04fr_0.96fr]">
-              <div className="rounded-[28px] border border-white/10 bg-slate-950/30 p-4 backdrop-blur-xl md:p-5">
+              <div className="gm-panel-muted rounded-[28px] bg-slate-950/28 p-4 md:p-5">
                 <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-amber-300">
                   Unified landing lens
                 </p>
-                <p className="mt-3 text-xl font-semibold tracking-[-0.04em] text-white md:text-[1.7rem]">
+                <p className="gm-display mt-3 text-xl font-semibold text-white md:text-[1.7rem]">
                   {locale === "nso"
                     ? "Naga, histori, lineage, le boikarabelo bja meepo bjale di bala mmogo."
                     : "Land, history, lineage, and mining accountability now read as one story."}
@@ -361,7 +361,7 @@ function HeroShowcase({
                   return (
                     <div
                       key={pillar.id}
-                      className="rounded-[24px] border border-white/10 bg-white/[0.06] p-4 backdrop-blur-xl"
+                      className="gm-panel-muted rounded-[24px] p-4"
                     >
                       <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08] text-white/88">
                         <Icon size={18} />
@@ -416,21 +416,21 @@ function HeroShowcase({
               <button
                 type="button"
                 onClick={() => onSectionChange("mines")}
-                className="rounded-full bg-white px-5 py-3 text-sm font-medium text-slate-950 transition hover:scale-[1.02]"
+                className="gm-button-primary"
               >
                 {copy.primaryAction}
               </button>
               <button
                 type="button"
                 onClick={() => onSectionChange("history")}
-                className="rounded-full border border-white/15 bg-white/[0.08] px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.12]"
+                className="gm-button-secondary"
               >
                 {copy.secondaryAction}
               </button>
               <button
                 type="button"
                 onClick={() => onSectionChange("documents")}
-                className="rounded-full border border-white/15 px-5 py-3 text-sm font-medium text-white transition hover:bg-white/[0.08]"
+                className="gm-button-tertiary"
               >
                 {copy.tertiaryAction}
               </button>
@@ -439,7 +439,7 @@ function HeroShowcase({
 
           <div className="grid gap-4 xl:grid-cols-[0.88fr_1.12fr]">
             <div className="grid gap-4 md:grid-cols-3">
-              <GlassPanel className="bg-slate-950/24">
+              <GlassPanel className="bg-slate-950/20">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   {copy.clarification}
                 </p>
@@ -447,7 +447,7 @@ function HeroShowcase({
                   {copy.clarificationDetail}
                 </p>
               </GlassPanel>
-              <GlassPanel className="bg-slate-950/24">
+              <GlassPanel className="bg-slate-950/20">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   {copy.experience}
                 </p>
@@ -455,7 +455,7 @@ function HeroShowcase({
                   {copy.experienceDetail}
                 </p>
               </GlassPanel>
-              <GlassPanel className="bg-slate-950/24">
+              <GlassPanel className="bg-slate-950/20">
                 <p className="text-[11px] uppercase tracking-[0.22em] text-white/55">
                   {copy.priorities}
                 </p>
@@ -516,11 +516,11 @@ function CorridorMap({
 }) {
   return (
     <GlassPanel className="relative min-h-[420px] overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_40%),linear-gradient(180deg,rgba(16,23,46,0.18),rgba(16,23,46,0.5))]" />
-      <div className="absolute inset-0 gm-noise-overlay opacity-20" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(199,165,109,0.14),transparent_38%),linear-gradient(180deg,rgba(16,23,46,0.16),rgba(16,23,46,0.56))]" />
+      <div className="absolute inset-0 gm-noise-overlay opacity-16" />
       
       {/* Interactive Map with Rich Labels */}
-      <div className="relative h-[420px] rounded-[22px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.2),rgba(8,12,28,0.68))]">
+      <div className="relative h-[420px] rounded-[24px] border border-white/[0.08] bg-[linear-gradient(180deg,rgba(8,12,28,0.22),rgba(8,12,28,0.76))]">
         {/* Real Map Labels Layer */}
         <div className="absolute left-3 top-3 z-10 flex flex-col gap-1">
           <span className="rounded-md bg-slate-950/70 px-2 py-1 text-[10px] font-medium text-amber-400 border border-amber-500/30">
@@ -701,11 +701,7 @@ export function HomeSection({
                   {copy.mapTitle}
                 </h3>
               </div>
-              <button
-                type="button"
-                onClick={() => onSectionChange("mines")}
-                className="rounded-full border border-white/15 px-4 py-2 text-sm text-[var(--gm-foreground)] transition hover:bg-white/10"
-              >
+              <button type="button" onClick={() => onSectionChange("mines")} className="gm-button-secondary">
                 {copy.openMap}
               </button>
             </div>
@@ -736,10 +732,7 @@ export function HomeSection({
               </p>
               <div className="mt-5 grid gap-4">
                 {updates.map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-[22px] border border-white/[0.08] bg-white/[0.05] p-4"
-                  >
+                  <div key={item.title} className="gm-panel-muted rounded-[22px] p-4">
                     <p className="text-base font-medium text-[var(--gm-foreground)]">
                       {item.title}
                     </p>
@@ -831,7 +824,7 @@ export function MinesSection({
                 <p className="text-[11px] uppercase tracking-[0.24em] text-[var(--gm-subtle)]">
                   {copy.selectedLocation}
                 </p>
-                <h3 className="mt-3 text-3xl font-semibold tracking-[-0.04em] text-[var(--gm-foreground)]">
+                <h3 className="gm-display mt-3 text-3xl font-semibold text-[var(--gm-foreground)]">
                   {selectedMine.name}
                 </h3>
               </div>
@@ -937,8 +930,8 @@ export function MinesSection({
             onClick={() => onSelectMine(point.id)}
             className={`rounded-[26px] border p-5 text-left transition duration-300 ${
               point.id === selectedMineId
-                ? "border-white/20 bg-white text-slate-950 shadow-2xl"
-                : "border-white/10 bg-white/[0.06] text-[var(--gm-foreground)] hover:border-white/20 hover:bg-white/10"
+                ? "border-[color:var(--gm-accent)] bg-[color:var(--gm-accent)] text-slate-950 shadow-[0_20px_34px_rgba(199,165,109,0.2)]"
+                : "border-white/10 bg-white/[0.05] text-[var(--gm-foreground)] hover:border-white/20 hover:bg-white/[0.08]"
             }`}
           >
             <div className="flex flex-wrap items-center justify-between gap-3">

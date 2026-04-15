@@ -1,8 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;700&family=Syne:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
   color-scheme: dark;
+  --gm-accent-metal: #c7a56d;
+  --gm-accent-metal-strong: #e0c38f;
+  --gm-accent-steel: #7b93a3;
+  --gm-shadow-shell: 0 30px 90px rgba(2, 8, 14, 0.34);
+  --gm-shadow-card: 0 18px 40px rgba(2, 8, 14, 0.18);
 }
 
 * {
@@ -17,10 +22,13 @@ body {
   min-height: 100vh;
   margin: 0;
   overflow-x: hidden;
-  background: #050814;
-  color: #f8fafc;
-  font-family: "Space Grotesk", "Segoe UI Variable", sans-serif;
-  letter-spacing: -0.01em;
+  background:
+    radial-gradient(circle at top, rgba(199, 165, 109, 0.08), transparent 28%),
+    linear-gradient(180deg, #061018 0%, #0a141b 100%);
+  color: #f5efe6;
+  font-family: "Manrope", "Segoe UI Variable", sans-serif;
+  letter-spacing: -0.012em;
+  text-rendering: optimizeLegibility;
 }
 
 /* Responsive font scaling for better UX */
@@ -85,8 +93,9 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Syne", "Space Grotesk", sans-serif;
-  letter-spacing: -0.04em;
+  font-family: "Syne", "Manrope", sans-serif;
+  letter-spacing: -0.05em;
+  line-height: 0.96;
 }
 
 p {
@@ -112,8 +121,8 @@ video {
 }
 
 ::selection {
-  background: rgba(209, 74, 40, 0.32);
-  color: #ffffff;
+  background: rgba(199, 165, 109, 0.34);
+  color: #081018;
 }
 
 /* Ripple effect animation */
@@ -431,8 +440,8 @@ video {
   z-index: -1;
   pointer-events: none;
   border-radius: 9999px;
-  filter: blur(90px);
-  opacity: 0.28;
+  filter: blur(110px);
+  opacity: 0.18;
 }
 
 .gm-theme-shell::before {
@@ -440,7 +449,7 @@ video {
   left: -8rem;
   height: 22rem;
   width: 22rem;
-  background: rgba(209, 74, 40, 0.22);
+  background: rgba(199, 165, 109, 0.22);
 }
 
 .gm-theme-shell::after {
@@ -448,50 +457,50 @@ video {
   bottom: 8rem;
   height: 20rem;
   width: 20rem;
-  background: rgba(56, 189, 248, 0.18);
+  background: rgba(123, 147, 163, 0.18);
 }
 
 /* Dark Theme */
 .gm-theme-dark {
-  --gm-background: #050814;
-  --gm-background-strong: #090f1f;
-  --gm-panel: rgba(10, 16, 33, 0.52);
-  --gm-panel-strong: rgba(10, 16, 33, 0.74);
-  --gm-panel-header: rgba(5, 8, 20, 0.46);
-  --gm-panel-sidebar: rgba(7, 10, 24, 0.9);
-  --gm-foreground: #f8fafc;
-  --gm-muted: rgba(226, 232, 240, 0.78);
-  --gm-subtle: rgba(226, 232, 240, 0.52);
-  --gm-border: rgba(255, 255, 255, 0.12);
-  --gm-input-bg: rgba(255, 255, 255, 0.035);
-  --gm-accent: rgba(209, 74, 40, 1);
-  --gm-ring: rgba(209, 74, 40, 0.18);
+  --gm-background: #061018;
+  --gm-background-strong: #0a141b;
+  --gm-panel: rgba(10, 19, 27, 0.76);
+  --gm-panel-strong: rgba(7, 15, 22, 0.92);
+  --gm-panel-header: rgba(9, 17, 23, 0.78);
+  --gm-panel-sidebar: rgba(8, 15, 21, 0.94);
+  --gm-foreground: #f5efe6;
+  --gm-muted: rgba(225, 219, 210, 0.76);
+  --gm-subtle: rgba(182, 180, 176, 0.58);
+  --gm-border: rgba(255, 255, 255, 0.09);
+  --gm-input-bg: rgba(255, 255, 255, 0.028);
+  --gm-accent: var(--gm-accent-metal);
+  --gm-ring: rgba(199, 165, 109, 0.16);
 }
 
 /* Light Theme */
 .gm-theme-light {
   color-scheme: light;
-  --gm-background: #e7edf6;
-  --gm-background-strong: #dce6f0;
-  --gm-panel: rgba(255, 255, 255, 0.58);
-  --gm-panel-strong: rgba(255, 255, 255, 0.76);
-  --gm-panel-header: rgba(255, 255, 255, 0.5);
-  --gm-panel-sidebar: rgba(247, 249, 252, 0.86);
-  --gm-foreground: #0f172a;
-  --gm-muted: rgba(15, 23, 42, 0.72);
-  --gm-subtle: rgba(15, 23, 42, 0.46);
-  --gm-border: rgba(15, 23, 42, 0.08);
-  --gm-input-bg: rgba(255, 255, 255, 0.48);
-  --gm-accent: rgba(209, 74, 40, 1);
-  --gm-ring: rgba(209, 74, 40, 0.14);
+  --gm-background: #f3ede4;
+  --gm-background-strong: #ebe1d3;
+  --gm-panel: rgba(255, 252, 247, 0.74);
+  --gm-panel-strong: rgba(255, 252, 247, 0.92);
+  --gm-panel-header: rgba(249, 245, 238, 0.82);
+  --gm-panel-sidebar: rgba(244, 238, 229, 0.92);
+  --gm-foreground: #151e24;
+  --gm-muted: rgba(21, 30, 36, 0.74);
+  --gm-subtle: rgba(21, 30, 36, 0.48);
+  --gm-border: rgba(21, 30, 36, 0.08);
+  --gm-input-bg: rgba(255, 255, 255, 0.6);
+  --gm-accent: #9f7a43;
+  --gm-ring: rgba(159, 122, 67, 0.15);
 }
 
 /* Grid Overlay */
 .gm-grid-overlay {
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 56px 56px;
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 72px 72px;
   -webkit-mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent 88%);
   mask-image: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent 88%);
 }
@@ -505,10 +514,10 @@ video {
 /* Noise Overlay */
 .gm-noise-overlay {
   background-image:
-    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.12) 0 1px, transparent 1px),
-    radial-gradient(circle at 85% 45%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
-    radial-gradient(circle at 45% 80%, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px);
-  background-size: 18px 18px, 24px 24px, 28px 28px;
+    radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px),
+    radial-gradient(circle at 85% 45%, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px),
+    radial-gradient(circle at 45% 80%, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px);
+  background-size: 24px 24px, 28px 28px, 32px 32px;
   mix-blend-mode: soft-light;
 }
 
@@ -517,7 +526,8 @@ video {
   background-image: url("/Images/Gallery/Ga Mawela Debrochen Proj 2 Rivers.png");
   background-size: cover;
   background-position: center;
-  opacity: 0.12;
+  opacity: 0.08;
+  filter: saturate(0.76) contrast(1.06);
 }
 
 .gm-filmstrip {
@@ -568,7 +578,7 @@ video {
 
 /* Accent Line */
 .gm-accent-line {
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(209, 74, 40, 0.9), rgba(255, 255, 255, 0));
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(199, 165, 109, 0.9), rgba(255, 255, 255, 0));
 }
 
 /* Section Stage */
@@ -580,19 +590,21 @@ video {
 .gm-input {
   width: 100%;
   border: 1px solid var(--gm-border);
-  border-radius: 1.3rem;
+  border-radius: 1.1rem;
   background: var(--gm-input-bg);
   color: var(--gm-foreground);
-  padding: 0.95rem 1rem;
+  padding: 0.9rem 1rem;
   outline: none;
   transition:
     border-color 180ms ease,
     background-color 180ms ease,
     box-shadow 180ms ease,
     transform 180ms ease;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  -webkit-backdrop-filter: blur(18px);
-  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.03),
+    0 10px 24px rgba(2, 8, 14, 0.08);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
 }
 
 .gm-input:focus {
@@ -605,13 +617,147 @@ video {
 }
 
 .gm-input option {
-  background: #081120;
-  color: #f8fafc;
+  background: #081018;
+  color: #f5efe6;
 }
 
 .gm-theme-light .gm-input option {
   background: #ffffff;
   color: #0f172a;
+}
+
+.gm-display {
+  font-family: "Syne", "Manrope", sans-serif;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.gm-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  border: 1px solid var(--gm-border);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.045);
+  padding: 0.45rem 0.9rem;
+  color: var(--gm-muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.gm-shell-card {
+  border: 1px solid var(--gm-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+    var(--gm-panel);
+  box-shadow: var(--gm-shadow-shell);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+}
+
+.gm-panel {
+  border: 1px solid var(--gm-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+    var(--gm-panel);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    var(--gm-shadow-card);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.gm-panel-muted {
+  border: 1px solid var(--gm-border);
+  background: rgba(255, 255, 255, 0.032);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+}
+
+.gm-data-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--gm-border);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.55rem 0.9rem;
+}
+
+.gm-toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid var(--gm-border);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.045);
+  color: var(--gm-foreground);
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+}
+
+.gm-toolbar-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.gm-button-primary,
+.gm-button-secondary,
+.gm-button-tertiary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  border-radius: 9999px;
+  padding: 0.9rem 1.4rem;
+  font-size: 0.92rem;
+  font-weight: 700;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.gm-button-primary {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--gm-accent-metal-strong), var(--gm-accent));
+  color: #101820;
+  box-shadow: 0 14px 30px rgba(199, 165, 109, 0.18);
+}
+
+.gm-button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px rgba(199, 165, 109, 0.22);
+}
+
+.gm-button-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.055);
+  color: var(--gm-foreground);
+}
+
+.gm-button-secondary:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.gm-button-tertiary {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--gm-muted);
+}
+
+.gm-button-tertiary:hover {
+  transform: translateY(-1px);
+  color: var(--gm-foreground);
 }
 
 /* Marquee Animation */

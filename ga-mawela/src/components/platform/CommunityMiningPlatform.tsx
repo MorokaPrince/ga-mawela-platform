@@ -153,18 +153,18 @@ function IntroOverlay() {
     <motion.div
       initial={{ opacity: 1 }}
       exit={{ opacity: 0, transition: { duration: 0.45, ease: "easeOut" } }}
-      className="fixed inset-0 z-[80] overflow-hidden bg-[radial-gradient(circle_at_top,rgba(209,74,40,0.26),transparent_35%),linear-gradient(180deg,#060913,#090f1f)]"
+      className="fixed inset-0 z-[80] overflow-hidden bg-[radial-gradient(circle_at_top,rgba(199,165,109,0.22),transparent_30%),linear-gradient(180deg,#071018,#0a141b)]"
     >
-      <div className="absolute inset-0 gm-grid-overlay opacity-30" />
+      <div className="absolute inset-0 gm-grid-overlay opacity-20" />
       <div className="relative flex h-full items-center justify-center px-6">
         <div className="max-w-xl text-center">
-          <div className="mx-auto mb-8 h-16 w-16 rounded-2xl border border-white/10 bg-white/[0.06] p-3 shadow-[0_0_80px_rgba(209,74,40,0.18)]">
-            <div className="h-full w-full rounded-xl bg-[linear-gradient(135deg,#d14a28,#f59e0b)]" />
+          <div className="mx-auto mb-8 grid h-16 w-16 place-items-center rounded-2xl border border-white/10 bg-white/[0.05] shadow-[0_0_70px_rgba(199,165,109,0.14)]">
+            <div className="h-9 w-9 rounded-full border border-[rgba(199,165,109,0.38)] bg-[linear-gradient(135deg,#e0c38f,#9e7f4d)]" />
           </div>
           <p className="text-[11px] uppercase tracking-[0.42em] text-white/60">
             Ga-Mawela intelligence platform
           </p>
-          <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em] text-white md:text-6xl">
+          <h1 className="gm-display mt-5 text-4xl font-semibold text-white md:text-6xl">
             Restoring Land. Rebuilding Unity. Empowering Ga-Mawela.
           </h1>
           <p className="mt-4 text-base leading-8 text-white/70">
@@ -175,7 +175,7 @@ function IntroOverlay() {
               initial={{ x: "-100%" }}
               animate={{ x: "100%" }}
               transition={{ duration: 1.3, repeat: Infinity, ease: "easeInOut" }}
-              className="h-full w-1/2 rounded-full bg-[linear-gradient(90deg,transparent,#d14a28,#ffffff)]"
+              className="h-full w-1/2 rounded-full bg-[linear-gradient(90deg,transparent,#c7a56d,#ffffff)]"
             />
           </div>
         </div>
@@ -891,23 +891,23 @@ export default function CommunityMiningPlatform() {
       <div className="fixed inset-0 -z-20 bg-gallery-overlay" />
       
       {/* Professional gradient overlays */}
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(209,74,40,0.18),transparent_40%),radial-gradient(circle_at_70%_60%,rgba(56,189,248,0.15),transparent_35%),radial-gradient(circle_at_50%_100%,rgba(139,92,246,0.08),transparent_30%),linear-gradient(180deg,var(--gm-background)_0%,var(--gm-background-strong)_100%)] -z-10" />
-      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-50 -z-10" />
-      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-25 -z-10" />
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_18%_18%,rgba(199,165,109,0.14),transparent_32%),radial-gradient(circle_at_82%_26%,rgba(123,147,163,0.12),transparent_28%),linear-gradient(180deg,var(--gm-background)_0%,var(--gm-background-strong)_100%)]" />
+      <div className="pointer-events-none fixed inset-0 gm-grid-overlay opacity-35 -z-10" />
+      <div className="pointer-events-none fixed inset-0 gm-noise-overlay opacity-20 -z-10" />
       {/* Top fade for seamless header */}
       <div className="pointer-events-none fixed top-0 left-0 right-0 h-32 bg-gradient-to-b from-[var(--gm-background)] to-transparent opacity-60 -z-5" />
 
       {/* 80% Viewport Container - Full Width for Proper Device Fit */}
-      <div className="min-h-screen w-full flex items-start justify-center px-2 sm:px-3 md:px-4 lg:px-6 py-2 sm:py-3">
+      <div className="min-h-screen w-full flex items-start justify-center px-2 py-2 sm:px-3 sm:py-3 md:px-4 lg:px-6">
         <div className="w-full max-w-[1920px]">
 
           <div className="relative min-h-screen">
             {/* Enhanced Professional Header with Stacked Layout */}
-            <header className="sticky top-0 z-40 overflow-hidden rounded-[30px] border border-white/[0.06] bg-[var(--gm-panel-header)]/90 shadow-[0_18px_48px_rgba(4,7,18,0.28)] backdrop-blur-2xl">
+            <header className="gm-shell-card sticky top-0 z-40 overflow-hidden rounded-[34px] bg-[var(--gm-panel-header)]/90">
               <div className="mx-auto max-w-[1600px] px-3 sm:px-4 lg:px-6">
-                <div className="flex flex-wrap items-center justify-between gap-3 py-3 sm:py-4">
+                <div className="flex flex-wrap items-center justify-between gap-4 py-4 sm:py-5">
                   <Link href="/" className="group flex min-w-0 flex-1 items-center gap-3 sm:gap-4">
-                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] shadow-lg sm:h-14 sm:w-14">
+                    <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_16px_30px_rgba(2,8,14,0.18)] sm:h-14 sm:w-14">
                       <video
                         src="/Images/Gallery/Ga Mawela Logo.mp4"
                         autoPlay
@@ -918,7 +918,10 @@ export default function CommunityMiningPlatform() {
                       />
                     </div>
                     <div className="min-w-0">
-                      <h1 className="truncate text-sm font-bold tracking-tight text-[var(--gm-foreground)] sm:text-lg md:text-xl">
+                      <p className="text-[10px] uppercase tracking-[0.32em] text-[var(--gm-subtle)]">
+                        Limpopo, South Africa
+                      </p>
+                      <h1 className="gm-display truncate pt-1 text-sm font-semibold text-[var(--gm-foreground)] sm:text-[1.1rem] md:text-[1.35rem]">
                         Ga-Mawela
                       </h1>
                       <p className="mt-1 hidden items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--gm-subtle)] sm:flex">
@@ -937,7 +940,7 @@ export default function CommunityMiningPlatform() {
                       <select
                         value={locale}
                         onChange={(event) => setLocale(event.target.value as PlatformLocale)}
-                        className="h-9 w-[76px] rounded-xl border border-white/10 bg-white/[0.05] pl-8 pr-6 text-[11px] font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:w-[82px] sm:text-xs"
+                        className="gm-toolbar-btn h-9 w-[76px] appearance-none pl-8 pr-6 text-[11px] font-semibold sm:w-[82px] sm:text-xs"
                         aria-label={copy.languageLabel}
                       >
                         <option value="en">EN</option>
@@ -952,7 +955,7 @@ export default function CommunityMiningPlatform() {
                     <button
                       type="button"
                       onClick={() => setTheme((current) => (current === "dark" ? "light" : "dark"))}
-                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                      className="gm-toolbar-btn h-9 w-9"
                       title={theme === "dark" ? copy.lightMode : copy.darkMode}
                     >
                       {theme === "dark" ? <SunMedium size={14} /> : <MoonStar size={14} />}
@@ -962,7 +965,7 @@ export default function CommunityMiningPlatform() {
                       <div className="flex items-center gap-2">
                         <Link
                           href={viewer.role === "admin" ? "/admin/dashboard" : "/member/dashboard"}
-                          className="flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                          className="gm-toolbar-btn h-9 px-3 text-xs font-semibold"
                         >
                           <LayoutDashboard size={13} />
                           <span className="hidden lg:inline">{copy.dashboard}</span>
@@ -970,7 +973,7 @@ export default function CommunityMiningPlatform() {
                         <button
                           type="button"
                           onClick={() => void handleLogout()}
-                          className="hidden h-9 items-center rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08] sm:flex"
+                          className="gm-toolbar-btn hidden h-9 px-3 text-xs font-semibold sm:flex"
                         >
                           {copy.signOut}
                         </button>
@@ -978,7 +981,7 @@ export default function CommunityMiningPlatform() {
                     ) : (
                       <Link
                         href="/login"
-                        className="flex h-9 items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3 text-xs font-medium text-[var(--gm-foreground)] transition hover:bg-white/[0.08]"
+                        className="gm-toolbar-btn h-9 px-3 text-xs font-semibold"
                       >
                         <Users size={13} />
                         <span className="hidden sm:inline">{copy.signIn}</span>
@@ -988,23 +991,23 @@ export default function CommunityMiningPlatform() {
                     <button
                       type="button"
                       onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                      className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05] text-[var(--gm-foreground)] transition hover:bg-white/[0.08] md:hidden"
+                      className="gm-toolbar-btn h-9 w-9 md:hidden"
                     >
                       {mobileMenuOpen ? <X size={14} /> : <Menu size={14} />}
                     </button>
                   </div>
                 </div>
 
-                <div className="hidden border-t border-white/[0.06] py-2.5 md:flex md:items-center md:gap-3">
+                <div className="hidden border-t border-white/[0.06] py-3 md:flex md:items-center md:gap-3">
                   <nav className="gm-top-tabs flex min-w-0 flex-1 items-center gap-2 overflow-x-auto pb-1">
                     {localizedSectionConfigs.map((section) => (
                       <button
                         key={section.id}
                         type="button"
                         onClick={() => handleSectionChange(section.id)}
-                        className={`shrink-0 whitespace-nowrap rounded-full px-3 py-2 text-[11px] font-medium transition sm:px-4 sm:text-xs ${
+                        className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-[11px] font-semibold uppercase tracking-[0.16em] transition sm:px-4 sm:text-xs ${
                           activeSection === section.id
-                            ? "bg-white/[0.12] text-white section-nav-accent"
+                            ? "border border-white/10 bg-white/[0.08] text-[var(--gm-accent)]"
                             : "text-[var(--gm-muted)] hover:bg-white/[0.06] hover:text-[var(--gm-foreground)]"
                         }`}
                         style={
@@ -1017,7 +1020,7 @@ export default function CommunityMiningPlatform() {
                       </button>
                     ))}
                   </nav>
-                  <div className="hidden items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] text-[var(--gm-subtle)] xl:flex">
+                  <div className="gm-data-pill hidden text-[11px] text-[var(--gm-subtle)] xl:flex">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
                     {copy.liveUpdate}
                   </div>
@@ -1044,9 +1047,9 @@ export default function CommunityMiningPlatform() {
                               handleSectionChange(section.id);
                               setMobileMenuOpen(false);
                             }}
-                            className={`px-4 py-3 text-sm font-medium text-left transition-all rounded-lg ${
+                            className={`rounded-2xl px-4 py-3 text-left text-sm font-semibold transition-all ${
                               activeSection === section.id
-                                ? "bg-white/[0.08] text-white section-nav-accent"
+                                ? "border border-white/10 bg-white/[0.08] text-[var(--gm-accent)]"
                                 : "text-[var(--gm-muted)] hover:bg-white/[0.04] hover:text-[var(--gm-foreground)]"
                             }`}
                             style={activeSection === section.id ? { '--section-accent': section.accent } as React.CSSProperties : undefined}
@@ -1062,34 +1065,34 @@ export default function CommunityMiningPlatform() {
             </header>
 
             {/* Main Content Area */}
-            <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 py-4 sm:px-4 sm:py-5 md:px-6 lg:px-8">
+            <main className="mx-auto flex w-full max-w-[1920px] flex-1 flex-col px-3 py-4 sm:px-4 sm:py-6 md:px-6 lg:px-8">
 
               {/* Quick Status Info */}
               <motion.div 
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="mb-4 rounded-[24px] border border-white/[0.06] bg-[var(--gm-panel)]/78 p-3 shadow-[0_10px_32px_rgba(5,8,20,0.18)] backdrop-blur-xl sm:mb-6 sm:p-4"
+                className="gm-panel mb-5 rounded-[28px] p-4 sm:mb-6 sm:p-5"
               >
                 <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_minmax(260px,320px)] xl:items-center">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="inline-flex rounded-full border border-white/[0.08] bg-white/[0.05] px-3 py-1.5 text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">
+                    <span className="gm-data-pill text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">
                       {activeConfig.eyebrow}
                     </span>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5">
+                    <div className="gm-data-pill">
                       <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">{copy.moduleLabel}</span>
                       <span className="text-xs font-medium text-[var(--gm-foreground)]">{activeConfig.label}</span>
                     </div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5">
+                    <div className="gm-data-pill">
                       <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--gm-subtle)]">{copy.filterLabel}</span>
                       <span className="text-xs font-medium text-[var(--gm-foreground)]">{companyFilter}</span>
                     </div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                    <div className="gm-data-pill text-[10px] text-[var(--gm-subtle)]">
                       <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 status-pulse" />
                       {copy.liveUpdate}
                     </div>
                     {systemSnapshot ? (
-                      <div className="inline-flex items-center gap-3 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                      <div className="gm-data-pill text-[10px] text-[var(--gm-subtle)]">
                         <span className="inline-flex items-center gap-1.5">
                           <span className="status-badge success text-[10px]">SQL</span>
                           {systemSnapshot.sql.configured
@@ -1106,7 +1109,7 @@ export default function CommunityMiningPlatform() {
                         </span>
                       </div>
                     ) : null}
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-3 py-1.5 text-[10px] text-[var(--gm-subtle)]">
+                    <div className="gm-data-pill text-[10px] text-[var(--gm-subtle)]">
                       <BellDot size={10} />
                       {latestUpdates.length} updates
                     </div>
@@ -1134,7 +1137,7 @@ export default function CommunityMiningPlatform() {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="rounded-[26px] border border-white/[0.06] bg-[linear-gradient(135deg,rgba(255,255,255,0.11),rgba(255,255,255,0.035))] p-4 shadow-[0_12px_36px_rgba(5,8,20,0.16)] backdrop-blur-xl sm:p-5"
+                  className="gm-panel rounded-[28px] p-4 sm:p-5"
                 >
                   <div className="flex items-start gap-3 sm:gap-4">
                     <div className="flex-shrink-0">
@@ -1161,7 +1164,7 @@ export default function CommunityMiningPlatform() {
                     onClick={() => handleSectionChange("opportunities")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="group rounded-[24px] border border-white/[0.06] bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/16 hover:bg-white/[0.08] sm:px-5 sm:py-4"
+                    className="gm-panel group rounded-[24px] px-4 py-3 text-left sm:px-5 sm:py-4"
                   >
                     <div className="flex items-center justify-between">
                       <div>
@@ -1183,7 +1186,7 @@ export default function CommunityMiningPlatform() {
                     onClick={() => handleSectionChange("report")}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="group rounded-[24px] border border-white/[0.06] bg-white/[0.05] px-4 py-3 text-left transition hover:border-white/16 hover:bg-white/[0.08] sm:px-5 sm:py-4"
+                    className="gm-panel group rounded-[24px] px-4 py-3 text-left sm:px-5 sm:py-4"
                   >
                     <div className="flex items-center justify-between">
                       <div>
@@ -1220,10 +1223,10 @@ export default function CommunityMiningPlatform() {
             </main>
 
             {/* Professional Footer */}
-            <footer className="mx-auto w-full max-w-[1920px] border-t border-white/[0.08] px-2 py-3 sm:px-3 md:px-5">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4">
+            <footer className="mx-auto mt-2 w-full max-w-[1920px] border-t border-white/[0.08] px-2 py-4 sm:px-3 md:px-5">
+              <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl border border-white/10 bg-white/[0.04] flex-shrink-0 overflow-hidden shadow-lg">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_16px_28px_rgba(2,8,14,0.16)] sm:h-12 sm:w-12">
                     <video 
                       src="/Images/Gallery/Ga Mawela Logo.mp4"
                       autoPlay 
@@ -1242,7 +1245,7 @@ export default function CommunityMiningPlatform() {
                   {copy.footer}
                 </p>
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <span className="text-xs text-[var(--gm-subtle)]">© {new Date().getFullYear()} Ga-Mawela</span>
+                  <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
                 </div>
               </div>
             </footer>
