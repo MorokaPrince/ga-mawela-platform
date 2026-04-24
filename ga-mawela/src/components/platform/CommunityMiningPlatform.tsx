@@ -47,33 +47,33 @@ import {
   ProfilesSection,
   SlpLiveTracker,
 } from "@/components/platform/sections/ProfileSections";
-import {
-  baseDocuments,
-  benefitSlices,
-  companyFilters,
-  cpaProfiles,
-  minePoints,
-  opportunities,
-  researchSources,
-  representationNodes,
-  sectionConfigs,
-  slpCommitments,
-  transparencyMatrixRows,
-  transparencySignals,
-  updates,
-  farmsData,
-  pressureMetrics,
-  royalLineage,
-  type CompanyFilter,
-  type DocumentCategory,
-  type ResearchSource,
-  type SectionId,
-} from "@/data/platformData";
-import { platformCopy, type PlatformLocale } from "@/lib/platform-i18n";
-import { GaMawelaMap } from "./MapComponent";
-import { EvidenceLibrary } from "./EvidenceLibrary";
-import { PressureDashboard } from "./PressureDashboard";
-import { RoyalAuthorityRegistry } from "./RoyalAuthorityRegistry";
+// import {
+//   baseDocuments,
+//   benefitSlices,
+//   companyFilters,
+//   cpaProfiles,
+//   minePoints,
+//   opportunities,
+//   researchSources,
+//   representationNodes,
+//   sectionConfigs,
+//   slpCommitments,
+//   transparencyMatrixRows,
+//   transparencySignals,
+//   updates,
+//   farmsData,
+//   pressureMetrics,
+//   royalLineage,
+//   type CompanyFilter,
+//   type DocumentCategory,
+//   type ResearchSource,
+//   type SectionId,
+// } from "@/data/platformData";
+import { type PlatformLocale } from "@/lib/platform-i18n";
+// import { GaMawelaMap } from "./MapComponent";
+// import { EvidenceLibrary } from "./EvidenceLibrary";
+// import { PressureDashboard } from "./PressureDashboard";
+// import { RoyalAuthorityRegistry } from "./RoyalAuthorityRegistry";
 
 const SECTION_STORAGE_KEY = "ga-mawela-theme";
 const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
@@ -408,7 +408,7 @@ export default function CommunityMiningPlatform() {
 
   const [introVisible, setIntroVisible] = useState(true);
 
-  const copy = platformCopy[locale];
+  // const copy = platformCopy[locale];
 
   const localizedSectionConfigs = sectionConfigs.map((section) => ({
 
@@ -1069,7 +1069,7 @@ export default function CommunityMiningPlatform() {
                 </label>
               </div>
             </div>
-            <GaMawelaMap
+            {/* <GaMawelaMap
               farms={farmsData}
               claims={communityClaims}
               miningRights={farmsData.flatMap(f => f.mining_rights)}
@@ -1077,7 +1077,7 @@ export default function CommunityMiningPlatform() {
               onFarmSelect={setSelectedFarmId}
               visibleLayers={mapLayers}
               onLayerToggle={toggleMapLayer}
-            />
+            /> */}
             {selectedFarmId && (
               <div className="gm-panel rounded-[28px] p-5 sm:p-6">
                 <FarmDetailPanel
@@ -1443,32 +1443,32 @@ export default function CommunityMiningPlatform() {
             </main>
 
              {/* Professional Footer */}
-             {/* <footer className="mx-auto mt-2 w-full max-w-[1920px] border-t border-white/[0.08] px-2 py-4 sm:px-3 md:px-5"> */}
-               <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
-                 <div className="flex items-center gap-2 sm:gap-3">
-                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_16px_28px_rgba(2,8,14,0.16)] sm:h-12 sm:w-12">
-                     <video 
-                       src="/Images/Gallery/Ga Mawela Logo.mp4"
-                       autoPlay
-                       muted
-                       loop
-                       playsInline
-                       className="w-full h-full object-cover"
-                     />
-                   </div>
-                   <div className="min-w-0">
-                     <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] truncate">{locale === "nso" ? "Polatifomo ya Ga-Mawela" : "Ga-Mawela Platform"}</p>
-                     <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] truncate">{locale === "nso" ? "Mokgwa wa tshedimosetso ya setshaba" : "Community Intelligence System"}</p>
-                   </div>
-                 </div>
-                 <p className="text-xs text-[var(--gm-subtle)] text-center sm:text-left">
-                   {copy.footer}
-                 </p>
-                 <div className="flex items-center gap-3 sm:gap-4">
-                   <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
-                 </div>
-               </div>
-              </footer>
+             {/* <footer className="mx-auto mt-2 w-full max-w-7xl border-t border-gray-200 px-2 py-4 sm:px-3 md:px-5">
+                <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 sm:h-12 sm:w-12">
+                      <video 
+                        src="/Images/Gallery/Ga Mawela Logo.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs sm:text-sm font-medium text-gray-900 truncate">{locale === "nso" ? "Polatifomo ya Ga-Mawela" : "Ga-Mawela Platform"}</p>
+                      <p className="text-[10px] sm:text-xs text-gray-500 truncate">{locale === "nso" ? "Mokgwa wa tshedimosetso ya setshaba" : "Community Intelligence System"}</p>
+                    </div>
+                  </div>
+                  <p className="text-xs text-gray-500 text-center sm:text-left">
+                    {copy.footer}
+                  </p>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="text-xs text-gray-500">Copyright {new Date().getFullYear()} Ga-Mawela</span>
+                  </div>
+                </div>
+               </footer> */}
             </div>
           </div>
         </div>

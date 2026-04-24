@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  experimental: {
+    workerThreads: false,
+    cpus: 1,
+  },
   // Netlify optimizations
   trailingSlash: true,
   images: {
