@@ -1354,3 +1354,399 @@ export const mineLogos: MineLogo[] = [
     color: "#6b7280",
   },
 ];
+
+// Farm Register with GeoJSON Boundaries
+export type FarmObject = {
+  id: string;
+  name: string;
+  code: string;
+  boundary_geojson: GeoJSON.Feature<GeoJSON.Polygon>;
+  portions: FarmPortion[];
+  mining_rights: MiningRight[];
+  ownership_type: "Community" | "State" | "Private";
+  community_status: "Confirmed" | "Disputed" | "Overlapped";
+  description: string;
+  sgDiagramUrl?: string;
+  titleDeedUrl?: string;
+};
+
+export type FarmPortion = {
+  id: string;
+  farmId: string;
+  number: string;
+  size: string;
+  sgDiagramUrl?: string;
+  mining_rights?: MiningRight[];
+};
+
+export type MiningRight = {
+  id: string;
+  company: string;
+  rightNumber?: string;
+  type: "Mining Right" | "Mining Permit" | "Prospecting Right";
+  commodity: string;
+  status: "Active" | "Expired" | "Suspended";
+  startDate?: string;
+  expiryDate?: string;
+  area_affected: string;
+  coordinates: [number, number][];
+  slpLinked?: boolean;
+  environmentalImpact?: string;
+};
+
+export type CommunityClaim = {
+  id: string;
+  farmId: string;
+  claimant: string;
+  claimType: "Historical Occupation" | "Lineage Rights" | "Royal Authority";
+  status: "Pending" | "Verified" | "Disputed" | "Confirmed";
+  evidenceIds: string[];
+  dateSubmitted: string;
+  description: string;
+  lineage?: RoyalLineageEntry[];
+};
+
+export type RoyalLineageEntry = {
+  id: string;
+  farmId: string;
+  headmanName: string;
+  title: string;
+  period: string;
+  genealogy: string;
+  oralTestimonyUrl?: string;
+  documentaryEvidence: EvidenceDocument[];
+};
+
+export type EvidenceDocument = LibraryDocument & {
+  farmIds: string[];
+  miningCompanyIds: string[];
+  legalRelevance: "High" | "Medium" | "Low";
+  tags: string[];
+  uploadedBy: string;
+  uploadDate: string;
+  category: "SG Diagram" | "Title Deed" | "Mining Right" | "SLP" | "EIA" | "Oral Testimony" | "Legal Opinion" | "Other";
+};
+
+export type PressureMetric = {
+  companyId: string;
+  companyName: string;
+  affectedFarms: number;
+  communityBenefitGap: number;
+  transparencyScore: number;
+  disputedAreas: number;
+  unresolvedClaims: number;
+  slpDelivered: number;
+  slpOutstanding: number;
+};
+
+export const farmsData: FarmObject[] = [
+  {
+    id: "thorncliffe",
+    name: "Thorncliffe 374KT",
+    code: "374KT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.732, -24.186], [28.738, -24.186], [28.738, -24.192], [28.732, -24.192], [28.732, -24.186]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "tp1", farmId: "thorncliffe", number: "1", size: "124KT", sgDiagramUrl: "/evidence/sg/thorncliffe-1.pdf" },
+      { id: "tp2", farmId: "thorncliffe", number: "2", size: "125KT", sgDiagramUrl: "/evidence/sg/thorncliffe-2.pdf" },
+      { id: "tp3", farmId: "thorncliffe", number: "3", size: "125KT", sgDiagramUrl: "/evidence/sg/thorncliffe-3.pdf" },
+    ],
+    mining_rights: [
+      { id: "mr-thorncliffe", company: "Glencore", type: "Mining Right", commodity: "Chrome, PGMs", status: "Active", area_affected: "Central region", coordinates: [[28.735, -24.189]], slpLinked: true, environmentalImpact: "Moderate" }
+    ],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Primary farm with significant chrome operations. Glencore operates mining rights on central portions.",
+    sgDiagramUrl: "/evidence/sg/thorncliffe.pdf"
+  },
+  {
+    id: "richmond",
+    name: "Richmond 370KT",
+    code: "370KT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.728, -24.178], [28.734, -24.178], [28.734, -24.184], [28.728, -24.184], [28.728, -24.178]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "rp1", farmId: "richmond", number: "1", size: "123KT", sgDiagramUrl: "/evidence/sg/richmond-1.pdf" },
+      { id: "rp2", farmId: "richmond", number: "2", size: "123KT", sgDiagramUrl: "/evidence/sg/richmond-2.pdf" },
+      { id: "rp3", farmId: "richmond", number: "3", size: "124KT", sgDiagramUrl: "/evidence/sg/richmond-3.pdf" },
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Community farm with no active mining operations. Part of core Ga-Mawela territory.",
+    sgDiagramUrl: "/evidence/sg/richmond.pdf"
+  },
+  {
+    id: "der-brochen",
+    name: "Der Brochen 7JT",
+    code: "7JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.745, -24.165], [28.752, -24.165], [28.752, -24.172], [28.745, -24.172], [28.745, -24.165]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "db1", farmId: "der-brochen", number: "1", size: "7JT", sgDiagramUrl: "/evidence/sg/der-brochen.pdf" }
+    ],
+    mining_rights: [
+      { id: "mr-der-brochen", company: "Anglo American Platinum", type: "Mining Right", commodity: "Platinum Group Metals", status: "Active", area_affected: "Full farm", coordinates: [[28.748, -24.168]], slpLinked: true, environmentalImpact: "High" }
+    ],
+    ownership_type: "Community",
+    community_status: "Overlapped",
+    description: "PGM mining operation by Anglo American Platinum. Significant community impact and SLP commitments.",
+    sgDiagramUrl: "/evidence/sg/der-brochen.pdf"
+  },
+  {
+    id: "vygenhoek",
+    name: "Vygenhoek 10JT",
+    code: "10JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.718, -24.190], [28.724, -24.190], [28.724, -24.196], [28.718, -24.196], [28.718, -24.190]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "vp1", farmId: "vygenhoek", number: "1", size: "10JT", sgDiagramUrl: "/evidence/sg/vygenhoek.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Community farm with no mining operations.",
+    sgDiagramUrl: "/evidence/sg/vygenhoek.pdf"
+  },
+  {
+    id: "hermansdal",
+    name: "Hermansdal 3JT",
+    code: "3JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.740, -24.160], [28.746, -24.160], [28.746, -24.166], [28.740, -24.166], [28.740, -24.160]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "hp1", farmId: "hermansdal", number: "1", size: "3JT", sgDiagramUrl: "/evidence/sg/hermansdal.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Community farm with no mining operations.",
+    sgDiagramUrl: "/evidence/sg/hermansdal.pdf"
+  },
+  {
+    id: "mareesburg",
+    name: "Mareesburg 8JT",
+    code: "8JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.710, -24.200], [28.716, -24.200], [28.716, -24.206], [28.710, -24.206], [28.710, -24.200]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "mp1", farmId: "mareesburg", number: "1", size: "8JT", sgDiagramUrl: "/evidence/sg/mareesburg.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Community farm with no mining operations.",
+    sgDiagramUrl: "/evidence/sg/mareesburg.pdf"
+  },
+  {
+    id: "booysendal",
+    name: "Booysendal 43JT",
+    code: "43JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.750, -24.155], [28.758, -24.155], [28.758, -24.163], [28.750, -24.163], [28.750, -24.155]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "bp1", farmId: "booysendal", number: "1", size: "43JT", sgDiagramUrl: "/evidence/sg/booysendal.pdf" }
+    ],
+    mining_rights: [
+      { id: "mr-booysendal", company: "Anglo American Platinum", type: "Mining Right", commodity: "Platinum Group Metals", status: "Active", area_affected: "Full farm", coordinates: [[28.754, -24.159]], slpLinked: true, environmentalImpact: "High" }
+    ],
+    ownership_type: "Community",
+    community_status: "Overlapped",
+    description: "PGM mining operation by Anglo American Platinum. Part of integrated Steelpoort corridor.",
+    sgDiagramUrl: "/evidence/sg/booysendal.pdf"
+  },
+  {
+    id: "st-george",
+    name: "St George 2JT",
+    code: "2JT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.735, -24.180], [28.742, -24.180], [28.742, -24.187], [28.735, -24.187], [28.735, -24.180]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "sg1", farmId: "st-george", number: "1", size: "2JT", sgDiagramUrl: "/evidence/sg/st-george.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Historic settlement and core Ga-Mawela land. No mining operations.",
+    sgDiagramUrl: "/evidence/sg/st-george.pdf"
+  },
+  {
+    id: "steelpoort-park",
+    name: "Steelpoort Park 365KT",
+    code: "365KT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.755, -24.145], [28.762, -24.145], [28.762, -24.152], [28.755, -24.152], [28.755, -24.145]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "spp1", farmId: "steelpoort-park", number: "1", size: "365KT", sgDiagramUrl: "/evidence/sg/steelpoort-park.pdf" }
+    ],
+    mining_rights: [
+      { id: "mr-steelpoort-park", company: "Glencore", type: "Mining Right", commodity: "Chrome", status: "Active", area_affected: "Eastern region", coordinates: [[28.758, -24.148]], slpLinked: true, environmentalImpact: "Moderate" }
+    ],
+    ownership_type: "Community",
+    community_status: "Overlapped",
+    description: "Chrome mining by Glencore. Strategic location in Steelpoort belt.",
+    sgDiagramUrl: "/evidence/sg/steelpoort-park.pdf"
+  },
+  {
+    id: "de-goedereverwachting",
+    name: "De Goedereverwachting 373KT",
+    code: "373KT",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.705, -24.185], [28.712, -24.185], [28.712, -24.192], [28.705, -24.192], [28.705, -24.185]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "gr1", farmId: "de-goedereverwachting", number: "1", size: "373KT", sgDiagramUrl: "/evidence/sg/de-goedereverwachting.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "Community farm with no mining operations. Part of core agricultural territory.",
+    sgDiagramUrl: "/evidence/sg/de-goedereverwachting.pdf"
+  },
+  {
+    id: "elandsfontein",
+    name: "Elandsfontein (KT Cluster)",
+    code: "KT-CL",
+    boundary_geojson: {
+      type: "Feature",
+      geometry: {
+        type: "Polygon",
+        coordinates: [[[28.715, -24.150], [28.722, -24.150], [28.722, -24.157], [28.715, -24.157], [28.715, -24.150]]]
+      },
+      properties: {}
+    },
+    portions: [
+      { id: "ep1", farmId: "elandsfontein", number: "1", size: "KT-CL", sgDiagramUrl: "/evidence/sg/elandsfontein.pdf" }
+    ],
+    mining_rights: [],
+    ownership_type: "Community",
+    community_status: "Confirmed",
+    description: "KT cluster farm with no mining operations.",
+    sgDiagramUrl: "/evidence/sg/elandsfontein.pdf"
+  }
+];
+
+export const pressureMetrics: PressureMetric[] = [
+  {
+    companyId: "glencore",
+    companyName: "Glencore",
+    affectedFarms: 4,
+    communityBenefitGap: 62,
+    transparencyScore: 45,
+    disputedAreas: 1,
+    unresolvedClaims: 2,
+    slpDelivered: 3,
+    slpOutstanding: 8
+  },
+  {
+    companyId: "amplats",
+    companyName: "Anglo American Platinum",
+    affectedFarms: 3,
+    communityBenefitGap: 58,
+    transparencyScore: 42,
+    disputedAreas: 2,
+    unresolvedClaims: 3,
+    slpDelivered: 2,
+    slpOutstanding: 7
+  },
+  {
+    companyId: "regional",
+    companyName: "Minerals Council SA",
+    affectedFarms: 11,
+    communityBenefitGap: 45,
+    transparencyScore: 52,
+    disputedAreas: 0,
+    unresolvedClaims: 1,
+    slpDelivered: 5,
+    slpOutstanding: 4
+  }
+];
+
+export const royalLineage: RoyalLineageEntry[] = [
+  {
+    id: "royal-1",
+    farmId: "thorncliffe",
+    headmanName: "King Mawela II",
+    title: "Royal Head of Ga-Mawela",
+    period: "2020 - Present",
+    genealogy: "Line of succession from original settlers, documented through oral history and community records",
+    documentaryEvidence: []
+  },
+  {
+    id: "royal-2", 
+    farmId: "st-george",
+    headmanName: "Chief Ramonakele",
+    title: "Traditional Leader",
+    period: "2015 - Present",
+    genealogy: "Succession established through community assembly and historical recognition",
+    documentaryEvidence: []
+  },
+  {
+    id: "royal-3",
+    farmId: "richmond",
+    headmanName: "Elder Mokoena",
+    title: "Community Elder",
+    period: "2000 - Present",
+    genealogy: "Long-standing community elder with continuous presence on ancestral land",
+    documentaryEvidence: []
+  }
+];
