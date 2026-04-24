@@ -104,7 +104,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     reportDescription:
       "A neutral intake point for concerns around employment, exclusion, procurement, or related community experience. Records sync through the backend when available and remain usable locally when not.",
     sections: {
-      home: { label: "Home", eyebrow: "Mission control" },
+       home: { label: "Home", eyebrow: "Mission control" },
       history: { label: "History & Lineage", eyebrow: "Legacy and memory" },
       mines: { label: "Mines & Operations", eyebrow: "Spatial view" },
       slp: { label: "SLP Tracker", eyebrow: "Commitment dashboard" },
@@ -116,6 +116,10 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       representation: { label: "Representation", eyebrow: "Stakeholder map" },
       benefits: { label: "Who Benefits", eyebrow: "Value distribution" },
       profiles: { label: "Community Profiles", eyebrow: "Who represents you" },
+      evidence: { label: "Evidence Library", eyebrow: "Legal documentation" },
+      claims: { label: "Land Claims", eyebrow: "Community assertions" },
+      lineage: { label: "Royal Authority", eyebrow: "Lineage registry" },
+      pressure: { label: "Pressure Dashboard", eyebrow: "Company impact analysis" },
     },
   },
   nso: {
@@ -159,7 +163,7 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
     reportDescription:
       "Ke tsela ya go amogela dingongorego ntle le kgethollo mabapi le mosomo, go se akaretswe, procurement, goba maitemogelo a mangwe a setshaba. Direkhoto di romelwa ka backend ge e le gona gomme di boela go leveleng ge go hlokega.",
     sections: {
-      home: { label: "Gae", eyebrow: "Taolo ya morero" },
+       home: { label: "Gae", eyebrow: "Taolo ya morero" },
       history: { label: "Histori le Lineage", eyebrow: "Legacy le kgopolo" },
       mines: { label: "Meepo le Ditshepetso", eyebrow: "Pono ya lefelo" },
       slp: { label: "Molatedi wa SLP", eyebrow: "Dashboard ya boitlamo" },
@@ -171,6 +175,10 @@ export const platformCopy: Record<PlatformLocale, PlatformLanguagePack> = {
       representation: { label: "Kemedi", eyebrow: "Mmapa wa batshwarakabelo" },
       benefits: { label: "Ke Mang yo a Holegago", eyebrow: "Kabo ya boleng" },
       profiles: { label: "Baetsasedi ba Setshaba", eyebrow: "Ke mang yo a go representa" },
+      evidence: { label: "Polokelo ya Bohlatse", eyebrow: "Tse di amang ditlhaloganyo" },
+      claims: { label: "Dikgopu tsa Naga", eyebrow: "Dikgopu tsa Setshaba" },
+      lineage: { label: "Taolo ya Royal", eyebrow: "Lineage registry" },
+      pressure: { label: "Dashboard ya Pressure", eyebrow: "Analysis ya tshiamo ya meepo" },
     },
   },
 };

@@ -289,6 +289,42 @@ export const sectionConfigs: SectionConfig[] = [
     accent: "#7c90a1",
     backgroundImage: "/platform/media/corridor-panorama.png",
   },
+  {
+    id: "evidence",
+    label: "Evidence Library",
+    eyebrow: "Legal documentation",
+    description:
+      "Browse SG diagrams, title deeds, mining rights, SLPs, and environmental reports. Build your case with verified documents.",
+    accent: "#c9a646",
+    backgroundImage: "/platform/media/ridge-road.png",
+  },
+  {
+    id: "claims",
+    label: "Land Claims",
+    eyebrow: "Community assertions",
+    description:
+      "Map-based visualization of Ga-Mawela land claims, historical occupation, and boundary disputes with mining operations.",
+    accent: "#c9a646",
+    backgroundImage: "/platform/media/conveyor-road.png",
+  },
+  {
+    id: "lineage",
+    label: "Royal Authority",
+    eyebrow: "Lineage registry",
+    description:
+      "Documented royal lineage, traditional leadership, and governance authority from pre-colonial times to present.",
+    accent: "#c9a646",
+    backgroundImage: "/platform/media/hero-gate.png",
+  },
+  {
+    id: "pressure",
+    label: "Pressure Dashboard",
+    eyebrow: "Company impact analysis",
+    description:
+      "Visualize mining company impacts, benefit gaps, transparency scores, and unresolved claims. Your negotiation leverage.",
+    accent: "#c9a646",
+    backgroundImage: "/platform/media/truck-road.png",
+  },
 ];
 
 export const heroMediaFrames: MediaFrame[] = [

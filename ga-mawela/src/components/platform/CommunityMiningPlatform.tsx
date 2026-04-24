@@ -59,12 +59,19 @@ import {
   transparencyMatrixRows,
   transparencySignals,
   updates,
+  farmsData,
+  pressureMetrics,
+  royalLineage,
   type CompanyFilter,
   type DocumentCategory,
   type ResearchSource,
   type SectionId,
 } from "@/data/platformData";
 import { platformCopy, type PlatformLocale } from "@/lib/platform-i18n";
+import { GaMawelaMap } from "./MapComponent";
+import { EvidenceLibrary } from "./EvidenceLibrary";
+import { PressureDashboard } from "./PressureDashboard";
+import { RoyalAuthorityRegistry } from "./RoyalAuthorityRegistry";
 
 const SECTION_STORAGE_KEY = "ga-mawela-theme";
 const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
@@ -184,108 +191,130 @@ function IntroOverlay() {
   );
 }
 
-export default function CommunityMiningPlatform() {
-  const router = useRouter();
-  const [activeSection, setActiveSection] = useState<SectionId>("home");
-  const [selectedMineId, setSelectedMineId] = useState("st-george-2jt");
-  const [expandedCommitmentId, setExpandedCommitmentId] = useState<string | null>(
-    slpCommitments[0]?.id ?? null,
+function FarmDetailPanel({
+  farm,
+  onClose,
+}: {
+  farm: any;
+  onClose: () => void;
+}) {
+  return (
+    <div>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-3">
+            <h3 className="text-xl font-bold text-[var(--gm-foreground)]">
+              {farm.name}
+            </h3>
+            <span
+              className={`gm-badge ${
+                farm.community_status === "Confirmed"
+                  ? "gm-badge-success"
+                  : farm.community_status === "Disputed"
+                  ? "gm-badge-warning"
+                  : "gm-badge-critical"
+              }`}
+            >
+              {farm.community_status}
+            </span>
+          </div>
+          <p className="text-sm text-[var(--gm-muted)]">{farm.code}</p>
+        </div>
+        <button
+          onClick={onClose}
+          className="gm-btn-secondary p-2"
+          aria-label="Close"
+        >
+          <X size={16} />
+        </button>
+      </div>
+
+      <p className="mt-3 text-sm leading-relaxed text-[var(--gm-muted)]">
+        {farm.description}
+      </p>
+
+      <div className="mt-4 grid grid-cols-2 gap-4">
+        <div className="gm-row">
+          <p className="text-xs uppercase tracking-wider text-[var(--gm-muted)]">
+            Ownership
+          </p>
+          <p className="mt-1 font-medium text-[var(--gm-foreground)]">
+            {farm.ownership_type}
+          </p>
+        </div>
+        <div className="gm-row">
+          <p className="text-xs uppercase tracking-wider text-[var(--gm-muted)]">
+            Portions
+          </p>
+          <p className="mt-1 font-medium text-[var(--gm-foreground)]">
+            {farm.portions.length}
+          </p>
+        </div>
+      </div>
+
+      {farm.mining_rights.length > 0 && (
+        <div className="mt-4">
+          <h4 className="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[var(--gm-muted)]">
+            <Database size={14} />
+            Mining Rights
+          </h4>
+          <div className="space-y-2">
+            {farm.mining_rights.map((mr: any) => (
+              <div
+                key={mr.id}
+                className="rounded-lg border border-[var(--gm-border)] bg-[var(--gm-earth-dark)] p-3"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-medium text-[var(--gm-foreground)]">
+                    {mr.company}
+                  </span>
+                  <span
+                    className={`gm-badge ${
+                      mr.status === "Active"
+                        ? "gm-badge-warning"
+                        : "gm-badge-critical"
+                    }`}
+                  >
+                    {mr.status}
+                  </span>
+                </div>
+                <p className="mt-1 text-xs text-[var(--gm-muted)]">
+                  {mr.type} - {mr.commodity}
+                  {mr.slpLinked && (
+                    <span className="ml-2 text-amber-400">• SLP Linked</span>
+                  )}
+                </p>
+                {mr.environmentalImpact && (
+                  <p className="mt-1 text-xs text-red-400">
+                    Impact: {mr.environmentalImpact}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {farm.sgDiagramUrl && (
+        <div className="mt-4">
+          <h4 className="mb-2 flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[var(--gm-muted)]">
+            <FileSignature size={14} />
+            Surveyor General Diagram
+          </h4>
+          <a
+            href={farm.sgDiagramUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="gm-btn-secondary inline-flex items-center gap-2"
+          >
+            <FileText size={14} />
+            View SG Diagram
+          </a>
+        </div>
+      )}
+    </div>
   );
-  const [theme, setTheme] = useState<"dark" | "light">(readStoredTheme);
-  const [locale, setLocale] = useState<PlatformLocale>(readStoredLocale);
-  const [companyFilter, setCompanyFilter] = useState<CompanyFilter>("All");
-  const [searchQuery, setSearchQuery] = useState("");
-  const [introVisible, setIntroVisible] = useState(true);
-  const [issues, setIssues] = useState<StoredIssue[]>(() =>
-    readStoredValue<StoredIssue[]>(ISSUE_STORAGE_KEY, []),
-  );
-  const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>(() =>
-    readStoredValue<UploadedDocument[]>(
-      DOC_STORAGE_KEY,
-      baseDocuments.map((document) => ({ ...document })),
-    ),
-  );
-  const [comments, setComments] = useState<PlatformComment[]>(() =>
-    readStoredValue<PlatformComment[]>(COMMENT_STORAGE_KEY, []),
-  );
-  const [viewer, setViewer] = useState<AuthViewer | null>(null);
-  const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
-  const [mineRecords, setMineRecords] = useState(minePoints);
-  const [commitmentRecords, setCommitmentRecords] = useState(slpCommitments);
-  const [opportunityRecords, setOpportunityRecords] = useState(opportunities);
-  const [sourceRecords, setSourceRecords] = useState<ResearchSource[]>(researchSources);
-  const [updateRecords, setUpdateRecords] = useState(updates);
-  const [systemSnapshot, setSystemSnapshot] = useState<PlatformSystemSnapshot | null>(
-    null,
-  );
-  // Mobile menu state for fade animation
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const deferredSearch = useDeferredValue(searchQuery);
-
-  const [reportForm, setReportForm] = useState<{
-    name: string;
-    issueType: "Employment" | "Community exclusion" | "Procurement";
-    description: string;
-    file: File | null;
-  }>({
-    name: "",
-    issueType: "Employment",
-    description: "",
-    file: null,
-  });
-
-  const [libraryForm, setLibraryForm] = useState<{
-    title: string;
-    category: DocumentCategory;
-    description: string;
-    file: File | null;
-  }>({
-    title: "",
-    category: "PAIA Requests",
-    description: "",
-    file: null,
-  });
-  const [commentForm, setCommentForm] = useState({
-    name: "",
-    message: "",
-  });
-
-  const copy = platformCopy[locale];
-  const localizedSectionConfigs = sectionConfigs.map((section) => ({
-    ...section,
-    label: copy.sections[section.id].label,
-    eyebrow: copy.sections[section.id].eyebrow,
-  }));
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => setIntroVisible(false), 1800);
-    return () => window.clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem(SECTION_STORAGE_KEY, theme);
-  }, [theme]);
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
-  }, [locale]);
-
-  useEffect(() => {
-    window.localStorage.setItem(ISSUE_STORAGE_KEY, JSON.stringify(issues));
-  }, [issues]);
-
-  useEffect(() => {
-    window.localStorage.setItem(COMMENT_STORAGE_KEY, JSON.stringify(comments));
-  }, [comments]);
-
-  useEffect(() => {
-    const docsToStore = uploadedDocuments.map((document) => {
-      const rest = { ...document };
-      delete rest.previewUrl;
-      return rest;
-    });
-    window.localStorage.setItem(DOC_STORAGE_KEY, JSON.stringify(docsToStore));
-  }, [uploadedDocuments]);
+}
 
   useEffect(() => {
     if (updateRecords.length === 0) {
@@ -875,6 +904,85 @@ export default function CommunityMiningPlatform() {
             slices={benefitSlices}
             locale={locale}
           />
+        );
+      case "evidence":
+        return (
+          <EvidenceLibrary
+            documents={[...uploadedDocuments, ...baseDocuments.map(d => ({ ...d, farmIds: [], miningCompanyIds: [], legalRelevance: "Medium", tags: [], uploadedBy: "system", uploadDate: d.date, category: d.category as any }))]}
+            onViewDocument={(doc) => {
+              window.open(doc.href, "_blank");
+            }}
+            onDownloadDocument={(doc) => {
+              window.open(doc.href, "_blank");
+            }}
+          />
+        );
+      case "claims":
+        return (
+          <div className="space-y-6">
+            <div className="gm-panel rounded-[28px] p-5 sm:p-6">
+              <h3 className="text-xl font-bold tracking-tight text-[var(--gm-foreground)]">
+                Interactive Land Claim Map
+              </h3>
+              <p className="mt-2 text-sm text-[var(--gm-muted)]">
+                Visualize Ga-Mawela farm boundaries, mining overlays, and community claims. Click farms to view details.
+              </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={mapLayers.farms}
+                    onChange={() => toggleMapLayer("farms")}
+                    className="accent-[var(--gm-primary)]"
+                  />
+                  <span className="text-sm">Farm Boundaries</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={mapLayers.mining}
+                    onChange={() => toggleMapLayer("mining")}
+                    className="accent-[var(--gm-primary)]"
+                  />
+                  <span className="text-sm">Mining Operations</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={mapLayers.claims}
+                    onChange={() => toggleMapLayer("claims")}
+                    className="accent-[var(--gm-primary)]"
+                  />
+                  <span className="text-sm">Community Claims</span>
+                </label>
+              </div>
+            </div>
+            <GaMawelaMap
+              farms={farmsData}
+              claims={communityClaims}
+              miningRights={farmsData.flatMap(f => f.mining_rights)}
+              selectedFarmId={selectedFarmId}
+              onFarmSelect={setSelectedFarmId}
+              visibleLayers={mapLayers}
+              onLayerToggle={toggleMapLayer}
+            />
+            {selectedFarmId && (
+              <div className="gm-panel rounded-[28px] p-5 sm:p-6">
+                <FarmDetailPanel
+                  farm={farmsData.find(f => f.id === selectedFarmId)!}
+                  onClose={() => setSelectedFarmId(null)}
+                />
+              </div>
+            )}
+          </div>
+        );
+      case "lineage":
+        return (
+          <RoyalAuthorityRegistry lineage={royalLineage} />
+        );
+      case "pressure":
+        return (
+          <PressureDashboard metrics={pressureMetrics} />
         );
       default:
         return null;
