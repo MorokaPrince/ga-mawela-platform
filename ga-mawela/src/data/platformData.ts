@@ -10,7 +10,11 @@ export type SectionId =
   | "documents"
   | "representation"
   | "benefits"
-  | "profiles";
+  | "profiles"
+  | "evidence"
+  | "claims"
+  | "lineage"
+  | "pressure";
 
 export type CompanyFilter =
   | "All"
