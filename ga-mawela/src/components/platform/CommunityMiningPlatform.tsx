@@ -1352,10 +1352,10 @@ function FarmDetailPanel({
                  <p className="text-xs text-[var(--gm-subtle)] text-center sm:text-left">
                    {copy.footer}
                  </p>
-                  <div className="flex items-center gap-3 sm:gap-4">
-                    <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
-                  </div>
-                </div>
+                 <div className="flex items-center gap-3 sm:gap-4">
+                   <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
+                 </div>
+               </div>
               </footer>
             </div>
           </div>
