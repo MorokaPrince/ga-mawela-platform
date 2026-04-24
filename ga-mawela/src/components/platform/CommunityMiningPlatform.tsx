@@ -21,6 +21,8 @@ import {
   Globe,
   ChevronDown,
   Activity,
+  Database,
+  FileSignature,
 } from "lucide-react";
 import { useDeferredValue, useEffect, useState, type FormEvent } from "react";
 import {
@@ -1363,4 +1365,5 @@ function FarmDetailPanel({
       </div>
     </div>
   );
+
 }
