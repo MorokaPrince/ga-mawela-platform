@@ -1332,31 +1332,32 @@ function FarmDetailPanel({
 
             {/* Professional Footer */}
             <footer className="mx-auto mt-2 w-full max-w-[1920px] border-t border-white/[0.08] px-2 py-4 sm:px-3 md:px-5">
-              <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
-                <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_16px_28px_rgba(2,8,14,0.16)] sm:h-12 sm:w-12">
-                    <video 
-                      src="/Images/Gallery/Ga Mawela Logo.mp4"
-                      autoPlay 
-                      muted 
-                      loop 
-                      playsInline
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] truncate">{locale === "nso" ? "Polatifomo ya Ga-Mawela" : "Ga-Mawela Platform"}</p>
-                    <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] truncate">{locale === "nso" ? "Mokgwa wa tshedimosetso ya setshaba" : "Community Intelligence System"}</p>
+               <div className="flex flex-col items-center justify-between gap-3 sm:flex-row sm:gap-4">
+                 <div className="flex items-center gap-2 sm:gap-3">
+                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] shadow-[0_16px_28px_rgba(2,8,14,0.16)] sm:h-12 sm:w-12">
+                     <video 
+                       src="/Images/Gallery/Ga Mawela Logo.mp4"
+                       autoPlay
+                       muted
+                       loop
+                       playsInline
+                       className="w-full h-full object-cover"
+                     />
+                   </div>
+                   <div className="min-w-0">
+                     <p className="text-xs sm:text-sm font-medium text-[var(--gm-foreground)] truncate">{locale === "nso" ? "Polatifomo ya Ga-Mawela" : "Ga-Mawela Platform"}</p>
+                     <p className="text-[10px] sm:text-xs text-[var(--gm-subtle)] truncate">{locale === "nso" ? "Mokgwa wa tshedimosetso ya setshaba" : "Community Intelligence System"}</p>
+                   </div>
+                 </div>
+                 <p className="text-xs text-[var(--gm-subtle)] text-center sm:text-left">
+                   {copy.footer}
+                 </p>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
                   </div>
                 </div>
-                <p className="text-xs text-[var(--gm-subtle)] text-center sm:text-left">
-                  {copy.footer}
-                </p>
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <span className="text-xs text-[var(--gm-subtle)]">Copyright {new Date().getFullYear()} Ga-Mawela</span>
-                </div>
-              </div>
-            </footer>
+              </footer>
+            </div>
           </div>
         </div>
       </div>
