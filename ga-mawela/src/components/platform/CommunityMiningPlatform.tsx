@@ -318,6 +318,116 @@ function FarmDetailPanel({
   );
 }
 
+export default function CommunityMiningPlatform() {
+
+  // State declarations
+
+  const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
+
+  const [updateRecords, setUpdateRecords] = useState<typeof updates>([]);
+
+  const [mineRecords, setMineRecords] = useState<typeof minePoints>([]);
+
+  const [commitmentRecords, setCommitmentRecords] = useState<typeof slpCommitments>([]);
+
+  const [opportunityRecords, setOpportunityRecords] = useState<typeof opportunities>([]);
+
+  const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>([]);
+
+  const [sourceRecords, setSourceRecords] = useState<ResearchSource[]>([]);
+
+  const [systemSnapshot, setSystemSnapshot] = useState<PlatformSystemSnapshot | null>(null);
+
+  const [viewer, setViewer] = useState<AuthViewer | null>(null);
+
+  const [issues, setIssues] = useState<StoredIssue[]>([]);
+
+  const [comments, setComments] = useState<PlatformComment[]>([]);
+
+  const [reportForm, setReportForm] = useState({
+
+    name: "",
+
+    issueType: "Employment" as const,
+
+    description: "",
+
+    file: null as File | null,
+
+  });
+
+  const [commentForm, setCommentForm] = useState({
+
+    name: "",
+
+    message: "",
+
+  });
+
+  const [expandedCommitmentId, setExpandedCommitmentId] = useState<string | null>(null);
+
+  const [companyFilter, setCompanyFilter] = useState<CompanyFilter>("All");
+
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const deferredSearch = useDeferredValue(searchQuery);
+
+  const [libraryForm, setLibraryForm] = useState({
+
+    title: "",
+
+    category: "PAIA Requests" as const,
+
+    description: "",
+
+    file: null as File | null,
+
+  });
+
+  const [selectedMineId, setSelectedMineId] = useState<string | null>(null);
+
+  const [activeSection, setActiveSection] = useState<SectionId>("home");
+
+  const [selectedFarmId, setSelectedFarmId] = useState<string | null>(null);
+
+  const [mapLayers, setMapLayers] = useState({
+
+    farms: true,
+
+    mining: true,
+
+    claims: true,
+
+  });
+
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const [theme, setTheme] = useState<"dark" | "light">(readStoredTheme());
+
+  const [locale, setLocale] = useState<PlatformLocale>(readStoredLocale());
+
+  const [introVisible, setIntroVisible] = useState(true);
+
+  const copy = platformCopy[locale];
+
+  const localizedSectionConfigs = sectionConfigs.map((section) => ({
+
+    ...section,
+
+    label: section.labels[locale],
+
+    eyebrow: section.eyebrows[locale],
+
+  }));
+
+  const toggleMapLayer = (layer: keyof typeof mapLayers) => {
+
+    setMapLayers((current) => ({ ...current, [layer]: !current[layer] }));
+
+  };
+
+  const communityClaims = farmsData.flatMap(f => f.community_claims || []);
+
   useEffect(() => {
     if (updateRecords.length === 0) {
       return;
