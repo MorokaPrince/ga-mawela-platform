@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "set NODE_OPTIONS=--max-old-space-size=4096 && set TURBOPACK=false && next build",
+    "build": "cross-env NODE_OPTIONS=--max-old-space-size=4096 TURBOPACK=false next build",
     "start": "next start",
     "lint": "eslint",
     "deploy:netlify": "netlify deploy --prod --dir=out",
@@ -50,6 +50,7 @@
     "eslint-config-next": "^16.0.7",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "cross-env": "^7.0.3"
   }
 }
