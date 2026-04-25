@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import Providers from "../components/Providers";
 import "./globals.css";
 
@@ -110,7 +111,12 @@ export default function RootLayout({
             __html: JSON.stringify(organizationJsonLd),
           }}
         />
-        <script defer data-domain={process.env.PLAUSIBLE_DOMAIN || "www.gamawela.com"} src="https://plausible.io/js/script.js"></script>
+        <Script
+          defer
+          data-domain={process.env.PLAUSIBLE_DOMAIN || "www.gamawela.com"}
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
       </head>
       <body className="antialiased">
         <Providers>
