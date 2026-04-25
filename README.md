@@ -1,61 +1,64 @@
 # Ga-Mawela Platform
 
-**A Family Clan website platform that exposes the true lineage of Ga Mawela Community and provides an open platform for community-related issues in the mining industry.**
+**A comprehensive community platform documenting the heritage, lineage, and land restitution claims of the Ga-Mawela community in South Africa's Dwars River Valley.**
 
 ---
 
-## 🌍 Project Overview
+## ?? Project Overview
 
-The Ga-Mawela Platform is a comprehensive Next.js web application dedicated to documenting and preserving the heritage, lineage, and land restitution claims of the Ga-Mawela community in South Africa's Dwars River Valley.
+The Ga-Mawela Platform is a Next.js 16 web application that serves as a digital archive and community hub for the Ga-Mawela community. It provides tools for documenting heritage, tracking investigations, managing community resources, and facilitating member engagement.
 
 **Domain:** morokaandassociates.com  
 **Repository:** https://github.com/MorokaPrince/ga-mawela-platform  
-**Status:** ✅ Production Ready
+**Status:** ? Production Ready
 
 ---
 
-## 🎯 Key Features
+## ?? Key Features
 
-### 11 Interactive Tabs
-1. **Hero Tab** - Landing page with carousel
-2. **Archaeological Tab** - Heritage evidence and findings
-3. **Evidence Tab** - Documents and testimonies
-4. **Gallery Tab** - 40+ project images
-5. **Historical Tab** - Community background
-6. **Legal Tab** - Restitution context
-7. **Lineage Tab** - Family genealogy
-8. **Mining Tab** - Corporate interests
-9. **Resources Tab** - References and links
-10. **Sponsors Tab** - Partner organizations
-11. **Youth Tab** - Youth empowerment programs
+### Core Modules
+1. **Community Platform** - Main community engagement interface with interactive sections
+2. **Admin Dashboard** - Administrative interface for managing content and users
+3. **Member Portal** - Personal dashboard for community members
+4. **Investigation Tracker** - Track and manage community investigations
+5. **Lineage Database** - Document and explore family genealogy
+6. **Resource Hub** - Centralized access to community resources and documents
+7. **Document Management** - Upload, organize, and share community documents
+8. **Authentication System** - Secure login with Next-Auth
 
-### Animations & Interactions
-- ✅ Scroll-triggered fade-in animations
-- ✅ Card hover effects (lift + scale)
-- ✅ Parallax background scrolling
-- ✅ Staggered animations on card grids
-- ✅ Button ripple effects
-- ✅ Smooth transitions (300ms)
+### Interactive Features
+- ? Horizontal tabbed landscape design with 11+ interactive sections
+- ? Scroll-triggered animations (Framer Motion, GSAP)
+- ? Parallax effects and smooth scrolling (Lenis)
+- ? Interactive carousels (Swiper)
+- ? Card tilt effects (Vanilla Tilt)
+- ? Responsive design (mobile-first)
+- ? Glassmorphism UI elements
 
-### Design System
-- **Color Palette:** Metallic blue (#0a1929, #7eb3f6, #a8d5ff)
-- **Typography:** Inter (sans-serif), Merriweather (serif)
-- **Layout:** Horizontal tabbed landscape design
-- **Glassmorphism:** Semi-transparent cards with backdrop blur
-- **Responsive:** Mobile-first, fully responsive
+### Admin Capabilities
+- ? User management
+- ? Document approval workflow
+- ? Investigation case management
+- ? Engagement tracking
+- ? Content moderation
 
 ---
 
-## 🚀 Quick Start
+## ?? Quick Start
 
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
+- MSSQL Server (for production)
 
 ### Installation
 
 ```bash
-cd ga-mawela
+# Clone the repository
+git clone https://github.com/MorokaPrince/ga-mawela-platform.git
+cd ga-mawela-platform
+
+# Install dependencies
 npm install
 ```
 
@@ -67,7 +70,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### Build
+### Build for Production
 
 ```bash
 npm run build
@@ -76,149 +79,95 @@ npm start
 
 ---
 
-## 📁 Project Structure
+## ?? Project Structure
 
 ```
 ga-mawela-platform/
-├── ga-mawela/                          # Next.js application
-│   ├── src/
-│   │   ├── app/                        # Pages and API routes
-│   │   ├── components/                 # React components
-│   │   │   ├── TabbedLandscape/        # Tab components
-│   │   │   ├── ScrollRevealWrapper.tsx # Scroll animations
-│   │   │   └── ParallaxSection.tsx     # Parallax effects
-│   │   ├── animations/                 # Animation utilities
-│   │   ├── hooks/                      # Custom React hooks
-│   │   └── styles/                     # CSS files
-│   ├── public/                         # Static assets
-│   ├── package.json                    # Dependencies
-│   └── next.config.ts                  # Next.js config
-│
-├── Documentation/
-│   ├── VERCEL_DEPLOYMENT_GUIDE.md
-│   ├── CRITICAL_ISSUES_RESOLUTION_REPORT.md
-│   ├── GITHUB_REPOSITORY_CLEANUP_COMPLETE.md
-│   └── Other documentation files
-│
-└── .gitignore                          # Git ignore rules
++-- ga-mawela/                          # Next.js application
+�   +-- src/
+�   �   +-- app/                        # Next.js app router
+�   �   �   +-- admin/                  # Admin dashboard
+�   �   �   +-- api/                    # API routes
+�   �   �   +-- investigations/         # Investigation pages
+�   �   �   +-- lineage/                # Lineage database pages
+�   �   �   +-- login/                  # Authentication pages
+�   �   �   +-- member/                 # Member portal pages
+�   �   �   +-- resource-hub/           # Resource hub pages
+�   �   +-- components/                 # React components
+�   �   +-- lib/                        # Utility libraries
+�   �   +-- server/                     # Server-side code
+�   �   +-- hooks/                      # Custom React hooks
+�   �   +-- animations/                 # Animation utilities
+�   �   +-- data/                       # Data files
+�   �   +-- styles/                     # CSS files
+�   +-- public/                         # Static assets
+�   +-- scripts/                        # Database scripts
+�   +-- package.json                    # Dependencies
++-- Documentation/                      # Project documentation
 ```
 
 ---
 
-## 🛠 Technology Stack
+## ?? Technology Stack
 
 ### Frontend
-- **Next.js 16.0.1** - React framework with Turbopack
-- **React 19** - UI library
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first CSS framework
+- **Next.js 16.0.7** - React framework with Turbopack
+- **React 19.2.0** - UI library
+- **TypeScript 5** - Type-safe development
+- **Tailwind CSS 4** - Utility-first CSS framework
 
-### Animations
-- **GSAP 3.12.0** - GreenSock Animation Platform
-- **Framer Motion 10.16.0** - React animation library
-- **Lenis 1.0.0** - Smooth scroll library
-- **Swiper 11.0.0** - Carousel functionality
-- **VanillaTilt.js 1.8.0** - Card tilt effects
+### Animation Libraries
+- **Framer Motion 12.23.26** - React animation library
+- **GSAP 3.13.0** - GreenSock Animation Platform
+- **Lenis 1.3.13** - Smooth scroll library
+- **Vanilla Tilt 1.8.1** - Card tilt effects
 
 ### Backend & Database
-- **Next-Auth** - Authentication
-- **MongoDB** - Database
-- **API Routes** - Serverless functions
-
-### Development
-- **ESLint** - Code linting
-- **TypeScript** - Type checking
-- **Tailwind CSS** - Styling
+- **Next-Auth 4.24.12** - Authentication system
+- **MSSQL 10.0.2** - Microsoft SQL Server database
+- **API Routes** - Next.js serverless API endpoints
 
 ---
 
-## 📊 Build & Performance
+## ?? Environment Variables
 
-### Build Status
-- ✅ TypeScript: No errors
-- ✅ Build: Successful
-- ✅ Pages: 14/14 generated
-- ✅ Lighthouse Score: 80+
+Create a `.env.local` file in the `ga-mawela` directory:
 
-### Performance Optimizations
-- ✅ Images optimized
-- ✅ CSS/JS minified
-- ✅ Code splitting enabled
-- ✅ Lazy loading implemented
-- ✅ Caching configured
-
-### Accessibility
-- ✅ WCAG 2.1 AA compliant
-- ✅ ARIA attributes properly set
-- ✅ Keyboard navigation supported
-- ✅ Screen reader compatible
-- ✅ prefers-reduced-motion respected
+```env
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+MSSQL_HOST=your-server
+MSSQL_USER=your-username
+MSSQL_PASSWORD=your-password
+MSSQL_DATABASE=your-database
+```
 
 ---
 
-## 🚀 Deployment
+## ?? Deployment
 
-### Vercel Deployment
+### Vercel Deployment (Recommended)
 
-1. **Import Repository**
-   - Go to https://vercel.com/dashboard
-   - Click "Add New" → "Project"
-   - Select "ga-mawela-platform"
-
-2. **Configure Settings**
-   - Root Directory: `./ga-mawela`
-   - Build Command: `npm run build`
-   - Framework: Next.js
-
-3. **Environment Variables**
-   ```
-   NEXTAUTH_SECRET=your-secret
-   NEXTAUTH_URL=https://morokaandassociates.com
-   MONGODB_URI=your-connection-string
-   NEXT_PUBLIC_API_URL=https://morokaandassociates.com/api
-   ```
-
-4. **Deploy**
-   - Click "Deploy"
-   - Wait 2-5 minutes
-   - Verify at morokaandassociates.com
-
-**See:** [VERCEL_DEPLOYMENT_GUIDE.md](./VERCEL_DEPLOYMENT_GUIDE.md)
+1. Import Repository at https://vercel.com/dashboard
+2. Configure: Root Directory: `./ga-mawela`, Build Command: `npm run build`
+3. Add environment variables
+4. Deploy
 
 ---
 
-## 📚 Documentation
+## ?? Available Scripts
 
-- **[VERCEL_DEPLOYMENT_GUIDE.md](./VERCEL_DEPLOYMENT_GUIDE.md)** - Step-by-step deployment instructions
-- **[CRITICAL_ISSUES_RESOLUTION_REPORT.md](./CRITICAL_ISSUES_RESOLUTION_REPORT.md)** - Details of all fixes
-- **[GITHUB_REPOSITORY_CLEANUP_COMPLETE.md](./GITHUB_REPOSITORY_CLEANUP_COMPLETE.md)** - Repository cleanup report
-- **[DEPLOYMENT_READY_SUMMARY.md](./DEPLOYMENT_READY_SUMMARY.md)** - Project completion summary
-
----
-
-## 🔒 Security
-
-- ✅ Environment variables secured
-- ✅ No sensitive data in repository
-- ✅ CORS properly configured
-- ✅ Input validation on forms
-- ✅ Next-Auth authentication
-
----
-
-## 📞 Support
-
-For issues or questions, please refer to the documentation files or contact the development team.
-
----
-
-## 📄 License
-
-This project is part of the Ga-Mawela Community heritage preservation initiative.
+```bash
+npm run dev              # Start development server
+npm run build            # Build for production
+npm run start            # Start production server
+npm run lint             # Run ESLint
+npm run db:init          # Initialize database
+npm run seed:documents   # Seed document data
+```
 
 ---
 
 **Repository:** https://github.com/MorokaPrince/ga-mawela-platform  
 **Domain:** morokaandassociates.com  
-**Status:** ✅ Production Ready
-
+**Status:** ? Production Ready
