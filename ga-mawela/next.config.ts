@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 import path from 'path';
 
 const nextConfig: NextConfig = {
+  turbopack: {},
   experimental: {
     workerThreads: false,
     cpus: 1,
@@ -11,12 +12,6 @@ const nextConfig: NextConfig = {
     config.resolve.alias['mongoose'] = path.join(process.cwd(), 'src/lib/mongoose-mock.ts');
     // Disable parallel processing
     config.parallelism = 1;
-
-    // Ensure we're not using turbopack
-    if (config.name === 'client' || config.name === 'server') {
-      config.mode = 'production';
-    }
-
     return config;
   },
 };
