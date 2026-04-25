@@ -5,10 +5,43 @@
 
 import { COLLECTIONS } from './mongodb-schemas';
 
-// Import static data
-import documentsData from './static-data/platform-documents.json';
-import usersData from './static-data/platform-users.json';
-import engagementData from './static-data/platform-engagement.json';
+// Lazy load static data to avoid build-time imports
+let documentsData: any[] | null = null;
+let usersData: any[] | null = null;
+let engagementData: any | null = null;
+
+function getDocumentsData() {
+  if (documentsData === null) {
+    try {
+      documentsData = require('./static-data/platform-documents.json');
+    } catch (e) {
+      documentsData = [];
+    }
+  }
+  return documentsData;
+}
+
+function getUsersData() {
+  if (usersData === null) {
+    try {
+      usersData = require('./static-data/platform-users.json');
+    } catch (e) {
+      usersData = [];
+    }
+  }
+  return usersData;
+}
+
+function getEngagementData() {
+  if (engagementData === null) {
+    try {
+      engagementData = require('./static-data/platform-engagement.json');
+    } catch (e) {
+      engagementData = { community: [] };
+    }
+  }
+  return engagementData;
+}
 
 // Define simple types to satisfy imports
 export interface Document {
@@ -104,9 +137,9 @@ export type Document = any;
 
 // Mock data storage (in-memory)
 const mockData: Record<string, any[]> = {
-  [COLLECTIONS.DOCUMENTS]: documentsData.map((doc, idx) => ({ ...doc, _id: doc.id || `doc-${idx}` })),
-  [COLLECTIONS.USERS]: usersData.map((user, idx) => ({ ...user, _id: user.id || `user-${idx}` })),
-  [COLLECTIONS.COMMUNITY]: engagementData.community || [],
+  [COLLECTIONS.DOCUMENTS]: getDocumentsData().map((doc, idx) => ({ ...doc, _id: doc.id || `doc-${idx}` })),
+  [COLLECTIONS.USERS]: getUsersData().map((user, idx) => ({ ...user, _id: user.id || `user-${idx}` })),
+  [COLLECTIONS.COMMUNITY]: getEngagementData().community || [],
   [COLLECTIONS.PETITIONS]: [],
   [COLLECTIONS.FORMS]: [],
   [COLLECTIONS.LINEAGE]: [],
