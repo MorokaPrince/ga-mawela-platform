@@ -1,29 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { AnimatePresence, motion } from "framer-motion";
-import {
-  BellDot,
-  Languages,
-  MoonStar,
-  Search,
-  Sparkles,
-  SunMedium,
-  Menu,
-  X,
-  LayoutDashboard,
-  FileText,
-  Shield,
-  ShieldCheck,
-  Users,
-  Briefcase,
-  Globe,
-  ChevronDown,
-  Activity,
-  Database,
-  FileSignature,
-} from "lucide-react";
+// Simplified imports for minimal component
 import { useDeferredValue, useEffect, useState, type FormEvent } from "react";
 import {
   BenefitsSection,
@@ -75,38 +52,7 @@ import { type PlatformLocale } from "@/lib/platform-i18n";
 // import { PressureDashboard } from "./PressureDashboard";
 // import { RoyalAuthorityRegistry } from "./RoyalAuthorityRegistry";
 
-const SECTION_STORAGE_KEY = "ga-mawela-theme";
-const ISSUE_STORAGE_KEY = "ga-mawela-local-issues";
-const DOC_STORAGE_KEY = "ga-mawela-local-docs";
-const COMMENT_STORAGE_KEY = "ga-mawela-local-comments";
-const LOCALE_STORAGE_KEY = "ga-mawela-locale";
-
-type PlatformComment = {
-  id: string;
-  name: string;
-  message: string;
-  submittedAt: string;
-};
-
-type EngagementEntry = {
-  id: string;
-  kind: "comment" | "report";
-  name: string;
-  message: string;
-  submittedAt: string;
-  issueType?: string;
-  fileName?: string;
-};
-
-type AuthViewer = {
-  id: string;
-  email: string;
-  name: string;
-  role: "admin" | "member";
-};
-
-type PlatformSystemSnapshot = {
-  sql: {
+// Simplified component - minimal types
     configured: boolean;
     database: string;
     dataSource: string;
@@ -192,8 +138,6 @@ function IntroOverlay() {
     </motion.div>
   );
 }
-
-function FarmDetailPanel({
   farm,
   onClose,
 }: {
@@ -319,36 +263,7 @@ function FarmDetailPanel({
 }
 
 export default function CommunityMiningPlatform() {
-
-  // Temporary data definitions for build test
-  const sectionConfigs = [];
-  const farmsData = [];
-
-  // State declarations
-
-  const [activeUpdateIndex, setActiveUpdateIndex] = useState(0);
-
-  const [updateRecords, setUpdateRecords] = useState<typeof updates>([]);
-
-  const [mineRecords, setMineRecords] = useState<typeof minePoints>([]);
-
-  const [commitmentRecords, setCommitmentRecords] = useState<typeof slpCommitments>([]);
-
-  const [opportunityRecords, setOpportunityRecords] = useState<typeof opportunities>([]);
-
-  const [uploadedDocuments, setUploadedDocuments] = useState<UploadedDocument[]>([]);
-
-  const [sourceRecords, setSourceRecords] = useState<ResearchSource[]>([]);
-
-  const [systemSnapshot, setSystemSnapshot] = useState<PlatformSystemSnapshot | null>(null);
-
-  const [viewer, setViewer] = useState<AuthViewer | null>(null);
-
-  const [issues, setIssues] = useState<StoredIssue[]>([]);
-
-  const [comments, setComments] = useState<PlatformComment[]>([]);
-
-  const [reportForm, setReportForm] = useState({
+  // Minimal component for build testing
 
     name: "",
 
@@ -1106,8 +1021,11 @@ export default function CommunityMiningPlatform() {
   };
 
   return (
-    <div>
-      <h1>Ga-Mawela Platform</h1>
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <h1 className="text-2xl font-bold text-gray-900 mb-4">Ga-Mawela Platform</h1>
+        <p className="text-gray-600">Community Intelligence System</p>
+      </div>
     </div>
   );
 }
