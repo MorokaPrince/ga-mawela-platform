@@ -6,11 +6,17 @@ const nextConfig: NextConfig = {
     workerThreads: false,
     cpus: 1,
   },
-  webpack: (config) => {
+  webpack: (config, { isServer }) => {
     // Alias mongoose to our mock for static deployment
     config.resolve.alias['mongoose'] = path.join(process.cwd(), 'src/lib/mongoose-mock.ts');
     // Disable parallel processing
     config.parallelism = 1;
+
+    // Ensure we're not using turbopack
+    if (config.name === 'client' || config.name === 'server') {
+      config.mode = 'production';
+    }
+
     return config;
   },
 };

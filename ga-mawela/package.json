@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "set NODE_OPTIONS=--max-old-space-size=4096 && set TURBOPACK=false && next build",
+    "build": "set NODE_OPTIONS=--max-old-space-size=4096 && npx next build --webpack",
     "start": "next start",
     "lint": "eslint",
     "deploy:netlify": "netlify deploy --prod --dir=out",
     "preview:netlify": "netlify deploy --dir=out",
+    "db:init": "tsx scripts/init-database.ts",
     "seed:documents": "tsx scripts/seed-documents.ts",
     "seed:platform-sql": "tsx scripts/seed-platform-sql.ts",
     "seed:all": "npm run seed:documents"
@@ -19,6 +20,7 @@
     "@vercel/blob": "^2.0.0",
     "axios": "^1.13.2",
     "bcryptjs": "^3.0.3",
+    "mssql": "^10.0.2",
     "cheerio": "^1.1.2",
     "framer-motion": "^12.23.26",
     "googleapis": "^168.0.0",
